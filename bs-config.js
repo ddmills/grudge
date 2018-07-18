@@ -1,6 +1,7 @@
+const config = require('config');
+
 module.exports = {
     "server": false,
-    "proxy": "localhost:8080",
-    "port": 8080,
+    "proxy": `${config.server.protocol}://${config.server.host}:${config.server.port}`,
     "injectNotification": false
 };
