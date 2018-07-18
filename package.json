@@ -7,6 +7,7 @@
     "server": "node scripts/server.js",
     "client": "node scripts/client.js",
     "lint": "eslint src",
+    "bs": "browser-sync start --config bs-config.js",
     "fixlint": "eslint src --fix"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "react-dom": "^16.4.1"
   },
   "devDependencies": {
+    "browser-sync": "^2.24.5",
     "concurrently": "^3.6.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
