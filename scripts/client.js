@@ -17,6 +17,4 @@ const bundle = () => {
   return bundler;
 }
 
-module.exports = {
-  bundle
-};
+bundle();
