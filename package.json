@@ -18,6 +18,7 @@
     "react-dom": "^16.4.1"
   },
   "devDependencies": {
+    "autoprefixer": "^9.0.0",
     "browser-sync": "^2.24.5",
     "concurrently": "^3.6.0",
     "eslint": "^4.19.1",
