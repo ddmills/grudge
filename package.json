@@ -19,6 +19,9 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.0.0",
+    "babel-plugin-react-require": "^3.0.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
     "browser-sync": "^2.24.5",
     "concurrently": "^3.6.0",
     "eslint": "^4.19.1",
@@ -27,6 +30,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
     "node-sass": "^4.9.2",
-    "parcel-bundler": "^1.9.7"
+    "parcel-bundler": "^1.9.7",
+    "postcss-modules": "^1.1.0"
   }
 }
