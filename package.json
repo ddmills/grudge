@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\" \"npm run bs\" -n server,client,bs -k",
+    "start": "concurrently \"npm run server\" \"npm run client\" \"npm run bs\" -n server,client,bs -c cyan,yellow,blue -k --color",
     "server": "node scripts/server.js",
     "client": "node scripts/client.js",
     "lint": "eslint src",

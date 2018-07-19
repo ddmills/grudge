@@ -1,7 +1,8 @@
 const config = require('config');
 
 module.exports = {
-    "server": false,
-    "proxy": `${config.server.protocol}://${config.server.host}:${config.server.port}`,
-    "injectNotification": false
+    proxy: `${config.server.protocol}://${config.server.host}:${config.server.port}`,
+    open: false,
+    server: false,
+    injectNotification: false
 };
