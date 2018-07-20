@@ -1,3 +1,35 @@
-html, body {
+* {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.15;
+  cursor: default;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  word-break: break-word;
+}
+
+body {
   margin: 0;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+main {
+  display: block;
+}
+
+::selection {
+  background-color: #b3d4fc;
+  color: #000;
+  text-shadow: none;
+}
+
+audio,
+video {
+  display: inline-block;
 }
