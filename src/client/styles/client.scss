@@ -1,3 +1,5 @@
+@import 'typography';
+
 * {
   box-sizing: border-box;
 }
@@ -12,11 +14,10 @@ html {
 
 body {
   margin: 0;
-}
-
-h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
+  font-family: $body-font;
+  font-size: $body-font-size;
+  line-height: $body-line-height;
+  color: #222;
 }
 
 main {

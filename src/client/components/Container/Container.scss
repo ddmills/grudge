@@ -1,0 +1,30 @@
+@import 'layout';
+
+.container {
+  position: relative;
+  width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @include clearfix;
+
+  &.responsive {
+    width: 100%;
+
+    @include breakpoint(sm) {
+      width: $width-sm - $spacer-4;
+    }
+
+    @include breakpoint(md) {
+      width: $width-md - $spacer-4;
+    }
+
+    @include breakpoint(lg) {
+      width: $width-lg - $spacer-4;
+    }
+
+    @include breakpoint(xl) {
+      width: $width-xl - $spacer-4;
+    }
+  }
+}
