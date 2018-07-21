@@ -21,9 +21,11 @@
     "config": "^1.30.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
+    "lodash.defaultsdeep": "^4.6.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+    "react-dom": "^16.4.1",
+    "spdy": "^3.4.7"
   },
   "devDependencies": {
     "autoprefixer": "^9.0.0",

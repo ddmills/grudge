@@ -3,7 +3,7 @@ const Bundler = require('parcel-bundler');
 const childProcess = require('child_process');
 const path = require('path');
 
-const file = path.join(__dirname, '..', 'src', 'server', 'index.js');
+const file = path.join(__dirname, '..', 'src', 'server', 'server.js');
 const watch = process.argv.includes('watch');
 
 const options = {

@@ -5,4 +5,6 @@ module.exports = {
   open: false,
   server: false,
   injectNotification: false,
+  httpModule: 'spdy',
+  https: true,
 };
