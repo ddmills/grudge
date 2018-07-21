@@ -6,7 +6,9 @@
     "start": "concurrently \"npm run server\" \"npm run client\" \"npm run bs\" -n server,client,bs -c cyan,yellow,blue -k --color",
     "server": "node scripts/server.js",
     "client": "node scripts/client.js",
-    "lint": "eslint src",
+    "lint": "npm run eslint && npm run stylelint",
+    "eslint": "eslint src",
+    "stylelint": "stylelint src/**/*.scss",
     "bs": "browser-sync start --config bs-config.js",
     "fixlint": "eslint src --fix"
   },
@@ -37,6 +39,8 @@
     "eslint-plugin-react": "^7.10.0",
     "node-sass": "^4.9.2",
     "parcel-bundler": "^1.9.7",
-    "postcss-modules": "^1.1.0"
+    "postcss-modules": "^1.1.0",
+    "stylelint": "^9.3.0",
+    "stylelint-config-primer": "^2.2.9"
   }
 }
