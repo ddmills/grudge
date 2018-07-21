@@ -1,5 +1,6 @@
 node_modules
 dist
+config/ssl
 
 .cache
 .env

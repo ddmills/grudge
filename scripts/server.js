@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('config');
 const Bundler = require('parcel-bundler');
 const childProcess = require('child_process');
 const path = require('path');
