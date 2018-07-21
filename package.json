@@ -5,8 +5,8 @@
   "scripts": {
     "start": "concurrently \"npm run server watch\" \"npm run client watch\" \"npm run bs\" -n server,client,bs -c cyan,yellow,blue -k --color",
     "build": "npm run server && npm run client",
-    "server": "node scripts/server.js",
-    "client": "node scripts/client.js",
+    "server": "node scripts/build-server.js",
+    "client": "node scripts/build-client.js",
     "generate-ssl": "node scripts/generate-ssl.js",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint .",
