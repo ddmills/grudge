@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import { Component } from 'react';
 import styles from './Container.scss';
 
 export default class Container extends Component {
