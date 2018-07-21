@@ -8,23 +8,39 @@
 
   @include clearfix;
 
+  &.sm {
+    max-width: $width-sm;
+  }
+
+  &.md {
+    max-width: $width-md;
+  }
+
+  &.lg {
+    max-width: $width-lg;
+  }
+
+  &.xl {
+    max-width: $width-xl;
+  }
+
   &.responsive {
     width: 100%;
 
     @include breakpoint(sm) {
-      width: $width-sm - $spacer-4;
+      width: $width-sm;
     }
 
     @include breakpoint(md) {
-      width: $width-md - $spacer-4;
+      width: $width-md;
     }
 
     @include breakpoint(lg) {
-      width: $width-lg - $spacer-4;
+      width: $width-lg;
     }
 
     @include breakpoint(xl) {
-      width: $width-xl - $spacer-4;
+      width: $width-xl;
     }
   }
 }

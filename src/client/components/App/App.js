@@ -5,7 +5,7 @@ import styles from './App.scss';
 export default class App extends Component {
   render() {
     return (
-      <Container>
+      <Container size="sm">
         <h1 className={styles.hello}>
           Porpoise
         </h1>

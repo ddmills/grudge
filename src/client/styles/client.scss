@@ -5,29 +5,15 @@
 }
 
 html {
-  line-height: 1.15;
-  cursor: default;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  word-break: break-word;
+  font-size: $body-font-size;
+  text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
   font-family: $body-font;
-  font-size: $body-font-size;
   line-height: $body-line-height;
   color: #222;
-}
-
-main {
-  display: block;
-}
-
-::selection {
-  background-color: #b3d4fc;
-  color: #000;
-  text-shadow: none;
 }
 
 audio,
