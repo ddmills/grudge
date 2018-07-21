@@ -9,12 +9,6 @@ const options = {
   publicUrl: './client',
 };
 
-const bundle = () => {
-  const bundler = new Bundler(file, options);
+const bundler = new Bundler(file, options);
 
-  bundler.bundle();
-
-  return bundler;
-}
-
-bundle();
+bundler.bundle();

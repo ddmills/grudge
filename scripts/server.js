@@ -9,46 +9,40 @@ const options = {
   cacheDir: path.join(__dirname, '..', '.cache', 'server'),
 };
 
-const bundle = () => {
-  const bundler = new Bundler(file, options);
+const bundler = new Bundler(file, options);
 
-  let bundle = null;
-  let child = null;
+let bundle = null;
+let child = null;
 
-  bundler.on('bundled', (compiledBundle) => {
-    bundle = compiledBundle;
-  });
+bundler.on('bundled', (compiledBundle) => {
+  bundle = compiledBundle;
+});
 
-  bundler.on('buildEnd', () => {
-    if (bundle !== null) {
-      if (child) {
-        child.stdout.removeAllListeners('data');
-        child.stderr.removeAllListeners('data');
-        child.removeAllListeners('exit');
-        child.kill();
-      }
-      child = childProcess.spawn('node', [bundle.name]);
-
-      child.stdout.on('data', (data) => {
-        process.stdout.write(data);
-      });
-
-      child.stderr.on('data', (data) => {
-        process.stdout.write(data);
-      });
-
-      child.on('exit', (code) => {
-        console.log(`Child process exited with code ${code}`);
-        child = null;
-      });
+bundler.on('buildEnd', () => {
+  if (bundle !== null) {
+    if (child) {
+      child.stdout.removeAllListeners('data');
+      child.stderr.removeAllListeners('data');
+      child.removeAllListeners('exit');
+      child.kill();
     }
+    child = childProcess.spawn('node', [bundle.name]);
 
-    bundle = null;
-  });
+    child.stdout.on('data', (data) => {
+      process.stdout.write(data);
+    });
 
-  bundler.bundle();
+    child.stderr.on('data', (data) => {
+      process.stdout.write(data);
+    });
 
-  return bundler;
-}
+    child.on('exit', (code) => {
+      console.log(`Child process exited with code ${code}`); // eslint-disable-line no-console
+      child = null;
+    });
+  }
 
-bundle();
+  bundle = null;
+});
+
+bundler.bundle();
