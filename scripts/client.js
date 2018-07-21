@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Bundler = require('parcel-bundler');
 const path = require('path');
 
