@@ -43,8 +43,8 @@
     "eslint-plugin-react": "^7.10.0",
     "node-sass": "^4.9.2",
     "parcel-bundler": "^1.9.7",
-    "pem": "^1.12.5",
     "postcss-modules": "^1.1.0",
+    "selfsigned": "^1.10.3",
     "stylelint": "^9.3.0",
     "stylelint-config-primer": "^2.2.9"
   }

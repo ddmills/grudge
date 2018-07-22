@@ -1,9 +1,13 @@
 require('dotenv').config();
 
 module.exports = {
-  env: process.env.NODE_ENV || 'production',
+  env: process.env.NODE_ENV,
   server: {
-    host: process.env.HOST || '127.0.0.1',
-    port: process.env.PORT || 8080,
+    host: process.env.HOST,
+    port: process.env.PORT,
+  },
+  ssl: {
+    certificatePath: '',
+    privateKeyPath: '',
   },
 };

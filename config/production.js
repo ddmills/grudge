@@ -4,7 +4,7 @@ const shared = require('./default');
 
 module.exports = defaultsDeep({
   ssl: {
-    certificatePath: path.join(__dirname, 'ssl', 'ssl.cert'),
-    keyPath: path.join(__dirname, 'ssl', 'ssl.key'),
+    certificatePath: path.join(__dirname, 'ssl', 'ssl.crt'),
+    privateKeyPath: path.join(__dirname, 'ssl', 'ssl.key'),
   },
 }, shared);
