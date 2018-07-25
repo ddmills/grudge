@@ -1,4 +1,19 @@
-# porpoise
+# Porpoise
+
+## Setup
+```
+$ npm install
+$ npm start
+```
+
+## HTTPS locally
+
+1. Set `PROTOCOL=https` in your `.env` file or in `config/development.js`
+2. Generate a certificate and key with `npm run generate-ssl`
+3. Trust the self-signed certificate (This step depend on your operating system)
+4. Restart your server `npm start`
+
+## Technologies
 
 * :snowflake: [react](https://github.com/facebook/react)
 * :truck: [express](https://github.com/expressjs/express)
