@@ -11,8 +11,6 @@ const buildServiceWorker = () => {
     modifyUrlPrefix: {
       '': 'client/',
     },
-  }).then(({ count, size }) => {
-    console.info(`Generated service-worker.js, which will precache ${count} files, totaling ${size} bytes.`);
   }).catch((err) => {
     console.error(err);
   });

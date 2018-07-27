@@ -2,7 +2,6 @@ require('config');
 const Bundler = require('parcel-bundler');
 const childProcess = require('child_process');
 const path = require('path');
-const del = require('del');
 
 const projectRoot = path.join(__dirname, '..');
 const file = path.join(projectRoot, 'src', 'server', 'server.js');
@@ -22,10 +21,6 @@ let child = null;
 
 bundler.on('bundled', (compiledBundle) => {
   bundle = compiledBundle;
-});
-
-bundler.on('buildStart', () => {
-  del.sync([path.join(projectRoot, 'dist', 'server', '**')]);
 });
 
 bundler.on('buildEnd', () => {

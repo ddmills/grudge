@@ -2,7 +2,6 @@ const config = require('config');
 const Bundler = require('parcel-bundler');
 const path = require('path');
 const buildSW = require('./build-service-worker');
-const del = require('del');
 
 const projectRoot = path.join(__dirname, '..');
 const file = path.join(projectRoot, 'src', 'client', 'index.html');
@@ -23,10 +22,6 @@ if (config.server.protocol === 'https') {
 }
 
 const bundler = new Bundler(file, options);
-
-bundler.on('buildStart', () => {
-  del.sync([path.join(projectRoot, 'dist', 'client', '**')]);
-});
 
 bundler.on('bundled', buildSW);
 
