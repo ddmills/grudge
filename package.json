@@ -36,6 +36,7 @@
     "babel-preset-react": "^6.24.1",
     "browser-sync": "^2.24.5",
     "concurrently": "^3.6.0",
+    "del": "^3.0.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-plugin-import": "^2.13.0",
@@ -46,6 +47,7 @@
     "postcss-modules": "^1.1.0",
     "selfsigned": "^1.10.3",
     "stylelint": "^9.3.0",
-    "stylelint-config-primer": "^2.2.9"
+    "stylelint-config-primer": "^2.2.9",
+    "workbox-build": "^3.4.1"
   }
 }

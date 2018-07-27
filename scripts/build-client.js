@@ -1,13 +1,16 @@
 const config = require('config');
 const Bundler = require('parcel-bundler');
 const path = require('path');
+const buildSW = require('./build-service-worker');
+const del = require('del');
 
-const file = path.join(__dirname, '..', 'src', 'client', 'index.html');
+const projectRoot = path.join(__dirname, '..');
+const file = path.join(projectRoot, 'src', 'client', 'index.html');
 
 const options = {
   target: 'browser',
-  outDir: path.join(__dirname, '..', 'dist', 'client'),
-  cacheDir: path.join(__dirname, '..', '.cache', 'client'),
+  outDir: path.join(projectRoot, 'dist', 'client'),
+  cacheDir: path.join(projectRoot, '.cache', 'client'),
   publicUrl: './client',
   watch: process.argv.includes('watch'),
 };
@@ -20,5 +23,11 @@ if (config.server.protocol === 'https') {
 }
 
 const bundler = new Bundler(file, options);
+
+bundler.on('buildStart', () => {
+  del.sync([path.join(projectRoot, 'dist', 'client', '**')]);
+});
+
+bundler.on('bundled', buildSW);
 
 bundler.bundle();

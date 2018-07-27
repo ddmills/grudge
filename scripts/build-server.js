@@ -2,14 +2,16 @@ require('config');
 const Bundler = require('parcel-bundler');
 const childProcess = require('child_process');
 const path = require('path');
+const del = require('del');
 
-const file = path.join(__dirname, '..', 'src', 'server', 'server.js');
+const projectRoot = path.join(__dirname, '..');
+const file = path.join(projectRoot, 'src', 'server', 'server.js');
 const watch = process.argv.includes('watch');
 
 const options = {
   target: 'node',
-  outDir: path.join(__dirname, '..', 'dist', 'server'),
-  cacheDir: path.join(__dirname, '..', '.cache', 'server'),
+  outDir: path.join(projectRoot, 'dist', 'server'),
+  cacheDir: path.join(projectRoot, '.cache', 'server'),
   watch,
 };
 
@@ -20,6 +22,10 @@ let child = null;
 
 bundler.on('bundled', (compiledBundle) => {
   bundle = compiledBundle;
+});
+
+bundler.on('buildStart', () => {
+  del.sync([path.join(projectRoot, 'dist', 'server', '**')]);
 });
 
 bundler.on('buildEnd', () => {

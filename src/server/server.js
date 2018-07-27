@@ -10,6 +10,7 @@ const clientPath = path.join(__dirname, '..', 'client');
 
 app.get('/', (req, res) => res.sendFile(path.join(clientPath, 'index.html')));
 app.use('/client', express.static(clientPath));
+app.get('/service-worker.js', (req, res) => res.sendFile(path.join(clientPath, 'service-worker.js')));
 
 if (config.server.protocol === 'https') {
   const options = {
