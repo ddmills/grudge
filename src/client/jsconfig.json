@@ -4,7 +4,8 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": ".",
     "paths": {
-      "components/*": ["./components/*"]
+      "components/*": ["./components/*"],
+      "utilities/*": ["./utilities/*"]
     }
   }
 }

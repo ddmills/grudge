@@ -15,7 +15,8 @@
     "fixlint": "stylelint src/**/*.scss --fix && eslint . --fix"
   },
   "alias": {
-    "components": "./src/client/components"
+    "components": "./src/client/components",
+    "utilities": "./src/client/utilities"
   },
   "dependencies": {
     "config": "^1.30.0",

@@ -9,6 +9,7 @@ export default class Button extends Component {
       'submit',
       'reset',
     ]),
+    className: PropTypes.string,
     isBlock: PropTypes.bool,
     isDisabled: PropTypes.bool,
     onClick: PropTypes.func,
@@ -23,6 +24,7 @@ export default class Button extends Component {
   }
 
   static defaultProps = {
+    className: undefined,
     color: 'default',
     type: 'button',
     isBlock: false,
@@ -35,10 +37,15 @@ export default class Button extends Component {
       color,
       isBlock,
       isDisabled,
+      className,
       ...passProps
     } = this.props;
 
     const classNames = [styles.button, styles[color]];
+
+    if (className) {
+      classNames.push(className);
+    }
 
     if (isBlock) {
       classNames.push(styles.block);

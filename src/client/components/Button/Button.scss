@@ -15,7 +15,7 @@
   cursor: pointer;
 
   border: 1px solid transparent;
-  border-radius: 2px;
+  border-radius: 3px;
 
   appearance: none;
 
@@ -34,9 +34,9 @@
     color: $gray-900;
     background-color: #fbfdff;
     background-image: linear-gradient(0deg, $gray-000 0%, #fbfdff 90%);
-    border-color: gray-100;
+    border-color: $gray-100;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: #f0f1f3;
       background-image: linear-gradient(0deg, $gray-000 0%, #f3f5f7 90%);
     }
@@ -53,9 +53,9 @@
     color: $white;
     background-color: $primary;
     background-image: linear-gradient(180deg, $primary-200 0%, $primary 90%);
-    border-color: primary-300;
+    border-color: $primary-300;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: $primary-600;
       background-image: linear-gradient(180deg, $primary-200 0%, $primary-600 90%);
     }
@@ -72,9 +72,9 @@
     color: $white;
     background-color: $red;
     background-image: linear-gradient(180deg, $red-200 0%, $red 90%);
-    border-color: red-300;
+    border-color: $red-300;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: $red-600;
       background-image: linear-gradient(180deg, $red-200 0%, $red-600 90%);
     }
@@ -91,9 +91,9 @@
     color: $white;
     background-color: $green;
     background-image: linear-gradient(180deg, $green-200 0%, $green 90%);
-    border-color: green-300;
+    border-color: $green-300;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: $green-600;
       background-image: linear-gradient(180deg, $green-200 0%, $green-600 90%);
     }
@@ -110,9 +110,9 @@
     color: $white;
     background-color: $blue;
     background-image: linear-gradient(180deg, $blue-200 0%, $blue 90%);
-    border-color: blue-300;
+    border-color: $blue-300;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: $blue-600;
       background-image: linear-gradient(180deg, $blue-200 0%, $blue-600 90%);
     }
@@ -129,9 +129,9 @@
     color: $white;
     background-color: $purple;
     background-image: linear-gradient(180deg, $purple-200 0%, $purple 90%);
-    border-color: purple-300;
+    border-color: $purple-300;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: $purple-600;
       background-image: linear-gradient(180deg, $purple-200 0%, $purple-600 90%);
     }

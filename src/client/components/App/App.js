@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import Page from 'components/Page/Page';
 import Button from 'components/Button/Button';
+import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 
 export default class App extends Component {
   render() {
@@ -45,6 +46,21 @@ export default class App extends Component {
         <Button color="purple" isDisabled>
           Purple button disabled
         </Button>
+
+        <ButtonGroup>
+          <Button>
+            First
+          </Button>
+          <Button>
+            Second
+          </Button>
+          <Button>
+            Third
+          </Button>
+          <Button>
+            Fourth
+          </Button>
+        </ButtonGroup>
       </Page>
     );
   }
