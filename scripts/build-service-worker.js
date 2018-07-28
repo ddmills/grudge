@@ -12,7 +12,7 @@ const buildServiceWorker = () => {
       '': 'client/',
     },
   }).catch((err) => {
-    console.error(err);
+    console.error(err); // eslint-disable-line no-console
   });
 };
 

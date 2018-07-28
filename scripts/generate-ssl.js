@@ -41,6 +41,7 @@ const keys = selfsigned.generate([{
 fs.writeFileSync(config.ssl.certificatePath, keys.cert);
 fs.writeFileSync(config.ssl.privateKeyPath, keys.private);
 
+// eslint-disable-next-line no-console
 console.info(`
 These keys should be used for local development only.
 Add the certificate to your trusted certificate store.
