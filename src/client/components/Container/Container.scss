@@ -24,6 +24,14 @@
     max-width: $width-xl;
   }
 
+  &.max {
+    width: 100% !important;
+  }
+
+  &.padded {
+    padding: 0 $spacer-3;
+  }
+
   &.responsive {
     width: 100%;
 

@@ -4,22 +4,26 @@ import styles from './Container.scss';
 
 export default class Container extends Component {
   static propTypes = {
+    isPadded: PropTypes.bool,
     isResponsive: PropTypes.bool,
     size: PropTypes.oneOf([
       'sm',
       'md',
       'lg',
       'xl',
+      'max',
     ]),
   }
 
   static defaultProps = {
+    isPadded: true,
     isResponsive: true,
     size: 'md',
   }
 
   render() {
     const {
+      isPadded,
       isResponsive,
       size,
     } = this.props;
@@ -27,6 +31,10 @@ export default class Container extends Component {
 
     if (isResponsive) {
       classNames.push(styles.responsive);
+    }
+
+    if (isPadded) {
+      classNames.push(styles.padded);
     }
 
     return (

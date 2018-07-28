@@ -6,7 +6,7 @@ import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 export default class App extends Component {
   render() {
     return (
-      <Page>
+      <Page size="xl">
         <p>
           Hello world
         </p>
