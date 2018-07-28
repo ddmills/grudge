@@ -1,10 +1,14 @@
 import { Component } from 'react';
-import PageHeader from 'components/PageHeader/PageHeader';
+import Page from 'components/Page/Page';
 
 export default class App extends Component {
   render() {
     return (
-      <PageHeader/>
+      <Page>
+        <p>
+          Hello World
+        </p>
+      </Page>
     );
   }
 }
