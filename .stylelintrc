@@ -1,6 +1,7 @@
 {
   "extends": "stylelint-config-primer",
   "rules": {
-    "at-rule-empty-line-before": null
+    "at-rule-empty-line-before": null,
+    "plugin/no-unsupported-browser-features": null
   }
 }

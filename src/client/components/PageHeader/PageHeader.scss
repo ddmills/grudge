@@ -3,14 +3,14 @@
 @import "colors";
 
 .banner {
-  padding: $spacer-2 0;
+  padding: $spacer-3 0;
   color: #fff;
   background-color: $primary-500;
   border-bottom: 1px solid $primary-400;
 }
 
 .branding {
-  @include h2();
+  @include h3();
   line-height: 1em;
   text-shadow: 1px 1px 1px $primary-400;
 }
