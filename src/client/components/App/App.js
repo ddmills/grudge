@@ -7,7 +7,7 @@ export default class App extends Component {
     return (
       <Container size="sm">
         <h1 className={styles.hello}>
-          Porpoise
+          Otter
         </h1>
       </Container>
     );
