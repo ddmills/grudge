@@ -1,15 +1,10 @@
 import { Component } from 'react';
-import Container from 'components/Container/Container';
-import styles from './App.scss';
+import PageHeader from 'components/PageHeader/PageHeader';
 
 export default class App extends Component {
   render() {
     return (
-      <Container size="sm">
-        <h1 className={styles.hello}>
-          Otter
-        </h1>
-      </Container>
+      <PageHeader/>
     );
   }
 }

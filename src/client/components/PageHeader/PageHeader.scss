@@ -1,0 +1,16 @@
+@import "typography";
+@import "layout";
+@import "colors";
+
+.banner {
+  padding: $spacer-2 0;
+  color: #fff;
+  background-color: $primary-500;
+  border-bottom: 1px solid $primary-400;
+}
+
+.branding {
+  @include h2();
+  line-height: 1em;
+  text-shadow: 1px 1px 1px $primary-400;
+}

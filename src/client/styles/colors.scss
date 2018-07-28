@@ -1,0 +1,19 @@
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+$primary: #ff6347;
+
+$primary-100: shade($primary, 80);
+$primary-200: shade($primary, 60);
+$primary-300: shade($primary, 30);
+$primary-400: shade($primary, 15);
+$primary-500: $primary;
+$primary-600: tint($primary, 15);
+$primary-700: tint($primary, 30);
+$primary-800: tint($primary, 60);
+$primary-900: tint($primary, 80);
