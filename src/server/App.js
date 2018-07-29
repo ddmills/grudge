@@ -1,5 +1,5 @@
 import express from 'express';
-import WebRouter from './http/WebRouter';
+import WebRouter from 'web/WebRouter';
 
 export default function createApp() {
   const app = express();

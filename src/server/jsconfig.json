@@ -4,6 +4,7 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": ".",
     "paths": {
+      "web/*": ["./web/*"],
       "utilities/*": ["./utilities/*"]
     }
   }
