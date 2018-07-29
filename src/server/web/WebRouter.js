@@ -13,10 +13,10 @@ export default function createRouter() {
     response.sendFile(client('service-worker.js'));
   }
 
+  router.use('/*', LoggingMiddleware());
   router.get('/', index);
   router.get('/service-worker.js', serviceWorker);
   router.use('/client', express.static(client()));
-  router.use(LoggingMiddleware());
 
   return router;
 }
