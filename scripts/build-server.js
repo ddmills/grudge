@@ -4,7 +4,7 @@ const childProcess = require('child_process');
 const path = require('path');
 
 const projectRoot = path.join(__dirname, '..');
-const file = path.join(projectRoot, 'src', 'server', 'server.js');
+const file = path.join(projectRoot, 'src', 'server', 'index.js');
 const watch = process.argv.includes('watch');
 
 const options = {
