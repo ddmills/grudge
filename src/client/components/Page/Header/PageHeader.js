@@ -24,7 +24,7 @@ export default class PageHeader extends Component {
     } = this.props;
 
     return (
-      <header className={styles.banner}>
+      <header className={styles.pageHeader}>
         <Container size={size}>
           <h1 className={styles.branding}>
             Otter

@@ -1,11 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Container from 'components/Container/Container';
-import PageHeader from './Header/PageHeader';
-import PageFooter from './Footer/PageFooter';
-import styles from './Page.scss';
+import styles from './PageFooter.scss';
 
-export default class Page extends Component {
+export default class PageFooter extends Component {
   static propTypes = {
     size: PropTypes.oneOf([
       'sm',
@@ -23,17 +21,14 @@ export default class Page extends Component {
   render() {
     const {
       size,
-      children,
     } = this.props;
 
     return (
-      <section className={styles.page}>
-        <PageHeader size={size}/>
-        <Container size={size} className={styles.pageContent}>
-          {children}
+      <header className={styles.pageFooter}>
+        <Container size={size}>
+          Dalton Mills
         </Container>
-        <PageFooter size={size}/>
-      </section>
+      </header>
     );
   }
 }
