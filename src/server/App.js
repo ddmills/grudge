@@ -4,7 +4,7 @@ import WebRouter from 'web/WebRouter';
 export default function createApp() {
   const app = express();
 
-  app.use('/*', WebRouter());
+  app.use('/', WebRouter());
 
   return app;
 }
