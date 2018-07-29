@@ -4,6 +4,7 @@ import styles from './Container.scss';
 
 export default class Container extends Component {
   static propTypes = {
+    className: PropTypes.string,
     isPadded: PropTypes.bool,
     isResponsive: PropTypes.bool,
     size: PropTypes.oneOf([
@@ -16,6 +17,7 @@ export default class Container extends Component {
   }
 
   static defaultProps = {
+    className: undefined,
     isPadded: true,
     isResponsive: true,
     size: 'md',
@@ -23,11 +25,16 @@ export default class Container extends Component {
 
   render() {
     const {
+      className,
       isPadded,
       isResponsive,
       size,
     } = this.props;
     const classNames = [styles.container, styles[size]];
+
+    if (className) {
+      classNames.push(className);
+    }
 
     if (isResponsive) {
       classNames.push(styles.responsive);

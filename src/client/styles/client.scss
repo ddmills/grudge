@@ -6,14 +6,20 @@
 }
 
 html {
+  height: 100%;
   font-size: $body-font-size;
 }
 
 body {
+  height: 100%;
   margin: 0;
   font-family: $body-font;
   line-height: $body-line-height;
   color: #222;
+}
+
+main {
+  height: 100%;
 }
 
 audio,

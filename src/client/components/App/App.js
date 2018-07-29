@@ -2,6 +2,7 @@ import { Component } from 'react';
 import Page from 'components/Page/Page';
 import Button from 'components/Button/Button';
 import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+import LoadingIndicator from 'components/LoadingIndicator/LoadingIndicator';
 
 export default class App extends Component {
   render() {
@@ -10,6 +11,10 @@ export default class App extends Component {
         <p>
           Hello world
         </p>
+        <LoadingIndicator>
+          Redirecting to steam&hellip;
+        </LoadingIndicator>
+
         <Button isBlock>
           Default button
         </Button>
