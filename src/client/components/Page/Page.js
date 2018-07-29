@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Container from 'components/Container/Container';
-import PageHeader from 'components/PageHeader/PageHeader';
+import PageHeader from './Header/PageHeader';
 import styles from './Page.scss';
 
 export default class Page extends Component {
