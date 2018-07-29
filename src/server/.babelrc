@@ -1,0 +1,17 @@
+{
+  "presets": [
+    "node8"
+  ],
+  "plugins": [
+    [
+      "module-resolver", {
+        "root": ["."],
+        "alias": {
+          "utilities": "./src/server/utilities/"
+        }
+      }
+    ],
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ]
+}

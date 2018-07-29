@@ -1,0 +1,20 @@
+{
+  "presets": [
+    "env",
+    "react"
+  ],
+  "plugins": [
+    [
+      "module-resolver", {
+        "root": ["."],
+        "alias": {
+          "components": "./src/client/components/",
+          "utilities": "./src/client/utilities/"
+        }
+      }
+    ],
+    "react-require",
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ]
+}

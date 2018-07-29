@@ -1,5 +1,5 @@
 import express, { Router } from 'express';
-import { client } from '../utilities/Path';
+import { client } from 'utilities/Path';
 
 export default function createRouter() {
   const router = Router();

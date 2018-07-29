@@ -14,10 +14,6 @@
     "bs": "browser-sync start --config bs-config.js",
     "fixlint": "stylelint src/**/*.scss --fix && eslint . --fix"
   },
-  "alias": {
-    "components": "./src/client/components",
-    "utilities": "./src/client/utilities"
-  },
   "dependencies": {
     "config": "^1.30.0",
     "dotenv": "^6.0.0",
@@ -31,15 +27,18 @@
   "devDependencies": {
     "autoprefixer": "^9.0.0",
     "babel-eslint": "^8.2.6",
+    "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-react-require": "^3.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
+    "babel-preset-node8": "^1.2.0",
     "babel-preset-react": "^6.24.1",
     "browser-sync": "^2.24.5",
     "concurrently": "^3.6.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^17.0.0",
+    "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.10.0",
