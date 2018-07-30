@@ -1,3 +1,6 @@
+@import "colors";
+@import "typography";
+
 .loadingContainer {
   position: absolute;
   top: 0;
@@ -14,8 +17,8 @@
 
 .loadingText {
   margin: 8px;
-  font-weight: 600;
-  color: #5c6975;
+  font-weight: $font-weight-bold;
+  color: $black-fade-75;
   opacity: 0.5;
 }
 
@@ -43,7 +46,7 @@
 
     content: "";
 
-    background-color: #a6aeb5;
+    background-color: $black-fade-75;
     border-radius: 100%;
   }
 
