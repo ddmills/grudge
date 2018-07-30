@@ -10,7 +10,7 @@ export default class App extends Component {
           Hello world
         </h1>
         <LoadingIndicator>
-          Folding laundry&hellip;
+          Folding laundry…
         </LoadingIndicator>
       </Page>
     );

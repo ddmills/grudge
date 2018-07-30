@@ -10,6 +10,20 @@
   @return rgba($color, $percentage / 100);
 }
 
+/* http://geoffgraham.me/randomize-sass */
+@function randomcolor() {
+  $s-min: 20;
+  $s-max: 70;
+  $l-min: 30;
+  $l-max: 90;
+
+  @return hsl(
+    random(360),
+    $s-min + random($s-max -$s-min),
+    $l-min + random($l-max -$l-min)
+  );
+}
+
 $white: #fff;
 $black: #1c1e20;
 $gray: #646d79;
@@ -18,7 +32,7 @@ $green: #1b9759;
 $blue: #2c88d4;
 $yellow: #e9ec26;
 $purple: #8a10d1;
-$primary: #1c8821;
+$primary: randomcolor();
 
 $black-fade-15: fade($black, 15);
 $black-fade-30: fade($black, 30);
