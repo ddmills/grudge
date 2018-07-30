@@ -16,4 +16,7 @@ module.exports = {
     certificatePath: '',
     privateKeyPath: '',
   },
+  steam: {
+    key: process.env.STEAM_API_KEY,
+  },
 };
