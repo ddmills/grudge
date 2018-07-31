@@ -1,6 +1,10 @@
 import { Component } from 'react';
 import Page from 'components/Page/Page';
-import LoadingIndicator from 'components/LoadingIndicator/LoadingIndicator';
+import Button from 'components/Button/Button';
+
+function signIn() {
+  window.location.href = `/sign-in?target=${encodeURIComponent('/?authenticated')}`;
+}
 
 export default class App extends Component {
   render() {
@@ -9,9 +13,9 @@ export default class App extends Component {
         <h1>
           Hello world
         </h1>
-        <LoadingIndicator>
-          Folding laundry…
-        </LoadingIndicator>
+        <Button onClick={signIn}>
+          Sign in
+        </Button>
       </Page>
     );
   }

@@ -1,19 +1,14 @@
 import { Router } from 'express';
-import { client } from 'utilities/Path';
+import * as AuthController from 'web/controllers/AuthController';
+import * as ClientController from 'web/controllers/ClientController';
 
 export default function createRouter() {
   const router = Router();
 
-  function index(request, response) {
-    response.sendFile(client('index.html'));
-  }
-
-  function serviceWorker(request, response) {
-    response.sendFile(client('service-worker.js'));
-  }
-
-  router.get('/', index);
-  router.get('/service-worker.js', serviceWorker);
+  router.get('/', ClientController.index);
+  router.get('/service-worker.js', ClientController.serviceWorker);
+  router.get('/sign-in', AuthController.saveTarget, AuthController.authenticate);
+  router.get('/sign-in/return', AuthController.authenticate, AuthController.redirectToTarget);
 
   return router;
 }
