@@ -6,8 +6,6 @@ export const authenticate = passport.authenticate('steam', {
 });
 
 export function saveTarget(request, response, next) {
-  Logger.log('AuthController::saveTarget');
-
   request.session.targetUri = request.query.target;
   next();
 }

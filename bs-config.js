@@ -7,6 +7,14 @@ const options = {
   injectNotification: false,
   host: config.browserSync.externalHost,
   port: config.browserSync.externalPort,
+  snippetOptions: {
+    rule: {
+      match: /<\/head>/i,
+      fn: (snippet, match) => {
+        return snippet.replace('id=', 'nonce="browser-sync" id=') + match;
+      },
+    },
+  },
 };
 
 if (config.server.protocol === 'https') {
