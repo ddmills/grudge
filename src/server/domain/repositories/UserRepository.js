@@ -19,14 +19,18 @@ export async function save(user) {
   return Promise.resolve(userWithId);
 }
 
-export async function get(userId) {
-  if (userId in users) {
-    const user = User.create(users[userId]);
+export async function create(properties) {
+  return save(User.create(properties));
+}
 
-    return Promise.resolve(user);
+export async function get(userId) {
+  if (!(userId in users)) {
+    const error = new Error(`Could not find user with id ${userId}`);
+
+    return Promise.reject(error);
   }
 
-  const error = new Error(`Could not find user with id ${userId}`);
+  const user = User.create(users[userId]);
 
-  return Promise.reject(error);
+  return Promise.resolve(user);
 }

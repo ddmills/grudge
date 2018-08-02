@@ -6,6 +6,7 @@
     "paths": {
       "web/*": ["./web/*"],
       "domain/*": ["./domain/*"],
+      "services/*": ["./services/*"],
       "utilities/*": ["./utilities/*"]
     }
   }

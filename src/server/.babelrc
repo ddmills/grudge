@@ -9,6 +9,7 @@
         "alias": {
           "web": "./src/server/web/",
           "domain": "./src/server/domain/",
+          "services": "./src/server/services/",
           "utilities": "./src/server/utilities/"
         }
       }

@@ -11,11 +11,9 @@ export function saveTarget(request, response, next) {
 }
 
 export function redirectToTarget(request, response) {
-  Logger.log('AuthController::redirectToTarget');
-
   const targetUri = request.session.targetUri || '/';
 
-  Logger.json(request.user);
+  Logger.json(request.user.properties);
 
   response.redirect(targetUri);
 }
