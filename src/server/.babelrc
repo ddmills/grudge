@@ -8,6 +8,7 @@
         "root": ["."],
         "alias": {
           "web": "./src/server/web/",
+          "domain": "./src/server/domain/",
           "utilities": "./src/server/utilities/"
         }
       }

@@ -5,6 +5,7 @@
     "baseUrl": ".",
     "paths": {
       "web/*": ["./web/*"],
+      "domain/*": ["./domain/*"],
       "utilities/*": ["./utilities/*"]
     }
   }
