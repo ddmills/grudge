@@ -1,11 +1,15 @@
 import config from 'config';
 import SteamStrategy from 'passport-steam';
-import * as AuthenticationService from 'services/AuthenticationService';
 
 const verify = (identityUrl, profile, done) => {
-  AuthenticationService.findOrCreateUserWithOpenId(identityUrl, profile)
-    .then((user) => done(null, user))
-    .catch((error) => done(error));
+  done(null, {
+    id: profile.id,
+    identityUrl,
+    provider: 'steam',
+    displayName: profile.displayName,
+    name: profile._json.realname, // eslint-disable-line no-underscore-dangle
+    avatar: profile._json.avatar, // eslint-disable-line no-underscore-dangle
+  });
 };
 
 const url = `${config.server.protocol}://${config.server.host}:${config.server.port}`;
