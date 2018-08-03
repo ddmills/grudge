@@ -1,10 +1,5 @@
-import passport from 'passport';
 import Logger from 'utilities/Logger';
 import * as AuthenticationService from 'services/AuthenticationService';
-
-export const authenticate = passport.authenticate('steam', {
-  session: false,
-});
 
 export function saveTarget(request, response, next) {
   request.session.targetUri = request.query.target;

@@ -9,6 +9,7 @@
     },
     "rules": {
         "arrow-parens": ["error", "always"],
+        "function-paren-newline": ["error", "consistent"],
         "arrow-body-style": "off",
         "no-plusplus": "off",
         "import/no-extraneous-dependencies": ["error", {

@@ -14,7 +14,7 @@ const verify = (identityUrl, profile, done) => {
 
 const url = `${config.server.protocol}://${config.server.host}:${config.server.port}`;
 const steamOptions = {
-  returnURL: `${url}/sign-in/return`,
+  returnURL: `${url}/sign-in/steam/return`,
   realm: url,
   apiKey: config.steam.key,
 };

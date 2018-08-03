@@ -3,7 +3,7 @@ import Page from 'components/Page/Page';
 import Button from 'components/Button/Button';
 
 function signIn() {
-  window.location.href = `/sign-in?target=${encodeURIComponent('/?authenticated')}`;
+  window.location.href = `/sign-in/steam?target=${encodeURIComponent('/?authenticated')}`;
 }
 
 export default class App extends Component {
