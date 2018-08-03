@@ -10,7 +10,7 @@ export default function createMiddleware() {
       directives: {
         defaultSrc: ["'self'"],
         connectSrc: ["'self'", `${connectProtocol}${config.server.host}:*`],
-        scriptSrc: ["'self'"].concat(isDev ? ["'nonce-browser-sync'"] : []),
+        scriptSrc: ["'self'"].concat(isDev ? ["'unsafe-eval'", "'nonce-browser-sync'"] : []),
       },
     },
     referrerPolicy: {
