@@ -19,7 +19,7 @@ export async function associateUserWithOpenId(openIdData) {
     id: openIdData.id,
     userId: user.id,
     identityUrl: openIdData.identityUrl,
-    provider: 'steam',
+    provider: openIdData.provider,
   });
 
   return Promise.resolve(user);
