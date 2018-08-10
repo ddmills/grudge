@@ -22,7 +22,7 @@ export default function createRouter() {
   router.get(
     '/sign-in/steam/return',
     SteamAuthenticationController.authenticate,
-    AuthenticationController.associateUser,
+    AuthenticationController.createJWT,
     AuthenticationController.redirectToTarget,
   );
 

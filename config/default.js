@@ -6,6 +6,10 @@ module.exports = {
     host: process.env.HOST,
     port: process.env.PORT,
   },
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    expiry: (60 * 60 * 60) * 5,
+  },
   session: {
     secret: process.env.APP_SESSION_SECRET,
     resave: false,

@@ -1,19 +1,12 @@
 import * as UserRepository from 'domain/repositories/UserRepository';
 import * as OpenIdRepository from 'domain/repositories/OpenIdRepository';
-
-export async function getUserWithOpenId(provider, id) {
-  const openId = await OpenIdRepository.get(provider, id);
-
-  return UserRepository.get(openId.userId);
-}
+import * as jwt from 'utilities/JWT';
 
 export async function associateUserWithOpenId(openIdData) {
   const openId = await OpenIdRepository.find(openIdData.provider, openIdData.id);
 
   if (openId) {
-    await UserRepository.get(openId.userId);
-
-    return Promise.resolve();
+    return UserRepository.get(openId.userId);
   }
 
   const user = await UserRepository.create({
@@ -29,5 +22,11 @@ export async function associateUserWithOpenId(openIdData) {
     provider: 'steam',
   });
 
-  return Promise.resolve();
+  return Promise.resolve(user);
+}
+
+export function createTokenForUser(user) {
+  return jwt.sign({
+    userId: user.id,
+  });
 }
