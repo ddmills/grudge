@@ -1,13 +1,18 @@
 import config from 'config';
 import Logger from 'utilities/Logger';
 import WebServer from 'web/WebServer';
-import App from './App';
+import WebApp from 'web/WebApp';
+import SocketServer from 'socket/SocketServer';
+import SocketApp from 'socket/SocketApp';
 
-const app = App();
-const webServer = WebServer(app);
-
-webServer.listen(config.server.port, () => {
+const logServerStarted = () => {
   const location = `${config.server.protocol}://${config.server.host}:${config.server.port}`;
 
   Logger.info(`Serving on ${location}`);
-});
+};
+
+const webServer = WebServer(WebApp());
+const socketServer = SocketServer(webServer);
+
+webServer.listen(config.server.port, logServerStarted);
+SocketApp(socketServer);

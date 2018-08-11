@@ -29,6 +29,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
+    "socket.io": "^2.1.1",
+    "socketio-jwt-auth": "0.0.6",
     "spdy": "^3.4.7"
   },
   "devDependencies": {
