@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './Container.scss';
 
 export default class Container extends Component {
@@ -30,22 +31,19 @@ export default class Container extends Component {
       isResponsive,
       size,
     } = this.props;
-    const classNames = [styles.container, styles[size]];
 
-    if (className) {
-      classNames.push(className);
-    }
-
-    if (isResponsive) {
-      classNames.push(styles.responsive);
-    }
-
-    if (isPadded) {
-      classNames.push(styles.padded);
-    }
+    const classes = classNames(
+      styles.container,
+      styles[size],
+      className,
+      {
+        [styles.responsive]: isResponsive,
+        [styles.padded]: isPadded,
+      },
+    );
 
     return (
-      <div className={classNames.join(' ')}>
+      <div className={classes}>
         {this.props.children}
       </div>
     );

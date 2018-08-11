@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import styles from './Button.scss';
 
 export default class Button extends Component {
@@ -41,23 +42,19 @@ export default class Button extends Component {
       ...passProps
     } = this.props;
 
-    const classNames = [styles.button, styles[color]];
-
-    if (className) {
-      classNames.push(className);
-    }
-
-    if (isBlock) {
-      classNames.push(styles.block);
-    }
-
-    if (isDisabled) {
-      classNames.push(styles.disabled);
-    }
+    const classes = classNames(
+      styles.button,
+      styles[color],
+      className,
+      {
+        [styles.disabled]: isDisabled,
+        [styles.block]: isBlock,
+      },
+    );
 
     return (
       <button
-        className={classNames.join(' ')}
+        className={classes}
         disabled={isDisabled}
         {...passProps}
       >
