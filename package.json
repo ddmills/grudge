@@ -15,6 +15,7 @@
     "fixlint": "stylelint src/**/*.scss --fix && eslint . --fix"
   },
   "dependencies": {
+    "autobind-decorator": "^2.1.0",
     "chalk": "^2.4.1",
     "config": "^1.30.0",
     "dotenv": "^6.0.0",
@@ -23,6 +24,8 @@
     "helmet": "^3.13.0",
     "jsonwebtoken": "^8.3.0",
     "lodash.defaultsdeep": "^4.6.0",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.5",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-steam": "^1.0.10",
@@ -39,6 +42,7 @@
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-react-require": "^3.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-node8": "^1.2.0",
