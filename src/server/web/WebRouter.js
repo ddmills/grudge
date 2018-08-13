@@ -6,10 +6,7 @@ import * as SteamAuthenticationController from 'providers/steam/authentication/S
 export default function createRouter() {
   const router = Router();
 
-  router.get(
-    '/',
-    ClientController.index,
-  );
+
   router.get(
     '/service-worker.js',
     ClientController.serviceWorker,
@@ -24,6 +21,10 @@ export default function createRouter() {
     SteamAuthenticationController.authenticate,
     AuthenticationController.createJWT,
     AuthenticationController.redirectToTarget,
+  );
+  router.get(
+    '/*',
+    ClientController.index,
   );
 
   return router;

@@ -3,17 +3,21 @@ import autobind from 'autobind-decorator';
 
 @autobind
 export default class CounterStore {
-  @observable count = 0;
+  @observable
+  count = 0;
 
-  @action increment() {
+  @action
+  increment() {
     this.count++;
   }
 
-  @action reset() {
+  @action
+  reset() {
     this.count = 0;
   }
 
-  @computed get isLoading() {
+  @computed
+  get isLoading() {
     return this.count % 3 === 0;
   }
 }

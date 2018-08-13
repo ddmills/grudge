@@ -30,6 +30,12 @@
     box-shadow: none;
   }
 
+  &.sm {
+    padding: $spacer-1 $spacer-2;
+    font-size: $font-size-small;
+    line-height: $lh-condensed;
+  }
+
   &.default {
     color: $gray-900;
     background-color: #fbfdff;

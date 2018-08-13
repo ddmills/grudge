@@ -10,7 +10,7 @@ const options = {
   target: 'browser',
   outDir: path.join(projectRoot, 'dist', 'client'),
   cacheDir: path.join(projectRoot, '.cache', 'client'),
-  publicUrl: './client',
+  publicUrl: '/client',
   watch: process.argv.includes('watch'),
 };
 

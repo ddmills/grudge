@@ -9,6 +9,8 @@
         "root": ["."],
         "alias": {
           "components": "./src/client/components/",
+          "stores": "./src/client/stores/",
+          "screens": "./src/client/screens/",
           "utilities": "./src/client/utilities/"
         }
       }
