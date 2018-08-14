@@ -5,12 +5,12 @@ import autobind from 'autobind-decorator';
 
 @connect(({ routerStore }) => ({
   navigate: routerStore.navigate,
-  buildPath: routerStore.buildPath,
+  buildUrl: routerStore.buildUrl,
 }))
 export default class Link extends Component {
   static propTypes = {
     navigate: PropTypes.func.isRequired,
-    buildPath: PropTypes.func.isRequired,
+    buildUrl: PropTypes.func.isRequired,
     to: PropTypes.string.isRequired,
     params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
@@ -33,9 +33,18 @@ export default class Link extends Component {
   }
 
   render() {
+    const {
+      buildUrl,
+      to,
+      params,
+      navigate,
+      children,
+      ...rest
+    } = this.props;
+
     return (
-      <a href={this.props.buildPath(this.props.to, this.props.params)} onClick={this.navigate}>
-        {this.props.children}
+      <a href={buildUrl(to, params)} onClick={this.navigate} {...rest}>
+        {children}
       </a>
     );
   }

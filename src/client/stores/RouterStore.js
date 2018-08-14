@@ -44,7 +44,7 @@ export default class RouterStore {
     this.router.navigate(name, params);
   }
 
-  buildPath(name, params = {}) {
+  buildUrl(name, params = {}) {
     return this.router.buildPath(name, params);
   }
 }
