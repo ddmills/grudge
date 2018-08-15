@@ -8,9 +8,7 @@ export function saveTarget(request, response, next) {
 export function createJWT(request, response, next) {
   const token = AuthenticationService.createTokenForUser(request.user);
 
-  response.cookie('JWT', token, {
-    httpOnly: true,
-  });
+  response.cookie('JWT', token);
 
   next();
 }
