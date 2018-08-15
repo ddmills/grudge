@@ -32,12 +32,6 @@ export default class LandingScreen extends Component {
             Greeting Two
           </Link>
         </p>
-
-        <p>
-          <a href={`/sign-in/steam?target=${encodeURIComponent('/?authenticated')}`}>
-            Sign in
-          </a>
-        </p>
       </Page>
     );
   }

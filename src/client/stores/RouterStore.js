@@ -40,8 +40,12 @@ export default class RouterStore {
   }
 
   @action
-  navigate(name, params = {}) {
-    this.router.navigate(name, params);
+  navigate(target, params = {}) {
+    if (target in this.routes) {
+      this.router.navigate(target, params);
+    } else {
+      window.location.href = target;
+    }
   }
 
   buildUrl(name, params = {}) {

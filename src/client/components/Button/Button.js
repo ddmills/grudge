@@ -10,6 +10,11 @@ export default class Button extends Component {
       'submit',
       'reset',
     ]),
+    size: PropTypes.oneOf([
+      'sm',
+      'md',
+      'lg',
+    ]),
     className: PropTypes.string,
     isBlock: PropTypes.bool,
     isDisabled: PropTypes.bool,
@@ -26,6 +31,7 @@ export default class Button extends Component {
 
   static defaultProps = {
     className: undefined,
+    size: 'md',
     color: 'default',
     type: 'button',
     isBlock: false,
@@ -36,6 +42,7 @@ export default class Button extends Component {
   render() {
     const {
       color,
+      size,
       isBlock,
       isDisabled,
       className,
@@ -45,6 +52,7 @@ export default class Button extends Component {
     const classes = classNames(
       styles.button,
       styles[color],
+      styles[size],
       className,
       {
         [styles.disabled]: isDisabled,
