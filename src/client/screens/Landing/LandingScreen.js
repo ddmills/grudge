@@ -2,9 +2,13 @@ import { Component } from 'react';
 import Page from 'components/Page/Page';
 import PropTypes from 'prop-types';
 import Link from 'components/Link/Link';
-import { observer } from 'mobx-react';
+import connect from 'utilities/mobx/Connect';
+import Button from 'components/Button/Button';
 
-@observer
+@connect(({ authStore }) => ({
+  deauthenticate: authStore.deauthenticate,
+  token: authStore.token,
+}))
 export default class LandingScreen extends Component {
   static propTypes = {
     greeting: PropTypes.string,
@@ -25,6 +29,13 @@ export default class LandingScreen extends Component {
           <Link to="profile" params={{ userId: '123' }}>
             Profile
           </Link>
+        </p>
+
+        <Button onClick={this.props.deauthenticate}>
+          Sign out
+        </Button>
+        <p>
+          {this.props.token}
         </p>
 
         <p>

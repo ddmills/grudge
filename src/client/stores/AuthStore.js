@@ -1,11 +1,21 @@
-import { computed, observable } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
-import * as Cookie from 'utilities/dom/Cookie';
+import MobXCookie from 'utilities/mobx/MobXCookie';
 
 @autobind
 export default class AuthStore {
   @observable
-  token = Cookie.read('JWT');
+  cookie = new MobXCookie('JWT');
+
+  @computed
+  get token() {
+    return this.cookie.get();
+  }
+
+  @action
+  deauthenticate() {
+    this.cookie.remove();
+  }
 
   @computed
   get isAuthenticated() {
