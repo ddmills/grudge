@@ -1,35 +1,18 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
-import connect from 'utilities/mobx/Connect';
-import Redirect from 'components/Redirect/Redirect';
+import { Provider } from 'mobx-react';
+import Router from 'screens/Router';
+import initializeStores from './boot/initialize-stores';
 
-@connect(({ authStore, routerStore }) => ({
-  RouteComponent: routerStore.current.Component,
-  params: routerStore.params,
-  route: routerStore.current,
-  isAuthRequired: routerStore.current.isAuthRequired,
-  isAuthenticated: authStore.isAuthenticated,
-}))
 export default class App extends Component {
-  static propTypes = {
-    RouteComponent: PropTypes.func.isRequired,
-    params: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-    isAuthRequired: PropTypes.bool.isRequired,
-    isAuthenticated: PropTypes.bool.isRequired,
-  };
+  componentWillMount() {
+    this.stores = initializeStores();
+  }
 
   render() {
-    const {
-      RouteComponent,
-      params,
-      isAuthRequired,
-      isAuthenticated,
-    } = this.props;
-
-    if (isAuthRequired && !isAuthenticated) {
-      return <Redirect to={`/sign-in/steam?target=${encodeURIComponent('/?authenticated')}`}/>;
-    }
-
-    return <RouteComponent {...params}/>;
+    return (
+      <Provider {...this.stores}>
+        <Router/>
+      </Provider>
+    );
   }
 }

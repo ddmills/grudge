@@ -5,6 +5,10 @@ import routes from 'screens/routes';
 
 @autobind
 export default class RouterStore {
+  constructor(authStore) {
+    this.authStore = authStore;
+  }
+
   routes = routes;
 
   router = createRouter(routes, this);
@@ -31,6 +35,11 @@ export default class RouterStore {
     return this.routes[this.previousName];
   }
 
+  @computed
+  get Component() {
+    return this.current.Component;
+  }
+
   @action
   activateRoute(name, params) {
     this.previousName = this.currentName;
@@ -42,7 +51,11 @@ export default class RouterStore {
   @action
   navigate(target, params = {}) {
     if (target in this.routes) {
-      this.router.navigate(target, params);
+      if (this.routes[target].isAuthRequired && !this.authStore.isAuthenticated) {
+        window.location.href = `/sign-in/steam?target=${encodeURIComponent(this.buildUrl(target, params))}`;
+      } else {
+        this.router.navigate(target, params);
+      }
     } else {
       window.location.href = target;
     }

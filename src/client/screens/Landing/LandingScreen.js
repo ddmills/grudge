@@ -7,10 +7,10 @@ import Button from 'components/Button/Button';
 
 @connect(({ authStore }) => ({
   deauthenticate: authStore.deauthenticate,
-  token: authStore.token,
 }))
 export default class LandingScreen extends Component {
   static propTypes = {
+    deauthenticate: PropTypes.func.isRequired,
     greeting: PropTypes.string,
   };
 
@@ -34,9 +34,6 @@ export default class LandingScreen extends Component {
         <Button onClick={this.props.deauthenticate}>
           Sign out
         </Button>
-        <p>
-          {this.props.token}
-        </p>
 
         <p>
           <Link to="landing" params={{ greeting: 'Yo' }}>
