@@ -2,12 +2,21 @@
 @import "layout";
 @import "colors";
 
-.pageHeader {
+.pageHeaderBanner {
   padding: $spacer-3 0;
-  flex: none;
-  color: #fff;
   background-color: $primary-500;
   border-bottom: 1px solid $primary-400;
+}
+
+.pageHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.spacer {
+  flex: 1;
 }
 
 .branding {

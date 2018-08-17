@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Link from 'components/Link/Link';
 import connect from 'utilities/mobx/Connect';
 import Button from 'components/Button/Button';
+import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 
 @connect(({ authStore }) => ({
   deauthenticate: authStore.deauthenticate,
@@ -31,13 +32,21 @@ export default class LandingScreen extends Component {
           </Link>
         </p>
 
-        <Button onClick={this.props.deauthenticate}>
-          Sign out
-        </Button>
+        <ButtonGroup>
+          <Button to="landing" params={{ greeting: 'Greetings' }} color="blue">
+            Greeting One
+          </Button>
+          <Button to="landing" params={{ greeting: 'Yo' }} color="blue">
+            Greeting Two
+          </Button>
+          <Button onClick={this.props.deauthenticate} color="red">
+            Sign out
+          </Button>
+        </ButtonGroup>
 
         <p>
-          <Link to="landing" params={{ greeting: 'Yo' }}>
-            Greeting Two
+          <Link to="/profile/666">
+            Auth requried page
           </Link>
         </p>
       </Page>

@@ -9,6 +9,7 @@ import autobind from 'autobind-decorator';
 
 @connect(({ authStore, routerStore }) => ({
   isAuthenticated: authStore.isAuthenticated,
+  buildUrl: routerStore.buildUrl,
 }))
 export default class SignInScreen extends Component {
   static propTypes = {

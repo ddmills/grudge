@@ -5,7 +5,7 @@ const buildServiceWorker = () => {
     swSrc: 'src/client/service-worker.js',
     swDest: 'dist/client/service-worker.js',
     globPatterns: [
-      '**/*.{js,png,html,css}',
+      '**/*.{png,html}',
     ],
     globDirectory: 'dist/client',
     modifyUrlPrefix: {

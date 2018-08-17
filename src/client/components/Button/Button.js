@@ -20,7 +20,6 @@ export default class Button extends Component {
     to: PropTypes.string,
     isBlock: PropTypes.bool,
     isDisabled: PropTypes.bool,
-    onClick: PropTypes.func,
     color: PropTypes.oneOf([
       'default',
       'primary',
@@ -39,7 +38,6 @@ export default class Button extends Component {
     type: 'button',
     isBlock: false,
     isDisabled: false,
-    onClick: () => {},
   }
 
   render() {

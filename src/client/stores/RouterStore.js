@@ -7,6 +7,7 @@ import routes from 'screens/routes';
 export default class RouterStore {
   constructor(authStore) {
     this.authStore = authStore;
+    this.navigate(window.location.href);
   }
 
   routes = routes;
@@ -52,21 +53,26 @@ export default class RouterStore {
   navigate(target, params = {}) {
     if (target in this.routes) {
       const route = this.routes[target];
-      const targetUrl = this.buildUrl(target, params);
 
-      if (route.isExternal) {
-        window.location.href = targetUrl;
-      } else if (route.isAuthRequired && !this.authStore.isAuthenticated) {
-        this.router.navigate('sign-in', { target: targetUrl });
-      } else {
-        this.router.navigate(target, params);
+      if (route.isAuthRequired && !this.authStore.isAuthenticated) {
+        const targetUrl = this.buildUrl(target, params);
+
+        return this.router.navigate('sign-in', { target: targetUrl });
       }
-    } else {
-      window.location.href = target;
+
+      return this.router.navigate(target, params);
     }
+
+    const match = this.router.matchUrl(target);
+
+    if (match) {
+      return this.navigate(match.name, match.params);
+    }
+
+    return this.router.navigate(target, params);
   }
 
   buildUrl(name, params = {}) {
-    return this.router.buildPath(name, params);
+    return this.router.buildPath(name, params) || name;
   }
 }
