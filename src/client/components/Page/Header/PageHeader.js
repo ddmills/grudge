@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Container from 'components/Container/Container';
+import Link from 'components/Link/Link';
 import styles from './PageHeader.scss';
 
 export default class PageHeader extends Component {
@@ -26,9 +27,9 @@ export default class PageHeader extends Component {
     return (
       <header className={styles.pageHeader}>
         <Container size={size}>
-          <h1 className={styles.branding}>
+          <Link className={styles.branding} to="landing">
             Otter
-          </h1>
+          </Link>
         </Container>
       </header>
     );
