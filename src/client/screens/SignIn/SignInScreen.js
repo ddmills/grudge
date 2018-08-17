@@ -9,12 +9,10 @@ import autobind from 'autobind-decorator';
 
 @connect(({ authStore, routerStore }) => ({
   isAuthenticated: authStore.isAuthenticated,
-  navigate: routerStore.navigate,
 }))
 export default class SignInScreen extends Component {
   static propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    navigate: PropTypes.func.isRequired,
     target: PropTypes.string,
   };
 
@@ -30,9 +28,6 @@ export default class SignInScreen extends Component {
   navigate() {
     this.setState({
       isRedirecting: true,
-    });
-    this.props.navigate('auth-steam', {
-      target: this.props.target,
     });
   }
 
@@ -59,6 +54,8 @@ export default class SignInScreen extends Component {
         <Button
           isBlock
           color="primary"
+          to="auth-steam"
+          params={{ target }}
           onClick={this.navigate}
         >
           Sign in with Steam
