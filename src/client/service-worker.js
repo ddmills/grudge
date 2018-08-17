@@ -11,10 +11,10 @@ workbox.precaching.precacheAndRoute([]);
 
 workbox.routing.registerRoute(
   new RegExp('/'),
-  workbox.strategies.staleWhileRevalidate(),
+  workbox.strategies.networkFirst(),
 );
 
 workbox.routing.registerRoute(
   new RegExp('/client/(.*)'),
-  workbox.strategies.staleWhileRevalidate(),
+  workbox.strategies.networkFirst(),
 );

@@ -51,8 +51,13 @@ export default class RouterStore {
   @action
   navigate(target, params = {}) {
     if (target in this.routes) {
-      if (this.routes[target].isAuthRequired && !this.authStore.isAuthenticated) {
-        window.location.href = `/sign-in/steam?target=${encodeURIComponent(this.buildUrl(target, params))}`;
+      const route = this.routes[target];
+      const targetUrl = this.buildUrl(target, params);
+
+      if (route.isExternal) {
+        window.location.href = targetUrl;
+      } else if (route.isAuthRequired && !this.authStore.isAuthenticated) {
+        this.router.navigate('sign-in', { target: targetUrl });
       } else {
         this.router.navigate(target, params);
       }

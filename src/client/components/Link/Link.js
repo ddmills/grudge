@@ -12,11 +12,13 @@ export default class Link extends Component {
     navigate: PropTypes.func.isRequired,
     buildUrl: PropTypes.func.isRequired,
     to: PropTypes.string.isRequired,
+    className: PropTypes.string,
     params: PropTypes.object, // eslint-disable-line react/forbid-prop-types
   };
 
   static defaultProps = {
     params: {},
+    className: '',
   };
 
   @autobind
@@ -39,11 +41,17 @@ export default class Link extends Component {
       params,
       navigate,
       children,
+      className,
       ...passProps
     } = this.props;
 
     return (
-      <a href={buildUrl(to, params)} onClick={this.navigate} {...passProps}>
+      <a
+        href={buildUrl(to, params)}
+        onClick={this.navigate}
+        className={className}
+        {...passProps}
+      >
         {children}
       </a>
     );
