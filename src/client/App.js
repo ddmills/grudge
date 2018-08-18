@@ -1,16 +1,12 @@
-import { Component } from 'react';
+import { PureComponent } from 'react';
 import { Provider } from 'mobx-react';
 import Router from 'screens/Router';
-import initializeStores from './boot/initialize-stores';
+import stores from './boot/stores';
 
-export default class App extends Component {
-  componentWillMount() {
-    this.stores = initializeStores();
-  }
-
+export default class App extends PureComponent {
   render() {
     return (
-      <Provider {...this.stores}>
+      <Provider {...stores}>
         <Router/>
       </Provider>
     );
