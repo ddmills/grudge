@@ -1,0 +1,23 @@
+{
+  "presets": [
+    "env",
+    "react"
+  ],
+  "plugins": [
+    [
+      "module-resolver", {
+        "root": ["."],
+        "alias": {
+          "components": "./src/components/",
+          "stores": "./src/stores/",
+          "screens": "./src/screens/",
+          "utilities": "./src/utilities/"
+        }
+      }
+    ],
+    "react-require",
+    "transform-decorators-legacy",
+    "transform-class-properties",
+    "transform-object-rest-spread"
+  ]
+}
