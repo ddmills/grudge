@@ -1,0 +1,57 @@
+// stylelint-disable selector-max-type
+@import "core/typography";
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-size: $body-font-size;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  font-family: $body-font;
+  line-height: $body-line-height;
+  color: #222;
+}
+
+main {
+  height: 100%;
+}
+
+audio,
+video {
+  display: inline-block;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+h1 { @include h1; }
+h2 { @include h2; }
+h3 { @include h3; }
+h4 { @include h4; }
+h5 { @include h5; }
+h6 { @include h6; }
+
+p {
+  margin-top: 0;
+}
+
+small {
+  font-size: 90%;
+}
+
+blockquote {
+  margin: 0;
+}

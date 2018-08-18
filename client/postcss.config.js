@@ -1,0 +1,19 @@
+module.exports = {
+  modules: true,
+  sourceMap: true,
+  plugins: {
+    autoprefixer: {
+      browsers: [
+        '>1%',
+        'last 4 versions',
+        'Firefox ESR',
+        'not ie < 9',
+      ],
+      flexbox: 'no-2009',
+      grid: true,
+    },
+    'postcss-modules': {
+      generateScopedName: '[name]-[local]-[hash:base64:6]',
+    },
+  },
+};
