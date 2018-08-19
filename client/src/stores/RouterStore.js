@@ -1,4 +1,4 @@
-import { action, computed, observable } from 'mobx';
+import { action, autorun, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import createRouter from 'utilities/mobx/RouterFactory';
 import routes from 'screens/routes';
@@ -7,7 +7,13 @@ import routes from 'screens/routes';
 export default class RouterStore {
   constructor(authStore) {
     this.authStore = authStore;
-    this.navigate(window.location.href);
+    this.navigate();
+
+    autorun(() => {
+      if (!this.authStore.isAuthenticated && this.current.isAuthRequired) {
+        this.navigate();
+      }
+    });
   }
 
   routes = routes;
@@ -50,7 +56,7 @@ export default class RouterStore {
   }
 
   @action
-  navigate(target, params = {}) {
+  navigate(target = window.location.href, params = {}) {
     if (target in this.routes) {
       const route = this.routes[target];
 
