@@ -1,11 +1,17 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 const isDebug = process.env.NODE_ENV === 'development';
 
 module.exports = {
   output: {
     publicPath: '/client'
+  },
+  optimization: {
+    minimizer: [
+      new OptimizeCSSAssetsPlugin(),
+    ],
   },
   module: {
     rules: [
