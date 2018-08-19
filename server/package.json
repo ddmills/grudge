@@ -6,7 +6,8 @@
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "lint": "npm run eslint",
-    "eslint": "eslint src"
+    "eslint": "eslint src",
+    "fixlint": "eslint . --fix"
   },
   "dependencies": {
     "chalk": "^2.4.1",

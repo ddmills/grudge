@@ -2,14 +2,14 @@ const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WebpackPwaManifestPlugin = require('webpack-pwa-manifest');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const path = require('path');
 
 const isDebug = process.env.NODE_ENV === 'development';
 
 module.exports = {
   output: {
-    publicPath: '/client'
+    publicPath: '/client',
   },
   devtool: 'eval-source-map',
   optimization: {
@@ -50,8 +50,7 @@ module.exports = {
           },
         }, {
           loader: 'postcss-loader',
-        }
-      ],
+        }],
       },
       {
         test: /\.html$/,

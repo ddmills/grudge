@@ -1,4 +1,6 @@
-import { action, autorun, computed, observable } from 'mobx';
+import {
+  action, autorun, computed, observable,
+} from 'mobx';
 import autobind from 'autobind-decorator';
 import createRouter from 'utilities/mobx/RouterFactory';
 import routes from 'screens/routes';
