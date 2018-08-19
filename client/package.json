@@ -6,7 +6,8 @@
     "build": "webpack --mode production",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint src",
-    "stylelint": "stylelint src/**/*.scss"
+    "stylelint": "stylelint src/**/*.scss",
+    "fixlint": "stylelint src/**/*.scss --fix && eslint src --fix"
   },
   "dependencies": {
     "autobind-decorator": "^2.1.0",
@@ -34,8 +35,11 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^1.0.0",
     "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "extract-text-webpack-plugin": "^3.0.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
