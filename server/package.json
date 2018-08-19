@@ -2,8 +2,8 @@
   "name": "@otter/server",
   "main": "dist/main.js",
   "scripts": {
-    "start": "node dist/main.js",
-    "dev": "webpack --mode development",
+    "start": "nodemon dist/main.js",
+    "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "lint": "npm run eslint",
     "eslint": "eslint src"
@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
     "babel-plugin-module-resolver": "^3.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -32,8 +33,12 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-node8": "^1.2.0",
     "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^17.1.0",
     "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
+    "nodemon": "^1.18.3",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-node-externals": "^1.7.2"
