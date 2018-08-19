@@ -10,6 +10,6 @@ export default function createApp(io) {
   io.on(CONNECTION, (socket) => {
     Logger.info('Authenticated Socket Connected', socket.user.name);
 
-    socket.on(DISCONNECT, () => Logger.info('Socket disconnected', socket.userId));
+    socket.on(DISCONNECT, () => Logger.info('Authenticated Socket Disconnected', socket.user.name));
   });
 }

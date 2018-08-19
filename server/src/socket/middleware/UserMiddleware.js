@@ -1,4 +1,4 @@
-import * as AuthService from 'services/AuthenticationService';
+import * as AuthService from 'services/AuthService';
 import Logger from 'utilities/Logger';
 
 export default function createMiddleware() {

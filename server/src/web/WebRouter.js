@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import * as AuthenticationController from 'web/controllers/AuthenticationController';
+import * as AuthController from 'web/controllers/AuthController';
 import * as ClientController from 'web/controllers/ClientController';
-import * as SteamAuthenticationController from 'providers/steam/authentication/SteamAuthenticationController';
+import * as SteamAuthController from 'providers/steam/auth/SteamAuthController';
 
 export default function createRouter() {
   const router = Router();
@@ -13,14 +13,14 @@ export default function createRouter() {
   );
   router.get(
     '/sign-in/steam',
-    AuthenticationController.saveTarget,
-    SteamAuthenticationController.authenticate,
+    AuthController.saveTarget,
+    SteamAuthController.authenticate,
   );
   router.get(
     '/sign-in/steam/return',
-    SteamAuthenticationController.authenticate,
-    AuthenticationController.createJWT,
-    AuthenticationController.redirectToTarget,
+    SteamAuthController.authenticate,
+    AuthController.createJWT,
+    AuthController.redirectToTarget,
   );
   router.get(
     '/*',
