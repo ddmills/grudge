@@ -6,3 +6,7 @@ export function sign(data) {
     expiresIn: config.jwt.expiry,
   });
 }
+
+export function isValid(token) {
+  return jwt.verify(token, config.jwt.secret);
+}

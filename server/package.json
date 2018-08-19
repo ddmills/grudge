@@ -2,7 +2,7 @@
   "name": "@otter/server",
   "main": "dist/main.js",
   "scripts": {
-    "start": "nodemon dist/main.js",
+    "start": "nodemon dist/main.js --watch dist",
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "lint": "npm run eslint",
