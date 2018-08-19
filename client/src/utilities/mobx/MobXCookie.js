@@ -2,14 +2,14 @@ import { action, extendObservable } from 'mobx';
 import Cookies from 'utilities/dom/Cookies';
 
 export default class MobXCookie {
-  constructor(name, refreshInterval = 5000) {
+  constructor(name, refreshInterval = 2000) {
     this.name = name;
 
     extendObservable(this, {
       value: Cookies.read(this.name),
     });
 
-    this.interval = setInterval(this.update.bind(this), refreshInterval);
+    this.interval = setInterval(this.refresh.bind(this), refreshInterval);
   }
 
   get() {
@@ -20,11 +20,16 @@ export default class MobXCookie {
   remove() {
     Cookies.remove(this.name);
     this.value = undefined;
+  }
+
+  @action
+  destroy() {
+    this.remove();
     clearInterval(this.interval);
   }
 
   @action
-  update() {
+  refresh() {
     this.value = Cookies.read(this.name);
   }
 }
