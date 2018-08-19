@@ -30,3 +30,7 @@ export function createTokenForUser(user) {
     userId: user.id,
   });
 }
+
+export async function getUser(userId) {
+  return UserRepository.get(userId);
+}
