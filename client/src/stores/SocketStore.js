@@ -11,7 +11,6 @@ export default class SocketStore {
       this.disposeSocket();
 
       if (this.authStore.token) {
-        console.log('MAKE SOCKET');
         this.socket = io({
           query: {
             token: this.authStore.token,
@@ -23,7 +22,6 @@ export default class SocketStore {
 
   disposeSocket() {
     if (this.socket) {
-      console.log('DISPOSE SOCKET');
       this.socket.disconnect();
       this.socket = undefined;
     }
