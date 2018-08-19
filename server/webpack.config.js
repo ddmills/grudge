@@ -5,6 +5,7 @@ module.exports = {
   node: {
     __dirname: false,
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {

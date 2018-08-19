@@ -4,12 +4,12 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": ".",
     "paths": {
-      "web/*": ["./web/*"],
-      "socket/*": ["./socket/*"],
-      "domain/*": ["./domain/*"],
-      "services/*": ["./services/*"],
-      "providers/*": ["./providers/*"],
-      "utilities/*": ["./utilities/*"]
+      "web/*": ["./src/web/*"],
+      "socket/*": ["./src/socket/*"],
+      "domain/*": ["./src/domain/*"],
+      "services/*": ["./src/services/*"],
+      "providers/*": ["./src/providers/*"],
+      "utilities/*": ["./src/utilities/*"]
     }
   }
 }

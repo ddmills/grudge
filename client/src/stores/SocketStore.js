@@ -16,6 +16,10 @@ export default class SocketStore {
             token: this.authStore.token,
           },
         });
+
+        this.socket.on('error', (message) => {
+          console.log('Socket Error:', message);
+        });
       }
     });
   }

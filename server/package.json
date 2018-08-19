@@ -2,7 +2,7 @@
   "name": "@otter/server",
   "main": "dist/main.js",
   "scripts": {
-    "start": "nodemon dist/main.js --watch dist",
+    "start": "nodemon dist/main.js --watch dist --colors",
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "lint": "npm run eslint",
@@ -22,6 +22,7 @@
     "passport": "^0.4.0",
     "passport-steam": "^1.0.10",
     "socket.io": "^2.1.1",
+    "source-map-support": "^0.5.8",
     "spdy": "^3.4.7"
   },
   "devDependencies": {
