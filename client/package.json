@@ -2,7 +2,7 @@
   "name": "@otter/client",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "webpack --mode development",
+    "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint src",
