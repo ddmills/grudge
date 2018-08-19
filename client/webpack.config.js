@@ -1,6 +1,10 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+  output: {
+    publicPath: '/client'
+  },
   module: {
     rules: [
       {
@@ -13,9 +17,11 @@ module.exports = {
       {
         test: /\.(css|sass|scss)$/,
         use: [{
-          loader: 'style-loader',
-        }, {
           loader: 'css-loader',
+          options: {
+            modules: true,
+            importLoaders: 1,
+          },
         }, {
           loader: 'sass-loader',
           options: {
@@ -33,7 +39,7 @@ module.exports = {
           {
             loader: 'html-loader',
             options: {
-              minimize: false,
+              minimize: true,
             },
           },
         ],

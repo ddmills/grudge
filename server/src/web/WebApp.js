@@ -9,7 +9,7 @@ import PassportMiddleware from 'web/middleware/PassportMiddleware';
 export default function createApp() {
   const app = express();
 
-  app.use(HelmetMiddleware());
+  // app.use(HelmetMiddleware());
   app.use(SessionMiddleware());
   app.use(PassportMiddleware());
   app.use(LoggingMiddleware());
