@@ -1,6 +1,4 @@
 module.exports = {
-  modules: true,
-  sourceMap: true,
   plugins: {
     autoprefixer: {
       browsers: [
@@ -11,9 +9,6 @@ module.exports = {
       ],
       flexbox: 'no-2009',
       grid: true,
-    },
-    'postcss-modules': {
-      generateScopedName: '[name]-[local]-[hash:base64:6]',
     },
   },
 };

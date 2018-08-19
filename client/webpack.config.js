@@ -1,5 +1,4 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   output: {
@@ -17,10 +16,14 @@ module.exports = {
       {
         test: /\.(css|sass|scss)$/,
         use: [{
+          loader: 'style-loader',
+        }, {
           loader: 'css-loader',
           options: {
             modules: true,
-            importLoaders: 1,
+            sourceMap: true,
+            importLoaders: 2,
+            localIdentName: '[name]-[local]-[hash:base64:6]',
           },
         }, {
           loader: 'sass-loader',
@@ -31,7 +34,8 @@ module.exports = {
           },
         }, {
           loader: 'postcss-loader',
-        }],
+        }
+      ],
       },
       {
         test: /\.html$/,
