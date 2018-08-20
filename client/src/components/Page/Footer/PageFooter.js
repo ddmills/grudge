@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Container from 'components/Container/Container';
+import ConnectionStatus from 'components/ConnectionStatus/ConnectionStatus';
 import styles from './PageFooter.scss';
 
 export default class PageFooter extends Component {
@@ -26,7 +27,11 @@ export default class PageFooter extends Component {
     return (
       <header className={styles.pageFooter}>
         <Container size={size}>
-          Dalton Mills
+          <h4>
+            {'© Dalton Mills'}
+            {' '}
+            <ConnectionStatus/>
+          </h4>
         </Container>
       </header>
     );
