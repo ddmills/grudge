@@ -3,24 +3,11 @@ import {
 } from 'mobx';
 import autobind from 'autobind-decorator';
 import createRouter from 'utilities/mobx/RouterFactory';
-import routes from 'screens/routes';
 
 @autobind
 export default class RouterStore {
-  constructor(authStore) {
-    this.authStore = authStore;
-    this.navigate();
-
-    autorun(() => {
-      if (!this.authStore.isAuthenticated && this.current.isAuthRequired) {
-        this.navigate();
-      }
-    });
-  }
-
-  routes = routes;
-
-  router = createRouter(routes, this);
+  @observable
+  isStarted = false;
 
   @observable
   currentName = null;
@@ -36,17 +23,38 @@ export default class RouterStore {
 
   @computed
   get current() {
-    return this.routes[this.currentName];
+    return this.routesByName[this.currentName];
   }
 
   @computed
   get previous() {
-    return this.routes[this.previousName];
+    return this.routesByName[this.previousName];
   }
 
   @computed
   get Component() {
-    return this.current.Component;
+    return this.current ? this.current.Component : 'div';
+  }
+
+  constructor(authStore) {
+    this.authStore = authStore;
+  }
+
+  start(routes) {
+    this.routes = routes;
+    this.router = createRouter(this.routes.map((route) => route.toJSON()), this);
+    this.routesByName = this.routes.reduce((byName, route) => ({
+      ...byName,
+      [route.name]: route,
+    }), {});
+
+    this.navigate();
+
+    autorun(() => {
+      if (!this.authStore.isAuthenticated && this.current.isAuthRequired) {
+        this.navigate();
+      }
+    });
   }
 
   @action
@@ -59,8 +67,8 @@ export default class RouterStore {
 
   @action
   navigate(target = window.location.href, params = {}) {
-    if (target in this.routes) {
-      const route = this.routes[target];
+    if (target in this.routesByName) {
+      const route = this.routesByName[target];
 
       if (route.isAuthRequired && !this.authStore.isAuthenticated) {
         const targetUrl = this.buildUrl(target, params);
