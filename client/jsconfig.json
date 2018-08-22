@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": ".",
     "paths": {
+      "boot/*": ["./src/boot/*"],
       "components/*": ["./src/components/*"],
       "stores/*": ["./src/stores/*"],
       "screens/*": ["./src/screens/*"],

@@ -8,6 +8,7 @@
       "module-resolver", {
         "root": ["."],
         "alias": {
+          "boot": "./src/boot/",
           "components": "./src/components/",
           "stores": "./src/stores/",
           "screens": "./src/screens/",
