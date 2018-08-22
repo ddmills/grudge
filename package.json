@@ -2,6 +2,12 @@
   "name": "@otter/app",
   "version": "1.0.0",
   "scripts": {
-    "generate-ssl": "node scripts/generate-ssl.js"
+    "start": "cd server && npm run start",
+    "build": "lerna run build",
+    "lint": "lerna run lint",
+    "dev": "lerna run dev --parallel --stream --color"
+  },
+  "devDependencies": {
+    "lerna": "^3.1.4"
   }
 }
