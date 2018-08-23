@@ -1,6 +1,6 @@
 {
   "name": "@otter/client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "scripts": {
     "dev": "webpack --mode development --watch",
@@ -22,5 +22,8 @@
     "react-dom": "^16.4.2",
     "router5": "^6.4.1",
     "socket.io-client": "^2.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

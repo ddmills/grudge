@@ -1,6 +1,6 @@
 {
   "name": "@otter/server",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/main.js",
   "scripts": {
     "start": "nodemon dist/main.js --watch dist --colors",
@@ -26,5 +26,8 @@
     "socket.io": "^2.1.1",
     "source-map-support": "^0.5.8",
     "spdy": "^3.4.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
