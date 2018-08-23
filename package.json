@@ -47,5 +47,8 @@
     "webpack-node-externals": "^1.7.2",
     "webpack-pwa-manifest": "^3.7.1",
     "workbox-build": "^3.4.1"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

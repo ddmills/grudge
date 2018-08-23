@@ -1,0 +1,11 @@
+{
+  "name": "@otter/sdk",
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "socket.io-client": "^2.1.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
