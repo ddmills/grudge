@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const { injectManifest } = require('workbox-build');
 
 const buildServiceWorker = () => {

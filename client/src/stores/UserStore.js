@@ -1,7 +1,3 @@
-import {
-  action, autorun, computed, observable,
-} from 'mobx';
-
 export default class UserStore {
   constructor(socketStore) {
     this.socketStore = socketStore;

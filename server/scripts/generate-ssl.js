@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const config = require('config');
 const fs = require('fs');
 const selfsigned = require('selfsigned');
