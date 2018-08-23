@@ -2,6 +2,7 @@
   "name": "@otter/client",
   "version": "0.1.1",
   "main": "dist/index.js",
+  "private": true,
   "scripts": {
     "dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
@@ -11,6 +12,7 @@
     "fixlint": "stylelint src/**/*.scss --fix && eslint src --fix"
   },
   "dependencies": {
+    "@otter/sdk": "^0.1.0",
     "autobind-decorator": "^2.1.0",
     "browser-cookie": "^1.2.1",
     "browser-cookies": "^1.2.0",
@@ -22,8 +24,5 @@
     "react-dom": "^16.4.2",
     "router5": "^6.4.1",
     "socket.io-client": "^2.1.1"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

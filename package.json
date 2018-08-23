@@ -8,6 +8,7 @@
     "dev": "lerna run dev --parallel --stream",
     "fixlint": "lerna run fixlint"
   },
+  "private": true,
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",
@@ -47,8 +48,5 @@
     "webpack-node-externals": "^1.7.2",
     "webpack-pwa-manifest": "^3.7.1",
     "workbox-build": "^3.4.1"
-  },
-  "publishConfig": {
-    "access": "public"
   }
 }

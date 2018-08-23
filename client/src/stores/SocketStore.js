@@ -1,7 +1,7 @@
 import {
-  action, autorun, computed, observable,
+  action, autorun, observable,
 } from 'mobx';
-import io from 'socket.io-client';
+import sdk from 'sdk/index';
 
 export default class SocketStore {
   @observable
@@ -13,10 +13,8 @@ export default class SocketStore {
   @observable
   socket = null;
 
-  @computed
-  get isConnected() {
-    return Boolean(this.socket);
-  }
+  @observable
+  isConnected = false;
 
   constructor(authStore) {
     this.authStore = authStore;
@@ -33,33 +31,34 @@ export default class SocketStore {
   @action
   connect(token) {
     this.isConnecting = true;
-    this.socket = io({
-      query: {
-        token,
-      },
-    });
+    sdk.configure(token);
+    // this.socket = io({
+    //   query: {
+    //     token,
+    //   },
+    // });
 
-    this.socket.on('connect', this.onConnect.bind(this));
-    this.socket.on('disconnect', this.onDisconnect.bind(this));
-    this.socket.on('error', this.onError.bind(this));
+    sdk.onConnected(this.onConnect.bind(this));
+    sdk.onConnected(() => console.log('yoooo'));
+    sdk.onConnected(() => console.log('tttest'));
+    sdk.onDisconnected(this.onDisconnect.bind(this));
+    // sdk.on('error', this.onError.bind(this));
   }
 
-  @action
   disconnect() {
-    if (this.socket) {
-      this.socket.disconnect();
-    }
+    sdk.disconnect();
   }
 
   @action
   onConnect() {
     this.isConnecting = false;
+    this.isConnected = true;
   }
 
   @action
   onDisconnect() {
     this.isConnecting = false;
-    this.socket = undefined;
+    this.isConnected = false;
   }
 
   @action

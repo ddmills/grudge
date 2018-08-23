@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": false,
     "baseUrl": ".",
     "paths": {
+      "sdk/*": ["./src/sdk/*"],
       "boot/*": ["./src/boot/*"],
       "components/*": ["./src/components/*"],
       "stores/*": ["./src/stores/*"],
