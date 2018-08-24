@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "private": true,
   "scripts": {
-    "start": "webpack --mode development --watch",
+    "start": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint src",

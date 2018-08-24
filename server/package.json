@@ -4,7 +4,7 @@
   "main": "dist/main.js",
   "private": true,
   "scripts": {
-    "start": "webpack --mode development --watch",
+    "start": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
     "generate-ssl": "node scripts/generate-ssl.js",
     "lint": "npm run eslint",
