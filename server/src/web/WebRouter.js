@@ -6,7 +6,6 @@ import * as SteamAuthController from 'providers/steam/auth/SteamAuthController';
 export default function createRouter() {
   const router = Router();
 
-
   router.get(
     '/service-worker.js',
     ClientController.serviceWorker,

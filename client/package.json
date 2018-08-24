@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "private": true,
   "scripts": {
-    "dev": "webpack --mode development --watch",
+    "start": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint src",
@@ -12,7 +12,6 @@
     "fixlint": "stylelint src/**/*.scss --fix && eslint src --fix"
   },
   "dependencies": {
-    "@otter/sdk": "^0.1.0",
     "autobind-decorator": "^2.1.0",
     "browser-cookie": "^1.2.1",
     "browser-cookies": "^1.2.0",

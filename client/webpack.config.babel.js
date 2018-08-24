@@ -1,14 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const WebpackPwaManifestPlugin = require('webpack-pwa-manifest');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const path = require('path');
+import HtmlWebPackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
+import WebpackPwaManifestPlugin from 'webpack-pwa-manifest';
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import path from 'path';
 
 const isDebug = process.env.NODE_ENV === 'development';
 
-module.exports = {
+export default {
   output: {
     publicPath: '/client',
   },

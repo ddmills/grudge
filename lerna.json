@@ -1,7 +1,6 @@
 {
   "packages": [
     "client",
-    "sdk",
     "server"
   ],
   "version": "0.1.2"
