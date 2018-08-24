@@ -1,16 +1,10 @@
-import { CONNECTED, DISCONNECTED, ERROR } from './Events';
 import SocketFactory from './SocketFactory';
-import EventHook from './EventHook';
+import EventMap from './EventMap';
 
 export default class SDK {
   constructor() {
-    this.handlers = [
-      new EventHook(CONNECTED, 'onConnected'),
-      new EventHook(DISCONNECTED, 'onDisconnected'),
-      new EventHook(ERROR, 'onError'),
-    ];
-
-    this.handlers.forEach((handler) => handler.attach(this));
+    this.eventMap = EventMap.create();
+    this.eventMap.forEach((handler) => handler.attach(this));
   }
 
   configure(token) {
@@ -25,6 +19,6 @@ export default class SDK {
   }
 
   listen(socket) {
-    this.handlers.forEach((handler) => handler.listen(socket));
+    this.eventMap.forEach((handler) => handler.listen(socket));
   }
 }
