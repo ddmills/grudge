@@ -7,7 +7,7 @@ export default class UserController {
 
       callback(null, user);
     } catch (error) {
-      callback(error.toString());
+      callback(error.message);
     }
   }
 }

@@ -1,0 +1,10 @@
+@import "core/colors";
+@import "core/layout";
+
+.codeBlock {
+  padding: $spacer-2;
+  overflow-x: auto;
+  background-color: #fefefe;
+  border: 1px solid $gray-100;
+  border-radius: 3px;
+}

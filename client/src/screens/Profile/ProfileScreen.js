@@ -4,6 +4,7 @@ import connect from 'utilities/mobx/Connect';
 import Page from 'components/Page/Page';
 import Button from 'components/Button/Button';
 import LoadingIndicator from 'components/LoadingIndicator/LoadingIndicator';
+import CodeBlock from 'components/CodeBlock/CodeBlock';
 
 @connect(({ profileStore }) => ({
   getUser: profileStore.getUser,
@@ -43,11 +44,11 @@ export default class ProfileScreen extends Component {
         </h1>
 
         { user && (
-          <pre>{JSON.stringify(user, null, 2)}</pre>
+          <CodeBlock>{user}</CodeBlock>
         )}
 
         { error && (
-          <pre>{error.toString()}</pre>
+          <CodeBlock>{error.toString()}</CodeBlock>
         )}
 
         { !user && !error && (
