@@ -1,5 +1,5 @@
 {
-  "name": "@otter/app",
+  "name": "@grudge/app",
   "version": "1.0.0",
   "scripts": {
     "start": "lerna run start --parallel --stream",

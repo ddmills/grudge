@@ -74,8 +74,8 @@ export default {
     }),
     new MiniCssExtractPlugin(),
     new WebpackPwaManifestPlugin({
-      name: 'Otter',
-      short_name: 'Otter',
+      name: 'Grudge',
+      short_name: 'Grudge',
       start_url: '.',
       background_color: '#bee9ff',
       lang: 'en-US',
