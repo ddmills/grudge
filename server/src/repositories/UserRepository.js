@@ -1,4 +1,4 @@
-import User from 'domain/models/User';
+import { User } from '@grudge/domain';
 
 let currentId = 0;
 const users = {};

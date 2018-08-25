@@ -1,4 +1,4 @@
-import OpenId from 'domain/models/OpenId';
+import { OpenId } from '@grudge/domain';
 
 const providers = {};
 

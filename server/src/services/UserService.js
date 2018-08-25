@@ -1,4 +1,4 @@
-import * as UserRepository from 'domain/repositories/UserRepository';
+import * as UserRepository from 'repositories/UserRepository';
 
 export async function getUser(userId) {
   return UserRepository.get(userId);

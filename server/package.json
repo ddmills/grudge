@@ -11,6 +11,7 @@
     "fixlint": "eslint src --fix"
   },
   "dependencies": {
+    "@grudge/domain": "^0.1.7",
     "chalk": "^2.4.1",
     "config": "^2.0.1",
     "dotenv": "^6.0.0",

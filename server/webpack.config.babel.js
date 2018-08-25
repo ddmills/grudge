@@ -24,7 +24,11 @@ export default {
     ],
   },
   externals: [
-    nodeExternals(),
+    nodeExternals({
+      whitelist: [
+        '@grudge/domain',
+      ],
+    }),
   ],
   plugins: [
     new NodemonPlugin({

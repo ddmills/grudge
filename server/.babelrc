@@ -9,8 +9,8 @@
         "alias": {
           "web": "./src/web/",
           "socket": "./src/socket/",
-          "domain": "./src/domain/",
           "services": "./src/services/",
+          "repositories": "./src/repositories/",
           "providers": "./src/providers/",
           "utilities": "./src/utilities/"
         }

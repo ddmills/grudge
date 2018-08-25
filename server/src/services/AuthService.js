@@ -1,5 +1,5 @@
-import * as UserRepository from 'domain/repositories/UserRepository';
-import * as OpenIdRepository from 'domain/repositories/OpenIdRepository';
+import * as UserRepository from 'repositories/UserRepository';
+import * as OpenIdRepository from 'repositories/OpenIdRepository';
 import * as jwt from 'utilities/JWT';
 
 export async function associateUserWithOpenId(openIdData) {
