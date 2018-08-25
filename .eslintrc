@@ -12,6 +12,7 @@
         "function-paren-newline": ["error", "consistent"],
         "arrow-body-style": "off",
         "no-plusplus": "off",
+        "consistent-return": "off",
         "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": ["error", {
             "devDependencies": true

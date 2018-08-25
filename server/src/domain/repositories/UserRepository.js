@@ -1,6 +1,6 @@
 import User from 'domain/models/User';
 
-let currentId = 1;
+let currentId = 0;
 const users = {};
 
 export async function save(user) {

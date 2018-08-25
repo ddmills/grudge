@@ -2,10 +2,10 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';
 import Page from 'components/Page/Page';
-import Button from 'components/Button/Button';
 import LoadingIndicator from 'components/LoadingIndicator/LoadingIndicator';
 import CodeBlock from 'components/CodeBlock/CodeBlock';
 import Alert from 'components/Alert/Alert';
+import autobind from 'autobind-decorator';
 
 @connect(({ profileStore }) => ({
   getUser: profileStore.getUser,
@@ -29,9 +29,21 @@ export default class ProfileScreen extends Component {
     this.props.getUser(this.props.userId);
   }
 
+  @autobind
+  renderTitleText() {
+    if (this.props.user) {
+      return this.props.user.name;
+    }
+
+    if (this.props.error) {
+      return 'Error';
+    }
+
+    return 'Loading profile';
+  }
+
   render() {
     const {
-      userId,
       user,
       error,
     } = this.props;
@@ -39,26 +51,15 @@ export default class ProfileScreen extends Component {
     return (
       <Page>
         <h1>
-          Profile (
-          {userId}
-          )
+          {this.renderTitleText()}
         </h1>
-
-        { user && (
-          <CodeBlock>{user}</CodeBlock>
+        {user && (
+          <CodeBlock>
+            {user}
+          </CodeBlock>
         )}
-
-        { error && (
-          <Alert>{error.toString()}</Alert>
-        )}
-
-        { !user && !error && (
-          <LoadingIndicator/>
-        )}
-
-        <Button to="landing">
-          Landing page
-        </Button>
+        <LoadingIndicator isVisible={!user && !error}/>
+        <Alert error={error}/>
       </Page>
     );
   }
