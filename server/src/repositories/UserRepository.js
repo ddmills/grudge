@@ -10,11 +10,11 @@ export async function save(user) {
     userWithId = user;
   } else {
     userWithId = user.clone({
-      id: ++currentId,
+      id: `user-${++currentId}`,
     });
   }
 
-  users[currentId] = userWithId.properties;
+  users[`user-${currentId}`] = userWithId.properties;
 
   return Promise.resolve(userWithId);
 }

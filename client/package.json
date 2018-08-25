@@ -11,6 +11,7 @@
     "fixlint": "stylelint src/**/*.scss --fix && eslint src --fix"
   },
   "dependencies": {
+    "@grudge/domain": "^0.1.7",
     "@grudge/sdk": "^0.1.7",
     "autobind-decorator": "^2.1.0",
     "browser-cookie": "^1.2.1",

@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { User } from '@grudge/domain';
 import connect from 'utilities/mobx/Connect';
 import Container from 'components/Container/Container';
 import Link from 'components/Link/Link';
@@ -12,7 +13,7 @@ import styles from './PageHeader.scss';
 }))
 export default class PageHeader extends Component {
   static propTypes = {
-    currentUser: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    currentUser: PropTypes.instanceOf(User),
     size: PropTypes.oneOf([
       'sm',
       'md',

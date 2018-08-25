@@ -7,6 +7,7 @@ import CodeBlock from 'components/CodeBlock/CodeBlock';
 import Alert from 'components/Alert/Alert';
 import autobind from 'autobind-decorator';
 import Avatar from 'components/Avatar/Avatar';
+import { User } from '@grudge/domain';
 
 @connect(({ profileStore }) => ({
   getUser: profileStore.getUser,
@@ -17,7 +18,7 @@ export default class ProfileScreen extends Component {
   static propTypes = {
     getUser: PropTypes.func.isRequired,
     userId: PropTypes.string.isRequired,
-    user: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    user: PropTypes.instanceOf(User),
     error: PropTypes.instanceOf(Error),
   };
 

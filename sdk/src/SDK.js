@@ -1,3 +1,4 @@
+import { User } from '@grudge/domain';
 import {
   CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT, USER_GET,
 } from './Events';
@@ -5,6 +6,7 @@ import SocketFactory from './SocketFactory';
 import EventMap from './EventMap';
 import EventHook from './EventHook';
 import Query from './Query';
+import ResponseTransformer from './ResponseTransformer';
 
 export default class SDK {
   constructor() {
@@ -60,7 +62,7 @@ export default class SDK {
   }
 
   getUser(userId) {
-    return this.query(USER_GET, userId);
+    return this.query(USER_GET, userId).then(ResponseTransformer.toModel(User));
   }
 
   listen(socket) {

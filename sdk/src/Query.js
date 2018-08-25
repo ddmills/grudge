@@ -1,3 +1,4 @@
+
 export default class Query {
   static send(socket, event, ...args) {
     return new Promise((resolve, reject) => {
