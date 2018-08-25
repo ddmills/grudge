@@ -1,5 +1,5 @@
 import { action, observable } from 'mobx';
-import sdk from 'sdk/index';
+import sdk from '@grudge/sdk';
 
 export default class ConnectionStore {
   @observable

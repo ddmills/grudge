@@ -4,7 +4,7 @@ import {
 import autobind from 'autobind-decorator';
 import MobXCookie from 'utilities/mobx/MobXCookie';
 import jwt from 'jsonwebtoken';
-import sdk from 'sdk/index';
+import sdk from '@grudge/sdk';
 
 @autobind
 export default class AuthStore {
