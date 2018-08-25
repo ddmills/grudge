@@ -11,9 +11,6 @@ export default class SocketStore {
   error = null;
 
   @observable
-  socket = null;
-
-  @observable
   isConnected = false;
 
   constructor(authStore) {
@@ -23,7 +20,7 @@ export default class SocketStore {
       if (this.authStore.token) {
         this.connect(this.authStore.token);
       } else {
-        this.disconnect();
+        sdk.disconnect();
       }
     });
   }
@@ -32,21 +29,9 @@ export default class SocketStore {
   connect(token) {
     this.isConnecting = true;
     sdk.configure(token);
-    // this.socket = io({
-    //   query: {
-    //     token,
-    //   },
-    // });
-
     sdk.onConnected(this.onConnect.bind(this));
-    sdk.onConnected(() => console.log('yoooo'));
-    sdk.onConnected(() => console.log('tttest'));
     sdk.onDisconnected(this.onDisconnect.bind(this));
-    // sdk.on('error', this.onError.bind(this));
-  }
-
-  disconnect() {
-    sdk.disconnect();
+    sdk.onError(this.onError.bind(this));
   }
 
   @action

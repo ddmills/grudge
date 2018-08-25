@@ -1,12 +1,12 @@
-import * as AuthService from 'services/AuthService';
+import * as UserService from 'services/UserService';
 import Logger from 'utilities/Logger';
 
 export default function createMiddleware() {
   return async (socket, next) => {
     try {
-      const user = await AuthService.getUser(socket.userId);
+      const user = await UserService.getUser(socket.userId);
 
-      socket.user = user; // eslint-disable-line no-param-reassign
+      Object.assign(socket, { user });
 
       next();
     } catch (error) {
