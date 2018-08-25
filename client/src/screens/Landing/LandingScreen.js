@@ -24,8 +24,8 @@ export default class LandingScreen extends Component {
           <Button to="landing" params={{ greeting: 'Greetings' }}>
             Greeting One
           </Button>
-          <Button to="landing" params={{ greeting: 'Yo' }}>
-            Greeting Two
+          <Button to="lobbies">
+            Join a game
           </Button>
           <Button to="profile" params={{ userId: '1' }}>
             User Profile
