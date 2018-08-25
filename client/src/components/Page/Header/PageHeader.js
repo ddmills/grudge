@@ -1,12 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import connect from 'utilities/mobx/Connect';
 import Container from 'components/Container/Container';
 import Link from 'components/Link/Link';
 import Button from 'components/Button/Button';
-import connect from 'utilities/mobx/Connect';
-import styles from './PageHeader.scss';
 import Avatar from 'components/Avatar/Avatar';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+import styles from './PageHeader.scss';
 
 @connect(({ userStore }) => ({
   currentUser: userStore.currentUser,

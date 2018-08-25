@@ -1,7 +1,9 @@
+@import "core/layout";
+
 .avatar {
   display: inline-block;
-  width: 32px;
-  height: 32px;
+  width: $spacer-5;
+  height: $spacer-5;
   overflow: hidden;
   line-height: 1;
   vertical-align: middle;
