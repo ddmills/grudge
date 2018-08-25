@@ -1,9 +1,9 @@
 {
   "packages": [
     "client",
+    "domain",
     "sdk",
-    "server",
-    "domain"
+    "server"
   ],
-  "version": "0.1.6"
+  "version": "0.1.7"
 }

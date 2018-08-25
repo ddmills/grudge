@@ -1,6 +1,6 @@
 {
   "name": "@grudge/client",
-  "version": "0.1.4",
+  "version": "0.1.7",
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack --mode development --watch --display minimal",
@@ -11,7 +11,7 @@
     "fixlint": "stylelint src/**/*.scss --fix && eslint src --fix"
   },
   "dependencies": {
-    "@grudge/sdk": "^0.1.6",
+    "@grudge/sdk": "^0.1.7",
     "autobind-decorator": "^2.1.0",
     "browser-cookie": "^1.2.1",
     "browser-cookies": "^1.2.0",
