@@ -1,9 +1,7 @@
-import {
-  action, autorun, observable,
-} from 'mobx';
+import { action, observable } from 'mobx';
 import sdk from 'sdk/index';
 
-export default class SocketStore {
+export default class ConnectionStore {
   @observable
   isConnecting = false;
 
@@ -13,25 +11,16 @@ export default class SocketStore {
   @observable
   isConnected = false;
 
-  constructor(authStore) {
-    this.authStore = authStore;
-
-    autorun(() => {
-      if (this.authStore.token) {
-        this.connect(this.authStore.token);
-      } else {
-        sdk.disconnect();
-      }
-    });
-  }
-
-  @action
-  connect(token) {
-    this.isConnecting = true;
-    sdk.configure(token);
+  constructor() {
+    sdk.onConnecting(this.onConnecting.bind(this));
     sdk.onConnected(this.onConnect.bind(this));
     sdk.onDisconnected(this.onDisconnect.bind(this));
     sdk.onError(this.onError.bind(this));
+  }
+
+  @action
+  onConnecting() {
+    this.onConnecting = true;
   }
 
   @action

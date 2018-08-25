@@ -4,9 +4,9 @@ import connect from 'utilities/mobx/Connect';
 import classNames from 'classnames';
 import styles from './ConnectionStatus.scss';
 
-@connect(({ socketStore }) => ({
-  isConnected: socketStore.isConnected,
-  isConnecting: socketStore.isConnecting,
+@connect(({ connectionStore }) => ({
+  isConnected: connectionStore.isConnected,
+  isConnecting: connectionStore.isConnecting,
 }))
 export default class ConnectionStatus extends Component {
   static propTypes = {

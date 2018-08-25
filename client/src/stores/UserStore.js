@@ -1,7 +1,21 @@
+import { autorun, action, observable } from 'mobx';
+import sdk from 'sdk/index';
 
 export default class UserStore {
-  constructor(socketStore) {
-    this.socketStore = socketStore;
-    this.name = 'hello';
+  @observable
+  currentUser = null;
+
+  constructor(authStore) {
+    this.authStore = authStore;
+
+    autorun(() => {
+      if (this.authStore.userId) {
+        sdk.getUser(this.authStore.userId).then(action((user) => {
+          this.currentUser = user;
+        }));
+      } else {
+        this.currentUser = null;
+      }
+    });
   }
 }

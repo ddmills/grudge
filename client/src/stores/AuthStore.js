@@ -1,6 +1,10 @@
-import { action, computed, observable } from 'mobx';
+import {
+  autorun, action, computed, observable,
+} from 'mobx';
 import autobind from 'autobind-decorator';
 import MobXCookie from 'utilities/mobx/MobXCookie';
+import jwt from 'jsonwebtoken';
+import sdk from 'sdk/index';
 
 @autobind
 export default class AuthStore {
@@ -10,6 +14,25 @@ export default class AuthStore {
   @computed
   get token() {
     return this.cookie.get();
+  }
+
+  @computed
+  get userId() {
+    if (this.token) {
+      return jwt.decode(this.token).userId;
+    }
+
+    return undefined;
+  }
+
+  constructor() {
+    autorun(() => {
+      if (this.token) {
+        sdk.configure(this.token);
+      } else {
+        sdk.disconnect();
+      }
+    });
   }
 
   @action

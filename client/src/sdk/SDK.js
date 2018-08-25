@@ -1,14 +1,18 @@
 import {
-  CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT, USER_GET,
+  CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT, USER_GET,
 } from 'sdk/Events';
 import SocketFactory from './SocketFactory';
 import EventMap from './EventMap';
+import EventHook from './EventHook';
 import Query from './Query';
 
 export default class SDK {
   constructor() {
     this.eventMap = EventMap.create();
     this.eventMap.forEach((handler) => handler.attach(this));
+
+    this.onConnectingEventHook = new EventHook(CONNECTING, 'onConnecting');
+    this.onConnectingEventHook.attach(this);
   }
 
   configure(token) {
@@ -29,10 +33,11 @@ export default class SDK {
     }
 
     if (!this.token) {
-      return Promise.reject();
+      return Promise.reject(new Error('Socket has not been configured yet'));
     }
 
     return new Promise((resolve, reject) => {
+      this.onConnectingEventHook.trigger();
       this.socket = SocketFactory.create(this.token);
       this.socket.once(CONNECTED, () => resolve());
       this.socket.once(CONNECT_ERROR, () => reject(new Error('Socket could not connect')));

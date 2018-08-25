@@ -16,6 +16,7 @@
     "browser-cookie": "^1.2.1",
     "browser-cookies": "^1.2.0",
     "classnames": "^2.2.6",
+    "jsonwebtoken": "^8.3.0",
     "mobx": "^5.0.3",
     "mobx-react": "^5.2.5",
     "prop-types": "^15.6.2",

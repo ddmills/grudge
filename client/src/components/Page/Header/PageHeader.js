@@ -5,13 +5,15 @@ import Link from 'components/Link/Link';
 import Button from 'components/Button/Button';
 import connect from 'utilities/mobx/Connect';
 import styles from './PageHeader.scss';
+import Avatar from 'components/Avatar/Avatar';
+import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
 
-@connect(({ authStore }) => ({
-  isAuthenticated: authStore.isAuthenticated,
+@connect(({ userStore }) => ({
+  currentUser: userStore.currentUser,
 }))
 export default class PageHeader extends Component {
   static propTypes = {
-    isAuthenticated: PropTypes.bool.isRequired,
+    currentUser: PropTypes.object, // eslint-disable-line react/forbid-prop-types
     size: PropTypes.oneOf([
       'sm',
       'md',
@@ -22,18 +24,20 @@ export default class PageHeader extends Component {
   }
 
   static defaultProps = {
+    currentUser: undefined,
     size: 'md',
   }
 
   renderAuthButton() {
-    if (this.props.isAuthenticated) {
+    const {
+      currentUser,
+    } = this.props;
+
+    if (currentUser) {
       return (
-        <Button
-          to="sign-out"
-          size="sm"
-        >
-          Sign out
-        </Button>
+        <Link to="profile" params={{ userId: currentUser.id }}>
+          <Avatar user={currentUser}/>
+        </Link>
       );
     }
 

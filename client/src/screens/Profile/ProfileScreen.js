@@ -6,6 +6,7 @@ import LoadingIndicator from 'components/LoadingIndicator/LoadingIndicator';
 import CodeBlock from 'components/CodeBlock/CodeBlock';
 import Alert from 'components/Alert/Alert';
 import autobind from 'autobind-decorator';
+import Avatar from 'components/Avatar/Avatar';
 
 @connect(({ profileStore }) => ({
   getUser: profileStore.getUser,
@@ -51,13 +52,13 @@ export default class ProfileScreen extends Component {
     return (
       <Page>
         <h1>
-          {this.renderTitleText()}
+          {user && user.displayName}
         </h1>
-        {user && (
-          <CodeBlock>
-            {user}
-          </CodeBlock>
-        )}
+        <p>
+          {user && user.name}
+        </p>
+        {user && <Avatar user={user}/>}
+        {user && <CodeBlock>{user}</CodeBlock>}
         <LoadingIndicator isVisible={!user && !error}/>
         <Alert error={error}/>
       </Page>

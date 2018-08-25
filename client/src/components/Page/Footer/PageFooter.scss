@@ -2,9 +2,19 @@
 @import "core/layout";
 @import "core/colors";
 
-.pageFooter {
+.pageFooterBanner {
   padding: $spacer-4 0;
   flex: none;
   color: $black-fade-50;
   background-color: $gray-000;
+}
+
+.pageFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spacer {
+  flex: 1;
 }
