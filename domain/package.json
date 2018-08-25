@@ -1,0 +1,9 @@
+{
+  "name": "@grudge/domain",
+  "version": "0.1.6",
+  "description": "Grudge domain models",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  }
+}
