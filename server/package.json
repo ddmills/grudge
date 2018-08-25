@@ -2,7 +2,6 @@
   "name": "@grudge/server",
   "version": "0.1.3",
   "main": "dist/main.js",
-  "private": true,
   "scripts": {
     "start": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
@@ -26,5 +25,8 @@
     "socket.io": "^2.1.1",
     "source-map-support": "^0.5.8",
     "spdy": "^3.4.7"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
