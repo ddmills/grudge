@@ -1,0 +1,11 @@
+@import "core/colors";
+@import "core/layout";
+
+.alert {
+  padding: $spacer-3;
+  margin-bottom: $spacer-2;
+  color: $white;
+  background-color: $red-200;
+  border: 1px solid $red-400;
+  border-radius: 3px;
+}

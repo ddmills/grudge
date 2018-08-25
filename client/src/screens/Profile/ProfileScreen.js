@@ -5,6 +5,7 @@ import Page from 'components/Page/Page';
 import Button from 'components/Button/Button';
 import LoadingIndicator from 'components/LoadingIndicator/LoadingIndicator';
 import CodeBlock from 'components/CodeBlock/CodeBlock';
+import Alert from 'components/Alert/Alert';
 
 @connect(({ profileStore }) => ({
   getUser: profileStore.getUser,
@@ -48,7 +49,7 @@ export default class ProfileScreen extends Component {
         )}
 
         { error && (
-          <CodeBlock>{error.toString()}</CodeBlock>
+          <Alert>{error.toString()}</Alert>
         )}
 
         { !user && !error && (
