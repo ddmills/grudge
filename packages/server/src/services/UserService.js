@@ -1,5 +1,5 @@
 import * as UserRepository from 'repositories/UserRepository';
 
-export async function getUser(userId) {
+export function get(userId) {
   return UserRepository.get(userId);
 }

@@ -1,6 +1,6 @@
-import { User } from '@grudge/domain';
+import { User, Lobby } from '@grudge/domain';
 import {
-  CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT, USER_GET,
+  CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT, USER_GET, LOBBY_CREATE, LOBBY_GET,
 } from './Events';
 import SocketFactory from './SocketFactory';
 import EventMap from './EventMap';
@@ -63,6 +63,14 @@ export default class SDK {
 
   getUser(userId) {
     return this.query(USER_GET, userId).then(ResponseTransformer.toModel(User));
+  }
+
+  getLobby(lobbyId) {
+    return this.query(LOBBY_GET, lobbyId).then(ResponseTransformer.toModel(Lobby));
+  }
+
+  createLobby(lobbyData) {
+    return this.query(LOBBY_CREATE, lobbyData).then(ResponseTransformer.toModel(Lobby));
   }
 
   listen(socket) {

@@ -5,3 +5,5 @@ export const CONNECT_TIMEOUT = 'connect_timeout';
 export const DISCONNECTED = 'disconnect';
 export const ERROR = 'error';
 export const USER_GET = 'user/get';
+export const LOBBY_GET = 'lobby/get';
+export const LOBBY_CREATE = 'lobby/create';
