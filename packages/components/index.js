@@ -6,3 +6,5 @@ export { default as List } from './src/List/List';
 export { default as ListItem } from './src/List/ListItem/ListItem';
 export { default as CodeBlock } from './src/CodeBlock/CodeBlock';
 export { default as LoadingIndicator } from './src/LoadingIndicator/LoadingIndicator';
+export { default as Button } from './src/Button/Button';
+export { default as ButtonGroup } from './src/ButtonGroup/ButtonGroup';

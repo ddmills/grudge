@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Link from 'components/Link/Link';
 import styles from './Button.scss';
 
 export default class Button extends Component {
@@ -15,6 +14,10 @@ export default class Button extends Component {
       'sm',
       'md',
       'lg',
+    ]),
+    BtnComponent: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
     ]),
     className: PropTypes.string,
     to: PropTypes.string,
@@ -38,16 +41,17 @@ export default class Button extends Component {
     type: 'button',
     isBlock: false,
     isDisabled: false,
+    BtnComponent: 'button',
   }
 
   render() {
     const {
-      to,
       color,
       size,
       isBlock,
       isDisabled,
       className,
+      BtnComponent,
       ...passProps
     } = this.props;
 
@@ -62,13 +66,10 @@ export default class Button extends Component {
       },
     );
 
-    const BtnComponent = to ? Link : 'button';
-
     return (
       <BtnComponent
         className={classes}
         disabled={isDisabled}
-        to={to}
         {...passProps}
       >
         {this.props.children}

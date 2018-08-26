@@ -1,12 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { PropTypes as MobXPropTypes } from 'mobx-react';
+import { Button, ButtonGroup } from '@grudge/components';
+import { Lobby } from '@grudge/domain';
 import Page from 'components/Page/Page';
 import LobbyList from 'components/LobbyList/LobbyList';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
-import Button from 'components/Button/Button';
 import connect from 'utilities/mobx/Connect';
-import { Lobby } from '@grudge/domain';
 
 @connect(({ lobbyListStore }) => ({
   refreshLobbies: lobbyListStore.refreshLobbies,
@@ -17,7 +15,7 @@ export default class LobbyListScreen extends Component {
   static propTypes = {
     refreshLobbies: PropTypes.func.isRequired,
     createLobby: PropTypes.func.isRequired,
-    lobbies: MobXPropTypes.observableArrayOf(Lobby).isRequired,
+    lobbies: PropTypes.arrayOf(PropTypes.instanceOf(Lobby)).isRequired,
   };
 
   render() {

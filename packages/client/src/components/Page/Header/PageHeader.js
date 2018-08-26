@@ -4,7 +4,7 @@ import { User } from '@grudge/domain';
 import { Container, Avatar } from '@grudge/components';
 import connect from 'utilities/mobx/Connect';
 import Link from 'components/Link/Link';
-import Button from 'components/Button/Button';
+import ButtonLink from 'components/ButtonLink/ButtonLink';
 import styles from './PageHeader.scss';
 
 @connect(({ userStore }) => ({
@@ -41,12 +41,9 @@ export default class PageHeader extends Component {
     }
 
     return (
-      <Button
-        to="sign-in"
-        size="sm"
-      >
+      <ButtonLink to="sign-in" size="sm">
         Sign in
-      </Button>
+      </ButtonLink>
     );
   }
 

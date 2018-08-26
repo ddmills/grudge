@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import addPropsToChildren from 'utilities/react/AddPropsToChildren';
+import addPropsToChildren from '../utilities/AddPropsToChildren';
 import styles from './ButtonGroup.scss';
 
 export default class ButtonGroup extends Component {

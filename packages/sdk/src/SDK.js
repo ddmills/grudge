@@ -1,6 +1,7 @@
 import { User, Lobby } from '@grudge/domain';
 import {
-  CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT, USER_GET, LOBBY_CREATE, LOBBY_GET, LOBBY_LIST,
+  CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT,
+  USER_GET, LOBBY_CREATE, LOBBY_GET, LOBBY_LIST,
 } from '@grudge/api-events';
 import SocketFactory from './SocketFactory';
 import EventMap from './EventMap';

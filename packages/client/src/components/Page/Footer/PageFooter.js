@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container } from '@grudge/components';
 import connect from 'utilities/mobx/Connect';
 import ConnectionStatus from 'components/ConnectionStatus/ConnectionStatus';
-import Button from 'components/Button/Button';
+import ButtonLink from 'components/ButtonLink/ButtonLink';
 import Link from 'components/Link/Link';
 import styles from './PageFooter.scss';
 
@@ -45,9 +45,9 @@ export default class PageFooter extends Component {
           </h4>
           <span className={styles.spacer}/>
           {isAuthenticated && (
-            <Button to="sign-out" size="sm">
+            <ButtonLink to="sign-out" size="sm">
               Sign out
-            </Button>
+            </ButtonLink>
           )}
         </Container>
       </header>

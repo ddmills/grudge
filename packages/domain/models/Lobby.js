@@ -6,6 +6,7 @@ export default class Lobby extends Model {
       id: null,
       ownerId: null,
       isPublic: true,
+      createdTimestamp: 0,
     };
   }
 }

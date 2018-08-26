@@ -1,11 +1,11 @@
 import { Component } from 'react';
-import { PropTypes as MobXPropTypes } from 'mobx-react';
+import PropTypes from 'prop-types';
 import { Lobby } from '@grudge/domain';
 import { List, ListItem } from '@grudge/components';
 
 export default class LobbyList extends Component {
   static propTypes = {
-    lobbies: MobXPropTypes.observableArrayOf(Lobby).isRequired,
+    lobbies: PropTypes.arrayOf(PropTypes.instanceOf(Lobby)).isRequired,
   };
 
   render() {
@@ -26,6 +26,8 @@ export default class LobbyList extends Component {
         {lobbies.map((lobby) => (
           <ListItem key={lobby.id}>
             {lobby.id}
+            {' '}
+            {lobby.createdTimestamp}
           </ListItem>
         ))}
       </List>

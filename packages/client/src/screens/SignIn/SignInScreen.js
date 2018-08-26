@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CompactPage, LoadingIndicator } from '@grudge/components';
-import Button from 'components/Button/Button';
+import ButtonLink from 'components/ButtonLink/ButtonLink';
 import connect from 'utilities/mobx/Connect';
 import Redirect from 'components/Redirect/Redirect';
 import autobind from 'autobind-decorator';
@@ -51,7 +51,7 @@ export default class SignInScreen extends Component {
 
     return (
       <CompactPage>
-        <Button
+        <ButtonLink
           isBlock
           color="primary"
           to="auth-steam"
@@ -59,7 +59,7 @@ export default class SignInScreen extends Component {
           onClick={this.navigate}
         >
           Sign in with Steam
-        </Button>
+        </ButtonLink>
       </CompactPage>
     );
   }

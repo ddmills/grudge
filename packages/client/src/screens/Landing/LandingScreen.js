@@ -1,8 +1,8 @@
 import { Component } from 'react';
-import Page from 'components/Page/Page';
+import { ButtonGroup } from '@grudge/components';
 import PropTypes from 'prop-types';
-import Button from 'components/Button/Button';
-import ButtonGroup from 'components/ButtonGroup/ButtonGroup';
+import Page from 'components/Page/Page';
+import ButtonLink from 'components/ButtonLink/ButtonLink';
 
 export default class LandingScreen extends Component {
   static propTypes = {
@@ -21,18 +21,18 @@ export default class LandingScreen extends Component {
         </h1>
 
         <ButtonGroup>
-          <Button to="landing" params={{ greeting: 'Greetings' }}>
+          <ButtonLink to="landing" params={{ greeting: 'Greetings' }}>
             Greeting One
-          </Button>
-          <Button to="lobbies">
+          </ButtonLink>
+          <ButtonLink to="lobbies">
             Join a game
-          </Button>
-          <Button to="profile" params={{ userId: '1' }}>
+          </ButtonLink>
+          <ButtonLink to="profile" params={{ userId: 'user-1' }}>
             User Profile
-          </Button>
-          <Button to="/profile/666" color="red">
+          </ButtonLink>
+          <ButtonLink to="/profile/666" color="red">
             No user
-          </Button>
+          </ButtonLink>
         </ButtonGroup>
       </Page>
     );

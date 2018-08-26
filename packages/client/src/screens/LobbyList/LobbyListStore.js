@@ -6,25 +6,21 @@ export default class LobbyListStore {
   @observable
   lobbies = [];
 
-  constructor(authStore) {
-    this.authStore = authStore;
-
-    console.log('here');
-  }
-
   @autobind
   @action
   refreshLobbies() {
-    console.log('refreshLobbies');
+    this.lobbies = [];
     sdk.listLobbies().then(action((lobbies) => {
-      console.log(lobbies);
       this.lobbies = lobbies;
     }));
   }
 
+  @autobind
   createLobby() {
     sdk.createLobby({
       isPublic: true,
-    });
+    }).then(action((lobby) => {
+      this.lobbies.unshift(lobby);
+    }));
   }
 }

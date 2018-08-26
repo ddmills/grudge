@@ -5,7 +5,10 @@ export function get(lobbyId) {
 }
 
 export function create(lobbyData) {
-  return LobbyRepository.create(lobbyData);
+  return LobbyRepository.create({
+    createdTimestamp: Date.now(),
+    ...lobbyData,
+  });
 }
 
 export function list() {
