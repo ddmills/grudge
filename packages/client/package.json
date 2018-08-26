@@ -1,6 +1,6 @@
 {
   "name": "@grudge/client",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "description": "React client for Grudge",
   "scripts": {
@@ -12,9 +12,9 @@
     "fixlint": "stylelint src/**/*.scss --fix && eslint src --fix"
   },
   "dependencies": {
-    "@grudge/domain": "^0.1.8",
-    "@grudge/sdk": "^0.1.8",
-    "@grudge/styles": "^0.1.8",
+    "@grudge/domain": "^0.2.0",
+    "@grudge/sdk": "^0.2.0",
+    "@grudge/styles": "^0.2.0",
     "autobind-decorator": "^2.1.0",
     "browser-cookie": "^1.2.1",
     "browser-cookies": "^1.2.0",

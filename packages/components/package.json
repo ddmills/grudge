@@ -1,13 +1,13 @@
 {
   "name": "@grudge/components",
-  "version": "0.1.8",
+  "version": "0.2.0",
   "description": "React components for Grudge",
   "main": "index.js",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
-    "@grudge/domain": "^0.1.8",
+    "@grudge/domain": "^0.2.0",
     "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
     "react": "^16.4.2"
