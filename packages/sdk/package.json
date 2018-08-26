@@ -1,10 +1,10 @@
 {
   "name": "@grudge/sdk",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Client-side sdk for interacting with @grudge/server",
   "main": "main.js",
   "dependencies": {
-    "@grudge/domain": "^0.1.7",
+    "@grudge/domain": "^0.1.8",
     "autobind-decorator": "^2.1.0",
     "socket.io-client": "^2.1.1"
   },
