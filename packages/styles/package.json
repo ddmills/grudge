@@ -1,7 +1,7 @@
 {
   "name": "@grudge/styles",
   "version": "0.1.8",
-  "description": "Base sass mixins and variables for Grudge styles",
+  "description": "Sass mixins and variables for Grudge styles",
   "main": "index.scss",
   "publishConfig": {
     "access": "public"

@@ -4,6 +4,7 @@
   "scripts": {
     "start": "lerna run start --parallel --stream",
     "build": "lerna run build",
+    "bootstrap": "lerna bootstrap",
     "lint": "eslint **/*.js",
     "fixlint": "lerna run fixlint"
   },

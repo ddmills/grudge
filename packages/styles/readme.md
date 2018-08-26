@@ -1,6 +1,6 @@
 # `@grudge/styles`
 
-> Base sass mixins and variables for Grudge styles
+> Sass mixins and variables for Grudge styles
 
 ## Usage
 
