@@ -1,6 +1,6 @@
 {
   "name": "@grudge/server",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "dist/main.js",
   "description": "Express server for Grudge",
   "scripts": {
@@ -12,8 +12,8 @@
     "fixlint": "eslint src --fix"
   },
   "dependencies": {
-    "@grudge/api-events": "^0.2.1",
-    "@grudge/domain": "^0.2.1",
+    "@grudge/api-events": "^0.2.2",
+    "@grudge/domain": "^0.2.2",
     "chalk": "^2.4.1",
     "config": "^2.0.1",
     "dotenv": "^6.0.0",
