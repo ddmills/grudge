@@ -21,13 +21,15 @@ export default class LobbyList extends Component {
       );
     }
 
+    const byTimestamp = (a, b) => b.createdTimestamp - a.createdTimestamp;
+
     return (
       <List>
-        {lobbies.map((lobby) => (
+        {lobbies.sort(byTimestamp).map((lobby) => (
           <ListItem key={lobby.id}>
             {lobby.id}
             {' '}
-            {lobby.createdTimestamp}
+            {(new Date(lobby.createdTimestamp)).toString()}
           </ListItem>
         ))}
       </List>
