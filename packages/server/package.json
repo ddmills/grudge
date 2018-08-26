@@ -2,6 +2,7 @@
   "name": "@grudge/server",
   "version": "0.1.4",
   "main": "dist/main.js",
+  "description": "Express server for Grudge",
   "scripts": {
     "start": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
