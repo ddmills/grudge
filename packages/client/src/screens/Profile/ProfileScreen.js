@@ -1,12 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import {
+  Avatar, LoadingIndicator, CodeBlock, Alert,
+} from '@grudge/components';
 import connect from 'utilities/mobx/Connect';
 import Page from 'components/Page/Page';
-import LoadingIndicator from 'components/LoadingIndicator/LoadingIndicator';
-import CodeBlock from 'components/CodeBlock/CodeBlock';
-import Alert from 'components/Alert/Alert';
 import autobind from 'autobind-decorator';
-import Avatar from 'components/Avatar/Avatar';
 import { User } from '@grudge/domain';
 
 @connect(({ profileStore }) => ({

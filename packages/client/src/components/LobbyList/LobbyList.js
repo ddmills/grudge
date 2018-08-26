@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import List from 'components/List/List';
-import ListItem from 'components/List/ListItem/ListItem';
+import { List, ListItem } from '@grudge/components';
 
 export default class LobbyList extends Component {
   static propTypes = {

@@ -1,6 +1,6 @@
 import { Component } from 'react';
+import { Container } from '@grudge/components';
 import PropTypes from 'prop-types';
-import Container from 'components/Container/Container';
 import PageHeader from './Header/PageHeader';
 import PageFooter from './Footer/PageFooter';
 import styles from './Page.scss';

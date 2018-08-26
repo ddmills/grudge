@@ -1,10 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import CompactPage from 'components/CompactPage/CompactPage';
+import { CompactPage, LoadingIndicator } from '@grudge/components';
 import Button from 'components/Button/Button';
 import connect from 'utilities/mobx/Connect';
 import Redirect from 'components/Redirect/Redirect';
-import LoadingIndicator from 'components/LoadingIndicator/LoadingIndicator';
 import autobind from 'autobind-decorator';
 
 @connect(({ authStore, routerStore }) => ({

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import Container from 'components/Container/Container';
+import { Container } from '@grudge/components';
 import ConnectionStatus from 'components/ConnectionStatus/ConnectionStatus';
 import Button from 'components/Button/Button';
 import styles from './PageFooter.scss';

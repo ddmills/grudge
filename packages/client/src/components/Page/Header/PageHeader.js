@@ -1,11 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { User } from '@grudge/domain';
+import { Container, Avatar } from '@grudge/components';
 import connect from 'utilities/mobx/Connect';
-import Container from 'components/Container/Container';
 import Link from 'components/Link/Link';
 import Button from 'components/Button/Button';
-import Avatar from 'components/Avatar/Avatar';
 import styles from './PageHeader.scss';
 
 @connect(({ userStore }) => ({

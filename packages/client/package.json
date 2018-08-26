@@ -12,6 +12,7 @@
     "fixlint": "stylelint src/**/*.scss --fix && eslint src --fix"
   },
   "dependencies": {
+    "@grudge/components": "^0.2.0",
     "@grudge/domain": "^0.2.0",
     "@grudge/sdk": "^0.2.0",
     "@grudge/styles": "^0.2.0",
