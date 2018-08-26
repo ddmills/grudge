@@ -7,7 +7,7 @@ export default class LobbyListRoute extends Route {
 
   path = '/lobbies';
 
-  isAuthRequired = false;
+  isAuthRequired = true;
 
   Component = LobbyListScreen;
 

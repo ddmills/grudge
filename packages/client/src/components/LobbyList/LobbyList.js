@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Lobby } from '@grudge/domain';
 import { List, ListItem } from '@grudge/components';
+import ButtonLink from 'components/ButtonLink/ButtonLink';
 
 export default class LobbyList extends Component {
   static propTypes = {
@@ -25,11 +26,14 @@ export default class LobbyList extends Component {
 
     return (
       <List>
-        {lobbies.sort(byTimestamp).map((lobby) => (
+        {lobbies.slice().sort(byTimestamp).map((lobby) => (
           <ListItem key={lobby.id}>
             {lobby.id}
             {' '}
             {(new Date(lobby.createdTimestamp)).toString()}
+            <ButtonLink to="lobby" params={{ lobbyId: lobby.id }}>
+              join
+            </ButtonLink>
           </ListItem>
         ))}
       </List>
