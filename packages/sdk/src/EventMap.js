@@ -1,5 +1,5 @@
+import { CONNECTED, DISCONNECTED, ERROR } from '@grudge/api-events';
 import EventHook from './EventHook';
-import { CONNECTED, DISCONNECTED, ERROR } from './Events';
 
 export default class EventMap {
   static create() {

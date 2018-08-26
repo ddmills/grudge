@@ -12,6 +12,7 @@
     "fixlint": "eslint src --fix"
   },
   "dependencies": {
+    "@grudge/api-events": "^0.2.1",
     "@grudge/domain": "^0.2.1",
     "chalk": "^2.4.1",
     "config": "^2.0.1",
