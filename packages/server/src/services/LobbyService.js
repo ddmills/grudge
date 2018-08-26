@@ -7,3 +7,7 @@ export function get(lobbyId) {
 export function create(lobbyData) {
   return LobbyRepository.create(lobbyData);
 }
+
+export function list() {
+  return LobbyRepository.list();
+}

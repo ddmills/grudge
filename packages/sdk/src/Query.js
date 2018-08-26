@@ -5,11 +5,11 @@ export default class Query {
       if (!socket.connected) {
         reject(new Error('Socket is not connected'));
       } else {
-        socket.emit(event, ...args, (error, ...data) => {
+        socket.emit(event, ...args, (error, data) => {
           if (error) {
             reject(new Error(error));
           } else {
-            resolve(...data);
+            resolve(data);
           }
         });
       }

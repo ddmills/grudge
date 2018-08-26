@@ -34,3 +34,7 @@ export async function get(lobbyId) {
 
   return Promise.resolve(lobby);
 }
+
+export async function list() {
+  return Promise.resolve(Object.values(lobbies));
+}

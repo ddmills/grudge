@@ -1,14 +1,11 @@
 import { Component } from 'react';
-import PropTypes from 'prop-types';
+import { PropTypes as MobXPropTypes } from 'mobx-react';
+import { Lobby } from '@grudge/domain';
 import { List, ListItem } from '@grudge/components';
 
 export default class LobbyList extends Component {
   static propTypes = {
-    lobbies: PropTypes.array, // eslint-disable-line react/forbid-prop-types
-  };
-
-  static defaultProps = {
-    lobbies: [],
+    lobbies: MobXPropTypes.observableArrayOf(Lobby).isRequired,
   };
 
   render() {
@@ -28,7 +25,7 @@ export default class LobbyList extends Component {
       <List>
         {lobbies.map((lobby) => (
           <ListItem key={lobby.id}>
-            {lobby.title}
+            {lobby.id}
           </ListItem>
         ))}
       </List>

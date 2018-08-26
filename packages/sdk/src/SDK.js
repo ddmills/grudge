@@ -1,6 +1,6 @@
 import { User, Lobby } from '@grudge/domain';
 import {
-  CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT, USER_GET, LOBBY_CREATE, LOBBY_GET,
+  CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT, USER_GET, LOBBY_CREATE, LOBBY_GET, LOBBY_LIST,
 } from '@grudge/api-events';
 import SocketFactory from './SocketFactory';
 import EventMap from './EventMap';
@@ -57,7 +57,7 @@ export default class SDK {
 
   query(event, ...args) {
     return this.connect().then(() => {
-      return Query.send(this.socket, event, args);
+      return Query.send(this.socket, event, ...args);
     });
   }
 
@@ -67,6 +67,10 @@ export default class SDK {
 
   getLobby(lobbyId) {
     return this.query(LOBBY_GET, lobbyId).then(ResponseTransformer.toModel(Lobby));
+  }
+
+  listLobbies() {
+    return this.query(LOBBY_LIST).then(ResponseTransformer.toModel(Lobby));
   }
 
   createLobby(lobbyData) {

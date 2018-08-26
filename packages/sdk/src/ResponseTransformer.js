@@ -8,10 +8,10 @@ export default class ResponseTransformer {
     }
 
     if (response instanceof Array) {
-      return response.map(this.toModel);
+      return response.map((chunk) => this.transform(ModelClass, chunk));
     }
 
-    return new ModelClass(response);
+    return ModelClass.create(response);
   }
 
   static toModel(ModelClass) {

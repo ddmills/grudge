@@ -16,6 +16,7 @@ export default function createApp(io) {
     socket.on(Events.USER_GET, UserController.get);
     socket.on(Events.LOBBY_GET, LobbyController.get);
     socket.on(Events.LOBBY_CREATE, LobbyController.create);
+    socket.on(Events.LOBBY_LIST, LobbyController.list);
 
     socket.on(DISCONNECT, () => Logger.info('Authenticated Socket Disconnected', socket.user.name));
   });
