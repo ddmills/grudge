@@ -1,0 +1,9 @@
+{
+  "name": "@grudge/api-events",
+  "version": "0.2.0",
+  "description": "Shared socket events between @grudge/sdk and @grudge/server",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  }
+}
