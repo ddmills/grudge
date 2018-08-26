@@ -9,14 +9,11 @@ import autobind from 'autobind-decorator';
 import { User } from '@grudge/domain';
 
 @connect(({ profileStore }) => ({
-  getUser: profileStore.getUser,
   user: profileStore.user,
   error: profileStore.error,
 }))
 export default class ProfileScreen extends Component {
   static propTypes = {
-    getUser: PropTypes.func.isRequired,
-    userId: PropTypes.string.isRequired,
     user: PropTypes.instanceOf(User),
     error: PropTypes.instanceOf(Error),
   };
@@ -25,10 +22,6 @@ export default class ProfileScreen extends Component {
     error: undefined,
     user: undefined,
   };
-
-  componentWillMount() {
-    this.props.getUser(this.props.userId);
-  }
 
   @autobind
   renderTitleText() {

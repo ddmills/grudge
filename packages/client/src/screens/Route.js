@@ -15,6 +15,8 @@ export default class Route {
     this.store = this.constructor.createStore(stores);
   }
 
+  static onActivated() {}
+
   toJSON() {
     return {
       name: this.name,

@@ -76,6 +76,7 @@ export default class RouterStore {
         return this.router.navigate('sign-in', { target: targetUrl });
       }
 
+      route.constructor.onActivated(route.store, params);
       return this.router.navigate(target, params);
     }
 
@@ -85,7 +86,7 @@ export default class RouterStore {
       return this.navigate(match.name, match.params);
     }
 
-    return this.router.navigate(target, params);
+    window.location.href = target;
   }
 
   buildUrl(name, params = {}) {
