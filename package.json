@@ -5,8 +5,10 @@
     "start": "lerna run start --parallel --stream",
     "build": "lerna run build",
     "bootstrap": "lerna bootstrap",
-    "lint": "eslint **/*.js",
-    "fixlint": "lerna run fixlint"
+    "lint": "npm run eslint && npm run stylelint",
+    "eslint": "eslint **/*.js",
+    "stylelint": "stylelint **/*.scss",
+    "fixlint": "npm run eslint -- --fix && npm run stylelint -- --fix"
   },
   "private": true,
   "devDependencies": {

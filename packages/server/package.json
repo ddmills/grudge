@@ -6,10 +6,7 @@
   "scripts": {
     "start": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
-    "generate-ssl": "node scripts/generate-ssl.js",
-    "lint": "npm run eslint",
-    "eslint": "eslint src",
-    "fixlint": "eslint src --fix"
+    "generate-ssl": "node scripts/generate-ssl.js"
   },
   "dependencies": {
     "@grudge/api-events": "^0.2.2",

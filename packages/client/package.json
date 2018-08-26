@@ -5,11 +5,7 @@
   "description": "React client for Grudge",
   "scripts": {
     "start": "webpack --mode development --watch --display minimal",
-    "build": "webpack --mode production",
-    "lint": "npm run eslint && npm run stylelint",
-    "eslint": "eslint src",
-    "stylelint": "stylelint src/**/*.scss",
-    "fixlint": "stylelint src/**/*.scss --fix && eslint src --fix"
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "@grudge/components": "^0.2.2",
