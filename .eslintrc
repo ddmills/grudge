@@ -16,6 +16,20 @@
         "import/prefer-default-export": "off",
         "import/no-extraneous-dependencies": ["error", {
             "devDependencies": true
+        }],
+        "react/jsx-tag-spacing": ["error", {
+            "beforeSelfClosing": "never",
+            "closingSlash": "never"
+        }],
+        "react/button-has-type": "off",
+        "react/jsx-filename-extension": "off",
+        "react/destructuring-assignment": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/prefer-stateless-function": "off",
+        "react/prop-types": [1, {
+            "ignore": [
+                "children"
+            ]
         }]
     }
 }

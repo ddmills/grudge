@@ -1,0 +1,54 @@
+@import "@grudge/styles";
+
+.container {
+  position: relative;
+  width: 980px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @include clearfix;
+
+  &.sm {
+    max-width: $width-sm;
+  }
+
+  &.md {
+    max-width: $width-md;
+  }
+
+  &.lg {
+    max-width: $width-lg;
+  }
+
+  &.xl {
+    max-width: $width-xl;
+  }
+
+  &.max {
+    width: 100% !important;
+  }
+
+  &.padded {
+    padding: 0 $spacer-3;
+  }
+
+  &.responsive {
+    width: 100%;
+
+    @include breakpoint(sm) {
+      width: $width-sm;
+    }
+
+    @include breakpoint(md) {
+      width: $width-md;
+    }
+
+    @include breakpoint(lg) {
+      width: $width-lg;
+    }
+
+    @include breakpoint(xl) {
+      width: $width-xl;
+    }
+  }
+}

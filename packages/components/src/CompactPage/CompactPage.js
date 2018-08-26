@@ -7,7 +7,7 @@ export default class CompactPage extends Component {
       <div className={styles.backdrop}>
         <div className={styles.compactPage}>
           <h1 className={styles.branding}>
-            Grudge
+              Grudge
           </h1>
           <section className={styles.content}>
             {this.props.children}
