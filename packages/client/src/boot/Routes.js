@@ -4,6 +4,7 @@ import SignOutRoute from 'screens/SignOut/SignOutRoute';
 import LandingRoute from 'screens/Landing/LandingRoute';
 import ProfileRoute from 'screens/Profile/ProfileRoute';
 import LobbyListRoute from 'screens/LobbyList/LobbyListRoute';
+import LobbyRoute from 'screens/Lobby/LobbyRoute';
 
 class AuthSteamRoute extends Route {
   name = 'auth-steam';
@@ -20,4 +21,5 @@ export default (stores) => ([
   new ProfileRoute(stores),
   new AuthSteamRoute(stores),
   new LobbyListRoute(stores),
+  new LobbyRoute(stores),
 ]);

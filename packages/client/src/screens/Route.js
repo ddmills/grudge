@@ -13,6 +13,15 @@ export default class Route {
 
   constructor(stores) {
     this.store = this.constructor.createStore(stores);
+
+    const allStores = {
+      ...stores,
+      ...this.store && {
+        [this.storeName]: this.store,
+      },
+    };
+
+    this.activate = (params) => this.constructor.onActivated(allStores, params);
   }
 
   static onActivated() {}

@@ -17,7 +17,7 @@ export default class LobbyListRoute extends Route {
     return new LobbyListStore();
   }
 
-  static onActivated(lobbyListStore) {
+  static onActivated({ lobbyListStore }) {
     lobbyListStore.refreshLobbies();
   }
 }

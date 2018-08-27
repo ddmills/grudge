@@ -17,7 +17,7 @@ export default class ProfileRoute extends Route {
     return new ProfileStore(userStore);
   }
 
-  static onActivated(profileStore, { userId }) {
+  static onActivated({ profileStore }, { userId }) {
     profileStore.getUser(userId);
   }
 }

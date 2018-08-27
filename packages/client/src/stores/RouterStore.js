@@ -76,7 +76,7 @@ export default class RouterStore {
         return this.router.navigate('sign-in', { target: targetUrl });
       }
 
-      route.constructor.onActivated(route.store, params);
+      route.activate(params);
       return this.router.navigate(target, params);
     }
 
