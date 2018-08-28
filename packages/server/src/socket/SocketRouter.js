@@ -15,16 +15,21 @@ const eventMap = [{
 }, {
   event: Events.LOBBY_LIST,
   handler: LobbyController.list,
+}, {
+  event: Events.LOBBY_JOIN,
+  handler: LobbyController.join,
 }];
 
 export default class SocketRouter {
-  static wrapResponse(handler) {
-    return async (...request) => {
-      const [callback] = request.slice(-1);
-      const args = request.slice(0, request.length - 1);
+  static wrapResponse(socket, handler) {
+    return async (params, callback) => {
+      const request = {
+        user: socket.user,
+        ...params,
+      };
 
       try {
-        const result = await handler(...args);
+        const result = await handler(request);
 
         callback(null, result);
       } catch (error) {
@@ -37,7 +42,7 @@ export default class SocketRouter {
 
   static attachListeners(socket) {
     eventMap.forEach((mapping) => {
-      socket.on(mapping.event, SocketRouter.wrapResponse(mapping.handler));
+      socket.on(mapping.event, SocketRouter.wrapResponse(socket, mapping.handler));
     });
   }
 }

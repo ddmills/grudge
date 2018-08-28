@@ -11,7 +11,7 @@ export default class ProfileRoute extends Route {
 
   Component = ProfileScreen;
 
-  storeName = 'profileStore';
+  static storeName = 'profileStore';
 
   static createStore({ userStore }) {
     return new ProfileStore(userStore);

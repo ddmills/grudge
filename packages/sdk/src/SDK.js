@@ -1,7 +1,7 @@
 import { User, Lobby } from '@grudge/domain';
 import {
   CONNECTING, CONNECTED, CONNECT_ERROR, CONNECT_TIMEOUT,
-  USER_GET, LOBBY_CREATE, LOBBY_GET, LOBBY_LIST,
+  USER_GET, LOBBY_CREATE, LOBBY_GET, LOBBY_LIST, LOBBY_JOIN,
 } from '@grudge/api-events';
 import SocketFactory from './SocketFactory';
 import EventMap from './EventMap';
@@ -56,18 +56,18 @@ export default class SDK {
     }
   }
 
-  query(event, ...args) {
+  query(event, params = {}) {
     return this.connect().then(() => {
-      return Query.send(this.socket, event, ...args);
+      return Query.send(this.socket, event, params);
     });
   }
 
   getUser(userId) {
-    return this.query(USER_GET, userId).then(ResponseTransformer.toModel(User));
+    return this.query(USER_GET, { userId }).then(ResponseTransformer.toModel(User));
   }
 
   getLobby(lobbyId) {
-    return this.query(LOBBY_GET, lobbyId).then(ResponseTransformer.toModel(Lobby));
+    return this.query(LOBBY_GET, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
   }
 
   listLobbies() {
@@ -75,7 +75,11 @@ export default class SDK {
   }
 
   createLobby(lobbyData) {
-    return this.query(LOBBY_CREATE, lobbyData).then(ResponseTransformer.toModel(Lobby));
+    return this.query(LOBBY_CREATE, { lobbyData }).then(ResponseTransformer.toModel(Lobby));
+  }
+
+  joinLobby(lobbyId) {
+    return this.query(LOBBY_JOIN, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
   }
 
   listen(socket) {

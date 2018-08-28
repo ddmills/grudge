@@ -11,6 +11,6 @@ export default class LobbyRoute extends Route {
   Component = LobbyScreen;
 
   static onActivated({ lobbyStore }, { lobbyId }) {
-    lobbyStore.getLobby(lobbyId);
+    lobbyStore.joinLobby(lobbyId);
   }
 }

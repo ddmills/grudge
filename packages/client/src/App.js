@@ -13,7 +13,7 @@ export default class App extends PureComponent {
       ...rootStores,
       ...routes.reduce((routeStores, route) => ({
         ...routeStores,
-        [route.storeName]: route.store,
+        [route.constructor.storeName]: route.store,
       }), {}),
     };
 

@@ -11,7 +11,7 @@ export default class LobbyListRoute extends Route {
 
   Component = LobbyListScreen;
 
-  storeName = 'lobbyListStore';
+  static storeName = 'lobbyListStore';
 
   static createStore() {
     return new LobbyListStore();
