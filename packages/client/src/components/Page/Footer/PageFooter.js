@@ -37,8 +37,6 @@ export default class PageFooter extends Component {
       <header className={styles.pageFooterBanner}>
         <Container size={size} className={styles.pageFooter}>
           <h4>
-            <ConnectionStatus/>
-            {' '}
             <Link to="https://github.com/ddmills">
               Dalton Mills
             </Link>

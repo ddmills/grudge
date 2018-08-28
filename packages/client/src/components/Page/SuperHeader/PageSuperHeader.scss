@@ -1,0 +1,14 @@
+@import "@grudge/styles";
+
+.pageSuperHeaderBanner {
+  font-size: 0.9em;
+  color: $white;
+  background-color: $primary-800;
+}
+
+.pageSuperHeader {
+  display: flex;
+  height: $spacer-4;
+  justify-content: flex-end;
+  align-items: center;
+}
