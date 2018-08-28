@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ButtonGroup } from '@grudge/components';
+import { ButtonGroup, Heading } from '@grudge/components';
 import PropTypes from 'prop-types';
 import Page from 'components/Page/Page';
 import ButtonLink from 'components/ButtonLink/ButtonLink';
@@ -16,9 +16,9 @@ export default class LandingScreen extends Component {
   render() {
     return (
       <Page>
-        <h1>
+        <Heading>
           {this.props.greeting}
-        </h1>
+        </Heading>
 
         <ButtonGroup>
           <ButtonLink to="landing" params={{ greeting: 'Greetings' }}>

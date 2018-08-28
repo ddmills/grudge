@@ -1,0 +1,31 @@
+@import "@grudge/styles";
+
+.size-1 {
+  @include h1;
+  margin: $spacer-2 0;
+}
+
+.size-2 {
+  @include h2;
+  margin: $spacer-2 0;
+}
+
+.size-3 {
+  @include h3;
+  margin: $spacer-2 0;
+}
+
+.size-4 {
+  @include h4;
+  margin: $spacer-1 0;
+}
+
+.size-5 {
+  @include h5;
+  margin: $spacer-1 0;
+}
+
+.size-6 {
+  @include h6;
+  margin: $spacer-1 0;
+}

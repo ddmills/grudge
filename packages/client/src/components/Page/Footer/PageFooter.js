@@ -43,7 +43,7 @@ export default class PageFooter extends Component {
           </h4>
           <span className={styles.spacer}/>
           {isAuthenticated && (
-            <ButtonLink to="sign-out" size="sm">
+            <ButtonLink to="sign-out" size="sm" color="red">
               Sign out
             </ButtonLink>
           )}

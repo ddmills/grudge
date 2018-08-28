@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Avatar, LoadingIndicator, CodeBlock, Alert,
+  Avatar, LoadingIndicator, CodeBlock, Alert, Heading,
 } from '@grudge/components';
 import connect from 'utilities/mobx/Connect';
 import Page from 'components/Page/Page';
@@ -44,9 +44,9 @@ export default class ProfileScreen extends Component {
 
     return (
       <Page>
-        <h1>
+        <Heading>
           {user && user.displayName}
-        </h1>
+        </Heading>
         <p>
           {user && user.name}
         </p>

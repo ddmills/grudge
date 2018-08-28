@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CodeBlock } from '@grudge/components';
+import { CodeBlock, Heading } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { Lobby } from '@grudge/domain';
@@ -22,7 +22,9 @@ export default class LobbyScreen extends Component {
 
     return (
       <Page>
-        <h2>Lobby boi</h2>
+        <Heading>
+          Lobby boi
+        </Heading>
         <CodeBlock>
           {lobby}
         </CodeBlock>

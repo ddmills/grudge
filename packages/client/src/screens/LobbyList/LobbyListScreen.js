@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Button, ButtonGroup } from '@grudge/components';
+import { Button, ButtonGroup, Heading } from '@grudge/components';
 import { Lobby } from '@grudge/domain';
 import Page from 'components/Page/Page';
 import LobbyList from 'components/LobbyList/LobbyList';
@@ -27,14 +27,14 @@ export default class LobbyListScreen extends Component {
 
     return (
       <Page>
-        <h1>
+        <Heading>
           Lobbies
-        </h1>
+        </Heading>
         <ButtonGroup>
           <Button onClick={refreshLobbies}>
             Refresh
           </Button>
-          <Button onClick={createLobby} color="primary">
+          <Button onClick={createLobby} color="green">
             Create
           </Button>
         </ButtonGroup>
