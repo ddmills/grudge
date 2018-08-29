@@ -29,9 +29,6 @@ export default class Heading extends Component {
     } = this.props;
 
     const HeadingComponent = sizeMapping[size];
-
-    console.log('COMP', HeadingComponent);
-
     const classes = classnames(className, styles.heading, styles[`size-${size}`]);
 
     return (

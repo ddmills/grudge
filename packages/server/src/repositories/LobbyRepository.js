@@ -1,4 +1,5 @@
 import { Lobby } from '@grudge/domain';
+import Logger from 'utilities/Logger';
 
 let currentId = 0;
 const lobbies = {};
@@ -37,4 +38,13 @@ export async function get(lobbyId) {
 
 export async function list() {
   return Promise.resolve(Object.values(lobbies));
+}
+
+export async function getForUserId(userId) {
+  const foundLobby = Object.values(lobbies).find((lobby) => {
+    Logger.json(lobby.playerIds);
+    return lobby.playerIds.includes(userId);
+  });
+
+  return Promise.resolve(foundLobby);
 }

@@ -7,6 +7,7 @@ export default class Lobby extends Model {
       ownerId: null,
       isPublic: true,
       createdTimestamp: 0,
+      playerIds: [],
     };
   }
 }

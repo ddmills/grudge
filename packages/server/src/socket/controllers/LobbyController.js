@@ -5,8 +5,8 @@ export default class LobbyController {
     return LobbyService.get(lobbyId);
   }
 
-  static async create({ lobbyData }) {
-    return LobbyService.create(lobbyData);
+  static async create({ user, lobbyData }) {
+    return LobbyService.create(user, lobbyData);
   }
 
   static async list() {
@@ -14,7 +14,6 @@ export default class LobbyController {
   }
 
   static async join({ user, lobbyId }) {
-    console.log('Join lobby', user.displayName, lobbyId);
-    return LobbyService.get(lobbyId);
+    return LobbyService.join(user, lobbyId);
   }
 }
