@@ -1,5 +1,4 @@
 import * as LobbyRepository from 'repositories/LobbyRepository';
-import Logger from 'utilities/Logger';
 
 export async function get(lobbyId) {
   return LobbyRepository.get(lobbyId);
@@ -29,5 +28,13 @@ export async function join(user, lobbyId) {
     return Promise.reject(new Error('User is already in a lobby'));
   }
 
-  return Promise.reject(new Error('Lobby does not exist'));
+  const lobby = await LobbyRepository.get(lobbyId);
+
+  if (lobby.isFull) {
+    return Promise.reject(new Error('User cannot join lobby because it is full'));
+  }
+
+  const lobbyWithPlayer = lobby.addPlayer(user.id);
+
+  return LobbyRepository.save(lobbyWithPlayer);
 }

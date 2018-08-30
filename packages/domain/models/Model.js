@@ -1,7 +1,10 @@
 export default class Model {
   constructor(props = {}) {
-    Object.assign(this, this.defaults, props);
+    Object.assign(this, this.constructor.defaults, props);
     Object.freeze(this);
+    Object.keys(this).forEach((key) => {
+      Object.freeze(this[key]);
+    });
   }
 
   static get defaults() {

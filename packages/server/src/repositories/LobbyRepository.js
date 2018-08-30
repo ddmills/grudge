@@ -42,7 +42,6 @@ export async function list() {
 
 export async function getForUserId(userId) {
   const foundLobby = Object.values(lobbies).find((lobby) => {
-    Logger.json(lobby.playerIds);
     return lobby.playerIds.includes(userId);
   });
 
