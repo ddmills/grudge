@@ -5,9 +5,9 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_DB: "${POSTGRES_DB}"
+      POSTGRES_USER: pg_dev_user
+      POSTGRES_PASSWORD: pg_dev_password
+      POSTGRES_DB: grudge
   adminer:
     image: adminer
     restart: always

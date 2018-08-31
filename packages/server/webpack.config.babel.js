@@ -1,7 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
+import dotenv from 'dotenv';
 import nodeExternals from 'webpack-node-externals';
 import NodemonPlugin from 'nodemon-webpack-plugin';
 import path from 'path';
+
+dotenv.config();
 
 export default {
   entry: [

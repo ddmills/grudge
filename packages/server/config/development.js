@@ -12,8 +12,4 @@ module.exports = defaultsDeep({
     certificatePath: path.join(__dirname, 'ssl', 'ssl.crt'),
     privateKeyPath: path.join(__dirname, 'ssl', 'ssl.key'),
   },
-  browserSync: {
-    externalHost: process.env.BROWSERSYNC_EXTERNAL_HOST,
-    externalPort: process.env.BROWSERSYNC_EXTERNAL_PORT,
-  },
 }, shared);
