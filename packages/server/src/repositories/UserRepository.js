@@ -1,7 +1,6 @@
 import { User } from '@grudge/domain';
 import * as StorageService from 'services/StorageService';
-
-let currentId = 0;
+import cuid from 'cuid';
 
 export async function save(user) {
   let userWithId;
@@ -10,7 +9,7 @@ export async function save(user) {
     userWithId = user;
   } else {
     userWithId = user.clone({
-      id: `user-${++currentId}`,
+      id: `user-${cuid()}`,
     });
   }
 

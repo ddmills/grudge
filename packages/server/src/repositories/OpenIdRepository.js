@@ -1,6 +1,5 @@
 import { OpenId } from '@grudge/domain';
-
-const providers = {};
+import * as StorageService from 'services/StorageService';
 
 export async function save(openId) {
   if (!openId.id) {
@@ -15,12 +14,9 @@ export async function save(openId) {
     return Promise.reject(error);
   }
 
-  providers[openId.provider] = {
-    ...openId.provider,
-    [openId.id]: openId.properties,
-  };
+  const key = `openid:${openId.provider}:${openId}`;
 
-  return Promise.resolve(openId);
+  return StorageService.put(key, openId.properties);
 }
 
 export async function create(properties) {
@@ -28,19 +24,17 @@ export async function create(properties) {
 }
 
 export async function get(provider, id) {
-  if (!(provider in providers)) {
-    const error = new Error(`Could not find open id provider (${provider})`);
+  const key = `openid:${provider}:${id}`;
 
-    return Promise.reject(error);
-  }
+  const data = await StorageService.get(key);
 
-  if (!(id in providers[provider])) {
+  if (!data) {
     const error = new Error(`Could find open id (${id}) for provider (${provider})`);
 
     return Promise.reject(error);
   }
 
-  const openId = OpenId.create(providers[provider][id]);
+  const openId = OpenId.create(data);
 
   return Promise.resolve(openId);
 }
