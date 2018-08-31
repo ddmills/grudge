@@ -1,15 +1,9 @@
 version: '3.1'
 
 services:
-  db:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_USER: pg_dev_user
-      POSTGRES_PASSWORD: pg_dev_password
-      POSTGRES_DB: grudge
-  adminer:
-    image: adminer
+  redis:
+    image: redis:alpine
     restart: always
     ports:
-      - 8080:8080
+      - 6379:6379
+    command: ["--requirepass", "redis_dev_password"]

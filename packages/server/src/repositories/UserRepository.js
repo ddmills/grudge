@@ -1,7 +1,7 @@
 import { User } from '@grudge/domain';
+import * as StorageService from 'services/StorageService';
 
 let currentId = 0;
-const users = {};
 
 export async function save(user) {
   let userWithId;
@@ -14,9 +14,9 @@ export async function save(user) {
     });
   }
 
-  users[`user-${currentId}`] = userWithId.properties;
+  const userId = userWithId.id;
 
-  return Promise.resolve(userWithId);
+  return StorageService.put(`user:${userId}`, userWithId.properties);
 }
 
 export async function create(properties) {
@@ -24,13 +24,15 @@ export async function create(properties) {
 }
 
 export async function get(userId) {
-  if (!(userId in users)) {
+  const data = await StorageService.get(`user:${userId}`);
+
+  if (!data) {
     const error = new Error(`Could not find user with id ${userId}`);
 
     return Promise.reject(error);
   }
 
-  const user = User.create(users[userId]);
+  const user = User.create(data);
 
   return Promise.resolve(user);
 }

@@ -30,4 +30,9 @@ module.exports = {
     password: process.env.POSTGRES_PASSWORD,
     db: process.env.POSTGRES_DB,
   },
+  redis: {
+    password: process.env.REDIS_PASSWORD,
+    host: process.env.REDIS_HOST,
+    port: process.env.REDIS_PORT,
+  },
 };
