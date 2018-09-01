@@ -6,6 +6,7 @@ export const DISCONNECTED = 'disconnect';
 export const ERROR = 'error';
 export const USER_GET = 'user/get';
 export const LOBBY_GET = 'lobby/get';
+export const LOBBY_USERS_GET = 'lobby/users/get';
 export const LOBBY_CREATE = 'lobby/create';
 export const LOBBY_LIST = 'lobby/list';
 export const LOBBY_JOIN = 'lobby/join';

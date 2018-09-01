@@ -10,6 +10,9 @@ const eventMap = [{
   event: Events.LOBBY_GET,
   handler: LobbyController.get,
 }, {
+  event: Events.LOBBY_USERS_GET,
+  handler: LobbyController.getUsersInLobby,
+}, {
   event: Events.LOBBY_CREATE,
   handler: LobbyController.create,
 }, {

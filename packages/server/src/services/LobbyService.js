@@ -29,3 +29,7 @@ export async function join(user, lobbyId) {
 
   return LobbyRepository.get(lobbyId);
 }
+
+export async function getUsersInLobby(lobbyId) {
+  return UserRepository.where({ lobbyId });
+}

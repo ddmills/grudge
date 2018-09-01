@@ -16,4 +16,8 @@ export default class LobbyController {
   static async join({ user, lobbyId }) {
     return LobbyService.join(user, lobbyId);
   }
+
+  static async getUsersInLobby({ lobbyId }) {
+    return LobbyService.getUsersInLobby(lobbyId);
+  }
 }
