@@ -7,3 +7,17 @@ services:
     ports:
       - 6379:6379
     command: ["--requirepass", "redis_dev_password"]
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres_dev_password
+      POSTGRES_USER: postgres_dev_user
+      POSTGRES_DB: grudge
+    ports:
+      - 5432:5432
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

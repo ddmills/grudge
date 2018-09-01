@@ -6,14 +6,13 @@ export default class Lobby extends Model {
       id: null,
       ownerId: null,
       isPublic: true,
-      createdTimestamp: 0,
+      createdAt: 0,
       maxNumberOfPlayers: 3,
-      playerIds: [],
     };
   }
 
   get numberOfPlayers() {
-    return this.playerIds.length;
+    return this.maxNumberOfPlayers - 1;
   }
 
   get isFull() {

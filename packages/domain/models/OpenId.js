@@ -7,6 +7,8 @@ export default class OpenId extends Model {
       userId: null,
       identityUrl: '',
       provider: '',
+      providerId: null,
+      createdAt: '',
     };
   }
 }

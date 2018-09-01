@@ -6,6 +6,8 @@
   "scripts": {
     "start": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
+    "db:migrate": "knex migrate:latest",
+    "db:rollback": "knex migrate:rollback",
     "generate-ssl": "node scripts/generate-ssl.js"
   },
   "dependencies": {
@@ -20,10 +22,12 @@
     "helmet": "^3.13.0",
     "ioredis": "^4.0.0",
     "jsonwebtoken": "^8.3.0",
+    "knex": "^0.15.2",
     "lodash.defaultsdeep": "^4.6.0",
     "morgan": "^1.9.0",
     "passport": "^0.4.0",
     "passport-steam": "^1.0.10",
+    "pg": "^7.4.3",
     "socket.io": "^2.1.1",
     "source-map-support": "^0.5.8",
     "spdy": "^3.4.7"

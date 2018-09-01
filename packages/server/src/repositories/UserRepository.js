@@ -1,37 +1,39 @@
 import { User } from '@grudge/domain';
-import * as StorageService from 'services/StorageService';
+import { DB } from 'services/StorageService';
 import cuid from 'cuid';
 
-export async function save(user) {
-  let userWithId;
+export default class UserRepository {
+  static async save(user) {
+    let userWithId;
 
-  if (user.id) {
-    userWithId = user;
-  } else {
-    userWithId = user.clone({
-      id: `user-${cuid()}`,
-    });
+    if (user.id) {
+      userWithId = user;
+    } else {
+      userWithId = user.clone({
+        id: `usr-${cuid()}`,
+      });
+    }
+
+    await DB.table('users').insert(userWithId.properties);
+
+    return UserRepository.get(userWithId.id);
   }
 
-  const userId = userWithId.id;
-
-  return StorageService.put(`user:${userId}`, userWithId.properties);
-}
-
-export async function create(properties) {
-  return save(User.create(properties));
-}
-
-export async function get(userId) {
-  const data = await StorageService.get(`user:${userId}`);
-
-  if (!data) {
-    const error = new Error(`Could not find user with id ${userId}`);
-
-    return Promise.reject(error);
+  static async create(properties) {
+    return UserRepository.save(User.create(properties));
   }
 
-  const user = User.create(data);
+  static async get(userId) {
+    const data = await DB.table('users').where('id', userId).first();
 
-  return Promise.resolve(user);
+    if (!data) {
+      const error = new Error(`Could not find user with id ${userId}`);
+
+      return Promise.reject(error);
+    }
+
+    const user = User.create(data);
+
+    return Promise.resolve(user);
+  }
 }

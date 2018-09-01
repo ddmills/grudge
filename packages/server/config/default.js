@@ -29,6 +29,7 @@ module.exports = {
     user: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
     db: process.env.POSTGRES_DB,
+    version: 10.5,
   },
   redis: {
     password: process.env.REDIS_PASSWORD,

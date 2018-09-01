@@ -1,50 +1,78 @@
 import { OpenId } from '@grudge/domain';
-import * as StorageService from 'services/StorageService';
+import { DB } from 'services/StorageService';
+import cuid from 'cuid';
 
-export async function save(openId) {
-  if (!openId.id) {
-    const error = new Error('Could not save open id with falsy id');
+export default class OpenIdRepository {
+  static async save(openId) {
+    if (!openId.providerId) {
+      const error = new Error('Could not save open id with falsy providerId');
 
-    return Promise.reject(error);
+      return Promise.reject(error);
+    }
+
+    if (!openId.provider) {
+      const error = new Error('Could not save open id with falsy provider');
+
+      return Promise.reject(error);
+    }
+
+    let openIdWithId;
+
+    if (openId.id) {
+      openIdWithId = openId;
+    } else {
+      openIdWithId = openId.clone({
+        id: `oid-${cuid()}`,
+      });
+    }
+
+    return DB.table('openids').insert(openIdWithId.properties);
   }
 
-  if (!openId.provider) {
-    const error = new Error('Could not save open id with falsy provider');
+  static async create(properties) {
+    const id = await OpenIdRepository.save(OpenId.create(properties));
 
-    return Promise.reject(error);
+    return OpenIdRepository.get(id);
   }
 
-  const key = `openid:${openId.provider}:${openId}`;
+  static async get(id) {
+    const data = await DB.table('openids').where('id', id).first();
 
-  return StorageService.put(key, openId.properties);
-}
+    if (!data) {
+      const error = new Error(`Could find openId with id (${id})`);
 
-export async function create(properties) {
-  return save(OpenId.create(properties));
-}
+      return Promise.reject(error);
+    }
 
-export async function get(provider, id) {
-  const key = `openid:${provider}:${id}`;
-
-  const data = await StorageService.get(key);
-
-  if (!data) {
-    const error = new Error(`Could find open id (${id}) for provider (${provider})`);
-
-    return Promise.reject(error);
-  }
-
-  const openId = OpenId.create(data);
-
-  return Promise.resolve(openId);
-}
-
-export async function find(provider, id) {
-  try {
-    const openId = await get(provider, id);
+    const openId = OpenId.create(data);
 
     return Promise.resolve(openId);
-  } catch (e) {
-    return Promise.resolve();
+  }
+
+  static async getForProvider(provider, providerId) {
+    const data = await DB.table('openids').where({
+      provider,
+      providerId,
+    }).first();
+
+    if (!data) {
+      const error = new Error(`Could find open id (${providerId}) for provider (${provider})`);
+
+      return Promise.reject(error);
+    }
+
+    const openId = OpenId.create(data);
+
+    return Promise.resolve(openId);
+  }
+
+  static async findForProvider(provider, providerId) {
+    try {
+      const openId = await OpenIdRepository.getForProvider(provider, providerId);
+
+      return Promise.resolve(openId);
+    } catch (e) {
+      return Promise.resolve();
+    }
   }
 }

@@ -1,9 +1,9 @@
-import * as UserRepository from 'repositories/UserRepository';
-import * as OpenIdRepository from 'repositories/OpenIdRepository';
+import UserRepository from 'repositories/UserRepository';
+import OpenIdRepository from 'repositories/OpenIdRepository';
 import * as jwt from 'utilities/JWT';
 
 export async function associateUserWithOpenId(openIdData) {
-  const openId = await OpenIdRepository.find(openIdData.provider, openIdData.id);
+  const openId = await OpenIdRepository.findForProvider(openIdData.provider, openIdData.id);
 
   if (openId) {
     return UserRepository.get(openId.userId);
@@ -16,10 +16,10 @@ export async function associateUserWithOpenId(openIdData) {
   });
 
   await OpenIdRepository.create({
-    id: openIdData.id,
     userId: user.id,
     identityUrl: openIdData.identityUrl,
     provider: openIdData.provider,
+    providerId: openIdData.id,
   });
 
   return Promise.resolve(user);

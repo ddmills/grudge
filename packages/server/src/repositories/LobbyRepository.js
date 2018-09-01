@@ -1,49 +1,58 @@
 import { Lobby } from '@grudge/domain';
+import { DB } from 'services/StorageService';
+import cuid from 'cuid';
 import Logger from 'utilities/Logger';
 
-let currentId = 0;
-const lobbies = {};
+export default class LobbyRepository {
+  static async save(lobby) {
+    if (lobby.id) {
+      return DB.table('lobbies').where('id', lobby.id).udpate(lobby.properties).first();
+    }
 
-export async function save(lobby) {
-  let lobbyWithId;
+    const id = `lby-${cuid()}`;
+    const lobbyWithId = lobby.clone({ id });
+    await DB.table('lobbies').insert(lobbyWithId.properties);
 
-  if (lobby.id) {
-    lobbyWithId = lobby;
-  } else {
-    lobbyWithId = lobby.clone({
-      id: `lobby-${++currentId}`,
-    });
+    return id;
   }
 
-  lobbies[`lobby-${currentId}`] = lobbyWithId.properties;
+  static async create(properties) {
+    const id = await LobbyRepository.save(Lobby.create(properties));
 
-  return Promise.resolve(lobbyWithId);
-}
-
-export async function create(properties) {
-  return save(Lobby.create(properties));
-}
-
-export async function get(lobbyId) {
-  if (!(lobbyId in lobbies)) {
-    const error = new Error(`Could not find lobby with id ${lobbyId}`);
-
-    return Promise.reject(error);
+    return LobbyRepository.get(id);
   }
 
-  const lobby = Lobby.create(lobbies[lobbyId]);
+  static async get(lobbyId) {
+    const data = await DB.table('lobbies').where('id', lobbyId).first();
 
-  return Promise.resolve(lobby);
-}
+    if (!data) {
+      const error = new Error(`Could not find lobby with id ${lobbyId}`);
 
-export async function list() {
-  return Promise.resolve(Object.values(lobbies));
-}
+      return Promise.reject(error);
+    }
 
-export async function getForUserId(userId) {
-  const foundLobby = Object.values(lobbies).find((lobby) => {
-    return lobby.playerIds.includes(userId);
-  });
+    const lobby = Lobby.create(data);
 
-  return Promise.resolve(foundLobby);
+    return Promise.resolve(lobby);
+  }
+
+  static async list() {
+    try {
+      const results = await DB.table('lobbies').select();
+
+      return results.map((result) => Lobby.create(result));
+    } catch (error) {
+      Logger.error(error);
+      throw new Error('Database Error');
+    }
+  }
+
+  static async getForUserId(userId) {
+    Promise.resolve();
+    // const foundLobby = Object.values(lobbies).find((lobby) => {
+    //   return lobby.playerIds.includes(userId);
+    // });
+
+    // return Promise.resolve(foundLobby);
+  }
 }

@@ -1,4 +1,4 @@
-import * as LobbyRepository from 'repositories/LobbyRepository';
+import LobbyRepository from 'repositories/LobbyRepository';
 
 export async function get(lobbyId) {
   return LobbyRepository.get(lobbyId);
@@ -7,9 +7,7 @@ export async function get(lobbyId) {
 export async function create(user, lobbyData) {
   return LobbyRepository.create({
     ...lobbyData,
-    createdTimestamp: Date.now(),
     ownerId: user.id,
-    playerIds: [user.id],
   });
 }
 
