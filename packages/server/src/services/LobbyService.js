@@ -16,7 +16,7 @@ export async function list() {
 }
 
 export async function join(user, lobbyId) {
-  const existingLobby = await LobbyRepository.getForUserId(user.id);
+  const existingLobby = null;
 
   if (existingLobby) {
     if (existingLobby.id === lobbyId) {
