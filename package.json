@@ -2,7 +2,7 @@
   "name": "@grudge/app",
   "version": "1.0.0",
   "scripts": {
-    "start": "lerna run start --parallel --stream",
+    "start": "lerna run start --parallel --stream --no-prefix",
     "build": "lerna run build",
     "bootstrap": "lerna bootstrap",
     "lint": "npm run eslint && npm run stylelint",
