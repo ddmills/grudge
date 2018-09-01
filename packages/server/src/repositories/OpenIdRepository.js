@@ -1,56 +1,16 @@
+import ModelRepository from 'repositories/ModelRepository';
 import { OpenId } from '@grudge/domain';
 import { DB } from 'services/StorageService';
-import cuid from 'cuid';
 
-export default class OpenIdRepository {
-  static async save(openId) {
-    if (!openId.providerId) {
-      const error = new Error('Could not save open id with falsy providerId');
+export default class OpenIdRepository extends ModelRepository {
+  static modelClass = OpenId;
 
-      return Promise.reject(error);
-    }
+  static tableName = 'openids';
 
-    if (!openId.provider) {
-      const error = new Error('Could not save open id with falsy provider');
-
-      return Promise.reject(error);
-    }
-
-    let openIdWithId;
-
-    if (openId.id) {
-      openIdWithId = openId;
-    } else {
-      openIdWithId = openId.clone({
-        id: `oid-${cuid()}`,
-      });
-    }
-
-    return DB.table('openids').insert(openIdWithId.properties);
-  }
-
-  static async create(properties) {
-    const id = await OpenIdRepository.save(OpenId.create(properties));
-
-    return OpenIdRepository.get(id);
-  }
-
-  static async get(id) {
-    const data = await DB.table('openids').where('id', id).first();
-
-    if (!data) {
-      const error = new Error(`Could find openId with id (${id})`);
-
-      return Promise.reject(error);
-    }
-
-    const openId = OpenId.create(data);
-
-    return Promise.resolve(openId);
-  }
+  static idPrefix = 'oid';
 
   static async getForProvider(provider, providerId) {
-    const data = await DB.table('openids').where({
+    const data = await DB.table(this.tableName).where({
       provider,
       providerId,
     }).first();
