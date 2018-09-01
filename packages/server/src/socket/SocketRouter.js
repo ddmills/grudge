@@ -26,13 +26,8 @@ const eventMap = [{
 export default class SocketRouter {
   static wrapResponse(socket, handler) {
     return async (params, callback) => {
-      const request = {
-        user: socket.user,
-        ...params,
-      };
-
       try {
-        const result = await handler(request);
+        const result = await handler(params);
 
         callback(null, result);
       } catch (error) {

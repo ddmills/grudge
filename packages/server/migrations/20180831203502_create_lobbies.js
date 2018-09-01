@@ -5,8 +5,7 @@ exports.up = (knex) => {
     t.string('ownerId')
       .references('id')
       .inTable('users')
-      .notNull()
-      .onDelete('cascade');
+      .notNull();
     t.boolean('isPublic').defaultTo(true);
     t.integer('maxNumberOfPlayers').defaultTo(3);
     t.dateTime('createdAt').defaultTo(knex.fn.now(6));

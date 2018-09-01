@@ -53,6 +53,10 @@ export default class SDK {
     }
   }
 
+  listen(socket) {
+    this.eventMap.forEach((handler) => handler.listen(socket));
+  }
+
   query(event, params = {}) {
     return this.connect().then(() => {
       return Query.send(this.socket, event, params);
@@ -81,9 +85,5 @@ export default class SDK {
 
   joinLobby(lobbyId) {
     return this.query(Events.LOBBY_JOIN, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
-  }
-
-  listen(socket) {
-    this.eventMap.forEach((handler) => handler.listen(socket));
   }
 }

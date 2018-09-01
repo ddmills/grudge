@@ -9,10 +9,10 @@ export default function createApp(io) {
   io.use(UserMiddleware());
 
   io.on(CONNECTION, (socket) => {
-    Logger.info('Authenticated Socket Connected', socket.user.name);
+    Logger.info('Authenticated Socket Connected', socket.userId);
 
     SocketRouter.attachListeners(socket);
 
-    socket.on(DISCONNECT, () => Logger.info('Authenticated Socket Disconnected', socket.user.name));
+    socket.on(DISCONNECT, () => Logger.info('Authenticated Socket Disconnected', socket.userId));
   });
 }

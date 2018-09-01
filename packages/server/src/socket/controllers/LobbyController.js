@@ -1,4 +1,4 @@
-import * as LobbyService from 'services/LobbyService';
+import LobbyService from 'services/LobbyService';
 
 export default class LobbyController {
   static async get({ lobbyId }) {
