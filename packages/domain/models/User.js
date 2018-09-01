@@ -7,6 +7,7 @@ export default class User extends Model {
       name: '',
       displayName: '',
       avatar: '',
+      lobbyId: undefined,
       createdAt: undefined,
     };
   }

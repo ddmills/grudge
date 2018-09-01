@@ -33,7 +33,7 @@ export default class SocketRouter {
 
         callback(null, result);
       } catch (error) {
-        Logger.error(error.message);
+        Logger.error(error);
 
         callback(error.message);
       }

@@ -8,7 +8,12 @@ export default class ModelRepository {
   static async save(model) {
     if (model.id) {
       try {
-        return DB.table(this.tableName).where('id', model.id).udpate(model.properties).first();
+        await DB
+          .table(this.tableName)
+          .where({ id: model.id })
+          .update(model.properties);
+
+        return model.id;
       } catch (error) {
         this.throwSafeDatabaseError(error);
       }
