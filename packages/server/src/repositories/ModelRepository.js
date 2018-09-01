@@ -1,14 +1,16 @@
 import { DB } from 'services/StorageService';
 import Logger from 'utilities/Logger';
+import autobind from 'autobind-decorator';
 import cuid from 'cuid';
 
+@autobind
 export default class ModelRepository {
   static async save(model) {
     if (model.id) {
       try {
         return DB.table(this.tableName).where('id', model.id).udpate(model.properties).first();
       } catch (error) {
-        ModelRepository.throwSafeDatabaseError(error);
+        this.throwSafeDatabaseError(error);
       }
     }
 
@@ -28,9 +30,9 @@ export default class ModelRepository {
 
   static async create(properties) {
     try {
-      const id = await ModelRepository.save(this.modelClass.create(properties));
+      const id = await this.save(this.modelClass.create(properties));
 
-      return ModelRepository.get(id);
+      return this.get(id);
     } catch (error) {
       this.throwSafeDatabaseError(error);
     }

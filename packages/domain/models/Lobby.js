@@ -3,10 +3,10 @@ import Model from './Model';
 export default class Lobby extends Model {
   static get defaults() {
     return {
-      id: null,
-      ownerId: null,
+      id: undefined,
+      ownerId: undefined,
       isPublic: true,
-      createdAt: 0,
+      createdAt: undefined,
       maxNumberOfPlayers: 3,
     };
   }

@@ -3,11 +3,11 @@ import Model from './Model';
 export default class User extends Model {
   static get defaults() {
     return {
-      id: null,
+      id: undefined,
       name: '',
       displayName: '',
       avatar: '',
-      createdAt: 0,
+      createdAt: undefined,
     };
   }
 }
