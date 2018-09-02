@@ -1,4 +1,4 @@
-import * as UserService from 'services/UserService';
+import UserService from 'services/UserService';
 import Logger from 'utilities/Logger';
 
 export default function createMiddleware() {

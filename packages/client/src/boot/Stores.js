@@ -9,7 +9,7 @@ export default () => {
   const connectionStore = new ConnectionStore(authStore);
   const routerStore = new RouterStore(authStore);
   const userStore = new UserStore(authStore);
-  const lobbyStore = new LobbyStore();
+  const lobbyStore = new LobbyStore(authStore);
 
   return {
     authStore,

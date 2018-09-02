@@ -3,8 +3,12 @@
 .lobbyAvatarList {
   display: inline-flex;
 
-  > * {
-    margin: 0 $spacer-1;
+  > *:not(:first-child) {
+    margin-left: $spacer-1;
+  }
+
+  > *:not(:last-child) {
+    margin-right: $spacer-1;
   }
 }
 

@@ -1,18 +1,19 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Avatar, Alert, CodeBlock, Heading,
+  Alert, CodeBlock, Heading, Button, LoadingIndicator,
 } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { Lobby, User } from '@grudge/domain';
-import { Button } from '../../../../components/index';
+import autobind from 'autobind-decorator';
 
-@connect(({ lobbyStore }) => ({
+@connect(({ lobbyStore, routerStore }) => ({
   lobby: lobbyStore.lobby,
   users: lobbyStore.users.slice(),
   error: lobbyStore.error,
   leaveLobby: lobbyStore.leaveLobby,
+  navigate: routerStore.navigate,
 }))
 export default class LobbyScreen extends Component {
   static propTypes = {
@@ -20,6 +21,8 @@ export default class LobbyScreen extends Component {
     users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
     error: PropTypes.instanceOf(Error),
     leaveLobby: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
+    lobbyId: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -28,13 +31,37 @@ export default class LobbyScreen extends Component {
     error: null,
   }
 
+  @autobind
+  onClickLeaveLobby() {
+    this.props.leaveLobby();
+    this.props.navigate('lobbies');
+  }
+
   render() {
     const {
       lobby,
+      lobbyId,
       users,
       error,
-      leaveLobby,
     } = this.props;
+
+    if (lobby) {
+      if (lobbyId !== lobby.id) {
+        return (
+          <Page>
+            <Alert>
+              User is already in a lobby;
+            </Alert>
+          </Page>
+        );
+      }
+    } else {
+      return (
+        <Page>
+          <LoadingIndicator/>
+        </Page>
+      );
+    }
 
     return (
       <Page>
@@ -52,7 +79,7 @@ export default class LobbyScreen extends Component {
             {users}
           </CodeBlock>
         )}
-        <Button onClick={leaveLobby}>
+        <Button onClick={this.onClickLeaveLobby}>
           Leave lobby
         </Button>
       </Page>

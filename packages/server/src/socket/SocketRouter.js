@@ -7,6 +7,9 @@ const eventMap = [{
   event: Events.USER_GET,
   handler: UserController.get,
 }, {
+  event: Events.USER_LOBBY_GET,
+  handler: UserController.getLobbyForUser,
+}, {
   event: Events.LOBBY_GET,
   handler: LobbyController.get,
 }, {

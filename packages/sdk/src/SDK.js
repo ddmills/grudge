@@ -67,6 +67,10 @@ export default class SDK {
     return this.query(Events.USER_GET, { userId }).then(ResponseTransformer.toModel(User));
   }
 
+  getLobbyForUser(userId) {
+    return this.query(Events.USER_LOBBY_GET, { userId }).then(ResponseTransformer.toModel(Lobby));
+  }
+
   getLobby(lobbyId) {
     return this.query(Events.LOBBY_GET, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
   }
