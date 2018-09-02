@@ -13,6 +13,8 @@ export default class RedisClient {
     return connect();
   }
 
+  static singleton = connect();
+
   static subscriberSingleton = connect();
 
   static publisherSingleton = connect({ return_buffers: true });

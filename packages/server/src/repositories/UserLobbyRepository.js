@@ -1,20 +1,28 @@
-const userIdByLobby = {};
+import RedisClient from 'providers/redis/RedisClient';
+
+const key = (lobbyId) => `lby-usr:${lobbyId}`;
 
 export default class UserLobbyRepository {
   static async findForLobby(lobbyId) {
-    return Promise.resolve(userIdByLobby[lobbyId] || []);
+    return new Promise((resolve, reject) => {
+      RedisClient.singleton.smembers(key(lobbyId), (error, data) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(data || []);
+        }
+      });
+    });
   }
 
   static async associate(userId, lobbyId) {
-    userIdByLobby[lobbyId] = [...await this.findForLobby(lobbyId), userId];
+    RedisClient.singleton.sadd(key(lobbyId), userId);
 
-    Promise.resolve();
+    return Promise.resolve();
   }
 
   static async disassociate(userId, lobbyId) {
-    const users = await this.findForLobby(lobbyId);
-
-    userIdByLobby[lobbyId] = users.filter((user) => user !== userId);
+    RedisClient.singleton.srem(key(lobbyId), userId);
 
     return Promise.resolve();
   }
