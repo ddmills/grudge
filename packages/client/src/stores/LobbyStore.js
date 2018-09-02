@@ -18,7 +18,6 @@ export default class LobbyStore {
       this.users.push(user);
     });
     sdk.onUserLeftLobby((user) => {
-      console.log('user left', user);
       const filteredUsers = this.users.filter((item) => item.id !== user.id);
 
       this.users.replace(filteredUsers);
@@ -27,6 +26,10 @@ export default class LobbyStore {
 
   @action
   joinLobby(lobbyId) {
+    if (this.lobby) {
+      return;
+    }
+
     this.error = undefined;
     this.lobby = null;
     this.users = [];

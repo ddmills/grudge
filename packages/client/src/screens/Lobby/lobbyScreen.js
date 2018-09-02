@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Avatar, Alert, CodeBlock, Heading } from '@grudge/components';
+import {
+  Avatar, Alert, CodeBlock, Heading,
+} from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { Lobby, User } from '@grudge/domain';
@@ -50,16 +52,6 @@ export default class LobbyScreen extends Component {
             {users}
           </CodeBlock>
         )}
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              <Heading size={4}>
-                {user.displayName}
-              </Heading>
-              <Avatar user={user}/>
-            </li>
-          ))}
-        </ul>
         <Button onClick={leaveLobby}>
           Leave lobby
         </Button>

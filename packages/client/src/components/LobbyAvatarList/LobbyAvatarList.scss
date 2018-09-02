@@ -1,0 +1,24 @@
+@import "@grudge/styles";
+
+.lobbyAvatarList {
+  display: inline-flex;
+
+  > * {
+    margin: 0 $spacer-1;
+  }
+}
+
+.emptySlot {
+  display: inline-flex;
+  width: $spacer-5;
+  height: $spacer-5;
+  overflow: hidden;
+  font-size: 1.25em;
+  font-weight: 800;
+  color: $gray-000;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  background-color: $gray-150;
+  border-radius: 3px;
+}

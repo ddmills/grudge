@@ -2,16 +2,15 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { User } from '@grudge/domain';
 import { Container } from '@grudge/components';
+import ConnectionStatus from 'components/ConnectionStatus/ConnectionStatus';
 import connect from 'utilities/mobx/Connect';
 import styles from './PageSuperHeader.scss';
-import ConnectionStatus from 'components/ConnectionStatus/ConnectionStatus';
 
 @connect(({ userStore }) => ({
   currentUser: userStore.currentUser,
 }))
 export default class PageSuperHeader extends Component {
   static propTypes = {
-    currentUser: PropTypes.instanceOf(User),
     size: PropTypes.oneOf([
       'sm',
       'md',
@@ -22,7 +21,6 @@ export default class PageSuperHeader extends Component {
   }
 
   static defaultProps = {
-    currentUser: undefined,
     size: 'md',
   }
 
