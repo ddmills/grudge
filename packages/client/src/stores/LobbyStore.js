@@ -13,6 +13,9 @@ export default class LobbyStore {
 
   constructor() {
     autorun(() => this.getUsers());
+    sdk.onUserJoinedLobby((user) => {
+      this.users.push(user);
+    });
   }
 
   joinLobby(lobbyId) {

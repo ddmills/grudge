@@ -24,10 +24,10 @@ const eventMap = [{
 }];
 
 export default class SocketRouter {
-  static wrapResponse(socket, handler) {
+  static wrapResponse(handler, socket) {
     return async (params, callback) => {
       try {
-        const result = await handler(params);
+        const result = await handler(params, socket);
 
         callback(null, result);
       } catch (error) {
@@ -40,7 +40,7 @@ export default class SocketRouter {
 
   static attachListeners(socket) {
     eventMap.forEach((mapping) => {
-      socket.on(mapping.event, SocketRouter.wrapResponse(socket, mapping.handler));
+      socket.on(mapping.event, SocketRouter.wrapResponse(mapping.handler, socket));
     });
   }
 }

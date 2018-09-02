@@ -1,8 +1,9 @@
-import { CONNECTION, DISCONNECT } from 'socket/SocketEvents';
+import { CONNECTION } from 'socket/SocketEvents';
 import SocketAuthMiddleware from 'socket/middleware/SocketAuthMiddleware';
 import UserMiddleware from 'socket/middleware/UserMiddleware';
 import LoggingMiddleware from 'socket/middleware/LoggingMiddleware';
-import Logger from 'utilities/Logger';
+import RedisClient from 'providers/redis/RedisClient';
+import RedisAdapter from 'socket.io-redis';
 import SocketRouter from './SocketRouter';
 
 export default function createApp(io) {
@@ -10,9 +11,10 @@ export default function createApp(io) {
   io.use(SocketAuthMiddleware());
   io.use(UserMiddleware());
 
-  io.on(CONNECTION, (socket) => {
-    SocketRouter.attachListeners(socket);
+  io.adapter(RedisAdapter({
+    pubClient: RedisClient.publisherSingleton,
+    subClient: RedisClient.subscriberSingleton,
+  }));
 
-    socket.on(DISCONNECT, () => Logger.info('Authenticated Socket Disconnected', socket.userId));
-  });
+  io.on(CONNECTION, (socket) => SocketRouter.attachListeners(socket));
 }

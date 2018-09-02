@@ -2,10 +2,9 @@
 exports.up = (knex) => {
   return knex.schema.table('users', (t) => {
     t.string('lobbyId')
-      .index()
       .references('id')
       .inTable('lobbies')
-      .onDelete('cascade');
+      .onDelete('SET NULL');
   });
 };
 

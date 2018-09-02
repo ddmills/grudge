@@ -16,6 +16,7 @@ export default class ConnectionStore {
     sdk.onConnected(this.onConnect.bind(this));
     sdk.onDisconnected(this.onDisconnect.bind(this));
     sdk.onError(this.onError.bind(this));
+    sdk.onFlash((data) => console.log('flash', data));
   }
 
   @action

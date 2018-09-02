@@ -1,28 +1,19 @@
-import Redis from 'ioredis';
+import Redis from 'redis';
 import config from 'config';
 
-const redis = new Redis({
+const connect = (overrides = {}) => Redis.createClient({
   port: config.redis.port,
   host: config.redis.host,
   password: config.redis.password,
+  ...overrides,
 });
 
-export async function put(key, data) {
-  const json = JSON.stringify(data);
+export default class RedisClient {
+  static create() {
+    return connect();
+  }
 
-  redis.set(key, json);
+  static subscriberSingleton = connect();
 
-  return Promise.resolve(data);
-}
-
-export async function get(key) {
-  return new Promise((resolve, reject) => {
-    redis.get(key, ((error, data) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(JSON.parse(data));
-      }
-    }));
-  });
+  static publisherSingleton = connect({ return_buffers: true });
 }

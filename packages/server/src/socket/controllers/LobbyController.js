@@ -5,16 +5,16 @@ export default class LobbyController {
     return LobbyService.get(lobbyId);
   }
 
-  static async create({ user, lobbyData }) {
-    return LobbyService.create(user, lobbyData);
+  static async create({ user, lobbyData }, socket) {
+    return LobbyService.create(user, lobbyData, socket);
   }
 
   static async list() {
     return LobbyService.list();
   }
 
-  static async join({ user, lobbyId }) {
-    return LobbyService.join(user, lobbyId);
+  static async join({ user, lobbyId }, socket) {
+    return LobbyService.join(user, lobbyId, socket);
   }
 
   static async getUsersInLobby({ lobbyId }) {

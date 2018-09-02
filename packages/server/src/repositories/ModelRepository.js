@@ -48,7 +48,7 @@ export default class ModelRepository {
       const data = await DB.table(this.tableName).where('id', id).first();
 
       if (!data) {
-        const error = new Error(`Could not find lobby with id ${id}`);
+        const error = new Error(`Could not find ${this.modelClass.name.toLowerCase()} with id ${id}`);
 
         return Promise.reject(error);
       }

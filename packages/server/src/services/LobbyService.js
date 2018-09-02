@@ -1,13 +1,13 @@
 import LobbyRepository from 'repositories/LobbyRepository';
 import UserRepository from 'repositories/UserRepository';
-import Logger from '../utilities/Logger';
+import MessengerService from 'services/MessengerService';
 
 export default class LobbyService {
   static async get(lobbyId) {
     return LobbyRepository.get(lobbyId);
   }
 
-  static async create(user, lobbyData) {
+  static async create(user, lobbyData, socket) {
     if (user.lobbyId) {
       throw new Error('User is currently in a lobby');
     }
@@ -17,17 +17,14 @@ export default class LobbyService {
       ownerId: user.id,
     });
 
-    Logger.info('LobbyService.create');
-    Logger.json(lobby.properties);
-
-    return this.join(user, lobby.id);
+    return this.join(user, lobby.id, socket);
   }
 
   static async list() {
     return LobbyRepository.list();
   }
 
-  static async join(user, lobbyId) {
+  static async join(user, lobbyId, socket) {
     if (user.lobbyId) {
       if (user.lobbyId === lobbyId) {
         return LobbyRepository.get(lobbyId);
@@ -38,8 +35,8 @@ export default class LobbyService {
 
     await UserRepository.save(user.clone({ lobbyId }));
 
-    Logger.info('LobbyService.join', lobbyId);
-    Logger.json(user);
+    socket.join(lobbyId);
+    MessengerService.onUserJoinedLobby(lobbyId, user);
 
     return LobbyRepository.get(lobbyId);
   }

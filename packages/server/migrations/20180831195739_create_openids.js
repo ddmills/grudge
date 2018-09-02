@@ -3,6 +3,7 @@ exports.up = (knex) => {
   return knex.schema.createTable('openids', (t) => {
     t.string('id').notNull().primary();
     t.string('userId')
+      .index()
       .references('id')
       .inTable('users')
       .notNull()
