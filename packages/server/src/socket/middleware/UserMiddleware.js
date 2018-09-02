@@ -2,7 +2,11 @@ import * as UserService from 'services/UserService';
 import Logger from 'utilities/Logger';
 
 export default function createMiddleware() {
-  return (socket, nextIO) => {
+  return async (socket, nextIO) => {
+    Object.assign(socket, {
+      user: await UserService.get(socket.userId),
+    });
+
     socket.use(async (packet, next) => {
       try {
         const user = await UserService.get(socket.userId);
