@@ -10,6 +10,7 @@ export default class EventMap {
       new EventHook(Events.DISCONNECTED, 'onDisconnected'),
       new EventHook(Events.ERROR, 'onError'),
       new EventHook(Events.LOBBY_USER_JOINED, 'onUserJoinedLobby', ResponseTransformer.toModel(User)),
+      new EventHook(Events.LOBBY_USER_LEFT, 'onUserLeftLobby', ResponseTransformer.toModel(User)),
       new EventHook(Events.FLASH, 'onFlash'),
     ];
   }

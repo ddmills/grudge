@@ -21,6 +21,9 @@ const eventMap = [{
 }, {
   event: Events.LOBBY_JOIN,
   handler: LobbyController.join,
+}, {
+  event: Events.LOBBY_LEAVE,
+  handler: LobbyController.leave,
 }];
 
 export default class SocketRouter {

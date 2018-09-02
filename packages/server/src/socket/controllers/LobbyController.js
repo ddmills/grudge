@@ -17,6 +17,10 @@ export default class LobbyController {
     return LobbyService.join(user, lobbyId, socket);
   }
 
+  static async leave({ user }, socket) {
+    return LobbyService.leave(user, socket);
+  }
+
   static async getUsersInLobby({ lobbyId }) {
     return LobbyService.getUsersInLobby(lobbyId);
   }

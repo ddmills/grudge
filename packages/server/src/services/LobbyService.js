@@ -41,6 +41,19 @@ export default class LobbyService {
     return LobbyRepository.get(lobbyId);
   }
 
+  static async leave(user, socket) {
+    const { lobbyId } = user;
+
+    if (!lobbyId) {
+      return;
+    }
+
+    await UserRepository.save(user.clone({ lobbyId: null }));
+
+    socket.leave(lobbyId);
+    MessengerService.onUserLeftLobby(lobbyId, user);
+  }
+
   static async getUsersInLobby(lobbyId) {
     return UserRepository.where({ lobbyId });
   }

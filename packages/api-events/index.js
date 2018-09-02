@@ -11,4 +11,6 @@ export const LOBBY_USERS_GET = 'lobby/users/get';
 export const LOBBY_CREATE = 'lobby/create';
 export const LOBBY_LIST = 'lobby/list';
 export const LOBBY_JOIN = 'lobby/join';
+export const LOBBY_LEAVE = 'lobby/leave';
 export const LOBBY_USER_JOINED = 'lobby/users/joined';
+export const LOBBY_USER_LEFT = 'lobby/users/left';

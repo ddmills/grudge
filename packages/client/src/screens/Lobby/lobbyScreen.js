@@ -4,17 +4,20 @@ import { Avatar, Alert, CodeBlock, Heading } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { Lobby, User } from '@grudge/domain';
+import { Button } from '../../../../components/index';
 
 @connect(({ lobbyStore }) => ({
   lobby: lobbyStore.lobby,
   users: lobbyStore.users.slice(),
   error: lobbyStore.error,
+  leaveLobby: lobbyStore.leaveLobby,
 }))
 export default class LobbyScreen extends Component {
   static propTypes = {
     lobby: PropTypes.instanceOf(Lobby),
     users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
     error: PropTypes.instanceOf(Error),
+    leaveLobby: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -28,6 +31,7 @@ export default class LobbyScreen extends Component {
       lobby,
       users,
       error,
+      leaveLobby,
     } = this.props;
 
     return (
@@ -56,6 +60,9 @@ export default class LobbyScreen extends Component {
             </li>
           ))}
         </ul>
+        <Button onClick={leaveLobby}>
+          Leave lobby
+        </Button>
       </Page>
     );
   }

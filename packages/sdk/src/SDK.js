@@ -86,4 +86,8 @@ export default class SDK {
   joinLobby(lobbyId) {
     return this.query(Events.LOBBY_JOIN, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
   }
+
+  leaveLobby() {
+    return this.query(Events.LOBBY_LEAVE);
+  }
 }

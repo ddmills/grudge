@@ -9,4 +9,8 @@ export default class MessengerService {
   static onUserJoinedLobby(lobbyId, user) {
     SocketEmitter.to(lobbyId).emit(Events.LOBBY_USER_JOINED, user.properties);
   }
+
+  static onUserLeftLobby(lobbyId, user) {
+    SocketEmitter.to(lobbyId).emit(Events.LOBBY_USER_LEFT, user.properties);
+  }
 }
