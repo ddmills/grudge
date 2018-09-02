@@ -1,12 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { User, Lobby } from '@grudge/domain';
-import { Avatar, Container } from '@grudge/components';
-import Link from 'components/Link/Link';
+import { Container } from '@grudge/components';
 import LobbyAvatarList from 'components/LobbyAvatarList/LobbyAvatarList';
 import connect from 'utilities/mobx/Connect';
 import styles from './LobbyHeader.scss';
-import { Heading } from '../../../../components/index';
 
 @connect(({ lobbyStore }) => ({
   lobby: lobbyStore.lobby,
@@ -47,7 +45,7 @@ export default class LobbyHeader extends Component {
 
     return (
       <header className={styles.lobbyHeaderBanner}>
-        <Container size={size} className={styles.lobbyHeader}>
+        <Container size={size}>
           <LobbyAvatarList users={users} maxUsers={lobby.maxNumberOfPlayers}/>
         </Container>
       </header>

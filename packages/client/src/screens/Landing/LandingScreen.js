@@ -27,9 +27,6 @@ export default class LandingScreen extends Component {
           <ButtonLink to="lobbies">
             Join a game
           </ButtonLink>
-          <ButtonLink to="profile" params={{ userId: 'user-1' }}>
-            User Profile
-          </ButtonLink>
           <ButtonLink to="/profile/666" color="red">
             No user
           </ButtonLink>

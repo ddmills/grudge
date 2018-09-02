@@ -45,12 +45,13 @@ export default class ProfileScreen extends Component {
     return (
       <Page>
         <Heading>
+          {user && <Avatar user={user}/>}
+          {' '}
           {user && user.displayName}
         </Heading>
         <p>
           {user && user.name}
         </p>
-        {user && <Avatar user={user}/>}
         {user && <CodeBlock>{user}</CodeBlock>}
         <LoadingIndicator isVisible={!user && !error}/>
         <Alert error={error}/>

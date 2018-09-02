@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from '@grudge/components';
 import connect from 'utilities/mobx/Connect';
-import ConnectionStatus from 'components/ConnectionStatus/ConnectionStatus';
 import ButtonLink from 'components/ButtonLink/ButtonLink';
 import Link from 'components/Link/Link';
 import styles from './PageFooter.scss';
