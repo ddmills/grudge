@@ -1,15 +1,16 @@
 import LobbyRepository from 'repositories/LobbyRepository';
 import UserRepository from 'repositories/UserRepository';
-import MessengerService from 'services/MessengerService';
+import UserLobbyRepository from 'repositories/UserLobbyRepository';
+import NotificationService from 'services/NotificationService';
 
 export default class LobbyService {
   static async get(lobbyId) {
     return LobbyRepository.get(lobbyId);
   }
 
-  static async create(user, lobbyData, socket) {
+  static async create(user, lobbyData) {
     if (user.lobbyId) {
-      throw new Error('User is currently in a lobby');
+      throw new Error('User is already in a lobby');
     }
 
     const lobby = await LobbyRepository.create({
@@ -17,14 +18,14 @@ export default class LobbyService {
       ownerId: user.id,
     });
 
-    return this.join(user, lobby.id, socket);
+    return this.join(user, lobby.id);
   }
 
   static async list() {
     return LobbyRepository.list();
   }
 
-  static async join(user, lobbyId, socket) {
+  static async join(user, lobbyId) {
     if (user.lobbyId) {
       if (user.lobbyId === lobbyId) {
         return LobbyRepository.get(lobbyId);
@@ -33,15 +34,17 @@ export default class LobbyService {
       throw new Error('User is already in a lobby');
     }
 
+    const lobby = await LobbyRepository.get(lobbyId);
     await UserRepository.save(user.clone({ lobbyId }));
 
-    socket.join(lobbyId);
-    MessengerService.onUserJoinedLobby(lobbyId, user);
+    await UserLobbyRepository.associateWithLobby(lobby.id, user.id);
 
-    return LobbyRepository.get(lobbyId);
+    NotificationService.onUserJoinedLobby(lobby, user);
+
+    return lobby;
   }
 
-  static async leave(user, socket) {
+  static async leave(user) {
     const { lobbyId } = user;
 
     if (!lobbyId) {
@@ -50,8 +53,10 @@ export default class LobbyService {
 
     await UserRepository.save(user.clone({ lobbyId: null }));
 
-    socket.leave(lobbyId);
-    MessengerService.onUserLeftLobby(lobbyId, user);
+    const lobby = await LobbyRepository.get(lobbyId);
+
+    await UserLobbyRepository.disassociateWithLobby(lobby.id, user.id);
+    NotificationService.onUserLeftLobby(lobby, user);
   }
 
   static async getUsersInLobby(lobbyId) {

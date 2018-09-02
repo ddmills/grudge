@@ -1,16 +1,6 @@
 export default function createMiddleware() {
   return (socket, next) => {
-    const {
-      lobbyId,
-      id: userId,
-    } = socket.user;
-
-    socket.join(userId);
-
-    if (lobbyId) {
-      socket.join(lobbyId);
-    }
-
+    socket.join(socket.user.id);
     next();
   };
 }

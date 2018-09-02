@@ -19,6 +19,9 @@ export default class LobbyStore {
     sdk.onUserJoinedLobby(this.addUser);
     sdk.onUserLeftLobby(this.removeUser);
 
+    sdk.onJoinedLobby(this.setLobby);
+    sdk.onLeftLobby(() => this.setLobby(null));
+
     autorun(this.getCurrentLobby);
     autorun(this.getUsers);
   }
