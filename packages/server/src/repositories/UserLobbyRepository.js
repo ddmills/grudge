@@ -5,13 +5,13 @@ export default class UserLobbyRepository {
     return Promise.resolve(userIdByLobby[lobbyId] || []);
   }
 
-  static async associateWithLobby(lobbyId, userId) {
+  static async associate(userId, lobbyId) {
     userIdByLobby[lobbyId] = [...await this.findForLobby(lobbyId), userId];
 
     Promise.resolve();
   }
 
-  static async disassociateWithLobby(lobbyId, userId) {
+  static async disassociate(userId, lobbyId) {
     const users = await this.findForLobby(lobbyId);
 
     userIdByLobby[lobbyId] = users.filter((user) => user !== userId);

@@ -1,6 +1,5 @@
 import LobbyRepository from 'repositories/LobbyRepository';
 import UserRepository from 'repositories/UserRepository';
-import UserLobbyRepository from 'repositories/UserLobbyRepository';
 import NotificationService from 'services/NotificationService';
 
 export default class LobbyService {
@@ -34,10 +33,9 @@ export default class LobbyService {
       throw new Error('User is already in a lobby');
     }
 
-    const lobby = await LobbyRepository.get(lobbyId);
-    await UserRepository.save(user.clone({ lobbyId }));
+    await UserRepository.addUserToLobby(user, lobbyId);
 
-    await UserLobbyRepository.associateWithLobby(lobby.id, user.id);
+    const lobby = await LobbyRepository.get(lobbyId);
 
     NotificationService.onUserJoinedLobby(lobby, user);
 
@@ -51,12 +49,13 @@ export default class LobbyService {
       return;
     }
 
-    await UserRepository.save(user.clone({ lobbyId: null }));
+    await UserRepository.removeUserFromLobby(user);
 
     const lobby = await LobbyRepository.get(lobbyId);
 
-    await UserLobbyRepository.disassociateWithLobby(lobby.id, user.id);
     NotificationService.onUserLeftLobby(lobby, user);
+
+    return lobby;
   }
 
   static async getUsersInLobby(lobbyId) {
