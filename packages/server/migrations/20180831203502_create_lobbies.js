@@ -8,7 +8,7 @@ exports.up = (knex) => {
       .notNull();
     t.boolean('isPublic').defaultTo(true);
     t.integer('maxNumberOfPlayers').defaultTo(3);
-    t.dateTime('createdAt').defaultTo(knex.fn.now(6));
+    t.timestamp('createdAt').notNull().defaultTo(knex.fn.now());
   });
 };
 

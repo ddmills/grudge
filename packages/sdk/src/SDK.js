@@ -87,8 +87,8 @@ export default class SDK {
     return this.query(Events.LOBBY_CREATE).then(ResponseTransformer.toModel(Lobby));
   }
 
-  startLobby() {
-    return this.query(Events.LOBBY_START);
+  startLobbyCountdown() {
+    return this.query(Events.LOBBY_COUNTDOWN_START);
   }
 
   joinLobby(lobbyId) {

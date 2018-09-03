@@ -11,7 +11,7 @@ exports.up = (knex) => {
     t.string('identityUrl').notNull();
     t.string('provider').notNull();
     t.string('providerId').notNull();
-    t.dateTime('createdAt').defaultTo(knex.fn.now(6));
+    t.timestamp('createdAt').notNull().defaultTo(knex.fn.now(6));
   });
 };
 

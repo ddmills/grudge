@@ -22,7 +22,7 @@ export default class LobbyList extends Component {
       );
     }
 
-    const byTimestamp = (a, b) => b.createdTimestamp - a.createdTimestamp;
+    const byTimestamp = (a, b) => b.createdAt - a.createdAt;
 
     return (
       <List>
@@ -30,7 +30,7 @@ export default class LobbyList extends Component {
           <ListItem key={lobby.id}>
             {lobby.id}
             {' '}
-            {(new Date(lobby.createdTimestamp)).toString()}
+            {(new Date(lobby.createdAt)).toString()}
             <ButtonLink to="lobby" params={{ lobbyId: lobby.id }}>
               join
             </ButtonLink>

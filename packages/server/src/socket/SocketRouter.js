@@ -19,8 +19,8 @@ const eventMap = [{
   event: Events.LOBBY_CREATE,
   handler: LobbyController.create,
 }, {
-  event: Events.LOBBY_START,
-  handler: LobbyController.start,
+  event: Events.LOBBY_COUNTDOWN_START,
+  handler: LobbyController.startCountdown,
 }, {
   event: Events.LOBBY_LIST,
   handler: LobbyController.list,

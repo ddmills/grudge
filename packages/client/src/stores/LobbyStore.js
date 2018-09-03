@@ -21,7 +21,7 @@ export default class LobbyStore {
 
     sdk.onJoinedLobby(this.setLobby);
     sdk.onLeftLobby(() => this.setLobby(null));
-    sdk.onLobbyStarted(this.setLobby);
+    sdk.onLobbyCountdownStarted(this.setLobby);
 
     autorun(this.getCurrentLobby);
     autorun(this.getUsers);
@@ -60,7 +60,7 @@ export default class LobbyStore {
     }
   }
 
-  startLobby = () => sdk.startLobby();
+  startLobbyCountdown = () => sdk.startLobbyCountdown();
 
   joinLobby(lobbyId) {
     if (!this.lobby) {

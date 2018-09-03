@@ -13,7 +13,7 @@ import autobind from 'autobind-decorator';
   users: lobbyStore.users.slice(),
   error: lobbyStore.error,
   leaveLobby: lobbyStore.leaveLobby,
-  startLobby: lobbyStore.startLobby,
+  startLobbyCountdown: lobbyStore.startLobbyCountdown,
   navigate: routerStore.navigate,
 }))
 export default class LobbyScreen extends Component {
@@ -22,7 +22,7 @@ export default class LobbyScreen extends Component {
     users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
     error: PropTypes.instanceOf(Error),
     leaveLobby: PropTypes.func.isRequired,
-    startLobby: PropTypes.func.isRequired,
+    startLobbyCountdown: PropTypes.func.isRequired,
     navigate: PropTypes.func.isRequired,
     lobbyId: PropTypes.string.isRequired,
   }
@@ -45,7 +45,7 @@ export default class LobbyScreen extends Component {
       lobbyId,
       users,
       error,
-      startLobby,
+      startLobbyCountdown,
     } = this.props;
 
     if (lobby) {
@@ -85,7 +85,7 @@ export default class LobbyScreen extends Component {
         <Button onClick={this.onClickLeaveLobby}>
           Leave lobby
         </Button>
-        <Button onClick={startLobby}>
+        <Button onClick={startLobbyCountdown}>
           Start lobby
         </Button>
       </Page>

@@ -5,7 +5,7 @@ exports.up = (knex) => {
     t.string('name');
     t.string('displayName');
     t.string('avatar');
-    t.dateTime('createdAt').defaultTo(knex.fn.now(6));
+    t.timestamp('createdAt').notNull().defaultTo(knex.fn.now(6));
   });
 };
 

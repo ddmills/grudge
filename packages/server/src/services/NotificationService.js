@@ -31,7 +31,7 @@ export default class NotificationService {
     this.notifyUser(user.id, Events.LOBBY_LEFT, lobby.properties);
   }
 
-  static onLobbyStarted(lobby) {
-    this.notifyLobby(lobby.id, Events.LOBBY_STARTED, lobby.properties);
+  static onLobbyCountdownStarted(lobby) {
+    this.notifyLobby(lobby.id, Events.LOBBY_COUNTDOWN_STARTED, lobby.properties);
   }
 }

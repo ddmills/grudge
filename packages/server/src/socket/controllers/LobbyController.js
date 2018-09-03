@@ -9,8 +9,8 @@ export default class LobbyController {
     return LobbyService.create(user);
   }
 
-  static async start({ user }) {
-    return LobbyService.start(user);
+  static async startCountdown({ user }) {
+    return LobbyService.startCountdown(user);
   }
 
   static async list() {

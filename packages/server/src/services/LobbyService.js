@@ -1,7 +1,7 @@
 import LobbyRepository from 'repositories/LobbyRepository';
 import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
-import Logger from 'utilities/Logger';
+import timestamp from 'utilities/Timestamp';
 
 export default class LobbyService {
   static async get(lobbyId) {
@@ -20,11 +20,11 @@ export default class LobbyService {
     return this.join(user, lobby.id);
   }
 
-  static async start(user) {
+  static async startCountdown(user) {
     const lobby = await LobbyRepository.get(user.lobbyId);
 
-    if (lobby.isStarted) {
-      throw new Error('Lobby has already started');
+    if (lobby.countdownStartedAt) {
+      throw new Error('Lobby countdown has already started');
     }
 
     if (lobby.ownerId !== user.id) {
@@ -32,12 +32,12 @@ export default class LobbyService {
     }
 
     await LobbyRepository.save(lobby.clone({
-      isStarted: true,
+      countdownStartedAt: timestamp(),
     }));
 
     const updatedLobby = await LobbyRepository.get(lobby.id);
 
-    NotificationService.onLobbyStarted(updatedLobby);
+    NotificationService.onLobbyCountdownStarted(updatedLobby);
   }
 
   static async list() {
