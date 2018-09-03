@@ -5,8 +5,12 @@ export default class LobbyController {
     return LobbyService.get(lobbyId);
   }
 
-  static async create({ user, lobbyData }) {
-    return LobbyService.create(user, lobbyData);
+  static async create({ user }) {
+    return LobbyService.create(user);
+  }
+
+  static async start({ user }) {
+    return LobbyService.start(user);
   }
 
   static async list() {

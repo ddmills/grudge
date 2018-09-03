@@ -1,23 +1,43 @@
 import LobbyRepository from 'repositories/LobbyRepository';
 import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
+import Logger from 'utilities/Logger';
 
 export default class LobbyService {
   static async get(lobbyId) {
     return LobbyRepository.get(lobbyId);
   }
 
-  static async create(user, lobbyData) {
+  static async create(user) {
     if (user.lobbyId) {
       throw new Error('User is already in a lobby');
     }
 
     const lobby = await LobbyRepository.create({
-      ...lobbyData,
       ownerId: user.id,
     });
 
     return this.join(user, lobby.id);
+  }
+
+  static async start(user) {
+    const lobby = await LobbyRepository.get(user.lobbyId);
+
+    if (lobby.isStarted) {
+      throw new Error('Lobby has already started');
+    }
+
+    if (lobby.ownerId !== user.id) {
+      throw new Error('User does not have permission to start the lobby');
+    }
+
+    await LobbyRepository.save(lobby.clone({
+      isStarted: true,
+    }));
+
+    const updatedLobby = await LobbyRepository.get(lobby.id);
+
+    NotificationService.onLobbyStarted(updatedLobby);
   }
 
   static async list() {

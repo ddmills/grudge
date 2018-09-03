@@ -21,6 +21,7 @@ export default class LobbyStore {
 
     sdk.onJoinedLobby(this.setLobby);
     sdk.onLeftLobby(() => this.setLobby(null));
+    sdk.onLobbyStarted(this.setLobby);
 
     autorun(this.getCurrentLobby);
     autorun(this.getUsers);
@@ -58,6 +59,8 @@ export default class LobbyStore {
       sdk.getLobbyForUser(this.authStore.userId).then(this.setLobby).catch(this.setError);
     }
   }
+
+  startLobby = () => sdk.startLobby();
 
   joinLobby(lobbyId) {
     if (!this.lobby) {

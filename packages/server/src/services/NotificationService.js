@@ -1,11 +1,13 @@
 import SocketEmitter from 'providers/socketio/SocketEmitter';
 import UserLobbyRepository from 'repositories/UserLobbyRepository';
 import * as Events from '@grudge/api-events';
+import autobind from 'autobind-decorator';
 
 setInterval(() => {
   SocketEmitter.emit(Events.FLASH, Date.now());
 }, 60000);
 
+@autobind
 export default class NotificationService {
   static notifyUser(userId, event, data) {
     SocketEmitter.to(userId).emit(event, data);
@@ -27,5 +29,9 @@ export default class NotificationService {
   static onUserLeftLobby(lobby, user) {
     this.notifyLobby(lobby.id, Events.LOBBY_USER_LEFT, user.properties);
     this.notifyUser(user.id, Events.LOBBY_LEFT, lobby.properties);
+  }
+
+  static onLobbyStarted(lobby) {
+    this.notifyLobby(lobby.id, Events.LOBBY_STARTED, lobby.properties);
   }
 }

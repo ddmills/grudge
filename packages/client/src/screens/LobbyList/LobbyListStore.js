@@ -17,9 +17,7 @@ export default class LobbyListStore {
 
   @autobind
   createLobby() {
-    sdk.createLobby({
-      isPublic: true,
-    }).then(action((lobby) => {
+    sdk.createLobby().then(action((lobby) => {
       this.lobbies.unshift(lobby);
     }));
   }

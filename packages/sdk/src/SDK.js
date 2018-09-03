@@ -83,8 +83,12 @@ export default class SDK {
     return this.query(Events.LOBBY_LIST).then(ResponseTransformer.toModel(Lobby));
   }
 
-  createLobby(lobbyData) {
-    return this.query(Events.LOBBY_CREATE, { lobbyData }).then(ResponseTransformer.toModel(Lobby));
+  createLobby() {
+    return this.query(Events.LOBBY_CREATE).then(ResponseTransformer.toModel(Lobby));
+  }
+
+  startLobby() {
+    return this.query(Events.LOBBY_START);
   }
 
   joinLobby(lobbyId) {

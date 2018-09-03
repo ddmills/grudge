@@ -6,6 +6,7 @@ export default class Lobby extends Model {
       id: undefined,
       ownerId: undefined,
       isPublic: true,
+      isStarted: false,
       createdAt: undefined,
       maxNumberOfPlayers: 3,
     };
