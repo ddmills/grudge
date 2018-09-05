@@ -1,6 +1,7 @@
 import { autorun, action, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
+import MobXCountdownTimer from 'utilities/mobx/MobXCountdownTimer';
 
 @autobind
 export default class LobbyStore {
@@ -13,6 +14,9 @@ export default class LobbyStore {
   @observable
   error = null;
 
+  @observable
+  timer = new MobXCountdownTimer(30000);
+
   constructor(authStore) {
     this.authStore = authStore;
 
@@ -21,7 +25,7 @@ export default class LobbyStore {
 
     sdk.onJoinedLobby(this.setLobby);
     sdk.onLeftLobby(() => this.setLobby(null));
-    sdk.onLobbyCountdownStarted(this.setLobby);
+    sdk.onLobbyCountdownStarted(this.onLobbyCountdownStarted);
 
     autorun(this.getCurrentLobby);
     autorun(this.getUsers);
@@ -52,6 +56,13 @@ export default class LobbyStore {
   @action
   setLobby(lobby = null) {
     this.lobby = lobby;
+  }
+
+  @action
+  onLobbyCountdownStarted(lobby) {
+    this.setLobby(lobby);
+
+    this.timer.start(lobby.countdownStartedAtMs);
   }
 
   getCurrentLobby() {

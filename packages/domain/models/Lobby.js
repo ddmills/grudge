@@ -12,4 +12,12 @@ export default class Lobby extends Model {
       maxNumberOfPlayers: 3,
     };
   }
+
+  get countdownStartedAtMs() {
+    if (this.countdownStartedAt) {
+      return (new Date(this.countdownStartedAt)).getTime();
+    }
+
+    return -1;
+  }
 }

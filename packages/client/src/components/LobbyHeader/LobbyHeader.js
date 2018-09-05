@@ -9,6 +9,7 @@ import styles from './LobbyHeader.scss';
 @connect(({ lobbyStore }) => ({
   lobby: lobbyStore.lobby,
   users: lobbyStore.users,
+  lobbyCountdown: lobbyStore.timer.display,
 }))
 export default class LobbyHeader extends Component {
   static propTypes = {
@@ -22,6 +23,7 @@ export default class LobbyHeader extends Component {
     lobby: PropTypes.instanceOf(Lobby),
     users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
     isVisible: PropTypes.bool,
+    lobbyCountdown: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -37,6 +39,7 @@ export default class LobbyHeader extends Component {
       isVisible,
       lobby,
       users,
+      lobbyCountdown,
     } = this.props;
 
     if (!lobby || !isVisible) {
@@ -47,6 +50,9 @@ export default class LobbyHeader extends Component {
       <header className={styles.lobbyHeaderBanner}>
         <Container size={size}>
           <LobbyAvatarList users={users} maxUsers={lobby.maxNumberOfPlayers}/>
+          <span>
+            {lobbyCountdown}
+          </span>
         </Container>
       </header>
     );
