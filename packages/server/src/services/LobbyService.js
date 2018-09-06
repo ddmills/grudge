@@ -83,6 +83,8 @@ export default class LobbyService {
   }
 
   static async leave(user) {
+    await this.stopCountdown(user);
+
     const { lobbyId } = user;
 
     if (!lobbyId) {
