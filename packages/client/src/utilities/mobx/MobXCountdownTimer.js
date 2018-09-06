@@ -7,23 +7,23 @@ export default class MobXCountdownTimer {
 
   @observable lastUpdateTimeMs = 0;
 
-  @observable maxTimeMs = 30000;
+  @observable durationMs = 30000;
 
   @observable updateFrequencyMs = 10;
 
   @observable isRunning = false;
 
-  constructor(maxTimeMs, updateFrequencyMs = 10) {
-    this.maxTimeMs = maxTimeMs;
+  constructor(updateFrequencyMs = 10) {
     this.updateFrequencyMs = updateFrequencyMs;
   }
 
   @action
-  start(startTimeMs) {
+  start(startTimeMs, durationMs) {
     if (!this.isRunning) {
       this.reset();
-      this.isRunning = true;
+      this.durationMs = durationMs;
       this.startTimeMs = startTimeMs || Date.now();
+      this.isRunning = true;
       this.update();
     }
   }
@@ -55,7 +55,7 @@ export default class MobXCountdownTimer {
 
   @computed
   get millisecondsRemaining() {
-    const differencMs = this.maxTimeMs - this.millisecondsPassed;
+    const differencMs = this.durationMs - this.millisecondsPassed;
 
     return differencMs > 0 ? differencMs : 0;
   }

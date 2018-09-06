@@ -8,6 +8,7 @@ export default class Lobby extends Model {
       isPublic: true,
       isStarted: false,
       createdAt: undefined,
+      countdownDuration: 10000,
       countdownStartedAt: undefined,
       maxNumberOfPlayers: 3,
     };
