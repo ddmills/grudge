@@ -47,7 +47,7 @@ export default class LobbyService {
       throw new Error('Lobby has already started');
     }
 
-    if (!lobby.countdownStartedAt) {
+    if (!lobby.isCountdownStarted) {
       return lobby;
     }
 

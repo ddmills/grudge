@@ -26,7 +26,7 @@ export default class LobbyStore {
 
   @computed
   get isLobbyCountdownStarted() {
-    return this.lobby && this.lobby.countdownStartedAt;
+    return this.lobby && this.lobby.isCountdownStarted;
   }
 
   constructor(authStore) {
