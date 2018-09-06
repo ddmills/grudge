@@ -20,16 +20,16 @@ export default class LobbyStore {
   constructor(authStore) {
     this.authStore = authStore;
 
-    sdk.onUserJoinedLobby(this.addUser);
-    sdk.onUserLeftLobby(this.removeUser);
-
     sdk.onJoinedLobby(this.setLobby);
     sdk.onLeftLobby(() => this.setLobby(null));
-    sdk.onLobbyCountdownStarted(this.onLobbyCountdownStarted);
-    sdk.onLobbyCountdownStopped(this.onLobbyCountdownStopped);
+    sdk.onUserJoinedLobby(this.addUser);
+    sdk.onUserLeftLobby(this.removeUser);
+    sdk.onLobbyCountdownStarted(this.setLobby);
+    sdk.onLobbyCountdownStopped(this.setLobby);
 
     autorun(this.getCurrentLobby);
     autorun(this.getUsers);
+    autorun(this.configureTimer);
   }
 
   @action
@@ -59,18 +59,12 @@ export default class LobbyStore {
     this.lobby = lobby;
   }
 
-  @action
-  onLobbyCountdownStarted(lobby) {
-    this.setLobby(lobby);
-
-    this.timer.start(lobby.countdownStartedAtMs);
-  }
-
-  @action
-  onLobbyCountdownStopped(lobby) {
-    this.setLobby(lobby);
-
-    this.timer.reset();
+  configureTimer() {
+    if (this.lobby && this.lobby.countdownStartedAt) {
+      this.timer.start(this.lobby.countdownStartedAtMs);
+    } else {
+      this.timer.reset();
+    }
   }
 
   getCurrentLobby() {
