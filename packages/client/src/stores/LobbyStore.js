@@ -1,4 +1,4 @@
-import { autorun, action, observable } from 'mobx';
+import { autorun, action, observable, computed } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
 import MobXCountdownTimer from 'utilities/mobx/MobXCountdownTimer';
@@ -16,6 +16,16 @@ export default class LobbyStore {
 
   @observable
   timer = new MobXCountdownTimer(12000);
+
+  @computed
+  get isLobbyOwner() {
+    return this.lobby && this.lobby.ownerId === this.authStore.userId;
+  }
+
+  @computed
+  get isLobbyCountdownStarted() {
+    return this.lobby && this.lobby.countdownStartedAt;
+  }
 
   constructor(authStore) {
     this.authStore = authStore;
@@ -60,7 +70,7 @@ export default class LobbyStore {
   }
 
   configureTimer() {
-    if (this.lobby && this.lobby.countdownStartedAt) {
+    if (this.isLobbyCountdownStarted) {
       this.timer.start(this.lobby.countdownStartedAtMs);
     } else {
       this.timer.reset();
@@ -73,9 +83,23 @@ export default class LobbyStore {
     }
   }
 
-  startLobbyCountdown = () => sdk.startLobbyCountdown();
+  @computed
+  get startLobbyCountdown() {
+    if (this.isLobbyOwner && !this.isLobbyCountdownStarted) {
+      return () => sdk.startLobbyCountdown();
+    }
 
-  stopLobbyCountdown = () => sdk.stopLobbyCountdown();
+    return undefined;
+  }
+
+  @computed
+  get stopLobbyCountdown() {
+    if (this.isLobbyCountdownStarted) {
+      return () => sdk.stopLobbyCountdown();
+    }
+
+    return undefined;
+  }
 
   joinLobby(lobbyId) {
     if (!this.lobby) {

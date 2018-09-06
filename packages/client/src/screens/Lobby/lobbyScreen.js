@@ -23,8 +23,8 @@ export default class LobbyScreen extends Component {
     users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
     error: PropTypes.instanceOf(Error),
     leaveLobby: PropTypes.func.isRequired,
-    startLobbyCountdown: PropTypes.func.isRequired,
-    stopLobbyCountdown: PropTypes.func.isRequired,
+    startLobbyCountdown: PropTypes.func,
+    stopLobbyCountdown: PropTypes.func,
     navigate: PropTypes.func.isRequired,
     lobbyId: PropTypes.string.isRequired,
   }
@@ -33,6 +33,8 @@ export default class LobbyScreen extends Component {
     lobby: null,
     users: [],
     error: null,
+    startLobbyCountdown: null,
+    stopLobbyCountdown: null,
   }
 
   @autobind
@@ -88,12 +90,16 @@ export default class LobbyScreen extends Component {
         <Button onClick={this.onClickLeaveLobby}>
           Leave lobby
         </Button>
-        <Button onClick={startLobbyCountdown}>
-          Start lobby
-        </Button>
-        <Button onClick={stopLobbyCountdown}>
-          Cancel Countdown
-        </Button>
+        {startLobbyCountdown && (
+          <Button onClick={startLobbyCountdown}>
+            Start lobby
+          </Button>
+        )}
+        {stopLobbyCountdown && (
+          <Button onClick={stopLobbyCountdown}>
+            Cancel Countdown
+          </Button>
+        )}
       </Page>
     );
   }
