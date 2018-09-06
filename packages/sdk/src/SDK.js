@@ -91,6 +91,10 @@ export default class SDK {
     return this.query(Events.LOBBY_COUNTDOWN_START);
   }
 
+  stopLobbyCountdown() {
+    return this.query(Events.LOBBY_COUNTDOWN_STOP);
+  }
+
   joinLobby(lobbyId) {
     return this.query(Events.LOBBY_JOIN, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
   }

@@ -22,6 +22,9 @@ const eventMap = [{
   event: Events.LOBBY_COUNTDOWN_START,
   handler: LobbyController.startCountdown,
 }, {
+  event: Events.LOBBY_COUNTDOWN_STOP,
+  handler: LobbyController.stopCountdown,
+}, {
   event: Events.LOBBY_LIST,
   handler: LobbyController.list,
 }, {

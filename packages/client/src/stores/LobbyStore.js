@@ -15,7 +15,7 @@ export default class LobbyStore {
   error = null;
 
   @observable
-  timer = new MobXCountdownTimer(30000);
+  timer = new MobXCountdownTimer(12000);
 
   constructor(authStore) {
     this.authStore = authStore;
@@ -26,6 +26,7 @@ export default class LobbyStore {
     sdk.onJoinedLobby(this.setLobby);
     sdk.onLeftLobby(() => this.setLobby(null));
     sdk.onLobbyCountdownStarted(this.onLobbyCountdownStarted);
+    sdk.onLobbyCountdownStopped(this.onLobbyCountdownStopped);
 
     autorun(this.getCurrentLobby);
     autorun(this.getUsers);
@@ -65,6 +66,13 @@ export default class LobbyStore {
     this.timer.start(lobby.countdownStartedAtMs);
   }
 
+  @action
+  onLobbyCountdownStopped(lobby) {
+    this.setLobby(lobby);
+
+    this.timer.reset();
+  }
+
   getCurrentLobby() {
     if (this.authStore.userId) {
       sdk.getLobbyForUser(this.authStore.userId).then(this.setLobby).catch(this.setError);
@@ -72,6 +80,8 @@ export default class LobbyStore {
   }
 
   startLobbyCountdown = () => sdk.startLobbyCountdown();
+
+  stopLobbyCountdown = () => sdk.stopLobbyCountdown();
 
   joinLobby(lobbyId) {
     if (!this.lobby) {

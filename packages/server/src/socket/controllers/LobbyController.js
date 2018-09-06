@@ -13,6 +13,10 @@ export default class LobbyController {
     return LobbyService.startCountdown(user);
   }
 
+  static async stopCountdown({ user }) {
+    return LobbyService.stopCountdown(user);
+  }
+
   static async list() {
     return LobbyService.list();
   }

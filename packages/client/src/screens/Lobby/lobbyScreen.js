@@ -14,6 +14,7 @@ import autobind from 'autobind-decorator';
   error: lobbyStore.error,
   leaveLobby: lobbyStore.leaveLobby,
   startLobbyCountdown: lobbyStore.startLobbyCountdown,
+  stopLobbyCountdown: lobbyStore.stopLobbyCountdown,
   navigate: routerStore.navigate,
 }))
 export default class LobbyScreen extends Component {
@@ -23,6 +24,7 @@ export default class LobbyScreen extends Component {
     error: PropTypes.instanceOf(Error),
     leaveLobby: PropTypes.func.isRequired,
     startLobbyCountdown: PropTypes.func.isRequired,
+    stopLobbyCountdown: PropTypes.func.isRequired,
     navigate: PropTypes.func.isRequired,
     lobbyId: PropTypes.string.isRequired,
   }
@@ -46,6 +48,7 @@ export default class LobbyScreen extends Component {
       users,
       error,
       startLobbyCountdown,
+      stopLobbyCountdown,
     } = this.props;
 
     if (lobby) {
@@ -87,6 +90,9 @@ export default class LobbyScreen extends Component {
         </Button>
         <Button onClick={startLobbyCountdown}>
           Start lobby
+        </Button>
+        <Button onClick={stopLobbyCountdown}>
+          Cancel Countdown
         </Button>
       </Page>
     );

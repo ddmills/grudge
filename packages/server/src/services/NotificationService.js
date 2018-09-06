@@ -34,4 +34,8 @@ export default class NotificationService {
   static onLobbyCountdownStarted(lobby) {
     this.notifyLobby(lobby.id, Events.LOBBY_COUNTDOWN_STARTED, lobby.properties);
   }
+
+  static onLobbyCountdownStopped(lobby) {
+    this.notifyLobby(lobby.id, Events.LOBBY_COUNTDOWN_STOPPED, lobby.properties);
+  }
 }

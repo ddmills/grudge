@@ -40,6 +40,26 @@ export default class LobbyService {
     NotificationService.onLobbyCountdownStarted(updatedLobby);
   }
 
+  static async stopCountdown(user) {
+    const lobby = await LobbyRepository.get(user.lobbyId);
+
+    if (lobby.isStarted) {
+      throw new Error('Lobby has already started');
+    }
+
+    if (!lobby.countdownStartedAt) {
+      return lobby;
+    }
+
+    await LobbyRepository.save(lobby.clone({
+      countdownStartedAt: null,
+    }));
+
+    const updatedLobby = await LobbyRepository.get(lobby.id);
+
+    NotificationService.onLobbyCountdownStopped(updatedLobby);
+  }
+
   static async list() {
     return LobbyRepository.list();
   }
