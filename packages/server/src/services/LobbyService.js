@@ -61,6 +61,10 @@ export default class LobbyService {
       throw new Error('Cannot end someone elses turn');
     }
 
+    return this.incrementTurnCounter(lobby);
+  }
+
+  static async incrementTurnCounter(lobby) {
     const updatedLobby = lobby.clone({
       currentTurn: lobby.currentTurn + 1,
     });
