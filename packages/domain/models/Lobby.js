@@ -9,6 +9,8 @@ export default class Lobby extends Model {
       currentTurn: 0,
       startedAt: undefined,
       createdAt: undefined,
+      turnStartedAt: undefined,
+      turnDuration: 30000,
       countdownStartedAt: undefined,
       countdownDuration: 10000,
       maxNumberOfPlayers: 3,

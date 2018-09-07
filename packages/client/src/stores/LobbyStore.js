@@ -55,7 +55,6 @@ export default class LobbyStore {
     sdk.onLobbyCountdownStopped(this.setLobby);
 
     autorun(this.getCurrentLobby);
-    autorun(this.getUsers);
     autorun(this.configureTimer);
   }
 
@@ -83,7 +82,13 @@ export default class LobbyStore {
 
   @action
   setLobby(lobby = null) {
+    const previousId = this.lobby && this.lobby.id;
+
     this.lobby = lobby;
+
+    if (lobby && lobby.id !== previousId) {
+      this.getUsers();
+    }
   }
 
   configureTimer() {

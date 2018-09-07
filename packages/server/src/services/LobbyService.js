@@ -43,6 +43,7 @@ export default class LobbyService {
 
     const updatedLobby = lobby.clone({
       startedAt: timestamp(),
+      turnStartedAt: timestamp(),
     });
 
     await LobbyRepository.save(updatedLobby);
@@ -67,11 +68,13 @@ export default class LobbyService {
   static async incrementTurnCounter(lobby) {
     const updatedLobby = lobby.clone({
       currentTurn: lobby.currentTurn + 1,
+      turnStartedAt: timestamp(),
     });
 
     await LobbyRepository.save(updatedLobby);
 
     NotificationService.onTurnEnded(updatedLobby);
+    LobbyProcessor.scheduleTurn(updatedLobby);
 
     return updatedLobby;
   }
