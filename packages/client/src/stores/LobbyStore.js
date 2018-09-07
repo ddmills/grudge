@@ -17,7 +17,10 @@ export default class LobbyStore {
   error = null;
 
   @observable
-  timer = new MobXCountdownTimer();
+  countdownTimer = new MobXCountdownTimer();
+
+  @observable
+  turnTimer = new MobXCountdownTimer();
 
   @computed
   get isLobbyOwner() {
@@ -55,7 +58,8 @@ export default class LobbyStore {
     sdk.onLobbyCountdownStopped(this.setLobby);
 
     autorun(this.getCurrentLobby);
-    autorun(this.configureTimer);
+    autorun(this.configureCountdownTimer);
+    autorun(this.configureTurnTimer);
   }
 
   @action
@@ -91,11 +95,19 @@ export default class LobbyStore {
     }
   }
 
-  configureTimer() {
+  configureCountdownTimer() {
     if (this.isLobbyCountdownStarted) {
-      this.timer.start(this.lobby.countdownStartedAtMs, this.lobby.countdownDuration);
+      this.countdownTimer.start(this.lobby.countdownStartedAtMs, this.lobby.countdownDuration);
     } else {
-      this.timer.reset();
+      this.countdownTimer.reset();
+    }
+  }
+
+  configureTurnTimer() {
+    if (this.lobby && this.lobby.isRunning) {
+      this.turnTimer.restart(this.lobby.turnStartedAtMs, this.lobby.turnDuration);
+    } else {
+      this.turnTimer.reset();
     }
   }
 

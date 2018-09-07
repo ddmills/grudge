@@ -17,6 +17,10 @@ export default class Lobby extends Model {
     };
   }
 
+  get isRunning() {
+    return this.isStarted;
+  }
+
   get isCountdownStarted() {
     return Boolean(this.countdownStartedAt);
   }
@@ -32,6 +36,14 @@ export default class Lobby extends Model {
   get countdownStartedAtMs() {
     if (this.isCountdownStarted) {
       return (new Date(this.countdownStartedAt)).getTime();
+    }
+
+    return -1;
+  }
+
+  get turnStartedAtMs() {
+    if (this.turnStartedAt) {
+      return (new Date(this.turnStartedAt)).getTime();
     }
 
     return -1;

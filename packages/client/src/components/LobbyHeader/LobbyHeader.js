@@ -9,7 +9,8 @@ import styles from './LobbyHeader.scss';
 @connect(({ lobbyStore }) => ({
   lobby: lobbyStore.lobby,
   users: lobbyStore.users,
-  lobbyCountdown: lobbyStore.timer.display,
+  lobbyCountdown: lobbyStore.countdownTimer.display,
+  turnCountdown: lobbyStore.turnTimer.display,
   endTurn: lobbyStore.endTurn,
   leaveLobby: lobbyStore.leaveLobby,
   startLobbyCountdown: lobbyStore.startLobbyCountdown,
@@ -28,6 +29,7 @@ export default class LobbyHeader extends Component {
     users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
     isVisible: PropTypes.bool,
     lobbyCountdown: PropTypes.string.isRequired,
+    turnCountdown: PropTypes.string.isRequired,
     leaveLobby: PropTypes.func.isRequired,
     endTurn: PropTypes.func,
     startLobbyCountdown: PropTypes.func,
@@ -51,6 +53,7 @@ export default class LobbyHeader extends Component {
       lobby,
       users,
       lobbyCountdown,
+      turnCountdown,
       leaveLobby,
       startLobbyCountdown,
       stopLobbyCountdown,
@@ -68,6 +71,9 @@ export default class LobbyHeader extends Component {
             users={users}
             maxUsers={lobby.maxNumberOfPlayers}
           />
+          <span>
+            {turnCountdown}
+          </span>
           <ButtonGroup>
             {endTurn && (
               <Button onClick={endTurn}>

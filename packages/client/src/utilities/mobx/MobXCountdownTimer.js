@@ -36,6 +36,12 @@ export default class MobXCountdownTimer {
   }
 
   @action
+  restart(startTimeMs, durationMs) {
+    this.reset();
+    this.start(startTimeMs, durationMs);
+  }
+
+  @action
   update() {
     if (this.isRunning) {
       this.lastUpdateTimeMs = Date.now();
