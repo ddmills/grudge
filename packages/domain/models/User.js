@@ -9,6 +9,7 @@ export default class User extends Model {
       avatar: '',
       lobbyId: undefined,
       createdAt: undefined,
+      turnOrder: undefined,
     };
   }
 }

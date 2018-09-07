@@ -10,7 +10,7 @@ export default class Lobby extends Model {
       createdAt: undefined,
       countdownStartedAt: undefined,
       countdownDuration: 10000,
-      maxNumberOfPlayers: 3,
+      maxNumberOfPlayers: 3
     };
   }
 

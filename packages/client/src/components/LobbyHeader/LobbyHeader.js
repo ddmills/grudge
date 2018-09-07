@@ -60,7 +60,10 @@ export default class LobbyHeader extends Component {
     return (
       <header className={styles.lobbyHeaderBanner}>
         <Container size={size}>
-          <LobbyAvatarList users={users} maxUsers={lobby.maxNumberOfPlayers}/>
+          <LobbyAvatarList
+            users={users}
+            maxUsers={lobby.maxNumberOfPlayers}
+          />
           <ButtonGroup>
             {leaveLobby && (
               <Button onClick={leaveLobby}>

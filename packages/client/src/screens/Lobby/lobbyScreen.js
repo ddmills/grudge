@@ -5,33 +5,28 @@ import {
 } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
-import { Lobby, User } from '@grudge/domain';
-import autobind from 'autobind-decorator';
+import { Lobby } from '@grudge/domain';
 
-@connect(({ lobbyStore, routerStore }) => ({
+@connect(({ lobbyStore }) => ({
   lobby: lobbyStore.lobby,
   users: lobbyStore.users.slice(),
   error: lobbyStore.error,
   leaveLobby: lobbyStore.leaveLobby,
   startLobbyCountdown: lobbyStore.startLobbyCountdown,
   stopLobbyCountdown: lobbyStore.stopLobbyCountdown,
-  navigate: routerStore.navigate,
 }))
 export default class LobbyScreen extends Component {
   static propTypes = {
     lobby: PropTypes.instanceOf(Lobby),
-    users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
     error: PropTypes.instanceOf(Error),
     leaveLobby: PropTypes.func.isRequired,
     startLobbyCountdown: PropTypes.func,
     stopLobbyCountdown: PropTypes.func,
-    navigate: PropTypes.func.isRequired,
     lobbyId: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
     lobby: null,
-    users: [],
     error: null,
     startLobbyCountdown: null,
     stopLobbyCountdown: null,
@@ -40,6 +35,7 @@ export default class LobbyScreen extends Component {
   render() {
     const {
       lobby,
+      users,
       lobbyId,
       error,
       leaveLobby,
@@ -74,6 +70,11 @@ export default class LobbyScreen extends Component {
         {lobby && (
           <CodeBlock>
             {lobby}
+          </CodeBlock>
+        )}
+        {users && (
+          <CodeBlock>
+            {users}
           </CodeBlock>
         )}
         {leaveLobby && (

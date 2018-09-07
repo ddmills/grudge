@@ -29,6 +29,7 @@
     "passport": "^0.4.0",
     "passport-steam": "^1.0.10",
     "pg": "^7.4.3",
+    "random-js": "^1.0.8",
     "redis": "^2.8.0",
     "socket.io": "^2.1.1",
     "socket.io-emitter": "^3.1.1",

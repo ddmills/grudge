@@ -38,6 +38,7 @@ export default class LobbyStore {
     sdk.onUserLeftLobby(this.removeUser);
     sdk.onLobbyStarted((lby) => {
       this.setLobby(lby);
+      this.getUsers(lby);
     });
     sdk.onLobbyCountdownStarted(this.setLobby);
     sdk.onLobbyCountdownStopped(this.setLobby);
@@ -108,6 +109,7 @@ export default class LobbyStore {
 
   joinLobby(lobbyId) {
     if (!this.lobby) {
+      this.setError();
       sdk.joinLobby(lobbyId).then(this.setLobby).catch(this.setError);
     }
   }
@@ -124,7 +126,7 @@ export default class LobbyStore {
 
   getUsers() {
     if (this.lobby) {
-      sdk.getUsersInLobby(this.lobby.id).then(this.setUsers);
+      sdk.getUsersInLobby(this.lobby.id).then(this.setUsers).catch(this.setError);
     } else {
       this.setUsers();
     }

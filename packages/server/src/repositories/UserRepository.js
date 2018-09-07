@@ -18,6 +18,9 @@ export default class UserRepository extends ModelRepository {
   static async removeUserFromLobby(user) {
     await UserLobbyRepository.disassociate(user.id, user.lobbyId);
 
-    return this.save(user.clone({ lobbyId: null }));
+    return this.save(user.clone({
+      lobbyId: null,
+      turnOrder: null,
+    }));
   }
 }

@@ -2,6 +2,7 @@ import LobbyRepository from 'repositories/LobbyRepository';
 import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
 import timestamp from 'utilities/Timestamp';
+import Random from 'utilities/Random';
 import LobbyProcessor from './LobbyProcessor';
 
 export default class LobbyService {
@@ -19,6 +20,36 @@ export default class LobbyService {
     });
 
     return this.join(user, lobby.id);
+  }
+
+  static async start(lobbyId) {
+    const lobby = await LobbyRepository.get(lobbyId);
+
+    if (!lobby.isCountdownStarted) {
+      throw new Error('Lobby countdown has been cancelled');
+    }
+
+    if (lobby.isStarted) {
+      throw new Error('Lobby has already started');
+    }
+
+    const users = await this.getUsersInLobby(lobby.id);
+
+    await Promise.all(Random.shuffle(users).map((user, idx) => {
+      return UserRepository.save(user.clone({
+        turnOrder: idx,
+      }));
+    }));
+
+    const updatedLobby = lobby.clone({
+      startedAt: timestamp(),
+    });
+
+    await LobbyRepository.save(updatedLobby);
+
+    NotificationService.onLobbyStarted(updatedLobby);
+
+    return updatedLobby;
   }
 
   static async startCountdown(user) {
@@ -75,9 +106,17 @@ export default class LobbyService {
       throw new Error('User is already in a lobby');
     }
 
-    await UserRepository.addUserToLobby(user, lobbyId);
-
     const lobby = await LobbyRepository.get(lobbyId);
+
+    if (lobby.isCountingDown) {
+      throw new Error('Lobby is already starting');
+    }
+
+    if (lobby.isStarted) {
+      throw new Error('Lobby is already started');
+    }
+
+    await UserRepository.addUserToLobby(user, lobbyId);
 
     NotificationService.onUserJoinedLobby(lobby, user);
 
