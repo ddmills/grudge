@@ -61,21 +61,24 @@ export default class LobbyHeader extends Component {
       <header className={styles.lobbyHeaderBanner}>
         <Container size={size}>
           <LobbyAvatarList users={users} maxUsers={lobby.maxNumberOfPlayers}/>
-          <span>
-            {lobbyCountdown}
-          </span>
           <ButtonGroup>
-            <Button size="sm" onClick={leaveLobby}>
-              Leave lobby
-            </Button>
+            {leaveLobby && (
+              <Button onClick={leaveLobby}>
+                Leave lobby
+              </Button>
+            )}
             {startLobbyCountdown && (
-              <Button size="sm" onClick={startLobbyCountdown}>
+              <Button onClick={startLobbyCountdown}>
                 Start lobby
               </Button>
             )}
             {stopLobbyCountdown && (
-              <Button size="sm" onClick={stopLobbyCountdown}>
-                Cancel Countdown
+              <Button onClick={stopLobbyCountdown}>
+                <span>
+                  {lobbyCountdown}
+                </span>
+                {' '}
+                Cancel
               </Button>
             )}
           </ButtonGroup>

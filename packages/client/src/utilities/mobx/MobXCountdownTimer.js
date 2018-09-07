@@ -67,7 +67,7 @@ export default class MobXCountdownTimer {
 
   @computed
   get roundedSecondsRemaining() {
-    return Math.round(this.secondsRemaining);
+    return Math.ceil(this.secondsRemaining);
   }
 
   @computed

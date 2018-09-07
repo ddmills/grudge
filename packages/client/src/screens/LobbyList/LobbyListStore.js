@@ -6,6 +6,10 @@ export default class LobbyListStore {
   @observable
   lobbies = [];
 
+  constructor(routerStore) {
+    this.routerStore = routerStore;
+  }
+
   @autobind
   @action
   refreshLobbies() {
@@ -18,6 +22,7 @@ export default class LobbyListStore {
   @autobind
   createLobby() {
     sdk.createLobby().then(action((lobby) => {
+      this.routerStore.navigate('lobby', { lobbyId: lobby.id });
       this.lobbies.unshift(lobby);
     }));
   }

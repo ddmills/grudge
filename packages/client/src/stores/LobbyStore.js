@@ -36,7 +36,9 @@ export default class LobbyStore {
     sdk.onLeftLobby(() => this.setLobby(null));
     sdk.onUserJoinedLobby(this.addUser);
     sdk.onUserLeftLobby(this.removeUser);
-    sdk.onLobbyStarted(this.setLobby);
+    sdk.onLobbyStarted((lby) => {
+      this.setLobby(lby);
+    });
     sdk.onLobbyCountdownStarted(this.setLobby);
     sdk.onLobbyCountdownStopped(this.setLobby);
 
@@ -97,7 +99,7 @@ export default class LobbyStore {
 
   @computed
   get stopLobbyCountdown() {
-    if (this.isLobbyCountdownStarted) {
+    if (this.lobby && this.lobby.isCountingDown) {
       return () => sdk.stopLobbyCountdown();
     }
 

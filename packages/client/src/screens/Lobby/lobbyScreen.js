@@ -37,18 +37,12 @@ export default class LobbyScreen extends Component {
     stopLobbyCountdown: null,
   }
 
-  @autobind
-  onClickLeaveLobby() {
-    this.props.leaveLobby();
-    this.props.navigate('lobbies');
-  }
-
   render() {
     const {
       lobby,
       lobbyId,
-      users,
       error,
+      leaveLobby,
       startLobbyCountdown,
       stopLobbyCountdown,
     } = this.props;
@@ -82,14 +76,11 @@ export default class LobbyScreen extends Component {
             {lobby}
           </CodeBlock>
         )}
-        {users.length > 0 && (
-          <CodeBlock>
-            {users}
-          </CodeBlock>
+        {leaveLobby && (
+          <Button onClick={leaveLobby}>
+            Leave lobby
+          </Button>
         )}
-        <Button onClick={this.onClickLeaveLobby}>
-          Leave lobby
-        </Button>
         {startLobbyCountdown && (
           <Button onClick={startLobbyCountdown}>
             Start lobby

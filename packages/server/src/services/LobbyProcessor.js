@@ -7,8 +7,6 @@ import NotificationService from './NotificationService';
 const lobbyCountdownQueue = BullQueue.create('lobby:countdown');
 
 lobbyCountdownQueue.process(async (job) => {
-  Logger.info('Processing Job');
-
   const lobby = await LobbyRepository.get(job.data.lobbyId);
 
   if (!lobby.isCountdownStarted) {
@@ -24,6 +22,9 @@ lobbyCountdownQueue.process(async (job) => {
   });
 
   await LobbyRepository.save(updatedLobby);
+
+  const accuracy = (Date.now() - lobby.countdownStartedAtMs) - lobby.countdownDuration;
+  Logger.info(`Countdown Processor starting lobby. Countdown Accruacy = ${accuracy}ms`);
 
   NotificationService.onLobbyCountdownStarted(updatedLobby);
 });

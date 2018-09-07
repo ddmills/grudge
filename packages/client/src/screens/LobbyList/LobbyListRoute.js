@@ -13,8 +13,8 @@ export default class LobbyListRoute extends Route {
 
   static storeName = 'lobbyListStore';
 
-  static createStore() {
-    return new LobbyListStore();
+  static createStore({ routerStore }) {
+    return new LobbyListStore(routerStore);
   }
 
   static onActivated({ lobbyListStore }) {
