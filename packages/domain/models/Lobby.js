@@ -22,6 +22,10 @@ export default class Lobby extends Model {
     return Boolean(this.startedAt);
   }
 
+  get isCountingDown() {
+    return this.isCountdownStarted && !this.isStarted;
+  }
+
   get countdownStartedAtMs() {
     if (this.isCountdownStarted) {
       return (new Date(this.countdownStartedAt)).getTime();

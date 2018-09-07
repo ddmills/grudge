@@ -10,6 +10,7 @@ export const USER_LOBBY_GET = 'user/lobby/get';
 export const LOBBY_GET = 'lobby/get';
 export const LOBBY_USERS_GET = 'lobby/users/get';
 export const LOBBY_CREATE = 'lobby/create';
+export const LOBBY_STARTED = 'lobby/started';
 export const LOBBY_COUNTDOWN_START = 'lobby/countdown/start';
 export const LOBBY_COUNTDOWN_STOP = 'lobby/countdown/stop';
 export const LOBBY_COUNTDOWN_STARTED = 'lobby/countdown/started';

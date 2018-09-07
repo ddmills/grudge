@@ -2,6 +2,7 @@ import LobbyRepository from 'repositories/LobbyRepository';
 import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
 import timestamp from 'utilities/Timestamp';
+import LobbyProcessor from './LobbyProcessor';
 
 export default class LobbyService {
   static async get(lobbyId) {
@@ -38,6 +39,7 @@ export default class LobbyService {
     const updatedLobby = await LobbyRepository.get(lobby.id);
 
     NotificationService.onLobbyCountdownStarted(updatedLobby);
+    LobbyProcessor.scheduleCountdown(updatedLobby);
   }
 
   static async stopCountdown(user) {
@@ -83,8 +85,6 @@ export default class LobbyService {
   }
 
   static async leave(user) {
-    await this.stopCountdown(user);
-
     const { lobbyId } = user;
 
     if (!lobbyId) {
@@ -94,6 +94,10 @@ export default class LobbyService {
     await UserRepository.removeUserFromLobby(user);
 
     const lobby = await LobbyRepository.get(lobbyId);
+
+    if (lobby.isCountingDown) {
+      this.stopCountdown(user);
+    }
 
     NotificationService.onUserLeftLobby(lobby, user);
 

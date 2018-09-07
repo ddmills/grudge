@@ -36,6 +36,7 @@ export default class LobbyStore {
     sdk.onLeftLobby(() => this.setLobby(null));
     sdk.onUserJoinedLobby(this.addUser);
     sdk.onUserLeftLobby(this.removeUser);
+    sdk.onLobbyStarted(this.setLobby);
     sdk.onLobbyCountdownStarted(this.setLobby);
     sdk.onLobbyCountdownStopped(this.setLobby);
 
