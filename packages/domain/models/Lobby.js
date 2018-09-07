@@ -6,16 +6,20 @@ export default class Lobby extends Model {
       id: undefined,
       ownerId: undefined,
       isPublic: true,
-      isStarted: false,
+      startedAt: undefined,
       createdAt: undefined,
-      countdownDuration: 10000,
       countdownStartedAt: undefined,
+      countdownDuration: 10000,
       maxNumberOfPlayers: 3,
     };
   }
 
   get isCountdownStarted() {
     return Boolean(this.countdownStartedAt);
+  }
+
+  get isStarted() {
+    return Boolean(this.startedAt);
   }
 
   get countdownStartedAtMs() {
