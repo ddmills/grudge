@@ -52,6 +52,26 @@ export default class LobbyService {
     return updatedLobby;
   }
 
+  static async endTurn(user) {
+    const lobby = await LobbyRepository.get(user.lobbyId);
+    const users = await this.getUsersInLobby(lobby.id);
+    const currentTurnUser = lobby.pickCurrentTurnUser(users);
+
+    if (user.id !== currentTurnUser.id) {
+      throw new Error('Cannot end someone elses turn');
+    }
+
+    const updatedLobby = lobby.clone({
+      currentTurn: lobby.currentTurn + 1,
+    });
+
+    await LobbyRepository.save(updatedLobby);
+
+    NotificationService.onTurnEnded(updatedLobby);
+
+    return updatedLobby;
+  }
+
   static async startCountdown(user) {
     const lobby = await LobbyRepository.get(user.lobbyId);
 

@@ -99,6 +99,10 @@ export default class SDK {
     return this.query(Events.LOBBY_JOIN, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
   }
 
+  endTurn() {
+    return this.query(Events.LOBBY_TURN_END).then(ResponseTransformer.toModel(Lobby));
+  }
+
   leaveLobby() {
     return this.query(Events.LOBBY_LEAVE);
   }

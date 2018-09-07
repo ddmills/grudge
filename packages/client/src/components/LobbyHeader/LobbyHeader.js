@@ -10,6 +10,7 @@ import styles from './LobbyHeader.scss';
   lobby: lobbyStore.lobby,
   users: lobbyStore.users,
   lobbyCountdown: lobbyStore.timer.display,
+  endTurn: lobbyStore.endTurn,
   leaveLobby: lobbyStore.leaveLobby,
   startLobbyCountdown: lobbyStore.startLobbyCountdown,
   stopLobbyCountdown: lobbyStore.stopLobbyCountdown,
@@ -28,6 +29,7 @@ export default class LobbyHeader extends Component {
     isVisible: PropTypes.bool,
     lobbyCountdown: PropTypes.string.isRequired,
     leaveLobby: PropTypes.func.isRequired,
+    endTurn: PropTypes.func,
     startLobbyCountdown: PropTypes.func,
     stopLobbyCountdown: PropTypes.func,
   }
@@ -35,6 +37,7 @@ export default class LobbyHeader extends Component {
   static defaultProps = {
     size: 'md',
     lobby: undefined,
+    endTurn: undefined,
     startLobbyCountdown: undefined,
     stopLobbyCountdown: undefined,
     users: [],
@@ -51,6 +54,7 @@ export default class LobbyHeader extends Component {
       leaveLobby,
       startLobbyCountdown,
       stopLobbyCountdown,
+      endTurn,
     } = this.props;
 
     if (!lobby || !isVisible) {
@@ -65,6 +69,11 @@ export default class LobbyHeader extends Component {
             maxUsers={lobby.maxNumberOfPlayers}
           />
           <ButtonGroup>
+            {endTurn && (
+              <Button onClick={endTurn}>
+                End Turn
+              </Button>
+            )}
             {leaveLobby && (
               <Button onClick={leaveLobby}>
                 Leave lobby

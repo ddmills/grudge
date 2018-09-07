@@ -6,11 +6,12 @@ export default class Lobby extends Model {
       id: undefined,
       ownerId: undefined,
       isPublic: true,
+      currentTurn: 0,
       startedAt: undefined,
       createdAt: undefined,
       countdownStartedAt: undefined,
       countdownDuration: 10000,
-      maxNumberOfPlayers: 3
+      maxNumberOfPlayers: 3,
     };
   }
 
@@ -32,5 +33,13 @@ export default class Lobby extends Model {
     }
 
     return -1;
+  }
+
+  pickCurrentTurnUser(users = []) {
+    if (this.isStarted) {
+      const turnId = this.currentTurn % users.length;
+
+      return users.find((user) => user.turnOrder === turnId);
+    }
   }
 }

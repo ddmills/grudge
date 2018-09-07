@@ -29,6 +29,16 @@ export default class LobbyStore {
     return this.lobby && this.lobby.isCountdownStarted;
   }
 
+  @computed
+  get currentTurnUser() {
+    return this.lobby && this.lobby.pickCurrentTurnUser(this.users);
+  }
+
+  @computed
+  get isOwnTurn() {
+    return this.currentTurnUser && this.currentTurnUser.id === this.authStore.userId;
+  }
+
   constructor(authStore) {
     this.authStore = authStore;
 
@@ -40,6 +50,7 @@ export default class LobbyStore {
       this.setLobby(lby);
       this.getUsers(lby);
     });
+    sdk.onTurnEnded(this.setLobby);
     sdk.onLobbyCountdownStarted(this.setLobby);
     sdk.onLobbyCountdownStopped(this.setLobby);
 
@@ -107,6 +118,15 @@ export default class LobbyStore {
     return undefined;
   }
 
+  @computed
+  get endTurn() {
+    if (this.isOwnTurn) {
+      return () => sdk.endTurn();
+    }
+
+    return undefined;
+  }
+
   joinLobby(lobbyId) {
     if (!this.lobby) {
       this.setError();
@@ -122,6 +142,13 @@ export default class LobbyStore {
         this.setUsers();
       });
     }
+  }
+
+  @action
+  updateUser(user) {
+    const idx = this.users.findIndex((u) => u.id === user.id);
+
+    this.users[idx] = user;
   }
 
   getUsers() {

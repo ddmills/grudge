@@ -16,6 +16,7 @@ export default class EventMap {
       new EventHook(Events.LOBBY_JOINED, 'onJoinedLobby', ResponseTransformer.toModel(Lobby)),
       new EventHook(Events.LOBBY_USER_JOINED, 'onUserJoinedLobby', ResponseTransformer.toModel(User)),
       new EventHook(Events.LOBBY_USER_LEFT, 'onUserLeftLobby', ResponseTransformer.toModel(User)),
+      new EventHook(Events.LOBBY_TURN_ENDED, 'onTurnEnded', ResponseTransformer.toModel(Lobby)),
       new EventHook(Events.FLASH, 'onFlash'),
     ];
   }

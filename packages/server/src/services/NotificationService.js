@@ -42,4 +42,8 @@ export default class NotificationService {
   static onLobbyStarted(lobby) {
     this.notifyLobby(lobby.id, Events.LOBBY_STARTED, lobby.properties);
   }
+
+  static onTurnEnded(lobby) {
+    this.notifyLobby(lobby.id, Events.LOBBY_TURN_ENDED, lobby.properties);
+  }
 }

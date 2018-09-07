@@ -23,7 +23,7 @@ export default class Model {
   }
 
   clone(overrides = {}) {
-    return Model.create({
+    return this.constructor.create({
       ...this.properties,
       ...overrides,
     });
