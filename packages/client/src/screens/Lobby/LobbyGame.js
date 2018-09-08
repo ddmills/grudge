@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';
-import { CodeBlock } from '@grudge/components';
+import { CodeBlock, Container } from '@grudge/components';
 import { Lobby } from '@grudge/domain';
 import PageSuperHeader from 'components/Page/SuperHeader/PageSuperHeader';
 import styles from './LobbyGame.scss';
@@ -27,18 +27,18 @@ export default class LobbyGame extends Component {
       <section className={styles.fullPage}>
         <PageSuperHeader/>
         <div className={styles.header}>
-          <p>
+          <Container>
             Lobby Header
-          </p>
+          </Container>
         </div>
         <div className={styles.content}>
-          <div className={styles.viewer}/>
+          <Container className={styles.viewer}/>
           <div className={styles.timeline}/>
-          <div className={styles.viewer}>
+          <Container className={styles.viewer}>
             <CodeBlock>
               {lobby}
             </CodeBlock>
-          </div>
+          </Container>
         </div>
       </section>
     );
