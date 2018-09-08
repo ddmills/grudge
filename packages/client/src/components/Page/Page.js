@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Container } from '@grudge/components';
 import PropTypes from 'prop-types';
-import LobbyHeader from 'components/LobbyHeader/LobbyHeader';
+import LobbySetupHeader from 'components/LobbySetupHeader/LobbySetupHeader';
 import PageSuperHeader from './SuperHeader/PageSuperHeader';
 import PageHeader from './Header/PageHeader';
 import PageFooter from './Footer/PageFooter';
@@ -16,30 +16,42 @@ export default class Page extends Component {
       'xl',
       'max',
     ]),
-    showLobbyHeader: PropTypes.bool,
+    showLobbySetupHeader: PropTypes.bool,
+    showFooter: PropTypes.bool,
+    showHeader: PropTypes.bool,
   }
 
   static defaultProps = {
     size: 'md',
-    showLobbyHeader: true,
+    showLobbySetupHeader: true,
+    showHeader: true,
+    showFooter: true,
   }
 
   render() {
     const {
       size,
       children,
-      showLobbyHeader,
+      showLobbySetupHeader,
+      showHeader,
+      showFooter,
     } = this.props;
 
     return (
       <section className={styles.page}>
         <PageSuperHeader size={size}/>
-        <PageHeader size={size}/>
-        <LobbyHeader size={size} isVisible={showLobbyHeader}/>
+        {showHeader && (
+          <PageHeader size={size}/>
+        )}
+        {showLobbySetupHeader && (
+          <LobbySetupHeader size={size}/>
+        )}
         <Container size={size} className={styles.pageContent}>
           {children}
         </Container>
-        <PageFooter size={size}/>
+        {showFooter && (
+          <PageFooter size={size}/>
+        )}
       </section>
     );
   }

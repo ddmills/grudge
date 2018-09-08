@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from '@grudge/components';
 import ConnectionStatus from 'components/ConnectionStatus/ConnectionStatus';
+import Link from 'components/Link/Link';
 import styles from './PageSuperHeader.scss';
 
 export default class PageSuperHeader extends Component {
@@ -27,7 +28,9 @@ export default class PageSuperHeader extends Component {
     return (
       <header className={styles.pageSuperHeaderBanner}>
         <Container size={size} className={styles.pageSuperHeader}>
-          <ConnectionStatus/>
+          <Link to="landing">
+            <ConnectionStatus/>
+          </Link>
         </Container>
       </header>
     );

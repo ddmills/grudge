@@ -4,7 +4,7 @@ import { User, Lobby } from '@grudge/domain';
 import { Container, Button, ButtonGroup } from '@grudge/components';
 import LobbyAvatarList from 'components/LobbyAvatarList/LobbyAvatarList';
 import connect from 'utilities/mobx/Connect';
-import styles from './LobbyHeader.scss';
+import styles from './LobbySetupHeader.scss';
 
 @connect(({ lobbyStore }) => ({
   lobby: lobbyStore.lobby,
@@ -16,7 +16,7 @@ import styles from './LobbyHeader.scss';
   startLobbyCountdown: lobbyStore.startLobbyCountdown,
   stopLobbyCountdown: lobbyStore.stopLobbyCountdown,
 }))
-export default class LobbyHeader extends Component {
+export default class LobbySetupHeader extends Component {
   static propTypes = {
     size: PropTypes.oneOf([
       'sm',
@@ -27,7 +27,6 @@ export default class LobbyHeader extends Component {
     ]),
     lobby: PropTypes.instanceOf(Lobby),
     users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
-    isVisible: PropTypes.bool,
     lobbyCountdown: PropTypes.string.isRequired,
     turnCountdown: PropTypes.string.isRequired,
     leaveLobby: PropTypes.func.isRequired,
@@ -43,13 +42,11 @@ export default class LobbyHeader extends Component {
     startLobbyCountdown: undefined,
     stopLobbyCountdown: undefined,
     users: [],
-    isVisible: true,
   }
 
   render() {
     const {
       size,
-      isVisible,
       lobby,
       users,
       lobbyCountdown,
@@ -60,12 +57,12 @@ export default class LobbyHeader extends Component {
       endTurn,
     } = this.props;
 
-    if (!lobby || !isVisible) {
+    if (!lobby) {
       return null;
     }
 
     return (
-      <header className={styles.lobbyHeaderBanner}>
+      <header className={styles.lobbySetupHeaderBanner}>
         <Container size={size}>
           <LobbyAvatarList
             users={users}

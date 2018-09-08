@@ -23,10 +23,7 @@ export default class LobbyGame extends Component {
     } = this.props;
 
     return (
-      <Page>
-        <Heading>
-          Game
-        </Heading>
+      <Page showHeader={false} showFooter={false}>
         <CodeBlock>
           {lobby}
         </CodeBlock>
