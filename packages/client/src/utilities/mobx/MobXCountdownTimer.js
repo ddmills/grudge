@@ -77,6 +77,11 @@ export default class MobXCountdownTimer {
   }
 
   @computed
+  get percentRemaining() {
+    return 100 * this.millisecondsRemaining / this.durationMs;
+  }
+
+  @computed
   get display() {
     return `${this.roundedSecondsRemaining}s`;
   }

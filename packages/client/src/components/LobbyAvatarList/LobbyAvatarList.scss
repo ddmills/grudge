@@ -4,11 +4,11 @@
   display: inline-flex;
 
   > *:not(:first-child) {
-    margin-left: $spacer-1;
+    margin-left: $spacer-2;
   }
 
   > *:not(:last-child) {
-    margin-right: $spacer-1;
+    margin-right: $spacer-2;
   }
 }
 

@@ -1,0 +1,13 @@
+@import "@grudge/styles";
+
+.lobbyGameHeaderBanner {
+  flex: 0 0 auto;
+  padding: $spacer-3 0;
+  color: $primary-000;
+  background-color: $primary-500;
+}
+
+.lobbyGameHeader {
+  height: $spacer-5;
+  max-height: $spacer-5;
+}

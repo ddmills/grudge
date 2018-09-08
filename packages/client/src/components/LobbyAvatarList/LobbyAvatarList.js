@@ -30,7 +30,7 @@ export default class LobbyAvatarList extends Component {
             <Avatar user={user}/>
           </Link>
         ))}
-        {range(maxUsers - users.length).map((idx) => (
+        {maxUsers && range(maxUsers - users.length).map((idx) => (
           <span key={idx} className={styles.emptySlot}>
             ?
           </span>
