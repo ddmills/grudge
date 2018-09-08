@@ -17,3 +17,10 @@
   height: 100%;
   background-color: $red-300;
 }
+
+.endTurnButton {
+  position: absolute;
+  top: $spacer-1;
+  right: 0;
+  z-index: 1;
+}
