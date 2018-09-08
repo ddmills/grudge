@@ -39,7 +39,17 @@ export default class LobbyStore {
 
   @computed
   get isOwnTurn() {
-    return this.currentTurnUser && this.currentTurnUser.id === this.authStore.userId;
+    return Boolean(this.currentTurnUser && this.currentTurnUser.id === this.authStore.userId);
+  }
+
+  @computed
+  get isRunning() {
+    return Boolean(this.lobby && this.lobby.isRunning);
+  }
+
+  @computed
+  get isSettingUp() {
+    return Boolean(this.lobby && !this.lobby.isRunning);
   }
 
   constructor(authStore) {
