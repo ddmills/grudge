@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
-import { Heading, CodeBlock } from '@grudge/components';
+import { CodeBlock } from '@grudge/components';
 import { Lobby } from '@grudge/domain';
+import PageSuperHeader from 'components/Page/SuperHeader/PageSuperHeader';
+import styles from './LobbyGame.scss';
 
 @connect(({ lobbyStore }) => ({
   lobby: lobbyStore.lobby,
@@ -23,11 +24,23 @@ export default class LobbyGame extends Component {
     } = this.props;
 
     return (
-      <Page showHeader={false} showFooter={false}>
-        <CodeBlock>
-          {lobby}
-        </CodeBlock>
-      </Page>
+      <section className={styles.fullPage}>
+        <PageSuperHeader/>
+        <div className={styles.header}>
+          <p>
+            Lobby Header
+          </p>
+        </div>
+        <div className={styles.content}>
+          <div className={styles.viewer}/>
+          <div className={styles.timeline}/>
+          <div className={styles.viewer}>
+            <CodeBlock>
+              {lobby}
+            </CodeBlock>
+          </div>
+        </div>
+      </section>
     );
   }
 }
