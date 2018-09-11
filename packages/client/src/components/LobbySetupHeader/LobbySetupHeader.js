@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { User, Lobby } from '@grudge/domain';
 import { Container, Button, ButtonGroup } from '@grudge/components';
-import LobbyAvatarList from 'components/LobbyAvatarList/LobbyAvatarList';
+import LobbyAvatarSetupList from 'components/LobbyAvatarSetupList/LobbyAvatarSetupList';
 import connect from 'utilities/mobx/Connect';
 import styles from './LobbySetupHeader.scss';
 
@@ -64,7 +64,7 @@ export default class LobbySetupHeader extends Component {
     return (
       <header className={styles.lobbySetupHeaderBanner}>
         <Container size={size}>
-          <LobbyAvatarList
+          <LobbyAvatarSetupList
             users={users}
             maxUsers={lobby.maxNumberOfPlayers}
           />

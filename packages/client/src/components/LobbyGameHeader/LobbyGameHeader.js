@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { User, Lobby } from '@grudge/domain';
 import { Container } from '@grudge/components';
-import LobbyAvatarList from 'components/LobbyAvatarList/LobbyAvatarList';
+import LobbyAvatarSetupList from 'components/LobbyAvatarSetupList/LobbyAvatarSetupList';
 import connect from 'utilities/mobx/Connect';
 import styles from './LobbyGameHeader.scss';
 
@@ -26,7 +26,7 @@ export default class LobbyGameHeader extends Component {
     return (
       <header className={styles.lobbyGameHeaderBanner}>
         <Container className={styles.lobbyGameHeader}>
-          <LobbyAvatarList users={users}/>
+          <LobbyAvatarSetupList users={users}/>
         </Container>
       </header>
     );

@@ -4,9 +4,9 @@ import { User } from '@grudge/domain';
 import { Avatar } from '@grudge/components';
 import Link from 'components/Link/Link';
 import range from 'utilities/array/Range';
-import styles from './LobbyAvatarList.scss';
+import styles from './LobbyAvatarSetupList.scss';
 
-export default class LobbyAvatarList extends Component {
+export default class LobbyAvatarSetupList extends Component {
   static propTypes = {
     users: PropTypes.arrayOf(PropTypes.instanceOf(User)),
     maxUsers: PropTypes.number,
