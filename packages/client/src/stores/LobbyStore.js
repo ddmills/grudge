@@ -47,10 +47,7 @@ export default class LobbyStore {
     sdk.onJoinedLobby(this.setLobby);
     sdk.onLeftLobby(() => this.setLobby(null));
     sdk.onLobbyStarted(this.setLobby);
-    sdk.onTurnEnded((lby) => {
-      this.setLobby(lby);
-      console.log('turn ended');
-    });
+    sdk.onTurnEnded(this.setLobby);
     sdk.onLobbyCountdownStarted(this.setLobby);
     sdk.onLobbyCountdownStopped(this.setLobby);
 

@@ -1,0 +1,10 @@
+@import "@grudge/styles";
+
+.lobbyAvatar {
+  margin: $spacer-2;
+  border: 1px solid transparent;
+
+  &.selected {
+    border: 1px solid $purple-100;
+  }
+}

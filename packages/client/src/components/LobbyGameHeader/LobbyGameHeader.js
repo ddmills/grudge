@@ -7,7 +7,7 @@ export default class LobbyGameHeader extends Component {
   render() {
     return (
       <header className={styles.lobbyGameHeaderBanner}>
-        <Container className={styles.lobbyGameHeader}>
+        <Container>
           <LobbyUsers/>
         </Container>
       </header>
