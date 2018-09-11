@@ -1,5 +1,5 @@
 import {
-  autorun, computed, action, observable,
+  autorun, computed, observable,
 } from 'mobx';
 import sdk from '@grudge/sdk';
 import autobind from 'autobind-decorator';

@@ -29,7 +29,6 @@ export default class UserStore {
     this.authStore = authStore;
     this.lobbyStore = lobbyStore;
 
-    // sdk.onLeftLobby(this.removeAllUsers);
     sdk.onUserJoinedLobby(this.addUser);
     sdk.onUserLeftLobby(this.removeUser);
     sdk.onLobbyStarted(this.fetchUsers);
