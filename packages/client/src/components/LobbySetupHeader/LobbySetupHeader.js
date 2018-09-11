@@ -6,12 +6,12 @@ import LobbyAvatarSetupList from 'components/LobbyAvatarSetupList/LobbyAvatarSet
 import connect from 'utilities/mobx/Connect';
 import styles from './LobbySetupHeader.scss';
 
-@connect(({ lobbyStore }) => ({
+@connect(({ lobbyStore, turnStore, userStore }) => ({
   lobby: lobbyStore.lobby,
-  users: lobbyStore.users,
+  users: userStore.users,
   lobbyCountdown: lobbyStore.countdownTimer.display,
-  turnCountdown: lobbyStore.turnTimer.display,
-  endTurn: lobbyStore.endTurn,
+  turnCountdown: turnStore.timer.display,
+  endTurn: turnStore.endTurn,
   leaveLobby: lobbyStore.leaveLobby,
   startLobbyCountdown: lobbyStore.startLobbyCountdown,
   stopLobbyCountdown: lobbyStore.stopLobbyCountdown,

@@ -4,9 +4,9 @@ import { Container, Button } from '@grudge/components';
 import connect from 'utilities/mobx/Connect';
 import styles from './LobbyTimeline.scss';
 
-@connect(({ lobbyStore }) => ({
-  percentTurnTimeRemaining: lobbyStore.turnTimer.percentRemaining,
-  endTurn: lobbyStore.endTurn,
+@connect(({ turnStore }) => ({
+  percentTurnTimeRemaining: turnStore.timer.percentRemaining,
+  endTurn: turnStore.endTurn,
 }))
 export default class LobbyTimeline extends Component {
   static propTypes = {

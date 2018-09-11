@@ -23,6 +23,7 @@ export default class Button extends Component {
     to: PropTypes.string,
     isBlock: PropTypes.bool,
     isDisabled: PropTypes.bool,
+    isStyled: PropTypes.bool,
     color: PropTypes.oneOf([
       'default',
       'primary',
@@ -41,6 +42,7 @@ export default class Button extends Component {
     type: 'button',
     isBlock: false,
     isDisabled: false,
+    isStyled: true,
     BtnComponent: 'button',
   }
 
@@ -49,6 +51,7 @@ export default class Button extends Component {
       color,
       size,
       isBlock,
+      isStyled,
       isDisabled,
       className,
       BtnComponent,
@@ -56,14 +59,15 @@ export default class Button extends Component {
     } = this.props;
 
     const classes = classNames(
-      styles.button,
-      styles[color],
-      styles[size],
-      className,
       {
-        [styles.disabled]: isDisabled,
-        [styles.block]: isBlock,
+        [styles.button]: isStyled,
+        [styles[color]]: isStyled,
+        [styles[size]]: isStyled,
+        [styles.disabled]: isStyled && isDisabled,
+        [styles.block]: isStyled && isBlock,
+        [styles.blank]: !isStyled,
       },
+      className,
     );
 
     return (

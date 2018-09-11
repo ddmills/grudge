@@ -49,6 +49,7 @@ export default class LobbyService {
     await LobbyRepository.save(updatedLobby);
 
     NotificationService.onLobbyStarted(updatedLobby);
+    LobbyProcessor.scheduleTurn(updatedLobby);
 
     return updatedLobby;
   }

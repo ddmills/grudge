@@ -11,16 +11,10 @@ export default class LobbyStore {
   lobby = null;
 
   @observable
-  users = [];
-
-  @observable
   error = null;
 
   @observable
   countdownTimer = new MobXCountdownTimer();
-
-  @observable
-  turnTimer = new MobXCountdownTimer();
 
   @computed
   get isLobbyOwner() {
@@ -33,16 +27,6 @@ export default class LobbyStore {
   }
 
   @computed
-  get currentTurnUser() {
-    return this.lobby && this.lobby.pickCurrentTurnUser(this.users);
-  }
-
-  @computed
-  get isOwnTurn() {
-    return Boolean(this.currentTurnUser && this.currentTurnUser.id === this.authStore.userId);
-  }
-
-  @computed
   get isRunning() {
     return Boolean(this.lobby && this.lobby.isRunning);
   }
@@ -52,29 +36,26 @@ export default class LobbyStore {
     return Boolean(this.lobby && !this.lobby.isRunning);
   }
 
+  @computed
+  get lobbyId() {
+    return this.lobby && this.lobby.id;
+  }
+
   constructor(authStore) {
     this.authStore = authStore;
 
     sdk.onJoinedLobby(this.setLobby);
     sdk.onLeftLobby(() => this.setLobby(null));
-    sdk.onUserJoinedLobby(this.addUser);
-    sdk.onUserLeftLobby(this.removeUser);
-    sdk.onLobbyStarted((lby) => {
+    sdk.onLobbyStarted(this.setLobby);
+    sdk.onTurnEnded((lby) => {
       this.setLobby(lby);
-      this.getUsers(lby);
+      console.log('turn ended');
     });
-    sdk.onTurnEnded(this.setLobby);
     sdk.onLobbyCountdownStarted(this.setLobby);
     sdk.onLobbyCountdownStopped(this.setLobby);
 
     autorun(this.getCurrentLobby);
     autorun(this.configureCountdownTimer);
-    autorun(this.configureTurnTimer);
-  }
-
-  @action
-  setUsers(users = []) {
-    this.users.replace(users);
   }
 
   @action
@@ -83,26 +64,8 @@ export default class LobbyStore {
   }
 
   @action
-  addUser(user) {
-    this.users.push(user);
-  }
-
-  @action
-  removeUser(user) {
-    const filteredUsers = this.users.filter((item) => item.id !== user.id);
-
-    this.setUsers(filteredUsers);
-  }
-
-  @action
   setLobby(lobby = null) {
-    const previousId = this.lobby && this.lobby.id;
-
     this.lobby = lobby;
-
-    if (lobby && lobby.id !== previousId) {
-      this.getUsers();
-    }
   }
 
   configureCountdownTimer() {
@@ -110,14 +73,6 @@ export default class LobbyStore {
       this.countdownTimer.start(this.lobby.countdownStartedAtMs, this.lobby.countdownDuration);
     } else {
       this.countdownTimer.reset();
-    }
-  }
-
-  configureTurnTimer() {
-    if (this.lobby && this.lobby.isRunning) {
-      this.turnTimer.restart(this.lobby.turnStartedAtMs, this.lobby.turnDuration);
-    } else {
-      this.turnTimer.reset();
     }
   }
 
@@ -145,15 +100,6 @@ export default class LobbyStore {
     return undefined;
   }
 
-  @computed
-  get endTurn() {
-    if (this.isOwnTurn) {
-      return () => sdk.endTurn();
-    }
-
-    return undefined;
-  }
-
   joinLobby(lobbyId) {
     if (!this.lobby) {
       this.setError();
@@ -166,23 +112,7 @@ export default class LobbyStore {
       sdk.leaveLobby().then(() => {
         this.setLobby();
         this.setError();
-        this.setUsers();
       });
-    }
-  }
-
-  @action
-  updateUser(user) {
-    const idx = this.users.findIndex((u) => u.id === user.id);
-
-    this.users[idx] = user;
-  }
-
-  getUsers() {
-    if (this.lobby) {
-      sdk.getUsersInLobby(this.lobby.id).then(this.setUsers).catch(this.setError);
-    } else {
-      this.setUsers();
     }
   }
 }
