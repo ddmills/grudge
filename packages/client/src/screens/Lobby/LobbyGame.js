@@ -3,6 +3,7 @@ import { Container } from '@grudge/components';
 import PageSuperHeader from 'components/Page/SuperHeader/PageSuperHeader';
 import LobbyGameHeader from 'components/LobbyGameHeader/LobbyGameHeader';
 import LobbyTimeline from 'components/LobbyTimeline/LobbyTimeline';
+import LobbyUserViewer from 'components/LobbyUserViewer/LobbyUserViewer';
 import styles from './LobbyGame.scss';
 
 export default class LobbyGame extends Component {
@@ -12,7 +13,7 @@ export default class LobbyGame extends Component {
         <PageSuperHeader/>
         <LobbyGameHeader/>
         <div className={styles.content}>
-          <Container className={styles.viewer}/>
+          <LobbyUserViewer/>
           <LobbyTimeline/>
           <Container className={styles.viewer}/>
         </div>

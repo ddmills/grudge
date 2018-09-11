@@ -21,7 +21,7 @@ export default class UserStore {
   }
 
   @computed
-  get selectedtUser() {
+  get selectedUser() {
     return this.users.find((user) => user.id === this.selectedUserId);
   }
 
