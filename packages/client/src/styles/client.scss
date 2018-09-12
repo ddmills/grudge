@@ -15,7 +15,8 @@ body {
   margin: 0;
   font-family: $body-font;
   line-height: $body-line-height;
-  color: #222;
+  color: $white;
+  background-color: $primary-400;
 }
 
 main {
@@ -43,6 +44,10 @@ h3 { @include h3; }
 h4 { @include h4; }
 h5 { @include h5; }
 h6 { @include h6; }
+
+a {
+  color: $red-200;
+}
 
 p {
   margin-top: 0;

@@ -2,7 +2,7 @@
 
 .pageHeaderBanner {
   padding: $spacer-3 0;
-  background-color: $primary-300;
+  background-color: $primary-500;
 }
 
 .pageHeader {
@@ -17,10 +17,3 @@
   flex: 1;
 }
 
-.branding {
-  @include h3();
-  line-height: 1em;
-  color: $white;
-  text-decoration: none;
-  text-shadow: 1px 1px 1px $primary-400;
-}

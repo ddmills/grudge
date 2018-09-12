@@ -3,7 +3,8 @@
 .codeBlock {
   padding: $spacer-2;
   overflow-x: auto;
-  background-color: #fefefe;
-  border: 1px solid $gray-100;
+  color: $white;
+  background-color: $primary-600;
+  border: 1px solid $primary-700;
   border-radius: 3px;
 }

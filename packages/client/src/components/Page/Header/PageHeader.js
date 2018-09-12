@@ -55,9 +55,6 @@ export default class PageHeader extends Component {
     return (
       <header className={styles.pageHeaderBanner}>
         <Container size={size} className={styles.pageHeader}>
-          <Link className={styles.branding} to="landing">
-            Grudge
-          </Link>
           <span className={styles.spacer}/>
           {this.renderAuthButton()}
         </Container>

@@ -28,9 +28,11 @@ export default class PageSuperHeader extends Component {
     return (
       <header className={styles.pageSuperHeaderBanner}>
         <Container size={size} className={styles.pageSuperHeader}>
-          <Link to="landing">
-            <ConnectionStatus/>
+          <Link className={styles.branding} to="landing">
+            Grudge
           </Link>
+          <span className={styles.spacer}/>
+          <ConnectionStatus/>
         </Container>
       </header>
     );
