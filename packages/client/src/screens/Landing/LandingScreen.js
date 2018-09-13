@@ -21,8 +21,8 @@ export default class LandingScreen extends Component {
         </Heading>
 
         <ButtonGroup>
-          <ButtonLink to="landing" params={{ greeting: 'Greetings' }}>
-            Greeting One
+          <ButtonLink to="library">
+            Card Library
           </ButtonLink>
           <ButtonLink to="lobbies">
             Join a game

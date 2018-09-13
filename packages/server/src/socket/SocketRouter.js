@@ -2,6 +2,7 @@ import * as Events from '@grudge/api-events';
 import Logger from 'utilities/Logger';
 import UserController from './controllers/UserController';
 import LobbyController from './controllers/LobbyController';
+import CardTypeController from './controllers/CardTypeController';
 
 const eventMap = [{
   event: Events.USER_GET,
@@ -30,6 +31,9 @@ const eventMap = [{
 }, {
   event: Events.LOBBY_LIST,
   handler: LobbyController.list,
+}, {
+  event: Events.CARDTYPE_LIST,
+  handler: CardTypeController.list,
 }, {
   event: Events.LOBBY_JOIN,
   handler: LobbyController.join,

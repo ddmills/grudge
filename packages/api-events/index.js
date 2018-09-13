@@ -24,3 +24,4 @@ export const LOBBY_LEAVE = 'lobby/leave';
 export const LOBBY_LEFT = 'lobby/left';
 export const LOBBY_USER_JOINED = 'lobby/users/joined';
 export const LOBBY_USER_LEFT = 'lobby/users/left';
+export const CARDTYPE_LIST = 'cardtype/list';
