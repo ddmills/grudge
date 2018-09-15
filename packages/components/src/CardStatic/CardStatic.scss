@@ -6,7 +6,6 @@
   height: 100%;
   overflow: hidden;
   background-color: $primary-200;
-  border: 3px solid $primary-100;
   border-radius: 6px;
 
   box-shadow:
@@ -21,6 +20,21 @@
   color: $primary-000;
   text-align: center;
   background-color: $black-fade-50;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
 }
 
 .attributes {
@@ -42,7 +56,12 @@
 }
 
 .cost {
-  background-color: #fdb706;
+  position: absolute;
+  right: $spacer-1;
+  bottom: $spacer-1;
+  font-size: 1.2em;
+  font-weight: $font-weight-bold;
+  color: $white;
 }
 
 .value {
