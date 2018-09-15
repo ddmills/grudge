@@ -26,7 +26,9 @@ export default class LobbyScreen extends Component {
           Card Library
         </Heading>
         {cardTypes.map((cardType) => (
-          <CardContainer key={cardType.id}/>
+          <CardContainer key={cardType.id}>
+            {cardType.name}
+          </CardContainer>
         ))}
       </Page>
     );
