@@ -9,13 +9,12 @@ export default class CardContainer extends Component {
   };
 
   static defaultProps = {
-    height: '16vh',
+    height: '20vh',
   };
 
   static computeStyle(width = 1) {
     return {
-      fontSize: 0.1 * width,
-      borderRadius: 0.04 * width,
+      zoom: width / 100,
     };
   }
 

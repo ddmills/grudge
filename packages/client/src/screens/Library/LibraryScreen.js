@@ -1,9 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Heading, CardContainer } from '@grudge/components';
+import { Heading, CardStatic } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { CardType } from '@grudge/domain';
+import styles from './LibraryScreen.scss';
 
 @connect(({ cardTypeStore }) => ({
   cardTypes: cardTypeStore.cardTypes,
@@ -25,11 +26,13 @@ export default class LobbyScreen extends Component {
         <Heading>
           Card Library
         </Heading>
-        {cardTypes.map((cardType) => (
-          <CardContainer key={cardType.id}>
-            {cardType.name}
-          </CardContainer>
-        ))}
+        <div className={styles.cardList}>
+          {cardTypes.map((cardType) => (
+            <CardStatic cardType={cardType} key={cardType.id}>
+              {cardType.name}
+            </CardStatic>
+          ))}
+        </div>
       </Page>
     );
   }
