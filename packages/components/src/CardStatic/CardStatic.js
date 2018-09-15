@@ -12,10 +12,11 @@ export default class CardStatic extends Component {
   render() {
     const {
       cardType,
+      ...passProps
     } = this.props;
 
     return (
-      <CardContainer>
+      <CardContainer {...passProps}>
         <section className={styles.cardStatic}>
           <img
             className={styles.image}
