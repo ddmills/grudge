@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CodeBlock, Heading } from '@grudge/components';
+import { Heading, CardContainer } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { CardType } from '@grudge/domain';
@@ -25,9 +25,9 @@ export default class LobbyScreen extends Component {
         <Heading>
           Card Library
         </Heading>
-        <CodeBlock>
-          {cardTypes}
-        </CodeBlock>
+        {cardTypes.map((cardType) => (
+          <CardContainer key={cardType.id}/>
+        ))}
       </Page>
     );
   }

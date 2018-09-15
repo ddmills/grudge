@@ -12,7 +12,6 @@ export default class CardTypeStore {
 
   @action
   setCardTypes(cardTypes) {
-    console.log('setCardTypes', cardTypes);
     this.cardTypes.replace(cardTypes);
   }
 

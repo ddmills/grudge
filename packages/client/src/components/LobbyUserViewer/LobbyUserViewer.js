@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Container, CodeBlock } from '@grudge/components';
+import { Container, CardContainer, Heading } from '@grudge/components';
 import { User } from '@grudge/domain';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';
@@ -22,9 +22,12 @@ export default class LobbyUserViewer extends Component {
 
     return (
       <Container className={styles.lobbyUserViewer}>
-        <CodeBlock>
-          {user}
-        </CodeBlock>
+        {user && (
+          <Heading size={4}>
+            {user.displayName}
+          </Heading>
+        )}
+        <CardContainer/>
       </Container>
     );
   }

@@ -17,7 +17,7 @@
 .loadingText {
   margin: 8px;
   font-weight: $font-weight-bold;
-  color: $black-fade-75;
+  color: $black;
   opacity: 0.5;
 }
 
@@ -45,7 +45,7 @@
 
     content: "";
 
-    background-color: $black-fade-75;
+    background-color: $black;
     border-radius: 100%;
   }
 

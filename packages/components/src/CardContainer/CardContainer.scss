@@ -1,0 +1,33 @@
+/* stylelint-disable selector-max-type */
+@import "@grudge/styles";
+
+$ratio: 1.4;
+$height: 16vh;
+$border-radius: 0.6vh;
+$font-size: 1.4vh;
+
+.cardContainer {
+  position: relative;
+  display: inline-block;
+  margin: $spacer-2;
+  overflow: hidden;
+  color: #000;
+  background-color: $white;
+  border: 1px solid #ccc;
+  border-radius: 4%;
+
+  > svg {
+    width: auto;
+    height: 100%;
+    visibility: hidden;
+  }
+}
+
+.cardContainerContent {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden;
+}

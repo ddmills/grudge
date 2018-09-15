@@ -9,3 +9,4 @@ export { default as LoadingIndicator } from './src/LoadingIndicator/LoadingIndic
 export { default as Button } from './src/Button/Button';
 export { default as ButtonGroup } from './src/ButtonGroup/ButtonGroup';
 export { default as Heading } from './src/Heading/Heading';
+export { default as CardContainer } from './src/CardContainer/CardContainer';
