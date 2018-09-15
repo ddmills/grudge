@@ -45,12 +45,13 @@
     display: inline-flex;
     width: 20px;
     height: 20px;
-    margin: 4px;
+    margin: $spacer-1 0 0 $spacer-1;
     align-items: center;
     justify-content: center;
     font-size: 0.8em;
     font-weight: $font-weight-bold;
     color: $white;
+    border: 2px solid $black-fade-15;
     border-radius: 100%;
   }
 }

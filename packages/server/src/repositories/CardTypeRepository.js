@@ -32,6 +32,23 @@ const rawCardTypes = [
     defense: 2,
     points: 0,
   },
+  {
+    id: 'monk',
+    name: 'Monk',
+    cost: 0,
+    value: 0,
+    attack: 1,
+    defense: 1,
+    points: 0,
+  },
+  {
+    id: 'thief',
+    name: 'Thief',
+    cost: 0,
+    value: 0,
+    attack: 1,
+    points: 0,
+  },
 ];
 
 export default class CardTypeRepository {
