@@ -1,4 +1,6 @@
-import { CardType, User, Lobby } from '@grudge/domain';
+import {
+  Card, CardType, User, Lobby,
+} from '@grudge/domain';
 import * as Events from '@grudge/api-events';
 import SocketFactory from './SocketFactory';
 import EventMap from './EventMap';
@@ -101,6 +103,10 @@ export default class SDK {
 
   endTurn() {
     return this.query(Events.LOBBY_TURN_END).then(ResponseTransformer.toModel(Lobby));
+  }
+
+  getHand() {
+    return this.query(Events.HAND_GET).then(ResponseTransformer.toModel(Card));
   }
 
   leaveLobby() {

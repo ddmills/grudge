@@ -85,13 +85,25 @@ export default class ModelRepository {
     }
   }
 
-  static async first(...args) {
+  static async firstOrFail(...args) {
     try {
       const result = await DB.table(this.tableName).where(...args).first();
 
-      return this.modelClass.create(result);
+      if (result) {
+        return this.modelClass.create(result);
+      }
+
+      throw new Error(`Could not find ${this.modelClass.name.toLowerCase()} with properties ${JSON.stringify(args)}`);
     } catch (error) {
       this.throwSafeDatabaseError(error);
+    }
+  }
+
+  static async first(...args) {
+    try {
+      return this.firstOrFail(...args);
+    } catch (error) {
+      return undefined;
     }
   }
 

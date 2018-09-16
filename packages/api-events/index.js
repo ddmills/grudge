@@ -27,3 +27,4 @@ export const LOBBY_USER_LEFT = 'lobby/users/left';
 export const CARDTYPE_LIST = 'cardtype/list';
 export const CARD_DRAWN = 'card/drawn';
 export const CARD_DISCARDED = 'card/discarded';
+export const HAND_GET = 'hand/get';

@@ -9,6 +9,12 @@ export default class CardStore {
   constructor() {
     sdk.onCardDrawn(this.onCardDrawn);
     sdk.onCardDiscarded(this.onCardDiscarded);
+    sdk.onConnected(this.fetchHand);
+  }
+
+  @action
+  setHand(cards = []) {
+    this.hand.replace(cards);
   }
 
   @action
@@ -20,6 +26,10 @@ export default class CardStore {
   onCardDiscarded(card) {
     const filteredCards = this.hand.filter((item) => item.id !== card.id);
 
-    this.hand.replace(filteredCards);
+    this.setHand(filteredCards);
+  }
+
+  fetchHand() {
+    sdk.getHand().then(this.setHand);
   }
 }

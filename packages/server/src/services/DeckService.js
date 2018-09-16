@@ -1,9 +1,10 @@
 import DeckRepository from 'repositories/DeckRepository';
 import CardRepository from 'repositories/CardRepository';
 import UserLobbyRepository from 'repositories/UserLobbyRepository';
-import NotificationService from 'services/NotificationService';
-import Random from 'utilities/Random';
 import UserRepository from 'repositories/UserRepository';
+import NotificationService from 'services/NotificationService';
+import UserService from 'services/UserService';
+import Random from 'utilities/Random';
 
 const HAND_CARD_COUNT = 5;
 
@@ -97,6 +98,19 @@ export default class DeckService {
     NotificationService.onCardDiscarded(user, card);
 
     return this.discardedCard;
+  }
+
+  static async getHand(user) {
+    const lobby = await UserService.getLobbyForUser(user.id);
+
+    if (lobby && lobby.isRunning) {
+      const deck = await DeckRepository.getForUserInLobby(user.id, user.lobbyId);
+      const cards = await CardRepository.findForDeck(deck.id);
+
+      return cards.filter((card) => card.isDrawn);
+    }
+
+    return [];
   }
 
   static async discardHand(user, lobbyId) {
