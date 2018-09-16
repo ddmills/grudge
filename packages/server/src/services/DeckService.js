@@ -5,6 +5,8 @@ import NotificationService from 'services/NotificationService';
 import Random from 'utilities/Random';
 import UserRepository from 'repositories/UserRepository';
 
+const HAND_CARD_COUNT = 5;
+
 export default class DeckService {
   static async createStarterDeck(lobbyId, userId) {
     const deck = await DeckRepository.create({
@@ -43,18 +45,24 @@ export default class DeckService {
     const allCards = await CardRepository.findForDeck(deckId);
     const discardPile = allCards.filter((card) => card.isDiscarded);
 
-    return Promise.all(discardPile.map((card) => {
-      return CardRepository.save(card.clone({
+    return Promise.all(discardPile.map(async (card) => {
+      const freshCard = card.clone({
         isDrawn: false,
         isDiscarded: false,
-      }));
+      });
+
+      await CardRepository.save(freshCard);
+
+      return freshCard;
     }));
   }
 
-  static async drawCard(userId, card) {
-    const drawnCard = card.clone({ isDrawn: true });
+  static async drawCard(user, card) {
+    const drawnCard = card.clone({
+      isDrawn: true,
+    });
 
-    NotificationService.onCardDrawn(userId, drawnCard);
+    NotificationService.onCardDrawn(user, drawnCard);
 
     return CardRepository.save(drawnCard);
   }
@@ -65,23 +73,22 @@ export default class DeckService {
     const freshPile = allCards.filter((card) => !card.isDrawn && !allCards.isDiscarded);
 
     if (freshPile.length >= count) {
-      await Promise.all(Random.sample(freshPile, count).map((card) => {
-        return this.drawCard(user, card);
-      }));
-    } else {
-      await Promise.all(freshPile.map((card) => {
-        return this.drawCard(user, card);
-      }));
-      const recycledFreshPile = await this.recycleDiscardPile(deck.id);
+      const cardsToDraw = Random.sample(freshPile, count);
 
-      await Promise.all(Random.sample(recycledFreshPile, count - freshPile.length).map((card) => {
-        return this.drawCard(user, card);
-      }));
+      await Promise.all(cardsToDraw.map((card) => this.drawCard(user, card)));
+    } else {
+      await Promise.all(freshPile.map((card) => this.drawCard(user, card)));
+
+      const recycledFreshPile = await this.recycleDiscardPile(deck.id);
+      const cardsToDraw = Random.sample(recycledFreshPile, count - freshPile.length);
+
+      await Promise.all(cardsToDraw.map((card) => this.drawCard(user, card)));
     }
   }
 
   static async discardCard(user, card) {
     const discardedCard = card.clone({
+      isDrawn: false,
       isDiscarded: true,
     });
 
@@ -97,12 +104,18 @@ export default class DeckService {
     const cards = await CardRepository.findForDeck(deck.id);
     const hand = cards.filter((card) => card.isDrawn);
 
-    return hand.map((card) => this.discardCard(user, card));
+    return Promise.all(hand.map((card) => this.discardCard(user, card)));
+  }
+
+  static async refreshHand(user, lobbyId) {
+    await this.discardHand(user, lobbyId);
+
+    return this.draw(user, lobbyId, HAND_CARD_COUNT);
   }
 
   static async drawHands(lobbyId) {
     const users = await UserRepository.getForLobby(lobbyId);
 
-    await Promise.all(users.map((user) => this.draw(user, lobbyId, 5)));
+    await Promise.all(users.map((user) => this.draw(user, lobbyId, HAND_CARD_COUNT)));
   }
 }

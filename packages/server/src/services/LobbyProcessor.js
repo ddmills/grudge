@@ -18,7 +18,7 @@ lobbyTurnQueue.process(async (job) => {
   const lobby = await LobbyRepository.get(lobbyId);
 
   if (lobby.currentTurn === turn) {
-    await LobbyService.incrementTurnCounter(lobby);
+    await LobbyService.turnTimeout(lobby);
   }
 });
 
