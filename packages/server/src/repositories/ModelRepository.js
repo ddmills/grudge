@@ -81,6 +81,16 @@ export default class ModelRepository {
     }
   }
 
+  static async first(...args) {
+    try {
+      const result = await DB.table(this.tableName).where(...args).first();
+
+      return this.modelClass.create(result);
+    } catch (error) {
+      this.throwSafeDatabaseError(error);
+    }
+  }
+
   static throwSafeDatabaseError(error) {
     Logger.error(error);
 

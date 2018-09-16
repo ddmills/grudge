@@ -1,5 +1,6 @@
 import LobbyRepository from 'repositories/LobbyRepository';
 import UserRepository from 'repositories/UserRepository';
+import DeckService from 'services/DeckService';
 import NotificationService from 'services/NotificationService';
 import timestamp from 'utilities/Timestamp';
 import Random from 'utilities/Random';
@@ -47,6 +48,9 @@ export default class LobbyService {
     });
 
     await LobbyRepository.save(updatedLobby);
+
+    await DeckService.createStarterDecks(lobbyId);
+    await DeckService.drawHands(lobbyId);
 
     NotificationService.onLobbyStarted(updatedLobby);
     LobbyProcessor.scheduleTurn(updatedLobby);
