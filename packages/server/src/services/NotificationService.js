@@ -46,4 +46,12 @@ export default class NotificationService {
   static onTurnEnded(lobby) {
     this.notifyLobby(lobby.id, Events.LOBBY_TURN_ENDED, lobby.properties);
   }
+
+  static onCardDrawn(user, card) {
+    this.notifyUser(user.id, Events.CARD_DRAWN, card.properties);
+  }
+
+  static onCardDiscarded(user, card) {
+    this.notifyUser(user.id, Events.CARD_DISCARDED, card.properties);
+  }
 }

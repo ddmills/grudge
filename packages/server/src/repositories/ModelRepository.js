@@ -5,18 +5,22 @@ import cuid from 'cuid';
 
 @autobind
 export default class ModelRepository {
+  static async updateForId(id, properties) {
+    try {
+      await DB
+        .table(this.tableName)
+        .where({ id })
+        .update(properties);
+
+      return id;
+    } catch (error) {
+      this.throwSafeDatabaseError(error);
+    }
+  }
+
   static async save(model) {
     if (model.id) {
-      try {
-        await DB
-          .table(this.tableName)
-          .where({ id: model.id })
-          .update(model.properties);
-
-        return model.id;
-      } catch (error) {
-        this.throwSafeDatabaseError(error);
-      }
+      return this.updateForId(model.id, model.properties);
     }
 
     const id = `${this.idPrefix}-${cuid()}`;

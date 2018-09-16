@@ -34,7 +34,7 @@ export default class LobbyService {
       throw new Error('Lobby has already started');
     }
 
-    const users = await this.getUsersInLobby(lobby.id);
+    const users = await UserRepository.getForLobby(lobby.id);
 
     await Promise.all(Random.shuffle(users).map((user, idx) => {
       return UserRepository.save(user.clone({
@@ -60,7 +60,7 @@ export default class LobbyService {
 
   static async endTurn(user) {
     const lobby = await LobbyRepository.get(user.lobbyId);
-    const users = await this.getUsersInLobby(lobby.id);
+    const users = await UserRepository.getForLobby(lobby.id);
     const currentTurnUser = lobby.pickCurrentTurnUser(users);
 
     if (user.id !== currentTurnUser.id) {
@@ -173,9 +173,5 @@ export default class LobbyService {
     NotificationService.onUserLeftLobby(lobby, user);
 
     return lobby;
-  }
-
-  static async getUsersInLobby(lobbyId) {
-    return UserRepository.where({ lobbyId });
   }
 }

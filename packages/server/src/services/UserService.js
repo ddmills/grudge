@@ -1,5 +1,6 @@
 import UserRepository from 'repositories/UserRepository';
 import LobbyRepository from 'repositories/LobbyRepository';
+import Logger from 'utilities/Logger';
 
 export default class UserService {
   static async getLobbyForUser(userId) {
@@ -12,5 +13,9 @@ export default class UserService {
 
   static async get(userId) {
     return UserRepository.get(userId);
+  }
+
+  static async getForLobby(lobbyId) {
+    return UserRepository.getForLobby(lobbyId);
   }
 }

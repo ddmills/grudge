@@ -1,7 +1,9 @@
 import DeckRepository from 'repositories/DeckRepository';
 import CardRepository from 'repositories/CardRepository';
 import UserLobbyRepository from 'repositories/UserLobbyRepository';
+import NotificationService from 'services/NotificationService';
 import Random from 'utilities/Random';
+import UserRepository from 'repositories/UserRepository';
 
 export default class DeckService {
   static async createStarterDeck(lobbyId, userId) {
@@ -49,35 +51,58 @@ export default class DeckService {
     }));
   }
 
-  static async draw(userId, lobbyId, count = 1) {
-    const deck = await DeckRepository.getForUserInLobby(userId, lobbyId);
+  static async drawCard(userId, card) {
+    const drawnCard = card.clone({ isDrawn: true });
+
+    NotificationService.onCardDrawn(userId, drawnCard);
+
+    return CardRepository.save(drawnCard);
+  }
+
+  static async draw(user, lobbyId, count = 1) {
+    const deck = await DeckRepository.getForUserInLobby(user.id, lobbyId);
     const allCards = await CardRepository.findForDeck(deck.id);
     const freshPile = allCards.filter((card) => !card.isDrawn && !allCards.isDiscarded);
 
     if (freshPile.length >= count) {
       await Promise.all(Random.sample(freshPile, count).map((card) => {
-        const drawnCard = card.clone({ isDrawn: true });
-
-        return CardRepository.save(drawnCard);
+        return this.drawCard(user, card);
       }));
     } else {
       await Promise.all(freshPile.map((card) => {
-        const drawnCard = card.clone({ isDrawn: true });
-
-        return CardRepository.save(drawnCard);
+        return this.drawCard(user, card);
       }));
       const recycledFreshPile = await this.recycleDiscardPile(deck.id);
-      await Promise.all(Random.sample(recycledFreshPile, count - freshPile.length).map((card) => {
-        const drawnCard = card.clone({ isDrawn: true });
 
-        return CardRepository.save(drawnCard);
+      await Promise.all(Random.sample(recycledFreshPile, count - freshPile.length).map((card) => {
+        return this.drawCard(user, card);
       }));
     }
   }
 
-  static async drawHands(lobbyId) {
-    const userIds = await UserLobbyRepository.findForLobby(lobbyId);
+  static async discardCard(user, card) {
+    const discardedCard = card.clone({
+      isDiscarded: true,
+    });
 
-    await Promise.all(userIds.map((userId) => this.draw(userId, lobbyId, 5)));
+    await CardRepository.save(discardedCard);
+
+    NotificationService.onCardDiscarded(user, card);
+
+    return this.discardedCard;
+  }
+
+  static async discardHand(user, lobbyId) {
+    const deck = await DeckRepository.getForUserInLobby(user.id, lobbyId);
+    const cards = await CardRepository.findForDeck(deck.id);
+    const hand = cards.filter((card) => card.isDrawn);
+
+    return hand.map((card) => this.discardCard(user, card));
+  }
+
+  static async drawHands(lobbyId) {
+    const users = await UserRepository.getForLobby(lobbyId);
+
+    await Promise.all(users.map((user) => this.draw(user, lobbyId, 5)));
   }
 }

@@ -32,8 +32,4 @@ export default class LobbyController {
   static async leave({ user }) {
     return LobbyService.leave(user);
   }
-
-  static async getUsersInLobby({ lobbyId }) {
-    return LobbyService.getUsersInLobby(lobbyId);
-  }
 }

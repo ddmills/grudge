@@ -11,11 +11,11 @@ const eventMap = [{
   event: Events.USER_LOBBY_GET,
   handler: UserController.getLobbyForUser,
 }, {
+  event: Events.LOBBY_USERS_GET,
+  handler: UserController.getUsersInLobby,
+}, {
   event: Events.LOBBY_GET,
   handler: LobbyController.get,
-}, {
-  event: Events.LOBBY_USERS_GET,
-  handler: LobbyController.getUsersInLobby,
 }, {
   event: Events.LOBBY_CREATE,
   handler: LobbyController.create,

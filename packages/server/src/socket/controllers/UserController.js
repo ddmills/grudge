@@ -8,4 +8,8 @@ export default class UserController {
   static async getLobbyForUser({ userId }) {
     return UserService.getLobbyForUser(userId);
   }
+
+  static async getUsersInLobby({ lobbyId }) {
+    return UserService.getForLobby(lobbyId);
+  }
 }

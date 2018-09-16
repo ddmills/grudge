@@ -23,4 +23,8 @@ export default class UserRepository extends ModelRepository {
       turnOrder: null,
     }));
   }
+
+  static async getForLobby(lobbyId) {
+    return this.where({ lobbyId });
+  }
 }
