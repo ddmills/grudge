@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Heading, CardStatic, CardContainer } from '@grudge/components';
+import { Heading, CardStatic } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { CardType } from '@grudge/domain';
@@ -27,9 +27,6 @@ export default class LobbyScreen extends Component {
           Card Library
         </Heading>
         <div className={styles.cardList}>
-          <CardContainer isInspectable>
-            Hello bob
-          </CardContainer>
           {cardTypes.map((cardType) => (
             <CardStatic isInspectable cardType={cardType} key={cardType.id}>
               {cardType.name}

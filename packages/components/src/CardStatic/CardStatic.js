@@ -20,7 +20,7 @@ export default class CardStatic extends Component {
         <section className={styles.cardStatic}>
           <img
             className={styles.image}
-            src={`https://loremflickr.com/g/100/140/${cardType.id}?random=${cardType.id}&lock=${cardType.name.length}`}
+            src={`https://loremflickr.com/300/420/${cardType.id}?random=${cardType.id}&lock=${cardType.name.length}`}
             alt={cardType.description}
           />
           <div className={styles.content}>
@@ -37,11 +37,13 @@ export default class CardStatic extends Component {
               {cardType.defense > 0 && (
                 <span className={styles.defense}>{cardType.defense}</span>
               )}
-              {cardType.points > 0 && (
-                <span className={styles.points}>{cardType.points}</span>
-              )}
             </div>
-            <span className={styles.cost}>{cardType.cost}</span>
+            {cardType.cost > 0 && (
+              <span className={styles.cost}>{cardType.cost}</span>
+            )}
+            {cardType.points > 0 && (
+              <span className={styles.points}>{cardType.points}</span>
+            )}
           </div>
         </section>
       </CardContainer>

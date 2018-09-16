@@ -28,18 +28,21 @@ export default class CardContainer extends Component {
 
   state = {
     isInspecting: false,
+    isMouseUp: true,
   };
 
   onClickStart() {
-    if (this.state.isInspecting) {
-      this.setState({
-        isInspecting: false,
-      });
-    }
+    this.setState({
+      isMouseUp: false,
+    });
   }
 
   onClickEnd(e) {
-    if (this.state.isInspecting) {
+    if (this.state.isMouseUp) {
+      this.setState({
+        isMouseUp: false,
+      });
+    } else if (this.state.isInspecting) {
       this.setState({
         isInspecting: false,
       });
@@ -51,6 +54,7 @@ export default class CardContainer extends Component {
   onClickHold() {
     this.setState({
       isInspecting: true,
+      isMouseUp: true,
     });
   }
 
