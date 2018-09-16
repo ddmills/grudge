@@ -18,4 +18,8 @@ export default class CardTypeStore {
   fetchCardTypes() {
     sdk.listCardTypes().then(this.setCardTypes);
   }
+
+  findCardType(id) {
+    return this.cardTypes.find((cardType) => cardType.id === id);
+  }
 }

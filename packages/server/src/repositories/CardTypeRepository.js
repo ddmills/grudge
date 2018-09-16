@@ -87,10 +87,10 @@ const rawCardTypes = [
   {
     id: 'graveyard',
     name: 'Graveyard',
-    cost: 3,
+    cost: 0,
     value: 0,
     attack: 0,
-    points: 2,
+    points: 1,
   },
   {
     id: 'library',

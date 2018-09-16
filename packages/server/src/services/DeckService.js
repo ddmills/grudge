@@ -22,8 +22,8 @@ export default class DeckService {
       'graveyard',
       'graveyard',
       'graveyard',
-      'theif',
-      'theif',
+      'thief',
+      'thief',
       'monk',
       'monk',
     ];
