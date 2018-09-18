@@ -22,7 +22,9 @@ export default class Hand extends Component {
     } = this.props;
 
     if (cardType) {
-      return <CardStatic cardType={cardType} isInspectable/>;
+      return (
+        <CardStatic cardType={cardType} isInspectable/>
+      );
     }
 
     return <CardContainer/>;

@@ -9,20 +9,25 @@ import styles from './CardContainer.scss';
 @autobind
 export default class CardContainer extends Component {
   static propTypes = {
-    height: PropTypes.string,
     isInspectable: PropTypes.bool,
     onClick: PropTypes.func,
   };
 
   static defaultProps = {
-    height: '20vh',
     isInspectable: false,
     onClick: () => {},
   };
 
-  static computeStyle(width = 1) {
+  static computeStyle(height = 1) {
     return {
-      zoom: width / 100,
+      width: height / 1.4,
+      height,
+    };
+  }
+
+  static computeZoomStyle(isInspecting, height = 1) {
+    return {
+      zoom: isInspecting ? 3 : height / 140,
     };
   }
 
@@ -60,51 +65,41 @@ export default class CardContainer extends Component {
 
   render() {
     const {
-      height,
       children,
       isInspectable,
     } = this.props;
-
-    const style = {
-      height,
-    };
-
-    const containerClasses = classNames(styles.cardContainer, {
-      [styles.inspectable]: isInspectable,
-    });
 
     const inspectorClasses = classNames(styles.inspector, {
       [styles.inspecting]: this.state.isInspecting,
     });
 
     return (
-      <div className={containerClasses} style={style}>
-        <svg viewBox="0 0 1 1.4"/>
-        <div className={inspectorClasses}>
-          <div className={styles.inspectorContent}>
-            {isInspectable && (
-              <ClickNHold
-                className={styles.clickable}
-                time={0.25}
-                onStart={this.onClickStart}
-                onEnd={this.onClickEnd}
-                onClickNHold={this.onClickHold}
-              />
-            )}
-            <ResizeDetector
-              handleWidth
-              render={({ width }) => (
+      <ResizeDetector
+        handleHeight
+        render={({ height }) => (
+          <div className={styles.cardContainer} style={CardContainer.computeStyle(height)}>
+            <div className={inspectorClasses}>
+              <div className={styles.inspectorContent}>
+                {isInspectable && (
+                  <ClickNHold
+                    className={styles.clickable}
+                    time={0.25}
+                    onStart={this.onClickStart}
+                    onEnd={this.onClickEnd}
+                    onClickNHold={this.onClickHold}
+                  />
+                )}
                 <div
-                  style={CardContainer.computeStyle(width)}
                   className={styles.cardContainerContent}
+                  style={CardContainer.computeZoomStyle(this.state.isInspecting, height)}
                 >
                   {children}
                 </div>
-              )}
-            />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+      />
     );
   }
 }

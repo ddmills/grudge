@@ -28,9 +28,11 @@ export default class LobbyScreen extends Component {
         </Heading>
         <div className={styles.cardList}>
           {cardTypes.map((cardType) => (
-            <CardStatic isInspectable cardType={cardType} key={cardType.id}>
-              {cardType.name}
-            </CardStatic>
+            <div style={{ height: '20vh' }}>
+              <CardStatic isInspectable cardType={cardType} key={cardType.id}>
+                {cardType.name}
+              </CardStatic>
+            </div>
           ))}
         </div>
       </Page>
