@@ -24,7 +24,7 @@ export default class Page extends Component {
   static defaultProps = {
     size: 'md',
     showLobbySetupHeader: true,
-    showHeader: true,
+    showHeader: false,
     showFooter: true,
   }
 
