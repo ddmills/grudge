@@ -9,6 +9,15 @@ export default class Card extends Model {
       createdAt: undefined,
       isDrawn: false,
       isDiscarded: false,
+      traits: [],
     };
+  }
+
+  hasTrait(traitId) {
+    return Boolean(this.getTrait(traitId));
+  }
+
+  getTrait(traitId) {
+    return this.traits.first((trait) => trait.id === traitId);
   }
 }

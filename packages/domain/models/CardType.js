@@ -6,11 +6,15 @@ export default class CardType extends Model {
       id: undefined,
       name: 'Card',
       description: 'Card description',
-      cost: 0,
-      value: 0,
-      attack: 0,
-      defense: 0,
-      points: 0,
+      traits: [],
     };
+  }
+
+  hasTrait(traitId) {
+    return Boolean(this.getTrait(traitId));
+  }
+
+  getTrait(traitId) {
+    return this.traits.find((trait) => trait.id === traitId);
   }
 }

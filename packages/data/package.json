@@ -1,0 +1,9 @@
+{
+  "name": "@grudge/data",
+  "version": "0.2.2",
+  "description": "Shared static data",
+  "main": "index.js",
+  "publishConfig": {
+    "access": "public"
+  }
+}

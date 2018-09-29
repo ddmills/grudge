@@ -20,7 +20,7 @@ export default class CardStatic extends Component {
         <section className={styles.cardStatic}>
           <img
             className={styles.image}
-            src={`https://loremflickr.com/300/420/${cardType.id}?random=${cardType.id}&lock=${cardType.name.length}`}
+            src={`https://loremflickr.com/300/420/${cardType.name}?random=${cardType.id}&lock=${cardType.name.length}`}
             alt={cardType.description}
           />
           <div className={styles.content}>
@@ -28,21 +28,31 @@ export default class CardStatic extends Component {
               {cardType.name}
             </h2>
             <div className={styles.attributes}>
-              {cardType.value > 0 && (
-                <span className={styles.value}>{cardType.value}</span>
+              {cardType.hasTrait('trt-value') && (
+                <span className={styles.value}>
+                  {cardType.getTrait('trt-value').value}
+                </span>
               )}
-              {cardType.attack > 0 && (
-                <span className={styles.attack}>{cardType.attack}</span>
+              {cardType.hasTrait('trt-attack') && (
+                <span className={styles.attack}>
+                  {cardType.getTrait('trt-attack').value}
+                </span>
               )}
-              {cardType.defense > 0 && (
-                <span className={styles.defense}>{cardType.defense}</span>
+              {cardType.hasTrait('trt-defense') && (
+                <span className={styles.defense}>
+                  {cardType.getTrait('trt-defense').value}
+                </span>
               )}
             </div>
-            {cardType.cost > 0 && (
-              <span className={styles.cost}>{cardType.cost}</span>
+            {cardType.hasTrait('trt-cost') && (
+              <span className={styles.cost}>
+                {cardType.getTrait('trt-cost').value}
+              </span>
             )}
-            {cardType.points > 0 && (
-              <span className={styles.points}>{cardType.points}</span>
+            {cardType.hasTrait('trt-points') && (
+              <span className={styles.points}>
+                {cardType.getTrait('trt-points').value}
+              </span>
             )}
           </div>
         </section>

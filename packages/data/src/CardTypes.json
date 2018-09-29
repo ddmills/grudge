@@ -1,0 +1,262 @@
+[
+  {
+    "id": "cdt-hovel",
+    "name": "Hovel",
+    "traits": [
+      {
+        "id": "trt-defense",
+        "value": 3
+      },
+      {
+        "id": "trt-cost",
+        "value": 6
+      }
+    ]
+  },
+  {
+    "id": "cdt-clay-mine",
+    "name": "Clay Mine",
+    "traits": [
+      {
+        "id": "trt-defense",
+        "value": 2
+      },
+      {
+        "id": "trt-cost",
+        "value": 6
+      },
+      {
+        "id": "trt-value",
+        "value": 4
+      }
+    ]
+  },
+  {
+    "id": "cdt-tax-collector",
+    "name": "Tax Collector",
+    "traits": [
+      {
+        "id": "trt-value",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "id": "cdt-tavern",
+    "name": "Tavern",
+    "traits": [
+      {
+        "id": "trt-value",
+        "value": 1
+      },
+      {
+        "id": "trt-defense",
+        "value": 3
+      },
+      {
+        "id": "trt-cost",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "id": "cdt-cathedral",
+    "name": "Cathedral",
+    "traits": [
+      {
+        "id": "trt-value",
+        "value": 8
+      },
+      {
+        "id": "trt-cost",
+        "value": 16
+      },
+      {
+        "id": "trt-points",
+        "value": 8
+      }
+    ]
+  },
+  {
+    "id": "cdt-necromancer",
+    "name": "Necromancer",
+    "traits": [
+      {
+        "id": "trt-defense",
+        "value": 2
+      },
+      {
+        "id": "trt-cost",
+        "value": 12
+      },
+      {
+        "id": "trt-attack",
+        "value": 4
+      },
+      {
+        "id": "trt-points",
+        "value": 8
+      }
+    ]
+  },
+  {
+    "id": "cdt-monk",
+    "name": "Monk",
+    "traits": [
+      {
+        "id": "trt-value",
+        "value": 1
+      },
+      {
+        "id": "trt-healer",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "id": "cdt-courtines",
+    "name": "Courtines",
+    "traits": [
+      {
+        "id": "trt-cost",
+        "value": 6
+      },
+      {
+        "id": "trt-defense",
+        "value": 4
+      }
+    ]
+  },
+  {
+    "id": "cdt-bannerman",
+    "name": "Bannerman",
+    "traits": [
+      {
+        "id": "trt-cost",
+        "value": 3
+      },
+      {
+        "id": "trt-defense",
+        "value": 4
+      },
+      {
+        "id": "trt-attack",
+        "value": 4
+      }
+    ]
+  },
+  {
+    "id": "cdt-thief",
+    "name": "Thief",
+    "traits": [
+      {
+        "id": "trt-thief",
+        "value": 1
+      },
+      {
+        "id": "trt-attack",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "id": "cdt-graveyard",
+    "name": "Graveyard",
+    "traits": [
+      {
+        "id": "trt-points",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "id": "cdt-library",
+    "name": "Library",
+    "traits": [
+      {
+        "id": "trt-cost",
+        "value": 3
+      },
+      {
+        "id": "trt-points",
+        "value": 2
+      }
+    ]
+  },
+  {
+    "id": "cdt-watchtower",
+    "name": "Watchtower",
+    "traits": [
+      {
+        "id": "trt-cost",
+        "value": 6
+      },
+      {
+        "id": "trt-attack",
+        "value": 4
+      },
+      {
+        "id": "trt-defense",
+        "value": 8
+      }
+    ]
+  },
+  {
+    "id": "cdt-nunnery",
+    "name": "Nunnery",
+    "traits": [
+      {
+        "id": "trt-cost",
+        "value": 5
+      },
+      {
+        "id": "trt-points",
+        "value": 5
+      },
+      {
+        "id": "trt-defense",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "cdt-barracks",
+    "name": "Barracks",
+    "traits": [
+      {
+        "id": "trt-cost",
+        "value": 8
+      },
+      {
+        "id": "trt-attack",
+        "value": 4
+      },
+      {
+        "id": "trt-defense",
+        "value": 5
+      }
+    ]
+  },
+  {
+    "id": "cdt-palace",
+    "name": "Palace",
+    "traits": [
+      {
+        "id": "trt-cost",
+        "value": 20
+      },
+      {
+        "id": "trt-value",
+        "value": 12
+      },
+      {
+        "id": "trt-defense",
+        "value": 2
+      },
+      {
+        "id": "trt-points",
+        "value": 10
+      }
+    ]
+  }
+]

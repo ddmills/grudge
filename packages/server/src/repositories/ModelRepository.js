@@ -5,12 +5,27 @@ import cuid from 'cuid';
 
 @autobind
 export default class ModelRepository {
+  static serializeProperty(property) {
+    if (property instanceof Array || property instanceof Object) {
+      return JSON.stringify(property);
+    }
+
+    return property;
+  }
+
+  static serialzeProperties(properties) {
+    return Object.entries(properties).reduce((ob, [k, v]) => ({
+      ...ob,
+      [k]: this.serializeProperty(v),
+    }), {});
+  }
+
   static async updateForId(id, properties) {
     try {
       await DB
         .table(this.tableName)
         .where({ id })
-        .update(properties);
+        .update(this.serialzeProperties(properties));
 
       return id;
     } catch (error) {
@@ -20,14 +35,14 @@ export default class ModelRepository {
 
   static async save(model) {
     if (model.id) {
-      return this.updateForId(model.id, model.properties);
+      return this.updateForId(model.id, this.serialzeProperties(model.properties));
     }
 
     const id = `${this.idPrefix}-${cuid()}`;
 
     try {
       await DB.table(this.tableName).insert({
-        ...model.properties,
+        ...this.serialzeProperties(model.properties),
         id,
       });
     } catch (error) {
@@ -39,7 +54,8 @@ export default class ModelRepository {
 
   static async create(properties) {
     try {
-      const id = await this.save(this.modelClass.create(properties));
+      const model = this.modelClass.create(properties);
+      const id = await this.save(model);
 
       return this.get(id);
     } catch (error) {

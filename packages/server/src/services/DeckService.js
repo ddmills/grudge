@@ -1,5 +1,6 @@
 import DeckRepository from 'repositories/DeckRepository';
 import CardRepository from 'repositories/CardRepository';
+import CardTypeRepository from 'repositories/CardTypeRepository';
 import UserLobbyRepository from 'repositories/UserLobbyRepository';
 import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
@@ -16,22 +17,25 @@ export default class DeckService {
     });
 
     const startingCardTypes = [
-      'tax-collector',
-      'tax-collector',
-      'tax-collector',
-      'graveyard',
-      'graveyard',
-      'graveyard',
-      'thief',
-      'thief',
-      'monk',
-      'monk',
+      'cdt-tax-collector',
+      'cdt-tax-collector',
+      'cdt-tax-collector',
+      'cdt-graveyard',
+      'cdt-graveyard',
+      'cdt-graveyard',
+      'cdt-thief',
+      'cdt-thief',
+      'cdt-monk',
+      'cdt-monk',
     ];
 
-    return Promise.all(startingCardTypes.map((cardTypeId) => {
+    return Promise.all(startingCardTypes.map(async (cardTypeId) => {
+      const cardType = await CardTypeRepository.get(cardTypeId);
+
       return CardRepository.create({
         cardTypeId,
         deckId: deck.id,
+        traits: cardType.traits,
       });
     }));
   }
