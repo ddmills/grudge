@@ -69,13 +69,15 @@ export default class CardStore {
 
   @action
   setPlayedCardsForUser(userId, cards) {
-    this.users[userId].replace(cards);
+    if (userId in this.users) {
+      this.users[userId].replace(cards);
+    } else {
+      this.users[userId] = cards;
+    }
   }
 
-  @action
   getPlayedCardsForUsers() {
     this.userStore.users.forEach((user) => {
-      this.users[user.id] = [];
       sdk.listPlayedCardsForUser(user.id).then((cards) => {
         this.setPlayedCardsForUser(user.id, cards);
       });
