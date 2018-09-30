@@ -4,6 +4,7 @@ import UserController from './controllers/UserController';
 import LobbyController from './controllers/LobbyController';
 import CardTypeController from './controllers/CardTypeController';
 import DeckController from './controllers/DeckController';
+import TurnController from './controllers/TurnController';
 import CardController from './controllers/CardController';
 
 const eventMap = [{
@@ -28,11 +29,11 @@ const eventMap = [{
   event: Events.LOBBY_COUNTDOWN_STOP,
   handler: LobbyController.stopCountdown,
 }, {
-  event: Events.LOBBY_TURN_END,
-  handler: LobbyController.endTurn,
-}, {
   event: Events.LOBBY_LIST,
   handler: LobbyController.list,
+}, {
+  event: Events.LOBBY_TURN_END,
+  handler: TurnController.endTurn,
 }, {
   event: Events.CARDTYPE_LIST,
   handler: CardTypeController.list,

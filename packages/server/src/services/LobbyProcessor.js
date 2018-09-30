@@ -1,5 +1,6 @@
 import BullQueue from 'providers/bull/BullQueue';
 import LobbyService from 'services/LobbyService';
+import TurnService from 'services/TurnService';
 import LobbyRepository from 'repositories/LobbyRepository';
 
 const lobbyCountdownQueue = BullQueue.create('lobby:countdown');
@@ -18,7 +19,7 @@ lobbyTurnQueue.process(async (job) => {
   const lobby = await LobbyRepository.get(lobbyId);
 
   if (lobby.currentTurn === turn) {
-    await LobbyService.turnTimeout(lobby);
+    await TurnService.turnTimeout(lobby);
   }
 });
 

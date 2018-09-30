@@ -24,6 +24,10 @@ export default class Random {
   }
 
   static sample(array, count) {
+    if (count >= array.length) {
+      return generator.sample(array, array.length);
+    }
+
     return generator.sample(array, count);
   }
 

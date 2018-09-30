@@ -17,10 +17,6 @@ export default class LobbyController {
     return LobbyService.stopCountdown(user);
   }
 
-  static async endTurn({ user }) {
-    return LobbyService.endTurn(user);
-  }
-
   static async list() {
     return LobbyService.list();
   }
