@@ -4,6 +4,12 @@
     "name": "Hovel",
     "traits": [
       {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
+      {
         "id": "trt-defense",
         "value": 3
       },
@@ -17,6 +23,12 @@
     "id": "cdt-clay-mine",
     "name": "Clay Mine",
     "traits": [
+      {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
       {
         "id": "trt-defense",
         "value": 2
@@ -46,6 +58,12 @@
     "name": "Tavern",
     "traits": [
       {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
+      {
         "id": "trt-value",
         "value": 1
       },
@@ -63,6 +81,12 @@
     "id": "cdt-cathedral",
     "name": "Cathedral",
     "traits": [
+      {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
       {
         "id": "trt-value",
         "value": 8
@@ -118,6 +142,12 @@
     "name": "Courtines",
     "traits": [
       {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
+      {
         "id": "trt-cost",
         "value": 6
       },
@@ -164,6 +194,12 @@
     "name": "Graveyard",
     "traits": [
       {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
+      {
         "id": "trt-points",
         "value": 1
       }
@@ -173,6 +209,12 @@
     "id": "cdt-library",
     "name": "Library",
     "traits": [
+      {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
       {
         "id": "trt-cost",
         "value": 3
@@ -187,6 +229,12 @@
     "id": "cdt-watchtower",
     "name": "Watchtower",
     "traits": [
+      {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
       {
         "id": "trt-cost",
         "value": 6
@@ -206,6 +254,12 @@
     "name": "Nunnery",
     "traits": [
       {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
+      {
         "id": "trt-cost",
         "value": 5
       },
@@ -224,6 +278,12 @@
     "name": "Barracks",
     "traits": [
       {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
+      {
         "id": "trt-cost",
         "value": 8
       },
@@ -241,6 +301,12 @@
     "id": "cdt-palace",
     "name": "Palace",
     "traits": [
+      {
+        "id": "trt-blueprint"
+      },
+      {
+        "id": "trt-playable"
+      },
       {
         "id": "trt-cost",
         "value": 20

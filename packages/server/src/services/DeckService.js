@@ -65,6 +65,7 @@ export default class DeckService {
   static async drawCard(user, card) {
     const drawnCard = card.clone({
       isDrawn: true,
+      isDiscarded: false,
     });
 
     NotificationService.onCardDrawn(user, drawnCard);
@@ -101,7 +102,7 @@ export default class DeckService {
 
     NotificationService.onCardDiscarded(user, card);
 
-    return this.discardedCard;
+    return discardedCard;
   }
 
   static async getHand(user) {

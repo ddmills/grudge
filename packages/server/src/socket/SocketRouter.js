@@ -4,6 +4,7 @@ import UserController from './controllers/UserController';
 import LobbyController from './controllers/LobbyController';
 import CardTypeController from './controllers/CardTypeController';
 import DeckController from './controllers/DeckController';
+import CardController from './controllers/CardController';
 
 const eventMap = [{
   event: Events.USER_GET,
@@ -44,6 +45,9 @@ const eventMap = [{
 }, {
   event: Events.HAND_GET,
   handler: DeckController.getHand,
+}, {
+  event: Events.CARD_PLAY,
+  handler: CardController.playCard,
 }];
 
 export default class SocketRouter {

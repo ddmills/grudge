@@ -8,6 +8,7 @@ export default class Card extends Model {
       deckId: undefined,
       createdAt: undefined,
       isDrawn: false,
+      isPlayed: false,
       isDiscarded: false,
       traits: [],
     };
@@ -18,6 +19,6 @@ export default class Card extends Model {
   }
 
   getTrait(traitId) {
-    return this.traits.first((trait) => trait.id === traitId);
+    return this.traits.find((trait) => trait.id === traitId);
   }
 }

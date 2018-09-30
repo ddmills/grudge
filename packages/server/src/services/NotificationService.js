@@ -54,4 +54,8 @@ export default class NotificationService {
   static onCardDiscarded(user, card) {
     this.notifyUser(user.id, Events.CARD_DISCARDED, card.properties);
   }
+
+  static onCardPlayed(lobby, card) {
+    this.notifyLobby(lobby.id, Events.CARD_PLAYED, card.properties);
+  }
 }

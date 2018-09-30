@@ -6,9 +6,12 @@ import autobind from 'autobind-decorator';
 export default class CardStore {
   @observable hand = [];
 
+  @observable arena = [];
+
   constructor() {
     sdk.onCardDrawn(this.onCardDrawn);
     sdk.onCardDiscarded(this.onCardDiscarded);
+    sdk.onCardPlayed(this.onCardPlayed);
     sdk.onConnected(this.fetchHand);
   }
 
@@ -23,10 +26,21 @@ export default class CardStore {
   }
 
   @action
+  onCardPlayed(card) {
+    console.log(`${card.id} was played`);
+  }
+
+  @action
   onCardDiscarded(card) {
     const filteredCards = this.hand.filter((item) => item.id !== card.id);
 
     this.setHand(filteredCards);
+  }
+
+  playCard(card) {
+    sdk.playCard(card.id).then(action((c) => {
+      this.arena.push(c);
+    }));
   }
 
   fetchHand() {

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Heading, CardStatic } from '@grudge/components';
+import { Heading, CardTypeView } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { CardType } from '@grudge/domain';
@@ -29,7 +29,7 @@ export default class LobbyScreen extends Component {
         <div className={styles.cardList}>
           {cardTypes.map((cardType) => (
             <div style={{ height: '16vh' }} key={cardType.id}>
-              <CardStatic cardType={cardType}/>
+              <CardTypeView cardType={cardType}/>
             </div>
           ))}
         </div>

@@ -1,17 +1,38 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { CardType } from '@grudge/domain';
 import styles from './CardStatic.scss';
 import CardContainer from '../CardContainer/CardContainer';
 
 export default class CardStatic extends Component {
   static propTypes = {
-    cardType: PropTypes.instanceOf(CardType).isRequired,
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    value: PropTypes.number,
+    attack: PropTypes.number,
+    defense: PropTypes.number,
+    cost: PropTypes.number,
+    points: PropTypes.number,
+  };
+
+  static defaultProps = {
+    value: undefined,
+    attack: undefined,
+    defense: undefined,
+    cost: undefined,
+    points: undefined,
   };
 
   render() {
     const {
-      cardType,
+      id,
+      name,
+      description,
+      value,
+      attack,
+      defense,
+      cost,
+      points,
       ...passProps
     } = this.props;
 
@@ -20,38 +41,38 @@ export default class CardStatic extends Component {
         <section className={styles.cardStatic}>
           <img
             className={styles.image}
-            src={`https://loremflickr.com/300/420/${cardType.name}?random=${cardType.id}&lock=${cardType.name.length}`}
-            alt={cardType.description}
+            src={`https://loremflickr.com/300/420/${name}?random=${id}&lock=${name.length}`}
+            alt={description}
           />
           <div className={styles.content}>
             <h2 className={styles.cardTitle}>
-              {cardType.name}
+              {name}
             </h2>
             <div className={styles.attributes}>
-              {cardType.hasTrait('trt-value') && (
+              {value && (
                 <span className={styles.value}>
-                  {cardType.getTrait('trt-value').value}
+                  {value}
                 </span>
               )}
-              {cardType.hasTrait('trt-attack') && (
+              {attack && (
                 <span className={styles.attack}>
-                  {cardType.getTrait('trt-attack').value}
+                  {attack}
                 </span>
               )}
-              {cardType.hasTrait('trt-defense') && (
+              {defense && (
                 <span className={styles.defense}>
-                  {cardType.getTrait('trt-defense').value}
+                  {defense}
                 </span>
               )}
             </div>
-            {cardType.hasTrait('trt-cost') && (
+            {cost && (
               <span className={styles.cost}>
-                {cardType.getTrait('trt-cost').value}
+                {cost}
               </span>
             )}
-            {cardType.hasTrait('trt-points') && (
+            {points && (
               <span className={styles.points}>
-                {cardType.getTrait('trt-points').value}
+                {points}
               </span>
             )}
           </div>
