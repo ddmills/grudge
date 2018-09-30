@@ -120,4 +120,8 @@ export default class SDK {
   playCard(cardId) {
     return this.query(Events.CARD_PLAY, { cardId }).then(ResponseTransformer.toModel(Card));
   }
+
+  listPlayedCardsForUser(userId) {
+    return this.query(Events.CARD_PLAYED_LIST, { userId }).then(ResponseTransformer.toModel(Card));
+  }
 }

@@ -29,4 +29,5 @@ export const CARD_DRAWN = 'card/drawn';
 export const CARD_DISCARDED = 'card/discarded';
 export const CARD_PLAY = 'card/play';
 export const CARD_PLAYED = 'card/played';
+export const CARD_PLAYED_LIST = 'card/played/list';
 export const HAND_GET = 'hand/get';

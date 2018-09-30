@@ -71,4 +71,12 @@ export default class CardService {
 
     return freshCard;
   }
+
+  static async getPlayedCardsForUser(userId) {
+    return CardRepository.where({
+      userId,
+      isPlayed: true,
+      isDiscarded: false,
+    });
+  }
 }

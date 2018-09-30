@@ -49,6 +49,9 @@ const eventMap = [{
 }, {
   event: Events.CARD_PLAY,
   handler: CardController.playCard,
+}, {
+  event: Events.CARD_PLAYED_LIST,
+  handler: CardController.getPlayedCardsForUser,
 }];
 
 export default class SocketRouter {

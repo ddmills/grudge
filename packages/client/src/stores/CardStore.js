@@ -1,4 +1,6 @@
-import { action, observable } from 'mobx';
+import {
+  action, autorun, computed, observable,
+} from 'mobx';
 import sdk from '@grudge/sdk';
 import autobind from 'autobind-decorator';
 
@@ -6,13 +8,28 @@ import autobind from 'autobind-decorator';
 export default class CardStore {
   @observable hand = [];
 
-  @observable arena = [];
+  @observable users = {};
 
-  constructor() {
+  @computed
+  get selectedUserPlayedCards() {
+    const user = this.userStore.selectedUser;
+
+    if (user && user.id in this.users) {
+      return this.users[user.id];
+    }
+
+    return [];
+  }
+
+  constructor(userStore) {
+    this.userStore = userStore;
+
     sdk.onCardDrawn(this.onCardDrawn);
     sdk.onCardDiscarded(this.onCardDiscarded);
     sdk.onCardPlayed(this.onCardPlayed);
     sdk.onConnected(this.fetchHand);
+
+    autorun(this.getPlayedCardsForUsers);
   }
 
   @action
@@ -27,7 +44,7 @@ export default class CardStore {
 
   @action
   onCardPlayed(card) {
-    console.log(`${card.id} was played`);
+    this.users[card.userId].push(card);
   }
 
   @action
@@ -37,13 +54,31 @@ export default class CardStore {
     this.setHand(filteredCards);
   }
 
+  @action
+  removeCardFromHand(card) {
+    this.hand.replace(this.hand.filter((c) => c.id !== card.id));
+  }
+
   playCard(card) {
-    sdk.playCard(card.id).then(action((c) => {
-      this.arena.push(c);
-    }));
+    sdk.playCard(card.id).then(this.removeCardFromHand);
   }
 
   fetchHand() {
     sdk.getHand().then(this.setHand);
+  }
+
+  @action
+  setPlayedCardsForUser(userId, cards) {
+    this.users[userId].replace(cards);
+  }
+
+  @action
+  getPlayedCardsForUsers() {
+    this.userStore.users.forEach((user) => {
+      this.users[user.id] = [];
+      sdk.listPlayedCardsForUser(user.id).then((cards) => {
+        this.setPlayedCardsForUser(user.id, cards);
+      });
+    });
   }
 }
