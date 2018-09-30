@@ -1,6 +1,7 @@
 import { Component } from 'react';
-import { Container, CardContainer, Heading, CodeBlock } from '@grudge/components';
-import { User, Card } from '@grudge/domain';
+import { Container, Heading } from '@grudge/components';
+import { User } from '@grudge/domain';
+import Arena from 'components/Arena/Arena';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';
 import styles from './LobbyUserViewer.scss';
@@ -12,18 +13,15 @@ import styles from './LobbyUserViewer.scss';
 export default class LobbyUserViewer extends Component {
   static propTypes = {
     user: PropTypes.instanceOf(User),
-    playedCards: PropTypes.arrayOf(PropTypes.instanceOf(Card)),
   };
 
   static defaultProps = {
     user: undefined,
-    playedCards: [],
   };
 
   render() {
     const {
       user,
-      playedCards,
     } = this.props;
 
     return (
@@ -33,13 +31,9 @@ export default class LobbyUserViewer extends Component {
             {user.displayName}
           </Heading>
         )}
-        <ul>
-          {playedCards.map((card) => (
-            <li key={card.id}>
-              {card.cardTypeId}
-            </li>
-          ))}
-        </ul>
+        {user && (
+          <Arena userId={user.id}/>
+        )}
       </Container>
     );
   }

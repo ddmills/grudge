@@ -76,6 +76,10 @@ export default class CardStore {
     }
   }
 
+  getPlayedCardsForUser(userId) {
+    return this.users[userId];
+  }
+
   getPlayedCardsForUsers() {
     this.userStore.users.forEach((user) => {
       sdk.listPlayedCardsForUser(user.id).then((cards) => {
