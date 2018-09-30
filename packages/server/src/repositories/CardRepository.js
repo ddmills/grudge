@@ -11,4 +11,8 @@ export default class CardRepository extends ModelRepository {
   static async findForDeck(deckId) {
     return this.where({ deckId });
   }
+
+  static async findForUser(userId) {
+    return this.where({ userId });
+  }
 }

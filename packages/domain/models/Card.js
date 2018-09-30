@@ -6,6 +6,7 @@ export default class Card extends Model {
       id: undefined,
       cardTypeId: undefined,
       deckId: undefined,
+      userId: undefined,
       createdAt: undefined,
       isDrawn: false,
       isPlayed: false,
@@ -20,5 +21,13 @@ export default class Card extends Model {
 
   getTrait(traitId) {
     return this.traits.find((trait) => trait.id === traitId);
+  }
+
+  get isFresh() {
+    return !this.isDrawn && !this.isPlayed && !this.isDiscarded;
+  }
+
+  get isInHand() {
+    return this.isDrawn && !this.isPlayed && !this.isDiscarded;
   }
 }
