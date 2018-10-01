@@ -71,9 +71,18 @@ export default class UserStore {
     this.selectedUserId = userId;
   }
 
+  @action
+  selectDefaultUser() {
+    const others = this.users.filter((user) => user.id !== this.currentUser.id);
+
+    if (others.length) {
+      this.selectUser(others[0].id);
+    }
+  }
+
   fetchUsers() {
     if (this.lobbyStore.lobbyId) {
-      sdk.getUsersInLobby(this.lobbyStore.lobbyId).then(this.setUsers);
+      sdk.getUsersInLobby(this.lobbyStore.lobbyId).then(this.setUsers).then(this.selectDefaultUser);
     } else {
       this.setUsers();
     }
