@@ -1,1 +1,1 @@
-export { default as CardTypes } from './src/CardTypes.json';
+export { default as CardTypes } from './src/CardTypes';

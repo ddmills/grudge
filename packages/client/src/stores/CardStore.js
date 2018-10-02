@@ -21,6 +21,11 @@ export default class CardStore {
     return [];
   }
 
+  @computed
+  get cards() {
+    return this.hand.concat(Object.values(this.users).flat());
+  }
+
   constructor(userStore) {
     this.userStore = userStore;
 
@@ -44,6 +49,10 @@ export default class CardStore {
 
   @action
   onCardPlayed(card) {
+    if (this.isOwnCard(card)) {
+      this.removeCardFromHand(card);
+    }
+
     this.users[card.userId].push(card);
   }
 
@@ -59,8 +68,12 @@ export default class CardStore {
     this.hand.replace(this.hand.filter((c) => c.id !== card.id));
   }
 
-  playCard(card) {
-    sdk.playCard(card.id).then(this.removeCardFromHand);
+  getCard(cardId) {
+    return this.cards.find((card) => card.id === cardId);
+  }
+
+  isOwnCard(card) {
+    return card.userId === this.userStore.currentUserId;
   }
 
   fetchHand() {
@@ -77,7 +90,7 @@ export default class CardStore {
   }
 
   getPlayedCardsForUser(userId) {
-    return this.users[userId];
+    return this.users[userId] || [];
   }
 
   getPlayedCardsForUsers() {

@@ -1,31 +1,36 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { CardView, CardContainer } from '@grudge/components';
-import { Card, CardType } from '@grudge/domain';
+import { Card as CardModel, CardType } from '@grudge/domain';
 import connect from 'utilities/mobx/Connect';
 
-@connect(({ cardTypeStore, cardStore }, { card }) => ({
-  cardType: cardTypeStore.findCardType(card.cardTypeId),
-  playCard: () => cardStore.playCard(card),
-}))
-export default class HandCard extends Component {
+@connect(({ cardTypeStore, commandStore, cardStore }, { cardId }) => {
+  const card = cardStore.getCard(cardId);
+
+  return {
+    card,
+    cardType: card && cardTypeStore.findCardType(card.cardTypeId),
+    onClick: () => commandStore.onClickCard(card),
+  };
+})
+export default class Card extends Component {
   static propTypes = {
-    card: PropTypes.instanceOf(Card),
+    card: PropTypes.instanceOf(CardModel),
     cardType: PropTypes.instanceOf(CardType),
-    playCard: PropTypes.func,
+    onClick: PropTypes.func,
   }
 
   static defaultProps = {
     card: undefined,
     cardType: undefined,
-    playCard: undefined,
+    onClick: undefined,
   }
 
   render() {
     const {
       card,
       cardType,
-      playCard,
+      onClick,
     } = this.props;
 
     if (card) {
@@ -33,7 +38,7 @@ export default class HandCard extends Component {
         <CardView
           card={card}
           cardType={cardType}
-          onClickEnd={playCard}
+          onClickEnd={onClick}
         />
       );
     }

@@ -73,7 +73,7 @@ export default class UserStore {
 
   @action
   selectDefaultUser() {
-    const others = this.users.filter((user) => user.id !== this.currentUser.id);
+    const others = this.users.filter((user) => user.id !== this.currentUserId);
 
     if (others.length) {
       this.selectUser(others[0].id);

@@ -30,7 +30,7 @@ export default class CardService {
 
     await CardRepository.save(playedCard);
 
-    NotificationService.onCardPlayed(lobby, card);
+    NotificationService.onCardPlayed(lobby, playedCard);
 
     return playedCard;
   }

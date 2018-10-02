@@ -7,9 +7,9 @@
 ```js
 import { CardTypes } from '@grudge/data';
 
-CardTypes.forEach((rawCardType) => {
-  console.log(rawCardType.id);
-  console.log(rawCardType.name);
-  console.log(rawCardType.cost);
-});
+const monk = CardTypes['crt-monk'];
+
+console.log(monk.id);
+console.log(monk.name);
+console.log(monk.cost);
 ```

@@ -31,6 +31,7 @@ export default {
       whitelist: [
         '@grudge/domain',
         '@grudge/api-events',
+        '@grudge/data',
       ],
     }),
   ],

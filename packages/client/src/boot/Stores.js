@@ -6,6 +6,7 @@ import LobbyStore from 'stores/LobbyStore';
 import TurnStore from 'stores/TurnStore';
 import CardTypeStore from 'stores/CardTypeStore';
 import CardStore from 'stores/CardStore';
+import CommandStore from 'stores/CommandStore';
 
 export default () => {
   const authStore = new AuthStore();
@@ -16,6 +17,7 @@ export default () => {
   const turnStore = new TurnStore(lobbyStore, userStore);
   const cardTypeStore = new CardTypeStore();
   const cardStore = new CardStore(userStore);
+  const commandStore = new CommandStore(cardStore, turnStore);
 
   return {
     authStore,
@@ -26,5 +28,6 @@ export default () => {
     turnStore,
     cardTypeStore,
     cardStore,
+    commandStore,
   };
 };
