@@ -10,6 +10,7 @@ export default class User extends Model {
       lobbyId: undefined,
       createdAt: undefined,
       turnOrder: undefined,
+      money: 0,
     };
   }
 }

@@ -12,6 +12,8 @@ export default class Card extends Model {
       isPlayed: false,
       isDiscarded: false,
       traits: [],
+      onPlayed: [],
+      onDrawn: [],
     };
   }
 

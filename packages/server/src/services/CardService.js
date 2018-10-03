@@ -2,6 +2,7 @@ import UserRepository from 'repositories/UserRepository';
 import CardRepository from 'repositories/CardRepository';
 import LobbyRepository from 'repositories/LobbyRepository';
 import NotificationService from 'services/NotificationService';
+import TriggerService from 'services/TriggerService';
 
 export default class CardService {
   static async playCard(user, cardId) {
@@ -30,6 +31,8 @@ export default class CardService {
 
     await CardRepository.save(playedCard);
 
+    await TriggerService.onPlayed(playedCard);
+
     NotificationService.onCardPlayed(lobby, playedCard);
 
     return playedCard;
@@ -55,9 +58,13 @@ export default class CardService {
       isDiscarded: false,
     });
 
+    await CardRepository.save(drawnCard);
+
+    await TriggerService.onDrawn(drawnCard);
+
     NotificationService.onCardDrawn(user, drawnCard);
 
-    return CardRepository.save(drawnCard);
+    return drawnCard;
   }
 
   static async recycleCard(card) {

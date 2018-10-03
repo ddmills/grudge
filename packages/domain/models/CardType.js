@@ -7,6 +7,8 @@ export default class CardType extends Model {
       name: 'Card',
       description: 'Card description',
       traits: [],
+      onPlayed: [],
+      onDrawn: [],
     };
   }
 

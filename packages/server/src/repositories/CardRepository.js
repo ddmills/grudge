@@ -15,4 +15,14 @@ export default class CardRepository extends ModelRepository {
   static async findForUser(userId) {
     return this.where({ userId });
   }
+
+  static async createForCardType(cardType, properties) {
+    return this.create({
+      cardTypeId: cardType.id,
+      traits: cardType.traits,
+      onPlayed: cardType.onPlayed,
+      onDrawn: cardType.onDrawn,
+      ...properties,
+    });
+  }
 }

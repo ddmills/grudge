@@ -1,18 +1,14 @@
-const create = (id, name, traits) => ({
+const create = (id, name, traits, onPlayed = [], onDrawn = []) => ({
   id,
   name,
   description: name,
   traits,
+  onPlayed,
+  onDrawn,
 });
 
 const CardTypes = [
   create('cdt-hovel', 'Hovel', [
-    {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
     {
       id: 'trt-defense',
       value: 3,
@@ -23,12 +19,6 @@ const CardTypes = [
     },
   ]),
   create('cdt-clay-mine', 'Clay Mine', [
-    {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
     {
       id: 'trt-defense',
       value: 2,
@@ -47,17 +37,19 @@ const CardTypes = [
       id: 'trt-value',
       value: 2,
     },
+  ], [
     {
-      id: 'trt-playable',
+      id: 'efx-collect',
+    },
+    {
+      id: 'efx-disable',
+    },
+  ], [
+    {
+      id: 'efx-enable',
     },
   ]),
   create('cdt-tavern', 'Tavern', [
-    {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
     {
       id: 'trt-value',
       value: 1,
@@ -72,12 +64,6 @@ const CardTypes = [
     },
   ]),
   create('cdt-cathedral', 'Cathedral', [
-    {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
     {
       id: 'trt-value',
       value: 8,
@@ -111,9 +97,6 @@ const CardTypes = [
   ]),
   create('cdt-monk', 'Monk', [
     {
-      id: 'trt-playable',
-    },
-    {
       id: 'trt-value',
       value: 1,
     },
@@ -121,14 +104,19 @@ const CardTypes = [
       id: 'trt-healer',
       value: 2,
     },
+  ], [
+    {
+      id: 'efx-collect',
+    },
+    {
+      id: 'efx-disable',
+    },
+  ], [
+    {
+      id: 'efx-enable',
+    },
   ]),
   create('cdt-courtines', 'Courtines', [
-    {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
     {
       id: 'trt-cost',
       value: 6,
@@ -154,9 +142,6 @@ const CardTypes = [
   ]),
   create('cdt-thief', 'Thief', [
     {
-      id: 'trt-playable',
-    },
-    {
       id: 'trt-thief',
       value: 1,
     },
@@ -167,23 +152,11 @@ const CardTypes = [
   ]),
   create('cdt-graveyard', 'Graveyard', [
     {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
-    {
       id: 'trt-points',
       value: 1,
     },
   ]),
   create('cdt-library', 'Library', [
-    {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
     {
       id: 'trt-cost',
       value: 3,
@@ -194,12 +167,6 @@ const CardTypes = [
     },
   ]),
   create('cdt-watchtower', 'Watchtower', [
-    {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
     {
       id: 'trt-cost',
       value: 6,
@@ -215,12 +182,6 @@ const CardTypes = [
   ]),
   create('cdt-nunnery', 'Nunnery', [
     {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
-    {
       id: 'trt-cost',
       value: 5,
     },
@@ -235,12 +196,6 @@ const CardTypes = [
   ]),
   create('cdt-barracks', 'Barracks', [
     {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
-    {
       id: 'trt-cost',
       value: 8,
     },
@@ -254,12 +209,6 @@ const CardTypes = [
     },
   ]),
   create('cdt-palace', 'Palace', [
-    {
-      id: 'trt-blueprint',
-    },
-    {
-      id: 'trt-playable',
-    },
     {
       id: 'trt-cost',
       value: 20,

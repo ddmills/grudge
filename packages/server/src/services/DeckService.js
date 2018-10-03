@@ -32,11 +32,9 @@ export default class DeckService {
     return Promise.all(startingCardTypes.map(async (cardTypeId) => {
       const cardType = await CardTypeRepository.get(cardTypeId);
 
-      return CardRepository.create({
+      return CardRepository.createForCardType(cardType, {
         userId,
-        cardTypeId,
         deckId: deck.id,
-        traits: cardType.traits,
       });
     }));
   }

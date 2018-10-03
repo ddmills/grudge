@@ -13,7 +13,6 @@ export default class CommandStore {
       this.turnStore.isOwnTurn
       && this.cardStore.isOwnCard(card)
       && card.isInHand
-      && card.hasTrait('trt-playable')
     ) {
       sdk.playCard(card.id);
     }
