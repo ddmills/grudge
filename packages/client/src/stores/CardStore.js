@@ -14,11 +14,7 @@ export default class CardStore {
   get selectedUserPlayedCards() {
     const user = this.userStore.selectedUser;
 
-    if (user && user.id in this.users) {
-      return this.users[user.id];
-    }
-
-    return [];
+    return this.getPlayedCardsForUser(user);
   }
 
   @computed
@@ -58,14 +54,12 @@ export default class CardStore {
 
   @action
   onCardDiscarded(card) {
-    const filteredCards = this.hand.filter((item) => item.id !== card.id);
-
-    this.setHand(filteredCards);
+    this.removeCardFromHand(card);
   }
 
   @action
   removeCardFromHand(card) {
-    this.hand.replace(this.hand.filter((c) => c.id !== card.id));
+    this.setHand(this.hand.filter((c) => c.id !== card.id));
   }
 
   getCard(cardId) {

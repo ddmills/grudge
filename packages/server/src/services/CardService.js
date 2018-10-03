@@ -33,9 +33,11 @@ export default class CardService {
 
     await TriggerService.onPlayed(playedCard);
 
-    NotificationService.onCardPlayed(lobby, playedCard);
+    const updatedCard = CardRepository.get(playedCard.id);
 
-    return playedCard;
+    NotificationService.onCardPlayed(lobby, updatedCard);
+
+    return updatedCard;
   }
 
   static async discardCard(user, card) {
@@ -59,12 +61,13 @@ export default class CardService {
     });
 
     await CardRepository.save(drawnCard);
-
     await TriggerService.onDrawn(drawnCard);
 
-    NotificationService.onCardDrawn(user, drawnCard);
+    const updatedCard = await CardRepository.get(drawnCard.id);
 
-    return drawnCard;
+    NotificationService.onCardDrawn(user, updatedCard);
+
+    return updatedCard;
   }
 
   static async recycleCard(card) {
