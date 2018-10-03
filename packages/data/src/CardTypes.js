@@ -1,4 +1,7 @@
-const create = (id, name, traits, onPlayed = [], onDrawn = []) => ({
+import * as TraitIds from './TraitIds';
+import * as EffectIds from './EffectIds';
+
+const create = (id, name, traits = [], onPlayed = [], onDrawn = []) => ({
   id,
   name,
   description: name,
@@ -10,219 +13,211 @@ const create = (id, name, traits, onPlayed = [], onDrawn = []) => ({
 const CardTypes = [
   create('cdt-hovel', 'Hovel', [
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 3,
     },
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 6,
     },
   ]),
   create('cdt-clay-mine', 'Clay Mine', [
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 2,
     },
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 6,
     },
     {
-      id: 'trt-value',
+      id: TraitIds.VALUE,
       value: 4,
     },
   ]),
   create('cdt-tax-collector', 'Tax Collector', [
     {
-      id: 'trt-value',
+      id: TraitIds.VALUE,
       value: 2,
     },
   ], [
     {
-      id: 'efx-collect',
+      id: EffectIds.COLLECT,
     },
     {
-      id: 'efx-disable',
+      id: EffectIds.DISABLE,
     },
   ], [
     {
-      id: 'efx-enable',
+      id: EffectIds.ENABLE,
     },
   ]),
   create('cdt-tavern', 'Tavern', [
     {
-      id: 'trt-value',
+      id: TraitIds.VALUE,
       value: 1,
     },
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 3,
     },
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 1,
     },
   ]),
   create('cdt-cathedral', 'Cathedral', [
     {
-      id: 'trt-value',
+      id: TraitIds.VALUE,
       value: 8,
     },
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 16,
     },
     {
-      id: 'trt-points',
+      id: TraitIds.POINTS,
       value: 8,
     },
   ]),
   create('cdt-necromancer', 'Necromancer', [
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 2,
     },
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 12,
     },
     {
-      id: 'trt-attack',
+      id: TraitIds.ATTACK,
       value: 4,
     },
     {
-      id: 'trt-points',
+      id: TraitIds.POINTS,
       value: 8,
     },
   ]),
   create('cdt-monk', 'Monk', [
     {
-      id: 'trt-value',
+      id: TraitIds.VALUE,
       value: 1,
     },
+  ], [
     {
-      id: 'trt-healer',
-      value: 2,
+      id: EffectIds.COLLECT,
+    },
+    {
+      id: EffectIds.DISABLE,
     },
   ], [
     {
-      id: 'efx-collect',
-    },
-    {
-      id: 'efx-disable',
-    },
-  ], [
-    {
-      id: 'efx-enable',
+      id: EffectIds.ENABLE,
     },
   ]),
   create('cdt-courtines', 'Courtines', [
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 6,
     },
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 4,
     },
   ]),
   create('cdt-bannerman', 'Bannerman', [
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 3,
     },
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 4,
     },
     {
-      id: 'trt-attack',
+      id: TraitIds.ATTACK,
       value: 4,
     },
   ]),
   create('cdt-thief', 'Thief', [
     {
-      id: 'trt-thief',
-      value: 1,
-    },
-    {
-      id: 'trt-attack',
+      id: TraitIds.ATTACK,
       value: 1,
     },
   ]),
   create('cdt-graveyard', 'Graveyard', [
     {
-      id: 'trt-points',
+      id: TraitIds.POINTS,
       value: 1,
     },
   ]),
   create('cdt-library', 'Library', [
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 3,
     },
     {
-      id: 'trt-points',
+      id: TraitIds.POINTS,
       value: 2,
     },
   ]),
   create('cdt-watchtower', 'Watchtower', [
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 6,
     },
     {
-      id: 'trt-attack',
+      id: TraitIds.ATTACK,
       value: 4,
     },
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 8,
     },
   ]),
   create('cdt-nunnery', 'Nunnery', [
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 5,
     },
     {
-      id: 'trt-points',
+      id: TraitIds.POINTS,
       value: 5,
     },
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 5,
     },
   ]),
   create('cdt-barracks', 'Barracks', [
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 8,
     },
     {
-      id: 'trt-attack',
+      id: TraitIds.ATTACK,
       value: 4,
     },
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 5,
     },
   ]),
   create('cdt-palace', 'Palace', [
     {
-      id: 'trt-cost',
+      id: TraitIds.COST,
       value: 20,
     },
     {
-      id: 'trt-value',
+      id: TraitIds.VALUE,
       value: 12,
     },
     {
-      id: 'trt-defense',
+      id: TraitIds.DEFENSE,
       value: 2,
     },
     {
-      id: 'trt-points',
+      id: TraitIds.POINTS,
       value: 10,
     },
   ]),

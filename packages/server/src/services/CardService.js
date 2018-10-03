@@ -33,7 +33,7 @@ export default class CardService {
 
     await TriggerService.onPlayed(playedCard);
 
-    const updatedCard = CardRepository.get(playedCard.id);
+    const updatedCard = await CardRepository.get(playedCard.id);
 
     NotificationService.onCardPlayed(lobby, updatedCard);
 

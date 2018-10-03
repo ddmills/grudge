@@ -1,12 +1,13 @@
 import MoneyService from 'services/MoneyService';
+import { EffectIds, TraitIds } from '@grudge/data';
 import Effect from './Effect';
 
 export default class CollectEffect extends Effect {
-  static id = 'efx-collect';
+  static id = EffectIds.COLLECT;
 
-  static async apply(trait, card) {
-    if (card.hasTrait('trt-value')) {
-      const amount = card.getTrait('trt-value').value;
+  static async apply(effect, card) {
+    if (card.hasTrait(TraitIds.VALUE)) {
+      const amount = card.getTrait(TraitIds.VALUE).value;
 
       return MoneyService.add(card.userId, amount);
     }
