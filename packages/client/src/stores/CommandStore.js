@@ -3,9 +3,10 @@ import sdk from '@grudge/sdk';
 
 @autobind
 export default class CommandStore {
-  constructor(cardStore, turnStore) {
+  constructor(cardStore, turnStore, actionStore) {
     this.cardStore = cardStore;
     this.turnStore = turnStore;
+    this.actionStore = actionStore;
   }
 
   onClickCard(card) {
@@ -14,7 +15,7 @@ export default class CommandStore {
       && this.cardStore.isOwnCard(card)
       && card.isInHand
     ) {
-      sdk.playCard(card.id);
+      this.actionStore.defaultHandAction(card);
     }
   }
 }

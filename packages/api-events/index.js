@@ -31,3 +31,4 @@ export const CARD_PLAY = 'card/play';
 export const CARD_PLAYED = 'card/played';
 export const CARD_PLAYED_LIST = 'card/played/list';
 export const HAND_GET = 'hand/get';
+export const ACTION_PERFORM = 'action/perform';

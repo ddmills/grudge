@@ -15,6 +15,9 @@ export default class SDK {
 
     this.onConnectingEventHook = new EventHook(Events.CONNECTING, 'onConnecting');
     this.onConnectingEventHook.attach(this);
+
+    this.onErrorEventHook = new EventHook(Events.ERROR, 'onError');
+    this.onErrorEventHook.attach(this);
   }
 
   configure(token) {
@@ -61,7 +64,9 @@ export default class SDK {
 
   query(event, params = {}) {
     return this.connect().then(() => {
-      return Query.send(this.socket, event, params);
+      return Query.send(this.socket, event, params).catch((error) => {
+        this.onErrorEventHook.trigger(error);
+      });
     });
   }
 
@@ -119,6 +124,11 @@ export default class SDK {
 
   playCard(cardId) {
     return this.query(Events.CARD_PLAY, { cardId }).then(ResponseTransformer.toModel(Card));
+  }
+
+  performAction(action, cardId) {
+    return this.query(Events.ACTION_PERFORM, { action, cardId })
+      .then(ResponseTransformer.toModel(Card));
   }
 
   listPlayedCardsForUser(userId) {

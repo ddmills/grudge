@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@grudge/components": "^0.2.2",
+    "@grudge/data": "^0.2.2",
     "@grudge/domain": "^0.2.2",
     "@grudge/sdk": "^0.2.2",
     "@grudge/styles": "^0.2.0",

@@ -37,7 +37,8 @@ export default class ConnectionStore {
   }
 
   @action
-  onError(message) {
-    this.error = message;
+  onError(error) {
+    this.error = error;
+    console.error(`SDK error ${error.message}`);
   }
 }

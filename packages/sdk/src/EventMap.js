@@ -8,7 +8,6 @@ export default class EventMap {
     return [
       new EventHook(Events.CONNECTED, 'onConnected'),
       new EventHook(Events.DISCONNECTED, 'onDisconnected'),
-      new EventHook(Events.ERROR, 'onError'),
       new EventHook(Events.FLASH, 'onFlash'),
       new EventHook(Events.LOBBY_STARTED, 'onLobbyStarted', ResponseTransformer.toModel(Lobby)),
       new EventHook(Events.LOBBY_COUNTDOWN_STOPPED, 'onLobbyCountdownStopped', ResponseTransformer.toModel(Lobby)),

@@ -14,6 +14,7 @@ export default class Card extends Model {
       traits: [],
       onPlayed: [],
       onDrawn: [],
+      handActions: [],
     };
   }
 
@@ -31,5 +32,9 @@ export default class Card extends Model {
 
   get isInHand() {
     return this.isDrawn && !this.isPlayed && !this.isDiscarded;
+  }
+
+  get defaultHandAction() {
+    return this.handActions[0];
   }
 }

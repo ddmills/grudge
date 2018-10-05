@@ -6,6 +6,7 @@ import CardTypeController from './controllers/CardTypeController';
 import DeckController from './controllers/DeckController';
 import TurnController from './controllers/TurnController';
 import CardController from './controllers/CardController';
+import ActionController from './controllers/ActionController';
 
 const eventMap = [{
   event: Events.USER_GET,
@@ -49,6 +50,9 @@ const eventMap = [{
 }, {
   event: Events.CARD_PLAY,
   handler: CardController.playCard,
+}, {
+  event: Events.ACTION_PERFORM,
+  handler: ActionController.performAction,
 }, {
   event: Events.CARD_PLAYED_LIST,
   handler: CardController.getPlayedCardsForUser,
