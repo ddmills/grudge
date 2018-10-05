@@ -48,9 +48,6 @@ const eventMap = [{
   event: Events.HAND_GET,
   handler: DeckController.getHand,
 }, {
-  event: Events.CARD_PLAY,
-  handler: CardController.playCard,
-}, {
   event: Events.ACTION_PERFORM,
   handler: ActionController.performAction,
 }, {
