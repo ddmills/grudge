@@ -28,10 +28,6 @@ const CardTypes = [
     name: 'Cathedral',
     traits: [
       {
-        id: TraitIds.VALUE,
-        value: 8,
-      },
-      {
         id: TraitIds.COST,
         value: 16,
       },
@@ -42,6 +38,15 @@ const CardTypes = [
     ],
     handActions: [
       { id: ActionIds.PLAY },
+    ],
+    onPlayed: [
+      {
+        id: EffectIds.ADD_TRAIT,
+        traitId: TraitIds.VALUE,
+        traitParams: {
+          value: 8,
+        },
+      },
     ],
   },
   {

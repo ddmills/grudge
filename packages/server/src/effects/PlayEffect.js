@@ -4,6 +4,7 @@ import Effect from './Effect';
 import LobbyRepository from '../repositories/LobbyRepository';
 import UserRepository from '../repositories/UserRepository';
 import NotificationService from '../services/NotificationService';
+import TriggerService from '../services/TriggerService';
 
 export default class PlayEffect extends Effect {
   static id = EffectIds.PLAY;
@@ -17,6 +18,8 @@ export default class PlayEffect extends Effect {
 
     const user = await UserRepository.get(card.userId);
     const lobby = await LobbyRepository.get(user.lobbyId);
+
+    await TriggerService.onPlayed(playedCard);
 
     NotificationService.onCardPlayed(lobby, playedCard);
   }
