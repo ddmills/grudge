@@ -15,6 +15,6 @@ export default class CollectAction extends Action {
     id: EffectIds.COLLECT,
   }, {
     id: EffectIds.ADD_TRAIT,
-    traidId: TraitIds.DISABLED,
+    traitId: TraitIds.DISABLED,
   }]
 }

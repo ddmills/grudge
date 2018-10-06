@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardType } from '@grudge/domain';
+import { TraitIds } from '@grudge/data';
 import CardStatic from '../CardStatic/CardStatic';
 
 const getTrait = (card, traitId) => {
@@ -25,11 +26,12 @@ export default class CardView extends Component {
         id={cardType.id}
         name={cardType.name}
         description={cardType.description}
-        value={getTrait(card, 'trt-value')}
-        attack={getTrait(card, 'trt-attack')}
-        defense={getTrait(card, 'trt-defense')}
-        cost={getTrait(card, 'trt-cost')}
-        points={getTrait(card, 'trt-points')}
+        isDisabled={card.hasTrait(TraitIds.DISABLED)}
+        value={getTrait(card, TraitIds.VALUE)}
+        attack={getTrait(card, TraitIds.ATTACK)}
+        defense={getTrait(card, TraitIds.DEFENSE)}
+        cost={getTrait(card, TraitIds.COST)}
+        points={getTrait(card, TraitIds.POINTS)}
         {...passProps}
       />
     );

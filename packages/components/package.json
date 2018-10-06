@@ -4,6 +4,7 @@
   "description": "React components for Grudge",
   "main": "index.js",
   "dependencies": {
+    "@grudge/data": "^0.2.2",
     "@grudge/domain": "^0.2.2",
     "@grudge/styles": "^0.2.0",
     "autobind-decorator": "^2.1.0",

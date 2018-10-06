@@ -13,6 +13,7 @@ export default class CardStatic extends Component {
     defense: PropTypes.number,
     cost: PropTypes.number,
     points: PropTypes.number,
+    isDisabled: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -21,6 +22,7 @@ export default class CardStatic extends Component {
     defense: undefined,
     cost: undefined,
     points: undefined,
+    isDisabled: false,
   };
 
   render() {
@@ -33,6 +35,7 @@ export default class CardStatic extends Component {
       defense,
       cost,
       points,
+      isDisabled,
       ...passProps
     } = this.props;
 
@@ -47,6 +50,7 @@ export default class CardStatic extends Component {
           <div className={styles.content}>
             <h2 className={styles.cardTitle}>
               {name}
+              {isDisabled && ' ×'}
             </h2>
             <div className={styles.attributes}>
               {value && (
