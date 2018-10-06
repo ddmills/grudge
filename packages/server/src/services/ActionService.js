@@ -33,7 +33,7 @@ export default class ActionService {
     }
 
     if (card.isInHand) {
-      this.performHandAction(card, action, actionData);
+      await this.performHandAction(card, action, actionData);
     }
 
     return CardRepository.get(cardId);

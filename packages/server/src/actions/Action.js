@@ -8,9 +8,7 @@ export default class Action {
   static effects = [];
 
   static async perform(card) {
-    for (const precondition of this.preconditions) { // eslint-disable-line no-restricted-syntax
-      await precondition.validate(card); // eslint-disable-line no-await-in-loop
-    }
+    await Promise.all(this.preconditions.map((precondition) => precondition.validate(card)));
     await EffectService.applyAll(this.effects, card);
   }
 }
