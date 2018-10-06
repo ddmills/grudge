@@ -18,12 +18,24 @@ export default class Card extends Model {
     };
   }
 
+  hasHandAction(actionId) {
+    return Boolean(this.getHandAction(actionId));
+  }
+
+  getHandAction(actionId) {
+    return this.handActions.find((action) => action.id === actionId);
+  }
+
   hasTrait(traitId) {
     return Boolean(this.getTrait(traitId));
   }
 
   getTrait(traitId) {
     return this.traits.find((trait) => trait.id === traitId);
+  }
+
+  isOwnedBy(user) {
+    return this.userId === user.id;
   }
 
   get isFresh() {

@@ -40,4 +40,12 @@ export default class TurnService {
 
     this.endTurn(currentTurnUser);
   }
+
+  static async isUsersTurn(user) {
+    const lobby = await LobbyRepository.get(user.lobbyId);
+    const users = await UserRepository.getForLobby(lobby.id);
+    const currentTurnUser = lobby.pickCurrentTurnUser(users);
+
+    return user.id !== currentTurnUser.id;
+  }
 }
