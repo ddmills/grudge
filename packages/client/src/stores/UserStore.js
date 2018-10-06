@@ -32,6 +32,7 @@ export default class UserStore {
     sdk.onUserJoinedLobby(this.addUser);
     sdk.onUserLeftLobby(this.removeUser);
     sdk.onLobbyStarted(this.fetchUsers);
+    sdk.onUserMoneyUpdated(this.onUserMoneyUpdated);
 
     autorun(this.fetchCurrentUser);
     autorun(this.fetchUsers);
@@ -78,6 +79,17 @@ export default class UserStore {
     if (others.length) {
       this.selectUser(others[0].id);
     }
+  }
+
+  @action
+  onUserMoneyUpdated(user) {
+    if (user.id === this.currentUserId) {
+      this.currentUser = user;
+    }
+
+    const idx = this.users.findIndex((u) => u.id === user.id);
+
+    this.users.splice(idx, 1, user);
   }
 
   fetchUsers() {

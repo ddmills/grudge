@@ -29,6 +29,8 @@ export default class LobbyUserViewer extends Component {
         {user && (
           <Heading size={4}>
             {user.displayName}
+            {' '}
+            {`(${user.money})`}
           </Heading>
         )}
         {user && (

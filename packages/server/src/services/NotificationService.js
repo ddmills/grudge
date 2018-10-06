@@ -58,4 +58,8 @@ export default class NotificationService {
   static onCardPlayed(lobby, card) {
     this.notifyLobby(lobby.id, Events.CARD_PLAYED, card.properties);
   }
+
+  static onMoneyUpdated(lobby, user) {
+    this.notifyLobby(lobby.id, Events.USER_MONEY_UPDATED, user.properties);
+  }
 }

@@ -7,6 +7,7 @@ export const ERROR = 'error';
 export const FLASH = 'flash';
 export const USER_GET = 'user/get';
 export const USER_LOBBY_GET = 'user/lobby/get';
+export const USER_MONEY_UPDATED = 'user/money/updated';
 export const LOBBY_GET = 'lobby/get';
 export const LOBBY_USERS_GET = 'lobby/users/get';
 export const LOBBY_TURN_END = 'lobby/turn/end';
