@@ -28,6 +28,7 @@ export default class CardStore {
     sdk.onCardDrawn(this.onCardDrawn);
     sdk.onCardDiscarded(this.onCardDiscarded);
     sdk.onCardPlayed(this.onCardPlayed);
+    sdk.onCardTraitAdded(this.onCardUpdated);
     sdk.onConnected(this.fetchHand);
 
     autorun(this.getPlayedCardsForUsers);
@@ -55,6 +56,19 @@ export default class CardStore {
   @action
   onCardDiscarded(card) {
     this.removeCardFromHand(card);
+  }
+
+  @action
+  onCardUpdated(card) {
+    if (this.isOwnCard(card) && card.isInHand) {
+      const replaceAt = this.hand.findIndex((c) => c.id === card.id);
+
+      this.hand.splice(replaceAt, 1, card);
+    } else if (card.isPlayed) {
+      const replaceAt = this.users[card.userId].findIndex((c) => c.id === card.id);
+
+      this.users[card.userId].splice(replaceAt, 1, card);
+    }
   }
 
   @action

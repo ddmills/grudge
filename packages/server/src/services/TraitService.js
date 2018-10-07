@@ -1,4 +1,7 @@
 import CardRepository from 'repositories/CardRepository';
+import UserRepository from 'repositories/UserRepository';
+import LobbyRepository from 'repositories/LobbyRepository';
+import NotificationService from 'services/NotificationService';
 
 export default class TraitService {
   static async addTrait(cardId, trait) {
@@ -13,6 +16,11 @@ export default class TraitService {
     const cardWithTrait = card.clone({
       traits: [...card.traits, trait],
     });
+
+    const user = await UserRepository.get(cardWithTrait.userId);
+    const lobby = await LobbyRepository.get(user.lobbyId);
+
+    NotificationService.onCardTraitAdded(lobby, cardWithTrait);
 
     return CardRepository.save(cardWithTrait);
   }
