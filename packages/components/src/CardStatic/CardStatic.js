@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import styles from './CardStatic.scss';
 import CardContainer from '../CardContainer/CardContainer';
 
@@ -14,6 +15,8 @@ export default class CardStatic extends Component {
     cost: PropTypes.number,
     points: PropTypes.number,
     isDisabled: PropTypes.bool,
+    isSelected: PropTypes.bool,
+    isTargeted: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -23,6 +26,8 @@ export default class CardStatic extends Component {
     cost: undefined,
     points: undefined,
     isDisabled: false,
+    isSelected: false,
+    isTargeted: false,
   };
 
   render() {
@@ -36,12 +41,20 @@ export default class CardStatic extends Component {
       cost,
       points,
       isDisabled,
+      isSelected,
+      isTargeted,
       ...passProps
     } = this.props;
 
+    const classes = classnames(styles.cardStatic, {
+      [styles.isDisabled]: isDisabled,
+      [styles.isSelected]: isSelected,
+      [styles.isTargeted]: isTargeted,
+    });
+
     return (
       <CardContainer {...passProps}>
-        <section className={styles.cardStatic}>
+        <section className={classes}>
           <img
             className={styles.image}
             src={`https://loremflickr.com/300/420/${name}?random=${id}&lock=${name.length}`}

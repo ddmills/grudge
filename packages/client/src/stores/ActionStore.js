@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { action, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import { ActionIds } from '@grudge/data';
 import sdk from '@grudge/sdk';
@@ -11,16 +11,32 @@ export default class ActionStore {
 
   @observable currentAction;
 
-  static isTargetEnemyAction(action) {
-    return action && [
+  static isTargetEnemyAction(actionData) {
+    return actionData && [
       ActionIds.ATTACK,
-    ].includes(action.id);
+    ].includes(actionData.id);
   }
 
-  perform(action, card) {
-    if (ActionStore.isTargetEnemyAction(action)) {
+  constructor(cardStore, turnStore) {
+    this.cardStore = cardStore;
+    this.turnStore = turnStore;
+
+    sdk.onTurnEnded(this.resetAction);
+  }
+
+  isCardSelected(card) {
+    return this.selectedCard && card.id === this.selectedCard.id;
+  }
+
+  isCardTargeted(card) {
+    return this.targetedCard && card.id === this.targetedCard.id;
+  }
+
+  @action
+  perform(actionData, card) {
+    if (ActionStore.isTargetEnemyAction(actionData)) {
       this.selectedCard = card;
-      this.currentAction = action;
+      this.currentAction = actionData;
 
       return;
     }
@@ -28,7 +44,14 @@ export default class ActionStore {
     this.selectedCard = null;
     this.targetedCard = null;
 
-    return sdk.performAction(action, card.id);
+    return sdk.performAction(actionData, card.id);
+  }
+
+  @action
+  resetAction() {
+    this.selectedCard = null;
+    this.targetedCard = null;
+    this.currentAction = null;
   }
 
   onHandCardClicked(card) {
@@ -42,12 +65,19 @@ export default class ActionStore {
       sdk.performAction({
         ...this.currentAction,
         targetCardId: card.id,
-      }, this.selectedCard.id).then(() => {
-        this.selectedCard = null;
-        this.targetedCard = null;
-        this.currentAction = null;
-        console.log('ACTION COMPLETED');
-      });
+      }, this.selectedCard.id).then(this.resetAction);
+    }
+  }
+
+  onClickCard(card) {
+    if (this.turnStore.isOwnTurn) {
+      if (this.cardStore.isOwnCard(card)) {
+        if (card.isInHand) {
+          this.onHandCardClicked(card);
+        }
+      } else {
+        this.onEnemyCardClicked(card);
+      }
     }
   }
 }
