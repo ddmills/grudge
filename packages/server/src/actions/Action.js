@@ -7,8 +7,10 @@ export default class Action {
 
   static effects = [];
 
-  static async perform(card) {
-    await Promise.all(this.preconditions.map((precondition) => precondition.validate(card)));
-    await EffectService.applyAll(this.effects, card);
+  static async perform(card, actionData) {
+    await Promise.all(this.preconditions.map((precondition) => {
+      return precondition.validate(card, actionData);
+    }));
+    await EffectService.applyAll(this.effects, card, actionData);
   }
 }

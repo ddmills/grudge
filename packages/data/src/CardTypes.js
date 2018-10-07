@@ -80,7 +80,7 @@ const CardTypes = [
       },
     ],
     handActions: [
-      { id: ActionIds.PLAY },
+      { id: ActionIds.ATTACK },
     ],
   },
   {

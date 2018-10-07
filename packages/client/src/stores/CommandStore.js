@@ -1,5 +1,4 @@
 import autobind from 'autobind-decorator';
-import sdk from '@grudge/sdk';
 
 @autobind
 export default class CommandStore {
@@ -10,12 +9,14 @@ export default class CommandStore {
   }
 
   onClickCard(card) {
-    if (
-      this.turnStore.isOwnTurn
-      && this.cardStore.isOwnCard(card)
-      && card.isInHand
-    ) {
-      this.actionStore.defaultHandAction(card);
+    if (this.turnStore.isOwnTurn) {
+      if (this.cardStore.isOwnCard(card)) {
+        if (card.isInHand) {
+          this.actionStore.onHandCardClicked(card);
+        }
+      } else {
+        this.actionStore.onEnemyCardClicked(card);
+      }
     }
   }
 }

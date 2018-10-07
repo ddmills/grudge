@@ -6,19 +6,19 @@ export default class EffectService {
     return Effects.find((effect) => effect.id === effectId);
   }
 
-  static async apply(effectParams, card) {
+  static async apply(effectParams, card, actionData) {
     const effect = this.get(effectParams.id);
 
     if (!effect) {
       Logger.warn(`Effect ${effectParams.id} not found`);
     }
 
-    await effect.apply(effectParams, card);
+    await effect.apply(effectParams, card, actionData);
   }
 
-  static async applyAll(allEffectParams, card) {
+  static async applyAll(allEffectParams, card, actionData) {
     for (const effectParams of allEffectParams) { // eslint-disable-line no-restricted-syntax
-      await this.apply(effectParams, card); // eslint-disable-line no-await-in-loop
+      await this.apply(effectParams, card, actionData); // eslint-disable-line no-await-in-loop
     }
   }
 }

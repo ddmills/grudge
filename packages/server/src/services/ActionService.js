@@ -32,6 +32,12 @@ export default class ActionService {
       throw new Error(`Cannot perform ${action.id} on unowned card`);
     }
 
+    if (actionData.targetCardId) {
+      const targetCard = await CardRepository.get(actionData.targetCardId);
+
+      Object.assign(actionData, { targetCard });
+    }
+
     if (card.isInHand) {
       await this.performHandAction(card, action, actionData);
     }
