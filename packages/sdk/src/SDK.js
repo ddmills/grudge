@@ -122,9 +122,8 @@ export default class SDK {
     return this.query(Events.CARDTYPE_LIST).then(ResponseTransformer.toModel(CardType));
   }
 
-  performAction(action, cardId) {
-    return this.query(Events.ACTION_PERFORM, { action, cardId })
-      .then(ResponseTransformer.toModel(Card));
+  performAction(action) {
+    return this.query(Events.ACTION_PERFORM, { action }).then(ResponseTransformer.toModel(Card));
   }
 
   listPlayedCardsForUser(userId) {

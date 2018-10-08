@@ -20,20 +20,12 @@ export default class Card extends Model {
     };
   }
 
-  hasHandAction(actionId) {
-    return Boolean(this.getHandAction(actionId));
+  getHandAction(idx) {
+    return this.handActions[idx];
   }
 
-  getHandAction(actionId) {
-    return this.handActions.find((action) => action.id === actionId);
-  }
-
-  hasPlayAction(actionId) {
-    return Boolean(this.getPlayAction(actionId));
-  }
-
-  getPlayAction(actionId) {
-    return this.playActions.find((action) => action.id === actionId);
+  getPlayAction(idx) {
+    return this.playActions[idx];
   }
 
   hasTrait(traitId) {

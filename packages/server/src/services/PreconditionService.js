@@ -6,19 +6,19 @@ export default class PreconditionService {
     return Preconditions.find((precondition) => precondition.id === preconditionId);
   }
 
-  static async validate(preconditionParams, card, actionData) {
+  static async validate(preconditionParams, actionData) {
     const precondition = this.get(preconditionParams.id);
 
     if (!precondition) {
       Logger.warn(`Precondition ${preconditionParams.id} not found`);
     } else {
-      await precondition.validate(preconditionParams, card, actionData);
+      await precondition.validate(preconditionParams, actionData);
     }
   }
 
-  static async validateAll(allPreconditionParams, card, actionData) {
+  static async validateAll(allPreconditionParams, actionData) {
     await Promise.all(allPreconditionParams.map((preconditionParams) => {
-      return this.validate(preconditionParams, card, actionData);
+      return this.validate(preconditionParams, actionData);
     }));
   }
 }

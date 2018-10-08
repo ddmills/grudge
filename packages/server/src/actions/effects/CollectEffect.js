@@ -5,7 +5,7 @@ import Effect from './Effect';
 export default class CollectEffect extends Effect {
   static id = EffectIds.COLLECT;
 
-  static async apply(effectParams, card) {
+  static async apply(effectParams, { card }) {
     if (card.hasTrait(TraitIds.VALUE)) {
       const amount = card.getTrait(TraitIds.VALUE).value;
 

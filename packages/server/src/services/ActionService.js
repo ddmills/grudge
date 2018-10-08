@@ -1,62 +1,48 @@
 import CardRepository from 'repositories/CardRepository';
 import TurnService from 'services/TurnService';
-import actions from 'actions/index';
 import PreconditionService from 'services/PreconditionService';
 import EffectService from 'services/EffectService';
+import Logger from '../utilities/Logger';
 
 export default class ActionService {
-  static mergeActionData(cardActionData, userActionData) {
-    return {
-      ...userActionData,
-      ...cardActionData,
-    };
+  static async perform(action, actionData) {
+    Logger.log(`Performing action: ${action.name}`);
+    await PreconditionService.validateAll(action.preconditions, actionData);
+    await EffectService.applyAll(action.effects, actionData);
   }
 
-  static get(actionId) {
-    return actions.find((action) => action.id === actionId);
-  }
-
-  static async perform(action, card, actionData) {
-    await PreconditionService.validateAll(action.preconditions, card, actionData);
-    await EffectService.applyAll(action.effects, card, actionData);
-  }
-
-  static async performHandAction(card, action, userActionData) {
-    if (!card.hasHandAction(userActionData.id)) {
-      throw new Error(`Card does not have hand action ${userActionData.id}`);
-    }
-
-    const actionData = this.mergeActionData(card.getHandAction(userActionData.id), userActionData);
-
-    await this.perform(action, card, actionData);
-  }
-
-  static async performPlayAction(card, action, userActionData) {
-    if (!card.hasPlayAction(userActionData.id)) {
-      throw new Error(`Card does not have play action ${userActionData.id}`);
-    }
-
-    const actionData = this.mergeActionData(card.getHandAction(userActionData.id), userActionData);
-
-    await this.perform(action, card, actionData);
-  }
-
-  static async performAction(user, actionData, cardId) {
-    const action = this.get(actionData.id);
+  static async performHandAction(actionData) {
+    const action = actionData.card.getHandAction(actionData.actionIdx);
 
     if (!action) {
-      throw new Error(`Action ${actionData.id} does not exist`);
+      throw new Error(`Card does not have hand action ${actionData.actionIdx}`);
     }
 
+    await this.perform(action, actionData);
+  }
+
+  static async performPlayAction(actionData) {
+    const action = actionData.card.getPlayAction(actionData.actionIdx);
+
+    if (!action) {
+      throw new Error(`Card does not have play action ${actionData.actionIdx}`);
+    }
+
+    await this.perform(action, actionData);
+  }
+
+  static async performAction(user, actionData) {
     if (!TurnService.isUsersTurn(user)) {
-      throw new Error(`Cannot perform ${action.id} on someone elses turn`);
+      throw new Error('Cannot perform action on someone elses turn');
     }
 
-    const card = await CardRepository.get(cardId);
+    const card = await CardRepository.get(actionData.cardId);
 
     if (!card.isOwnedBy(user.id)) {
-      throw new Error(`Cannot perform ${action.id} on unowned card`);
+      throw new Error('Cannot perform action on unowned card');
     }
+
+    Object.assign(actionData, { card, user });
 
     if (actionData.targetCardId) {
       const targetCard = await CardRepository.get(actionData.targetCardId);
@@ -65,11 +51,11 @@ export default class ActionService {
     }
 
     if (card.isInHand) {
-      await this.performHandAction(card, action, actionData);
+      await this.performHandAction(actionData);
     } else if (card.isPlayed) {
-      await this.performPlayAction(card, action, actionData);
+      await this.performPlayAction(actionData);
     }
 
-    return CardRepository.get(cardId);
+    return CardRepository.get(actionData.cardId);
   }
 }

@@ -1,20 +1,19 @@
 import { action, observable } from 'mobx';
 import autobind from 'autobind-decorator';
-import { ActionIds } from '@grudge/data';
+import { PreconditionIds } from '@grudge/data';
 import sdk from '@grudge/sdk';
 
 @autobind
 export default class ActionStore {
   @observable selectedCard;
 
-  @observable targetedCard;
+  @observable targetedCardId;
 
   @observable currentAction;
 
   static isTargetEnemyAction(actionData) {
-    return actionData && [
-      ActionIds.ATTACK,
-    ].includes(actionData.id);
+    return actionData && actionData.preconditions
+      .some((precondition) => precondition.id === PreconditionIds.TARGET_CARD_IS_ENEMY);
   }
 
   constructor(cardStore, turnStore) {
@@ -29,47 +28,50 @@ export default class ActionStore {
   }
 
   isCardTargeted(card) {
-    return this.targetedCard && card.id === this.targetedCard.id;
+    return card.id === this.targetedCardId;
   }
 
   @action
-  perform(actionData, card) {
-    if (ActionStore.isTargetEnemyAction(actionData)) {
-      this.selectedCard = card;
-      this.currentAction = actionData;
+  performAction() {
+    sdk.performAction({
+      actionIdx: 0,
+      cardId: this.selectedCard.id,
+      targetCardId: this.targetedCardId,
+    });
 
-      return;
+    this.resetAction();
+  }
+
+  @action
+  initiateAction(actionData, card) {
+    this.currentAction = actionData;
+    this.selectedCard = card;
+
+    if (!ActionStore.isTargetEnemyAction(actionData)) {
+      this.performAction();
     }
-
-    this.selectedCard = null;
-    this.targetedCard = null;
-
-    return sdk.performAction(actionData, card.id);
   }
 
   @action
   resetAction() {
     this.selectedCard = null;
-    this.targetedCard = null;
+    this.targetedCardId = null;
     this.currentAction = null;
   }
 
   onHandCardClicked(card) {
-    return this.perform(card.defaultHandAction, card);
+    return this.initiateAction(card.defaultHandAction, card);
   }
 
   onPlayCardClicked(card) {
-    return this.perform(card.defaultPlayAction, card);
+    return this.initiateAction(card.defaultPlayAction, card);
   }
 
   onEnemyCardClicked(card) {
     if (ActionStore.isTargetEnemyAction(this.currentAction) && this.selectedCard) {
-      this.targetedCard = card;
+      this.targetedCardId = card.id;
 
-      sdk.performAction({
-        ...this.currentAction,
-        targetCardId: card.id,
-      }, this.selectedCard.id).then(this.resetAction);
+      this.performAction();
     }
   }
 

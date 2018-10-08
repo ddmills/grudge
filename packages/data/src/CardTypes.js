@@ -1,6 +1,6 @@
 import * as TraitIds from './TraitIds';
 import * as EffectIds from './EffectIds';
-import * as ActionIds from './ActionIds';
+import * as PreconditionIds from './PreconditionIds';
 
 const CardTypes = [
   {
@@ -23,10 +23,32 @@ const CardTypes = [
       { id: EffectIds.ENABLE },
     ],
     playActions: [
-      { id: ActionIds.ATTACK },
+      {
+        name: 'Attack',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.USER_CAN_AFFORD },
+          { id: PreconditionIds.TARGET_CARD_IS_ENEMY },
+          { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
+        ],
+        effects: [
+          { id: EffectIds.DAMAGE },
+          { id: EffectIds.DISABLE },
+        ],
+      },
     ],
     handActions: [
-      { id: ActionIds.PLAY },
+      {
+        name: 'Play',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.USER_CAN_AFFORD },
+        ],
+        effects: [
+          { id: EffectIds.PLAY },
+          { id: EffectIds.PAY },
+        ],
+      },
     ],
   },
   {
@@ -45,7 +67,20 @@ const CardTypes = [
       { id: EffectIds.ENABLE },
     ],
     handActions: [
-      { id: ActionIds.COLLECT },
+      {
+        name: 'Collect',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.CARD_HAS_VALUE },
+        ],
+        effects: [
+          { id: EffectIds.COLLECT },
+          {
+            id: EffectIds.ADD_TRAIT,
+            traitId: TraitIds.DISABLED,
+          },
+        ],
+      },
     ],
   },
   {
@@ -63,21 +98,42 @@ const CardTypes = [
       },
     ],
     handActions: [
-      { id: ActionIds.PLAY },
+      {
+        name: 'Play',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.USER_CAN_AFFORD },
+        ],
+        effects: [
+          { id: EffectIds.PLAY },
+          { id: EffectIds.PAY },
+          {
+            id: EffectIds.ADD_TRAIT,
+            traitId: TraitIds.VALUE,
+            traitParams: {
+              value: 3,
+            },
+          },
+        ],
+      },
     ],
     onDestroyed: [
       { id: EffectIds.TRASH },
     ],
     playActions: [
-      { id: ActionIds.COLLECT },
-    ],
-    onPlayed: [
       {
-        id: EffectIds.ADD_TRAIT,
-        traitId: TraitIds.VALUE,
-        traitParams: {
-          value: 3,
-        },
+        name: 'Collect',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.CARD_HAS_VALUE },
+        ],
+        effects: [
+          { id: EffectIds.COLLECT },
+          {
+            id: EffectIds.ADD_TRAIT,
+            traitId: TraitIds.DISABLED,
+          },
+        ],
       },
     ],
   },
@@ -97,7 +153,20 @@ const CardTypes = [
       { id: EffectIds.TRASH },
     ],
     handActions: [
-      { id: ActionIds.COLLECT },
+      {
+        name: 'Collect',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.CARD_HAS_VALUE },
+        ],
+        effects: [
+          { id: EffectIds.COLLECT },
+          {
+            id: EffectIds.ADD_TRAIT,
+            traitId: TraitIds.DISABLED,
+          },
+        ],
+      },
     ],
   },
   {
@@ -116,7 +185,19 @@ const CardTypes = [
       { id: EffectIds.TRASH },
     ],
     handActions: [
-      { id: ActionIds.ATTACK },
+      {
+        name: 'Attack',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.USER_CAN_AFFORD },
+          { id: PreconditionIds.TARGET_CARD_IS_ENEMY },
+          { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
+        ],
+        effects: [
+          { id: EffectIds.DAMAGE },
+          { id: EffectIds.DISABLE },
+        ],
+      },
     ],
   },
   {
@@ -142,13 +223,35 @@ const CardTypes = [
       },
     ],
     playActions: [
-      { id: ActionIds.ATTACK },
+      {
+        name: 'Attack',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.USER_CAN_AFFORD },
+          { id: PreconditionIds.TARGET_CARD_IS_ENEMY },
+          { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
+        ],
+        effects: [
+          { id: EffectIds.DAMAGE },
+          { id: EffectIds.DISABLE },
+        ],
+      },
     ],
     onDestroyed: [
       { id: EffectIds.TRASH },
     ],
     handActions: [
-      { id: ActionIds.PLAY },
+      {
+        name: 'Play',
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.USER_CAN_AFFORD },
+        ],
+        effects: [
+          { id: EffectIds.PLAY },
+          { id: EffectIds.PAY },
+        ],
+      },
     ],
   },
 ];
