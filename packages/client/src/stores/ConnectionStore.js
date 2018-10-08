@@ -39,6 +39,6 @@ export default class ConnectionStore {
   @action
   onError(error) {
     this.error = error;
-    console.error(`SDK error ${error.message}`);
+    console.error(`SDK error ${error.message}`); // eslint-disable-line no-console
   }
 }
