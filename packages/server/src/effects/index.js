@@ -4,6 +4,7 @@ import EnableEffect from './EnableEffect';
 import PlayEffect from './PlayEffect';
 import AddTraitEffect from './AddTraitEffect';
 import PayEffect from './PayEffect';
+import DamageEffect from './DamageEffect';
 
 export default [
   CollectEffect,
@@ -12,4 +13,5 @@ export default [
   PlayEffect,
   AddTraitEffect,
   PayEffect,
+  DamageEffect,
 ];

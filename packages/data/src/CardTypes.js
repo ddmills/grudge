@@ -71,6 +71,9 @@ const CardTypes = [
         value: 1,
       },
     ],
+    onDrawn: [
+      { id: EffectIds.ENABLE },
+    ],
     handActions: [
       { id: ActionIds.ATTACK },
     ],
