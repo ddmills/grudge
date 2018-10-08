@@ -58,6 +58,10 @@ export default class ActionStore {
     return this.perform(card.defaultHandAction, card);
   }
 
+  onPlayCardClicked(card) {
+    return this.perform(card.defaultPlayAction, card);
+  }
+
   onEnemyCardClicked(card) {
     if (ActionStore.isTargetEnemyAction(this.currentAction) && this.selectedCard) {
       this.targetedCard = card;
@@ -74,6 +78,8 @@ export default class ActionStore {
       if (this.cardStore.isOwnCard(card)) {
         if (card.isInHand) {
           this.onHandCardClicked(card);
+        } else if (card.isPlayed) {
+          this.onPlayCardClicked(card);
         }
       } else {
         this.onEnemyCardClicked(card);

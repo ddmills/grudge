@@ -28,6 +28,14 @@ export default class Card extends Model {
     return this.handActions.find((action) => action.id === actionId);
   }
 
+  hasPlayAction(actionId) {
+    return Boolean(this.getPlayAction(actionId));
+  }
+
+  getPlayAction(actionId) {
+    return this.playActions.find((action) => action.id === actionId);
+  }
+
   hasTrait(traitId) {
     return Boolean(this.getTrait(traitId));
   }
@@ -50,5 +58,9 @@ export default class Card extends Model {
 
   get defaultHandAction() {
     return this.handActions[0];
+  }
+
+  get defaultPlayAction() {
+    return this.playActions[0];
   }
 }

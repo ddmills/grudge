@@ -10,6 +10,7 @@ export default class CardType extends Model {
       onPlayed: [],
       onDrawn: [],
       onDestroyed: [],
+      playActions: [],
       handActions: [],
     };
   }

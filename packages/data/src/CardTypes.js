@@ -22,8 +22,11 @@ const CardTypes = [
     onDrawn: [
       { id: EffectIds.ENABLE },
     ],
-    handActions: [
+    playActions: [
       { id: ActionIds.ATTACK },
+    ],
+    handActions: [
+      { id: ActionIds.PLAY },
     ],
   },
   {
@@ -64,6 +67,9 @@ const CardTypes = [
     ],
     onDestroyed: [
       { id: EffectIds.TRASH },
+    ],
+    playActions: [
+      { id: ActionIds.COLLECT },
     ],
     onPlayed: [
       {
@@ -135,6 +141,9 @@ const CardTypes = [
         max: 4,
       },
     ],
+    playActions: [
+      { id: ActionIds.ATTACK },
+    ],
     onDestroyed: [
       { id: EffectIds.TRASH },
     ],
@@ -151,6 +160,7 @@ const hydrate = (cardType) => ({
   onDrawn: [],
   onDestroyed: [],
   handActions: [],
+  playActions: [],
   ...cardType,
 });
 
