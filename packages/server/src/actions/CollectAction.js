@@ -1,20 +1,21 @@
-import { ActionIds, TraitIds, EffectIds } from '@grudge/data';
-import CardHasValuePrecondition from './preconditions/CardHasValuePrecondition';
-import CardIsEnabledPrecondition from './preconditions/CardIsEnabledPrecondition';
+import {
+  ActionIds, TraitIds, EffectIds, PreconditionIds,
+} from '@grudge/data';
 import Action from './Action';
 
 export default class CollectAction extends Action {
   static id = ActionIds.COLLECT;
 
   static preconditions = [
-    CardIsEnabledPrecondition,
-    CardHasValuePrecondition,
+    { id: PreconditionIds.CARD_IS_ENABLED },
+    { id: PreconditionIds.CARD_HAS_VALUE },
   ]
 
-  static effects = [{
-    id: EffectIds.COLLECT,
-  }, {
-    id: EffectIds.ADD_TRAIT,
-    traitId: TraitIds.DISABLED,
-  }]
+  static effects = [
+    { id: EffectIds.COLLECT },
+    {
+      id: EffectIds.ADD_TRAIT,
+      traitId: TraitIds.DISABLED,
+    },
+  ]
 }

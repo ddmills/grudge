@@ -1,4 +1,5 @@
 import EffectService from 'services/EffectService';
+import PreconditionService from 'services/PreconditionService';
 
 export default class Action {
   static id = 'act-action';
@@ -8,9 +9,7 @@ export default class Action {
   static effects = [];
 
   static async perform(card, actionData) {
-    await Promise.all(this.preconditions.map((precondition) => {
-      return precondition.validate(card, actionData);
-    }));
+    await PreconditionService.validateAll(this.preconditions, card, actionData);
     await EffectService.applyAll(this.effects, card, actionData);
   }
 }

@@ -5,7 +5,7 @@ import Precondition from './Precondition';
 export default class UserCanAffordPrecondition extends Precondition {
   static id = PreconditionIds.USER_CAN_AFFORD;
 
-  static async validate(card) {
+  static async validate(preconditionParams, card) {
     if (!card.hasTrait(TraitIds.COST)) {
       return;
     }

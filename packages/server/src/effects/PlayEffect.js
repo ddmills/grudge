@@ -9,7 +9,7 @@ import TriggerService from '../services/TriggerService';
 export default class PlayEffect extends Effect {
   static id = EffectIds.PLAY;
 
-  static async apply(effect, card) {
+  static async apply(effectParams, card) {
     const playedCard = card.clone({
       isPlayed: true,
     });

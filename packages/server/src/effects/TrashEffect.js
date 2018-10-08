@@ -8,7 +8,7 @@ import NotificationService from '../services/NotificationService';
 export default class TrashEffect extends Effect {
   static id = EffectIds.TRASH;
 
-  static async apply(effect, card) {
+  static async apply(effectParams, card) {
     const trashedCard = card.clone({
       isTrashed: true,
     });

@@ -6,7 +6,7 @@ import Effect from './Effect';
 export default class DamageEffect extends Effect {
   static id = EffectIds.DAMAGE;
 
-  static async apply(effect, card, actionData) {
+  static async apply(effectParams, card, actionData) {
     const damage = card.getTrait(TraitIds.ATTACK).value;
     const health = actionData.targetCard.getTrait(TraitIds.HEALTH);
     const remaining = health.value - damage;

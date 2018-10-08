@@ -5,7 +5,7 @@ import Effect from './Effect';
 export default class DisableEffect extends Effect {
   static id = EffectIds.DISABLE;
 
-  static async apply(effect, card) {
+  static async apply(effectParams, card) {
     return TraitService.addTrait(card.id, {
       id: TraitIds.DISABLED,
     });

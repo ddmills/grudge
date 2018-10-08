@@ -5,10 +5,10 @@ import Effect from './Effect';
 export default class AddTraitEffect extends Effect {
   static id = EffectIds.ADD_TRAIT;
 
-  static async apply(effect, card) {
+  static async apply(effectParams, card) {
     return TraitService.addTrait(card.id, {
-      id: effect.traitId,
-      ...effect.traitParams,
+      id: effectParams.traitId,
+      ...effectParams.traitParams,
     });
   }
 }
