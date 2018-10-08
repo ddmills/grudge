@@ -1,9 +1,9 @@
-import { TraitIds } from '@grudge/data';
+import { TraitIds, PreconditionIds } from '@grudge/data';
 import UserRepository from 'repositories/UserRepository';
 import Precondition from './Precondition';
 
 export default class UserCanAffordPrecondition extends Precondition {
-  static id = 'pcd-user-can-afford';
+  static id = PreconditionIds.USER_CAN_AFFORD;
 
   static async validate(card) {
     if (!card.hasTrait(TraitIds.COST)) {

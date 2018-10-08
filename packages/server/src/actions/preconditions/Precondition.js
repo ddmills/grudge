@@ -1,5 +1,5 @@
 export default class Precondition {
-  static id = 'pdn-precondition';
+  static id = 'pcd-precondition';
 
   static validate() {}
 }

@@ -1,8 +1,8 @@
-import { TraitIds } from '@grudge/data';
+import { TraitIds, PreconditionIds } from '@grudge/data';
 import Precondition from './Precondition';
 
 export default class CardIsEnabledPrecondition extends Precondition {
-  static id = 'pcd-card-is-enabled';
+  static id = PreconditionIds.CARD_IS_ENABLED;
 
   static async validate(card) {
     if (card.hasTrait(TraitIds.DISABLED)) {

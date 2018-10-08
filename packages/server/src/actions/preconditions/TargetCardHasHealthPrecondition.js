@@ -1,8 +1,8 @@
-import { TraitIds } from '@grudge/data';
+import { TraitIds, PreconditionIds } from '@grudge/data';
 import Precondition from './Precondition';
 
 export default class TargetCardHasHealthPrecondition extends Precondition {
-  static id = 'pcd-target-card-has-health';
+  static id = PreconditionIds.TARGET_CARD_HAS_HEALTH;
 
   static async validate(card, actionData) {
     if (!actionData.targetCard || !actionData.targetCard.hasTrait(TraitIds.HEALTH)) {
