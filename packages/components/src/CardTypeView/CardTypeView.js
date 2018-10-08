@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { CardType } from '@grudge/domain';
 import CardStatic from '../CardStatic/CardStatic';
 
-const getTrait = (cardType, traitId) => {
-  return cardType.hasTrait(traitId) ? cardType.getTrait(traitId).value : undefined;
+const getTrait = (cardType, traitId, property = 'value') => {
+  return cardType.hasTrait(traitId) ? cardType.getTrait(traitId)[property] : undefined;
 };
 
 export default class CardTypeView extends Component {
@@ -27,6 +27,8 @@ export default class CardTypeView extends Component {
         defense={getTrait(cardType, 'trt-defense')}
         cost={getTrait(cardType, 'trt-cost')}
         points={getTrait(cardType, 'trt-points')}
+        health={getTrait(cardType, 'trt-health')}
+        maxHealth={getTrait(cardType, 'trt-health', 'max')}
         {...passProps}
       />
     );

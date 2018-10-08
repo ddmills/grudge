@@ -12,10 +12,6 @@ const CardTypes = [
         value: 2,
       },
     ],
-    onPlayed: [
-      { id: EffectIds.COLLECT },
-      { id: EffectIds.DISABLE },
-    ],
     onDrawn: [
       { id: EffectIds.ENABLE },
     ],
@@ -29,11 +25,12 @@ const CardTypes = [
     traits: [
       {
         id: TraitIds.COST,
-        value: 16,
+        value: 6,
       },
       {
-        id: TraitIds.POINTS,
+        id: TraitIds.HEALTH,
         value: 8,
+        max: 8,
       },
     ],
     handActions: [
@@ -58,16 +55,11 @@ const CardTypes = [
         value: 1,
       },
     ],
-    onPlayed: [
-      { id: EffectIds.COLLECT },
-      { id: EffectIds.DISABLE },
-    ],
     onDrawn: [
       { id: EffectIds.ENABLE },
     ],
     handActions: [
       { id: ActionIds.COLLECT },
-      { id: ActionIds.PLAY },
     ],
   },
   {
@@ -89,15 +81,20 @@ const CardTypes = [
     traits: [
       {
         id: TraitIds.COST,
-        value: 6,
-      },
-      {
-        id: TraitIds.ATTACK,
         value: 4,
       },
       {
+        id: TraitIds.ATTACK,
+        value: 2,
+      },
+      {
         id: TraitIds.DEFENSE,
-        value: 8,
+        value: 2,
+      },
+      {
+        id: TraitIds.HEALTH,
+        value: 2,
+        max: 2,
       },
     ],
     handActions: [

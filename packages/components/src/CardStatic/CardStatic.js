@@ -14,6 +14,8 @@ export default class CardStatic extends Component {
     defense: PropTypes.number,
     cost: PropTypes.number,
     points: PropTypes.number,
+    health: PropTypes.number,
+    maxHealth: PropTypes.number,
     isDisabled: PropTypes.bool,
     isSelected: PropTypes.bool,
     isTargeted: PropTypes.bool,
@@ -25,6 +27,8 @@ export default class CardStatic extends Component {
     defense: undefined,
     cost: undefined,
     points: undefined,
+    health: undefined,
+    maxHealth: undefined,
     isDisabled: false,
     isSelected: false,
     isTargeted: false,
@@ -40,13 +44,15 @@ export default class CardStatic extends Component {
       defense,
       cost,
       points,
+      health,
+      maxHealth,
       isDisabled,
       isSelected,
       isTargeted,
       ...passProps
     } = this.props;
 
-    const classes = classnames(styles.cardStatic, {
+    const overlayClasses = classnames(styles.overlay, {
       [styles.isDisabled]: isDisabled,
       [styles.isSelected]: isSelected,
       [styles.isTargeted]: isTargeted,
@@ -54,7 +60,7 @@ export default class CardStatic extends Component {
 
     return (
       <CardContainer {...passProps}>
-        <section className={classes}>
+        <section className={styles.cardStatic}>
           <img
             className={styles.image}
             src={`https://loremflickr.com/300/420/${name}?random=${id}&lock=${name.length}`}
@@ -63,7 +69,6 @@ export default class CardStatic extends Component {
           <div className={styles.content}>
             <h2 className={styles.cardTitle}>
               {name}
-              {isDisabled && ' ×'}
             </h2>
             <div className={styles.attributes}>
               {value && (
@@ -71,17 +76,19 @@ export default class CardStatic extends Component {
                   {value}
                 </span>
               )}
-              {attack && (
-                <span className={styles.attack}>
-                  {attack}
-                </span>
-              )}
-              {defense && (
-                <span className={styles.defense}>
-                  {defense}
-                </span>
-              )}
             </div>
+          </div>
+          <div className={overlayClasses}>
+            {attack && (
+              <span className={styles.attack}>
+                {attack}
+              </span>
+            )}
+            {health && (
+              <span className={styles.health}>
+                {health}
+              </span>
+            )}
             {cost && (
               <span className={styles.cost}>
                 {cost}

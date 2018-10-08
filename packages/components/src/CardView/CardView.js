@@ -4,8 +4,8 @@ import { Card, CardType } from '@grudge/domain';
 import { TraitIds } from '@grudge/data';
 import CardStatic from '../CardStatic/CardStatic';
 
-const getTrait = (card, traitId) => {
-  return card.hasTrait(traitId) ? card.getTrait(traitId).value : undefined;
+const getTrait = (card, traitId, property = 'value') => {
+  return card.hasTrait(traitId) ? card.getTrait(traitId)[property] : undefined;
 };
 
 export default class CardView extends Component {
@@ -32,6 +32,8 @@ export default class CardView extends Component {
         defense={getTrait(card, TraitIds.DEFENSE)}
         cost={getTrait(card, TraitIds.COST)}
         points={getTrait(card, TraitIds.POINTS)}
+        health={getTrait(card, TraitIds.HEALTH)}
+        maxHealth={getTrait(card, TraitIds.HEALTH, 'max')}
         {...passProps}
       />
     );

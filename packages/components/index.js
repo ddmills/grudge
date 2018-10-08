@@ -13,3 +13,4 @@ export { default as CardContainer } from './src/CardContainer/CardContainer';
 export { default as CardStatic } from './src/CardStatic/CardStatic';
 export { default as CardView } from './src/CardView/CardView';
 export { default as CardTypeView } from './src/CardTypeView/CardTypeView';
+export { default as CardSlot } from './src/CardSlot/CardSlot';

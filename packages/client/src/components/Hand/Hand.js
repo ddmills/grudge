@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { CardSlot } from '@grudge/components';
 import Card from 'components/Card/Card';
 import connect from 'utilities/mobx/Connect';
 import styles from './Hand.scss';
@@ -24,10 +25,9 @@ export default class Hand extends Component {
     return (
       <div className={styles.hand}>
         {cardIds.map((cardId) => (
-          <Card
-            key={cardId}
-            cardId={cardId}
-          />
+          <CardSlot key={cardId}>
+            <Card cardId={cardId}/>
+          </CardSlot>
         ))}
       </div>
     );
