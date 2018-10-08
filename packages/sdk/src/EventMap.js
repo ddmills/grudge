@@ -19,6 +19,7 @@ export default class EventMap {
       new EventHook(Events.LOBBY_TURN_ENDED, 'onTurnEnded', ResponseTransformer.toModel(Lobby)),
       new EventHook(Events.CARD_DRAWN, 'onCardDrawn', ResponseTransformer.toModel(Card)),
       new EventHook(Events.CARD_DISCARDED, 'onCardDiscarded', ResponseTransformer.toModel(Card)),
+      new EventHook(Events.CARD_TRASHED, 'onCardTrashed', ResponseTransformer.toModel(Card)),
       new EventHook(Events.CARD_PLAYED, 'onCardPlayed', ResponseTransformer.toModel(Card)),
       new EventHook(Events.CARD_TRAIT_ADDED, 'onCardTraitAdded', ResponseTransformer.toModel(Card)),
       new EventHook(Events.USER_MONEY_UPDATED, 'onUserMoneyUpdated', ResponseTransformer.toModel(User)),

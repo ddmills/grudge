@@ -11,9 +11,11 @@ export default class Card extends Model {
       isDrawn: false,
       isPlayed: false,
       isDiscarded: false,
+      isTrashed: false,
       traits: [],
       onPlayed: [],
       onDrawn: [],
+      onDestroyed: [],
       handActions: [],
     };
   }
@@ -39,11 +41,11 @@ export default class Card extends Model {
   }
 
   get isFresh() {
-    return !this.isDrawn && !this.isPlayed && !this.isDiscarded;
+    return !this.isDrawn && !this.isPlayed && !this.isDiscarded && !this.isTrashed;
   }
 
   get isInHand() {
-    return this.isDrawn && !this.isPlayed && !this.isDiscarded;
+    return this.isDrawn && !this.isPlayed && !this.isDiscarded && !this.isTrashed;
   }
 
   get defaultHandAction() {
