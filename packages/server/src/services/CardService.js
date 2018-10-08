@@ -13,7 +13,7 @@ export default class CardService {
 
     await CardRepository.save(discardedCard);
 
-    NotificationService.onCardDiscarded(user, card);
+    NotificationService.onCardDiscarded(user, discardedCard);
 
     return discardedCard;
   }

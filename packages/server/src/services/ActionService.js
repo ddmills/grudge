@@ -28,7 +28,7 @@ export default class ActionService {
 
     const card = await CardRepository.get(cardId);
 
-    if (!card.isOwnedBy(user)) {
+    if (!card.isOwnedBy(user.id)) {
       throw new Error(`Cannot perform ${action.id} on unowned card`);
     }
 

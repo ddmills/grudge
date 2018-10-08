@@ -36,8 +36,8 @@ export default class Card extends Model {
     return this.traits.find((trait) => trait.id === traitId);
   }
 
-  isOwnedBy(user) {
-    return this.userId === user.id;
+  isOwnedBy(userId) {
+    return this.userId === userId;
   }
 
   get isFresh() {

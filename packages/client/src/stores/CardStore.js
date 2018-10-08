@@ -6,9 +6,20 @@ import autobind from 'autobind-decorator';
 
 @autobind
 export default class CardStore {
-  @observable hand = [];
+  @observable cards = {};
 
-  @observable users = {};
+  getCardsForUser(userId) {
+    return Object.values(this.cards).filter((card) => card.isOwnedBy(userId));
+  }
+
+  getPlayedCardsForUser(userId) {
+    return this.getCardsForUser(userId).filter((card) => card.isPlayed);
+  }
+
+  @computed
+  get hand() {
+    return this.getCardsForUser(this.userStore.currentUserId).filter((card) => card.isInHand);
+  }
 
   @computed
   get selectedUserPlayedCards() {
@@ -17,86 +28,35 @@ export default class CardStore {
     return this.getPlayedCardsForUser(user);
   }
 
-  @computed
-  get cards() {
-    return this.hand.concat(Object.values(this.users).flat());
+  @action
+  setCard(card) {
+    this.cards[card.id] = card;
+  }
+
+  setCards(cards) {
+    cards.forEach(this.setCard);
+  }
+
+  @action
+  removeCard(card) {
+    delete this.cards[card.id];
   }
 
   constructor(userStore) {
     this.userStore = userStore;
 
-    sdk.onCardDrawn(this.onCardDrawn);
-    sdk.onCardDiscarded(this.onCardDiscarded);
-    sdk.onCardTrashed(this.onCardTrashed);
-    sdk.onCardPlayed(this.onCardPlayed);
-    sdk.onCardTraitAdded(this.onCardUpdated);
+    sdk.onCardDrawn(this.setCard);
+    sdk.onCardDiscarded(this.setCard);
+    sdk.onCardTrashed(this.removeCard);
+    sdk.onCardPlayed(this.setCard);
+    sdk.onCardTraitAdded(this.setCard);
     sdk.onConnected(this.fetchHand);
 
     autorun(this.getPlayedCardsForUsers);
   }
 
-  @action
-  setHand(cards = []) {
-    this.hand.replace(cards);
-  }
-
-  @action
-  onCardDrawn(card) {
-    this.hand.push(card);
-  }
-
-  @action
-  onCardPlayed(card) {
-    if (this.isOwnCard(card)) {
-      this.removeCardFromHand(card);
-    }
-
-    this.users[card.userId].push(card);
-  }
-
-  @action
-  removeCard(card) {
-    if (this.isOwnCard(card) && card.isInHand) {
-      const replaceAt = this.hand.findIndex((c) => c.id === card.id);
-
-      this.hand.splice(replaceAt, 1);
-    } else if (card.isPlayed) {
-      const replaceAt = this.users[card.userId].findIndex((c) => c.id === card.id);
-
-      this.users[card.userId].splice(replaceAt, 1);
-    }
-  }
-
-  @action
-  onCardDiscarded(card) {
-    this.removeCardFromHand(card);
-  }
-
-  @action
-  onCardTrashed(card) {
-    this.removeCard(card);
-  }
-
-  @action
-  onCardUpdated(card) {
-    if (this.isOwnCard(card) && card.isInHand) {
-      const replaceAt = this.hand.findIndex((c) => c.id === card.id);
-
-      this.hand.splice(replaceAt, 1, card);
-    } else if (card.isPlayed) {
-      const replaceAt = this.users[card.userId].findIndex((c) => c.id === card.id);
-
-      this.users[card.userId].splice(replaceAt, 1, card);
-    }
-  }
-
-  @action
-  removeCardFromHand(card) {
-    this.setHand(this.hand.filter((c) => c.id !== card.id));
-  }
-
   getCard(cardId) {
-    return this.cards.find((card) => card.id === cardId);
+    return this.cards[cardId];
   }
 
   isOwnCard(card) {
@@ -104,27 +64,12 @@ export default class CardStore {
   }
 
   fetchHand() {
-    sdk.getHand().then(this.setHand);
-  }
-
-  @action
-  setPlayedCardsForUser(userId, cards) {
-    if (userId in this.users) {
-      this.users[userId].replace(cards);
-    } else {
-      this.users[userId] = cards;
-    }
-  }
-
-  getPlayedCardsForUser(userId) {
-    return this.users[userId] || [];
+    sdk.getHand().then(this.setCards);
   }
 
   getPlayedCardsForUsers() {
     this.userStore.users.forEach((user) => {
-      sdk.listPlayedCardsForUser(user.id).then((cards) => {
-        this.setPlayedCardsForUser(user.id, cards);
-      });
+      sdk.listPlayedCardsForUser(user.id).then(this.setCards);
     });
   }
 }

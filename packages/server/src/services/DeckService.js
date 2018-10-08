@@ -17,6 +17,8 @@ export default class DeckService {
     });
 
     const startingCardTypes = [
+      'cdt-soldier',
+      'cdt-soldier',
       'cdt-tax-collector',
       'cdt-tax-collector',
       'cdt-watchtower',

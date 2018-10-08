@@ -4,6 +4,29 @@ import * as ActionIds from './ActionIds';
 
 const CardTypes = [
   {
+    id: 'cdt-soldier',
+    name: 'Soldier',
+    traits: [
+      {
+        id: TraitIds.HEALTH,
+        value: 3,
+      },
+      {
+        id: TraitIds.ATTACK,
+        value: 2,
+      },
+    ],
+    onDestroyed: [
+      { id: EffectIds.TRASH },
+    ],
+    onDrawn: [
+      { id: EffectIds.ENABLE },
+    ],
+    handActions: [
+      { id: ActionIds.ATTACK },
+    ],
+  },
+  {
     id: 'cdt-tax-collector',
     name: 'Tax Collector',
     traits: [
@@ -28,12 +51,12 @@ const CardTypes = [
     traits: [
       {
         id: TraitIds.COST,
-        value: 6,
+        value: 3,
       },
       {
         id: TraitIds.HEALTH,
-        value: 8,
-        max: 8,
+        value: 6,
+        max: 6,
       },
     ],
     handActions: [
@@ -47,7 +70,7 @@ const CardTypes = [
         id: EffectIds.ADD_TRAIT,
         traitId: TraitIds.VALUE,
         traitParams: {
-          value: 8,
+          value: 3,
         },
       },
     ],
@@ -108,8 +131,8 @@ const CardTypes = [
       },
       {
         id: TraitIds.HEALTH,
-        value: 2,
-        max: 2,
+        value: 4,
+        max: 4,
       },
     ],
     onDestroyed: [
