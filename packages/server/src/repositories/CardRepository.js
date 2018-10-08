@@ -22,6 +22,7 @@ export default class CardRepository extends ModelRepository {
       traits: cardType.traits,
       onPlayed: cardType.onPlayed,
       onDrawn: cardType.onDrawn,
+      onDestroyed: cardType.onDestroyed,
       handActions: cardType.handActions,
       ...properties,
     });

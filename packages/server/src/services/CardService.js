@@ -8,6 +8,7 @@ export default class CardService {
       isDrawn: false,
       isDiscarded: true,
       isPlayed: false,
+      isTrashed: false,
     });
 
     await CardRepository.save(discardedCard);
@@ -21,6 +22,7 @@ export default class CardService {
     const drawnCard = card.clone({
       isDrawn: true,
       isDiscarded: false,
+      isTrashed: false,
     });
 
     await CardRepository.save(drawnCard);
@@ -38,6 +40,7 @@ export default class CardService {
       isDrawn: false,
       isDiscarded: false,
       isPlayed: false,
+      isTrashed: false,
     });
 
     await CardRepository.save(freshCard);
@@ -50,6 +53,7 @@ export default class CardService {
       userId,
       isPlayed: true,
       isDiscarded: false,
+      isTrashed: false,
     });
   }
 }

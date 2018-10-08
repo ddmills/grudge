@@ -22,7 +22,9 @@ export default class TraitService {
 
     NotificationService.onCardTraitAdded(lobby, cardWithTrait);
 
-    return CardRepository.save(cardWithTrait);
+    await CardRepository.save(cardWithTrait);
+
+    return cardWithTrait;
   }
 
   static async removeTrait(cardId, traitId) {
@@ -32,6 +34,8 @@ export default class TraitService {
       traits: card.traits.filter((t) => t.id !== traitId),
     });
 
-    return CardRepository.save(cardWithoutTrait);
+    await CardRepository.save(cardWithoutTrait);
+
+    return cardWithoutTrait;
   }
 }

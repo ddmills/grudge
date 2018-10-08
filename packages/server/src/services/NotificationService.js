@@ -66,4 +66,8 @@ export default class NotificationService {
   static onCardTraitAdded(lobby, card) {
     this.notifyLobby(lobby.id, Events.CARD_TRAIT_ADDED, card.properties);
   }
+
+  static onCardTrashed(lobby, card) {
+    this.notifyLobby(lobby.id, Events.CARD_TRASHED, card.properties);
+  }
 }

@@ -47,7 +47,7 @@ export default class DeckService {
 
   static async recycleDiscardPile(userId) {
     const allCards = await CardRepository.findForUser(userId);
-    const discardPile = allCards.filter((card) => card.isDiscarded);
+    const discardPile = allCards.filter((card) => card.isDiscarded && !card.isTrashed);
 
     return Promise.all(discardPile.map((card) => {
       return CardService.recycleCard(card);

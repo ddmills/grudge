@@ -1,4 +1,5 @@
 import TraitService from 'services/TraitService';
+import TriggerService from 'services/TriggerService';
 import { EffectIds, TraitIds } from '@grudge/data';
 import Effect from './Effect';
 
@@ -11,10 +12,14 @@ export default class DamageEffect extends Effect {
     const remaining = health.value - damage;
     const value = remaining <= 0 ? 0 : remaining;
 
-    await TraitService.addTrait(actionData.targetCardId, {
+    const updatedCard = await TraitService.addTrait(actionData.targetCardId, {
       id: TraitIds.HEALTH,
       max: health.max,
       value,
     });
+
+    if (value <= 0) {
+      await TriggerService.onDestroyed(updatedCard);
+    }
   }
 }
