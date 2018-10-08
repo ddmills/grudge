@@ -1,5 +1,5 @@
 import Logger from 'utilities/Logger';
-import Preconditions from '../actions/preconditions/index';
+import Preconditions from 'actions/preconditions/index';
 
 export default class PreconditionService {
   static get(preconditionId) {

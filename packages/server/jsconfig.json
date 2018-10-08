@@ -10,6 +10,7 @@
       "services/*": ["./src/services/*"],
       "repositories/*": ["./src/repositories/*"],
       "providers/*": ["./src/providers/*"],
+      "actions/*": ["./src/actions/*"],
       "utilities/*": ["./src/utilities/*"]
     }
   }

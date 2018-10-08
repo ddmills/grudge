@@ -1,5 +1,5 @@
 import Logger from 'utilities/Logger';
-import Effects from '../effects/index';
+import Effects from 'actions/effects/index';
 
 export default class EffectService {
   static get(effectId) {

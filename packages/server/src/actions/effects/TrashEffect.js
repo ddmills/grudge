@@ -1,9 +1,9 @@
 import { EffectIds } from '@grudge/data';
 import CardRepository from 'repositories/CardRepository';
+import LobbyRepository from 'repositories/LobbyRepository';
+import UserRepository from 'repositories/UserRepository';
+import NotificationService from 'services/NotificationService';
 import Effect from './Effect';
-import LobbyRepository from '../repositories/LobbyRepository';
-import UserRepository from '../repositories/UserRepository';
-import NotificationService from '../services/NotificationService';
 
 export default class TrashEffect extends Effect {
   static id = EffectIds.TRASH;

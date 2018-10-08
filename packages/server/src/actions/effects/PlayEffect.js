@@ -1,10 +1,10 @@
 import { EffectIds } from '@grudge/data';
 import CardRepository from 'repositories/CardRepository';
+import LobbyRepository from 'repositories/LobbyRepository';
+import UserRepository from 'repositories/UserRepository';
+import NotificationService from 'services/NotificationService';
+import TriggerService from 'services/TriggerService';
 import Effect from './Effect';
-import LobbyRepository from '../repositories/LobbyRepository';
-import UserRepository from '../repositories/UserRepository';
-import NotificationService from '../services/NotificationService';
-import TriggerService from '../services/TriggerService';
 
 export default class PlayEffect extends Effect {
   static id = EffectIds.PLAY;

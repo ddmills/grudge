@@ -1,6 +1,8 @@
 import CardRepository from 'repositories/CardRepository';
 import TurnService from 'services/TurnService';
-import actions from '../actions/index';
+import actions from 'actions/index';
+import PreconditionService from 'services/PreconditionService';
+import EffectService from 'services/EffectService';
 
 export default class ActionService {
   static mergeActionData(cardActionData, userActionData) {
@@ -14,6 +16,11 @@ export default class ActionService {
     return actions.find((action) => action.id === actionId);
   }
 
+  static async perform(action, card, actionData) {
+    await PreconditionService.validateAll(action.preconditions, card, actionData);
+    await EffectService.applyAll(action.effects, card, actionData);
+  }
+
   static async performHandAction(card, action, userActionData) {
     if (!card.hasHandAction(userActionData.id)) {
       throw new Error(`Card does not have hand action ${userActionData.id}`);
@@ -21,7 +28,7 @@ export default class ActionService {
 
     const actionData = this.mergeActionData(card.getHandAction(userActionData.id), userActionData);
 
-    await action.perform(card, actionData);
+    await this.perform(action, card, actionData);
   }
 
   static async performPlayAction(card, action, userActionData) {
@@ -31,7 +38,7 @@ export default class ActionService {
 
     const actionData = this.mergeActionData(card.getHandAction(userActionData.id), userActionData);
 
-    await action.perform(card, actionData);
+    await this.perform(action, card, actionData);
   }
 
   static async performAction(user, actionData, cardId) {
