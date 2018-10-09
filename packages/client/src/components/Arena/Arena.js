@@ -1,38 +1,26 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import Card from 'components/Card/Card';
-import { CardSlot, CardContainer } from '@grudge/components';
-import connect from 'utilities/mobx/Connect';
+import CardSlot from 'components/CardSlot/CardSlot';
 import styles from './Arena.scss';
 
-@connect(({ cardStore }, { userId }) => ({
-  cardIds: cardStore.getPlayedCardsForUser(userId).map((card) => card.id),
-}))
 export default class Arena extends Component {
   static propTypes = {
-    cardIds: PropTypes.arrayOf(PropTypes.string),
-  }
-
-  static defaultProps = {
-    cardIds: [],
+    userId: PropTypes.string.isRequired,
   }
 
   render() {
     const {
-      cardIds,
+      userId,
     } = this.props;
 
     return (
       <div className={styles.arena}>
-        {[0, 1, 2, 3, 4, 5].map((idx) => (
-          <CardSlot key={idx}>
-            {idx in cardIds ? (
-              <Card cardId={cardIds[idx]}/>
-            ) : (
-              <CardContainer/>
-            )}
-          </CardSlot>
-        ))}
+        <CardSlot userId={userId} slotIndex={0}/>
+        <CardSlot userId={userId} slotIndex={1}/>
+        <CardSlot userId={userId} slotIndex={2}/>
+        <CardSlot userId={userId} slotIndex={3}/>
+        <CardSlot userId={userId} slotIndex={4}/>
+        <CardSlot userId={userId} slotIndex={5}/>
       </div>
     );
   }

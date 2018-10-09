@@ -72,4 +72,8 @@ export default class CardStore {
       sdk.listPlayedCardsForUser(user.id).then(this.setCards);
     });
   }
+
+  getCardAtSlot(userId, slotIndex) {
+    return this.getPlayedCardsForUser(userId).find((card) => card.slotIndex === slotIndex);
+  }
 }
