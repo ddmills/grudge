@@ -19,10 +19,13 @@ export default class DeckService {
     const startingCardTypes = [
       'cdt-soldier',
       'cdt-soldier',
+      'cdt-soldier',
       'cdt-tax-collector',
       'cdt-tax-collector',
       'cdt-watchtower',
       'cdt-watchtower',
+      'cdt-watchtower',
+      'cdt-cathedral',
       'cdt-cathedral',
       'cdt-cathedral',
       'cdt-thief',
