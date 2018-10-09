@@ -7,8 +7,8 @@ export default class CardService {
     const discardedCard = card.clone({
       isDrawn: false,
       isDiscarded: true,
-      isPlayed: false,
       isTrashed: false,
+      slotIndex: null,
     });
 
     await CardRepository.save(discardedCard);
@@ -39,8 +39,8 @@ export default class CardService {
     const freshCard = card.clone({
       isDrawn: false,
       isDiscarded: false,
-      isPlayed: false,
       isTrashed: false,
+      slotIndex: null,
     });
 
     await CardRepository.save(freshCard);
@@ -49,11 +49,12 @@ export default class CardService {
   }
 
   static async getPlayedCardsForUser(userId) {
-    return CardRepository.where({
+    const cards = await CardRepository.where({
       userId,
-      isPlayed: true,
       isDiscarded: false,
       isTrashed: false,
     });
+
+    return cards.filter((card) => card.isPlayed);
   }
 }

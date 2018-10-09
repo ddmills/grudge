@@ -10,7 +10,6 @@ export default class TrashEffect extends Effect {
   static async apply(effectParams, { card, user }) {
     const trashedCard = card.clone({
       isTrashed: true,
-      isPlayed: false,
       slotIndex: null,
     });
 

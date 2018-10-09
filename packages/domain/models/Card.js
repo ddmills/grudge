@@ -9,7 +9,6 @@ export default class Card extends Model {
       userId: undefined,
       createdAt: undefined,
       isDrawn: false,
-      isPlayed: false,
       isDiscarded: false,
       isTrashed: false,
       slotIndex: undefined,
@@ -39,6 +38,10 @@ export default class Card extends Model {
 
   isOwnedBy(userId) {
     return this.userId === userId;
+  }
+
+  get isPlayed() {
+    return Number.isInteger(this.slotIndex) && this.slotIndex >= 0;
   }
 
   get isFresh() {

@@ -20,7 +20,6 @@ export default class PlayEffect extends Effect {
     const targetSlotIndex = openSlotIndexes[0];
 
     const playedCard = card.clone({
-      isPlayed: true,
       slotIndex: targetSlotIndex,
     });
 
