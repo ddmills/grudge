@@ -17,7 +17,7 @@ export default class PlayEffect extends Effect {
 
     const lobby = await LobbyRepository.get(user.lobbyId);
 
-    await TriggerService.onPlayed(playedCard);
+    await TriggerService.onPlayed(user, playedCard);
 
     NotificationService.onCardPlayed(lobby, playedCard);
   }

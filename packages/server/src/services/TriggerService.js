@@ -1,15 +1,15 @@
 import EffectService from 'services/EffectService';
 
 export default class TriggerService {
-  static async onPlayed(card) {
-    return EffectService.applyAll(card.onPlayed, { card });
+  static async onPlayed(user, card) {
+    return EffectService.applyAll(card.onPlayed, { user, card });
   }
 
-  static async onDrawn(card) {
-    return EffectService.applyAll(card.onDrawn, { card });
+  static async onDrawn(user, card) {
+    return EffectService.applyAll(card.onDrawn, { user, card });
   }
 
-  static async onDestroyed(card) {
-    return EffectService.applyAll(card.onDestroyed, { card });
+  static async onDestroyed(user, card) {
+    return EffectService.applyAll(card.onDestroyed, { user, card });
   }
 }

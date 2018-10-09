@@ -6,7 +6,7 @@ import Effect from './Effect';
 export default class DamageEffect extends Effect {
   static id = EffectIds.DAMAGE;
 
-  static async apply(effectParams, { card, targetCard }) {
+  static async apply(effectParams, { card, user, targetCard }) {
     const damage = card.getTrait(TraitIds.ATTACK).value;
     const health = targetCard.getTrait(TraitIds.HEALTH);
     const remaining = health.value - damage;
@@ -19,7 +19,7 @@ export default class DamageEffect extends Effect {
     });
 
     if (value <= 0) {
-      await TriggerService.onDestroyed(updatedCard);
+      await TriggerService.onDestroyed(user, updatedCard);
     }
   }
 }

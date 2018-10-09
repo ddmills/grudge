@@ -26,7 +26,7 @@ export default class CardService {
     });
 
     await CardRepository.save(drawnCard);
-    await TriggerService.onDrawn(drawnCard);
+    await TriggerService.onDrawn(user, drawnCard);
 
     const updatedCard = await CardRepository.get(drawnCard.id);
 
