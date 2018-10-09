@@ -38,6 +38,7 @@ export default class DeckService {
       const cardType = await CardTypeRepository.get(cardTypeId);
 
       return CardRepository.createForCardType(cardType, {
+        lobbyId,
         userId,
         deckId: deck.id,
       });
@@ -50,8 +51,8 @@ export default class DeckService {
     return Promise.all(userIds.map((userId) => this.createStarterDeck(lobbyId, userId)));
   }
 
-  static async recycleDiscardPile(userId) {
-    const allCards = await CardRepository.findForUser(userId);
+  static async recycleDiscardPile(user) {
+    const allCards = await CardRepository.findForUser(user.id, user.lobbyId);
     const discardPile = allCards.filter((card) => card.isDiscarded && !card.isTrashed);
 
     return Promise.all(discardPile.map((card) => {
@@ -60,7 +61,7 @@ export default class DeckService {
   }
 
   static async draw(user, count = 1) {
-    const allCards = await CardRepository.findForUser(user.id);
+    const allCards = await CardRepository.findForUser(user.id, user.lobbyId);
     const freshPile = allCards.filter((card) => card.isFresh);
 
     if (freshPile.length >= count) {
@@ -70,7 +71,7 @@ export default class DeckService {
     } else {
       await Promise.all(freshPile.map((card) => CardService.drawCard(user, card)));
 
-      const recycledFreshPile = await this.recycleDiscardPile(user.id);
+      const recycledFreshPile = await this.recycleDiscardPile(user);
       const cardsToDraw = Random.sample(recycledFreshPile, count - freshPile.length);
 
       await Promise.all(cardsToDraw.map((card) => CardService.drawCard(user, card)));
@@ -81,7 +82,7 @@ export default class DeckService {
     const lobby = await UserService.getLobbyForUser(user.id);
 
     if (lobby && lobby.isRunning) {
-      const cards = await CardRepository.findForUser(user.id);
+      const cards = await CardRepository.findForUser(user.id, user.lobbyId);
 
       return cards.filter((card) => card.isInHand);
     }
@@ -90,7 +91,7 @@ export default class DeckService {
   }
 
   static async discardHand(user) {
-    const cards = await CardRepository.findForUser(user.id);
+    const cards = await CardRepository.findForUser(user.id, user.lobbyId);
     const hand = cards.filter((card) => card.isInHand);
 
     return Promise.all(hand.map((card) => CardService.discardCard(user, card)));

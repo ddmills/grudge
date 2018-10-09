@@ -7,6 +7,7 @@ export default class Card extends Model {
       cardTypeId: undefined,
       deckId: undefined,
       userId: undefined,
+      lobbyId: undefined,
       createdAt: undefined,
       isDrawn: false,
       isDiscarded: false,

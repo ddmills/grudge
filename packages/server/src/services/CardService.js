@@ -1,6 +1,7 @@
 import CardRepository from 'repositories/CardRepository';
 import NotificationService from 'services/NotificationService';
 import TriggerService from 'services/TriggerService';
+import UserRepository from 'repositories/UserRepository';
 
 export default class CardService {
   static async discardCard(user, card) {
@@ -49,8 +50,11 @@ export default class CardService {
   }
 
   static async getPlayedCardsForUser(userId) {
+    const user = await UserRepository.get(userId);
+
     const cards = await CardRepository.where({
-      userId,
+      userId: user.id,
+      lobbyId: user.lobbyId,
       isDiscarded: false,
       isTrashed: false,
     });
