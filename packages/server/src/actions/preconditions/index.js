@@ -3,6 +3,7 @@ import CardIsEnabledPrecondition from './CardIsEnabledPrecondition';
 import TargetCardHasHealthPrecondition from './TargetCardHasHealthPrecondition';
 import TargetCardIsEnemyPrecondition from './TargetCardIsEnemyPrecondition';
 import UserCanAffordPrecondition from './UserCanAffordPrecondition';
+import TargetSlotIndexIsOpenPrecondition from './TargetSlotIndexIsOpenPrecondition';
 
 export default [
   CardHasValuePrecondition,
@@ -10,4 +11,5 @@ export default [
   TargetCardHasHealthPrecondition,
   TargetCardIsEnemyPrecondition,
   UserCanAffordPrecondition,
+  TargetSlotIndexIsOpenPrecondition,
 ];

@@ -43,6 +43,7 @@ const CardTypes = [
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
+          { id: PreconditionIds.TARGET_SLOT_INDEX_IS_OPEN },
         ],
         effects: [
           { id: EffectIds.PLAY },
@@ -75,10 +76,7 @@ const CardTypes = [
         ],
         effects: [
           { id: EffectIds.COLLECT },
-          {
-            id: EffectIds.ADD_TRAIT,
-            traitId: TraitIds.DISABLED,
-          },
+          { id: EffectIds.DISABLE },
         ],
       },
     ],
@@ -103,6 +101,7 @@ const CardTypes = [
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
+          { id: PreconditionIds.TARGET_SLOT_INDEX_IS_OPEN },
         ],
         effects: [
           { id: EffectIds.PLAY },
@@ -129,10 +128,7 @@ const CardTypes = [
         ],
         effects: [
           { id: EffectIds.COLLECT },
-          {
-            id: EffectIds.ADD_TRAIT,
-            traitId: TraitIds.DISABLED,
-          },
+          { id: EffectIds.DISABLE },
         ],
       },
     ],
@@ -161,10 +157,7 @@ const CardTypes = [
         ],
         effects: [
           { id: EffectIds.COLLECT },
-          {
-            id: EffectIds.ADD_TRAIT,
-            traitId: TraitIds.DISABLED,
-          },
+          { id: EffectIds.DISABLE },
         ],
       },
     ],
@@ -246,6 +239,7 @@ const CardTypes = [
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
+          { id: PreconditionIds.TARGET_SLOT_INDEX_IS_OPEN },
         ],
         effects: [
           { id: EffectIds.PLAY },

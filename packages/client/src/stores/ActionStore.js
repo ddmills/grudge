@@ -9,11 +9,31 @@ export default class ActionStore {
 
   @observable targetedCardId;
 
+  @observable targetedSlotIndex;
+
   @observable currentAction;
 
   static isTargetEnemyAction(actionData) {
     return actionData && actionData.preconditions
       .some((precondition) => precondition.id === PreconditionIds.TARGET_CARD_IS_ENEMY);
+  }
+
+  static isTargetSlotAction(actionData) {
+    return actionData && actionData.preconditions
+      .some((precondition) => precondition.id === PreconditionIds.TARGET_SLOT_INDEX_IS_OPEN);
+  }
+
+  preconditionsGathered() {
+    const targetEnemyMet = ActionStore.isTargetEnemyAction(this.currentAction)
+      ? this.targetedCardId
+      : true;
+    const targetSlotIndexMet = ActionStore.isTargetSlotAction(this.currentAction)
+      ? Number.isInteger(this.targetedSlotIndex)
+      : true;
+
+    console.log(targetEnemyMet, targetSlotIndexMet);
+
+    return targetEnemyMet && targetSlotIndexMet;
   }
 
   constructor(cardStore, turnStore) {
@@ -33,13 +53,16 @@ export default class ActionStore {
 
   @action
   performAction() {
-    sdk.performAction({
-      actionIdx: 0,
-      cardId: this.selectedCard.id,
-      targetCardId: this.targetedCardId,
-    });
+    if (this.preconditionsGathered()) {
+      sdk.performAction({
+        actionIdx: 0,
+        cardId: this.selectedCard.id,
+        targetCardId: this.targetedCardId,
+        targetSlotIndex: this.targetedSlotIndex,
+      });
 
-    this.resetAction();
+      this.resetAction();
+    }
   }
 
   @action
@@ -47,15 +70,14 @@ export default class ActionStore {
     this.currentAction = actionData;
     this.selectedCard = card;
 
-    if (!ActionStore.isTargetEnemyAction(actionData)) {
-      this.performAction();
-    }
+    this.performAction();
   }
 
   @action
   resetAction() {
     this.selectedCard = null;
     this.targetedCardId = null;
+    this.targetedSlotIndex = null;
     this.currentAction = null;
   }
 
@@ -68,8 +90,17 @@ export default class ActionStore {
   }
 
   onEnemyCardClicked(card) {
-    if (ActionStore.isTargetEnemyAction(this.currentAction) && this.selectedCard) {
+    if (this.currentAction && ActionStore.isTargetEnemyAction(this.currentAction)) {
       this.targetedCardId = card.id;
+
+      this.performAction();
+    }
+  }
+
+  onSlotClicked(slotIndex) {
+    console.log('CLICK SLOT', slotIndex, this.currentAction, ActionStore.isTargetSlotAction(this.currentAction));
+    if (this.currentAction && ActionStore.isTargetSlotAction(this.currentAction)) {
+      this.targetedSlotIndex = slotIndex;
 
       this.performAction();
     }

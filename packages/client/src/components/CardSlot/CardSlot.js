@@ -6,28 +6,34 @@ import Card from 'components/Card/Card';
 import connect from 'utilities/mobx/Connect';
 import styles from './CardSlot.scss';
 
-@connect(({ cardStore }, { userId, slotIndex }) => {
+@connect(({ cardStore, userStore, actionStore }, { userId, slotIndex }) => {
   const card = cardStore.getCardAtSlot(userId, slotIndex);
+  const isOwn = userId === userStore.currentUserId;
+  const isEmpty = !card;
 
   return {
     cardId: card && card.id,
+    onClick: isOwn && isEmpty ? () => actionStore.onSlotClicked(slotIndex) : () => {},
   };
 })
 export default class CardSlot extends Component {
   static propTypes = {
     className: PropTypes.string,
     cardId: PropTypes.string,
+    onClick: PropTypes.func,
   };
 
   static defaultProps = {
     className: undefined,
     cardId: undefined,
+    onClick: () => {},
   }
 
   render() {
     const {
       cardId,
       className,
+      onClick,
     } = this.props;
 
     const classes = classNames(
@@ -36,13 +42,13 @@ export default class CardSlot extends Component {
     );
 
     return (
-      <div className={classes}>
+      <button className={classes} onClick={onClick}>
         {cardId ? (
           <Card cardId={cardId}/>
         ) : (
           <CardContainer/>
         )}
-      </div>
+      </button>
     );
   }
 }

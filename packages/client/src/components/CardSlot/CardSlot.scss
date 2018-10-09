@@ -1,6 +1,7 @@
 @import "@grudge/styles";
 
 .slot {
+  @include buttonReset();
   margin: 8px;
   background-color: $black-fade-15;
   border-radius: 4px;
