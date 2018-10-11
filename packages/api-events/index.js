@@ -32,5 +32,6 @@ export const CARD_TRASHED = 'card/trashed';
 export const CARD_PLAYED = 'card/played';
 export const CARD_PLAYED_LIST = 'card/played/list';
 export const CARD_TRAIT_ADDED = 'card/trait/added';
+export const CARD_TRAIT_REMOVED = 'card/trait/removed';
 export const HAND_GET = 'hand/get';
 export const ACTION_PERFORM = 'action/perform';

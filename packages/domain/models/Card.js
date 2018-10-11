@@ -14,9 +14,6 @@ export default class Card extends Model {
       isTrashed: false,
       slotIndex: undefined,
       traits: [],
-      onPlayed: [],
-      onDrawn: [],
-      onDestroyed: [],
       handActions: [],
     };
   }

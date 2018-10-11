@@ -34,6 +34,11 @@ export default class TraitService {
       traits: card.traits.filter((t) => t.id !== traitId),
     });
 
+    const user = await UserRepository.get(cardWithoutTrait.userId);
+    const lobby = await LobbyRepository.get(user.lobbyId);
+
+    NotificationService.onCardTraitRemoved(lobby, cardWithoutTrait);
+
     await CardRepository.save(cardWithoutTrait);
 
     return cardWithoutTrait;

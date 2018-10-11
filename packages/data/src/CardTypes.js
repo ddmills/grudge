@@ -16,12 +16,6 @@ const CardTypes = [
         value: 2,
       },
     ],
-    onDestroyed: [
-      { id: EffectIds.TRASH },
-    ],
-    onDrawn: [
-      { id: EffectIds.ENABLE },
-    ],
     playActions: [
       {
         name: 'Attack',
@@ -60,12 +54,6 @@ const CardTypes = [
         id: TraitIds.VALUE,
         value: 2,
       },
-    ],
-    onDestroyed: [
-      { id: EffectIds.TRASH },
-    ],
-    onDrawn: [
-      { id: EffectIds.ENABLE },
     ],
     handActions: [
       {
@@ -116,9 +104,6 @@ const CardTypes = [
         ],
       },
     ],
-    onDestroyed: [
-      { id: EffectIds.TRASH },
-    ],
     playActions: [
       {
         name: 'Collect',
@@ -142,12 +127,6 @@ const CardTypes = [
         value: 1,
       },
     ],
-    onDrawn: [
-      { id: EffectIds.ENABLE },
-    ],
-    onDestroyed: [
-      { id: EffectIds.TRASH },
-    ],
     handActions: [
       {
         name: 'Collect',
@@ -170,12 +149,6 @@ const CardTypes = [
         id: TraitIds.ATTACK,
         value: 1,
       },
-    ],
-    onDrawn: [
-      { id: EffectIds.ENABLE },
-    ],
-    onDestroyed: [
-      { id: EffectIds.TRASH },
     ],
     handActions: [
       {
@@ -230,9 +203,6 @@ const CardTypes = [
         ],
       },
     ],
-    onDestroyed: [
-      { id: EffectIds.TRASH },
-    ],
     handActions: [
       {
         name: 'Play',
@@ -253,9 +223,6 @@ const CardTypes = [
 const hydrate = (cardType) => ({
   description: cardType.name,
   traits: [],
-  onPlayed: [],
-  onDrawn: [],
-  onDestroyed: [],
   handActions: [],
   playActions: [],
   ...cardType,

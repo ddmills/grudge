@@ -1,9 +1,15 @@
 import CardRepository from 'repositories/CardRepository';
 import NotificationService from 'services/NotificationService';
-import TriggerService from 'services/TriggerService';
 import UserRepository from 'repositories/UserRepository';
+import TraitService from 'services/TraitService';
+import { TraitIds } from '@grudge/data';
+import Logger from 'utilities/Logger';
 
 export default class CardService {
+  static async enableCard(cardId) {
+    return TraitService.removeTrait(cardId, TraitIds.DISABLED);
+  }
+
   static async discardCard(user, card) {
     const discardedCard = card.clone({
       isDrawn: false,
@@ -27,9 +33,7 @@ export default class CardService {
     });
 
     await CardRepository.save(drawnCard);
-    await TriggerService.onDrawn(user, drawnCard);
-
-    const updatedCard = await CardRepository.get(drawnCard.id);
+    const updatedCard = await this.enableCard(drawnCard.id);
 
     NotificationService.onCardDrawn(user, updatedCard);
 
@@ -60,5 +64,11 @@ export default class CardService {
     });
 
     return cards.filter((card) => card.isPlayed);
+  }
+
+  static async enablePlayed(user) {
+    const playedCards = await this.getPlayedCardsForUser(user.id);
+
+    return Promise.all(playedCards.map((card) => this.enableCard(card.id)));
   }
 }

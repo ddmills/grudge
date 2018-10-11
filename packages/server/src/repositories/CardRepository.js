@@ -20,9 +20,6 @@ export default class CardRepository extends ModelRepository {
     return this.create({
       cardTypeId: cardType.id,
       traits: cardType.traits,
-      onPlayed: cardType.onPlayed,
-      onDrawn: cardType.onDrawn,
-      onDestroyed: cardType.onDestroyed,
       playActions: cardType.playActions,
       handActions: cardType.handActions,
       ...properties,

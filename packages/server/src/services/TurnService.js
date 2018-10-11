@@ -4,6 +4,7 @@ import NotificationService from 'services/NotificationService';
 import DeckService from 'services/DeckService';
 import LobbyProcessor from 'services/LobbyProcessor';
 import timestamp from 'utilities/Timestamp';
+import CardService from 'services/CardService';
 
 export default class TurnService {
   static async incrementTurnCounter(lobby) {
@@ -29,7 +30,8 @@ export default class TurnService {
       throw new Error('Cannot end someone elses turn');
     }
 
-    await DeckService.refreshHand(currentTurnUser, lobby.id);
+    await DeckService.refreshHand(currentTurnUser);
+    await CardService.enablePlayed(currentTurnUser);
 
     return this.incrementTurnCounter(lobby);
   }

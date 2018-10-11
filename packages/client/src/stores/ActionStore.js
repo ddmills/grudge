@@ -31,8 +31,6 @@ export default class ActionStore {
       ? Number.isInteger(this.targetedSlotIndex)
       : true;
 
-    console.log(targetEnemyMet, targetSlotIndexMet);
-
     return targetEnemyMet && targetSlotIndexMet;
   }
 
@@ -98,7 +96,6 @@ export default class ActionStore {
   }
 
   onSlotClicked(slotIndex) {
-    console.log('CLICK SLOT', slotIndex, this.currentAction, ActionStore.isTargetSlotAction(this.currentAction));
     if (this.currentAction && ActionStore.isTargetSlotAction(this.currentAction)) {
       this.targetedSlotIndex = slotIndex;
 
