@@ -40,7 +40,7 @@ export default class TurnService {
     const users = await UserRepository.getForLobby(lobby.id);
     const currentTurnUser = lobby.pickCurrentTurnUser(users);
 
-    this.endTurn(currentTurnUser);
+    return this.endTurn(currentTurnUser);
   }
 
   static async isUsersTurn(user) {

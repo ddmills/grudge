@@ -2,6 +2,7 @@ import SocketEmitter from 'providers/socketio/SocketEmitter';
 import UserLobbyRepository from 'repositories/UserLobbyRepository';
 import * as Events from '@grudge/api-events';
 import autobind from 'autobind-decorator';
+import Logger from 'utilities/Logger';
 
 setInterval(() => {
   SocketEmitter.emit(Events.FLASH, Date.now());
@@ -10,6 +11,7 @@ setInterval(() => {
 @autobind
 export default class NotificationService {
   static notifyUser(userId, event, data) {
+    Logger.info('emit', event, userId, data && data.id);
     SocketEmitter.to(userId).emit(event, data);
   }
 

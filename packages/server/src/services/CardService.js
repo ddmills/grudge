@@ -3,7 +3,6 @@ import NotificationService from 'services/NotificationService';
 import UserRepository from 'repositories/UserRepository';
 import TraitService from 'services/TraitService';
 import { TraitIds } from '@grudge/data';
-import Logger from 'utilities/Logger';
 
 export default class CardService {
   static async enableCard(cardId) {
