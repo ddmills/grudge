@@ -1,6 +1,8 @@
 .hand {
   display: flex;
+  flex: 0 0 auto;
   overflow: hidden;
+  justify-content: center;
 }
 
 .handCard {

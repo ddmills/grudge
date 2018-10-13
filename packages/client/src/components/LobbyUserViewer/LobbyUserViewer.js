@@ -34,7 +34,7 @@ export default class LobbyUserViewer extends Component {
           </Heading>
         )}
         {user && (
-          <Arena userId={user.id}/>
+          <Arena userId={user.id} position="bottom"/>
         )}
       </Container>
     );

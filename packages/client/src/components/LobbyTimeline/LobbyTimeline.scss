@@ -1,10 +1,12 @@
 @import "@grudge/styles";
 
 .lobbyTimelineBanner {
-  position: relative;
+  position: absolute;
   flex: 0 0 auto;
+  bottom: calc(50% - $spacer / 2);
+  width: 100%;
   height: $spacer-1;
-  background-color: $primary-300;
+  background-color: fade($primary-300, 75);
 }
 
 .lobbyTimeline {
@@ -15,7 +17,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  background-color: $red-300;
+  background-color: fade($primary-200, 75);
 }
 
 .endTurnButton {
