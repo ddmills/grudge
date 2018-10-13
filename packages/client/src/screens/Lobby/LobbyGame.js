@@ -5,6 +5,7 @@ import PageSuperHeader from 'components/Page/SuperHeader/PageSuperHeader';
 import LobbyGameHeader from 'components/LobbyGameHeader/LobbyGameHeader';
 import LobbyTimeline from 'components/LobbyTimeline/LobbyTimeline';
 import LobbyUserViewer from 'components/LobbyUserViewer/LobbyUserViewer';
+import CardInspector from 'components/CardInspector/CardInspector';
 import { User } from '@grudge/domain';
 import Arena from 'components/Arena/Arena';
 import Hand from 'components/Hand/Hand';
@@ -28,6 +29,7 @@ export default class LobbyGame extends Component {
 
     return (
       <section className={styles.fullPage}>
+        <CardInspector/>
         <PageSuperHeader/>
         <LobbyGameHeader/>
         <div className={styles.content}>

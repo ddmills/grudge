@@ -1,0 +1,41 @@
+@import "@grudge/styles";
+
+.inspector {
+  @include buttonReset();
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  backdrop-filter: blur(5px);
+  background-color: $black-fade-75;
+}
+
+.inspectorContent {
+  display: flex;
+  flex-flow: row wrap;
+  pointer-events: none;
+  justify-content: center;
+}
+
+.inspectedName {
+  width: 100%;
+}
+
+.inspectedCard {
+  padding: $spacer-4;
+}
+
+.inspectedDescription {
+  min-width: 200px;
+  max-width: 300px;
+  padding: $spacer-4;
+  text-align: left;
+}
+

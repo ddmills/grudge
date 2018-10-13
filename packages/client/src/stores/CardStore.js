@@ -6,6 +6,8 @@ import autobind from 'autobind-decorator';
 
 @autobind
 export default class CardStore {
+  @observable inspectedCardId = null;
+
   @observable cards = {};
 
   getCardsForUser(userId) {
@@ -14,6 +16,11 @@ export default class CardStore {
 
   getPlayedCardsForUser(userId) {
     return this.getCardsForUser(userId).filter((card) => card.isPlayed);
+  }
+
+  @computed
+  get inspectedCard() {
+    return this.cards[this.inspectedCardId];
   }
 
   @computed
@@ -35,6 +42,16 @@ export default class CardStore {
 
   setCards(cards) {
     cards.forEach(this.setCard);
+  }
+
+  @action
+  inspectCard(cardId) {
+    this.inspectedCardId = cardId;
+  }
+
+  @action
+  clearInspectedCard() {
+    this.inspectedCardId = null;
   }
 
   @action

@@ -13,7 +13,7 @@ import connect from 'utilities/mobx/Connect';
     isTargeted: actionStore.isCardTargeted(card),
     cardType: card && cardTypeStore.findCardType(card.cardTypeId),
     onClick: () => actionStore.onClickCard(card),
-    onClickHold: () => {},
+    onClickHold: () => cardStore.inspectCard(card.id),
   };
 })
 export default class Card extends Component {
@@ -43,6 +43,7 @@ export default class Card extends Component {
       onClickHold,
       isSelected,
       isTargeted,
+      ...passProps
     } = this.props;
 
     if (card) {
@@ -54,6 +55,7 @@ export default class Card extends Component {
           onClickHold={onClickHold}
           isSelected={isSelected}
           isTargeted={isTargeted}
+          {...passProps}
         />
       );
     }
