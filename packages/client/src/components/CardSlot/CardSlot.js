@@ -14,6 +14,7 @@ import styles from './CardSlot.scss';
   return {
     cardId: card && card.id,
     onClick: isOwn && isEmpty ? () => actionStore.onSlotClicked(slotIndex) : () => {},
+    highlightStyle: actionStore.getHighlight(userId, slotIndex),
   };
 })
 export default class CardSlot extends Component {
@@ -21,12 +22,18 @@ export default class CardSlot extends Component {
     className: PropTypes.string,
     cardId: PropTypes.string,
     onClick: PropTypes.func,
+    highlightStyle: PropTypes.oneOf([
+      'open',
+      'enemy',
+      'none',
+    ]),
   };
 
   static defaultProps = {
     className: undefined,
     cardId: undefined,
     onClick: () => {},
+    highlightStyle: 'none',
   }
 
   render() {
@@ -34,11 +41,13 @@ export default class CardSlot extends Component {
       cardId,
       className,
       onClick,
+      highlightStyle,
     } = this.props;
 
     const classes = classNames(
       styles.slot,
       className,
+      styles[highlightStyle],
     );
 
     return (

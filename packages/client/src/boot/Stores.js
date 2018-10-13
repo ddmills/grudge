@@ -17,7 +17,7 @@ export default () => {
   const turnStore = new TurnStore(lobbyStore, userStore);
   const cardTypeStore = new CardTypeStore();
   const cardStore = new CardStore(userStore);
-  const actionStore = new ActionStore(cardStore, turnStore);
+  const actionStore = new ActionStore(cardStore, turnStore, userStore);
 
   return {
     authStore,
