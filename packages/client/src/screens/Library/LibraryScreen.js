@@ -28,7 +28,11 @@ export default class LobbyScreen extends Component {
         </Heading>
         <div className={styles.cardList}>
           {cardTypes.map((cardType) => (
-            <CardTypeView key={cardType.id} cardType={cardType}/>
+            <CardTypeView
+              key={cardType.id}
+              cardType={cardType}
+              size="lg"
+            />
           ))}
         </div>
       </Page>
