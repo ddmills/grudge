@@ -24,7 +24,7 @@ export default class CardContainer extends Component {
     onClickStart: () => {},
     onClickEnd: () => {},
     onClickHold: () => {},
-    size: 'sm',
+    size: 'md',
   }
 
   render() {

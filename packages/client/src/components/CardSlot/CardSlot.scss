@@ -27,9 +27,13 @@
 .slot {
   @include buttonReset();
   margin: 8px;
-  background-color: $black-fade-15;
+  background-color: fade($white, 2);
   border-radius: 4px;
   transition: box-shadow 0.3s ease-in-out;
+
+  &.none {
+    box-shadow: 0 0 0 2px fade($black, 8);
+  }
 
   &.enemy {
     animation-name: blinkEnemy;
