@@ -11,6 +11,7 @@ export default class User extends Model {
       createdAt: undefined,
       turnOrder: undefined,
       money: 0,
+      health: 0,
     };
   }
 }
