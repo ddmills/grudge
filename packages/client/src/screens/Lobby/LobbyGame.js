@@ -35,7 +35,7 @@ export default class LobbyGame extends Component {
         <div className={styles.content}>
           <LobbyUserViewer/>
           <LobbyTimeline/>
-          <Container className={styles.viewer}>
+          <Container className={styles.viewer} isPadded={false}>
             {user && (
               <Arena userId={user.id}/>
             )}

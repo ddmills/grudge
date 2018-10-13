@@ -25,10 +25,18 @@
 }
 
 .slot {
-  margin: 8px;
+  margin: 4px;
   background-color: fade($white, 2);
   border-radius: 4px;
   transition: box-shadow 0.2s ease-in-out;
+
+  @include breakpoint(sm) {
+    margin: 5px;
+  }
+
+  @include breakpoint(md) {
+    margin: 8px;
+  }
 
   &.none {
     box-shadow: 0 0 0 2px fade($black, 8);

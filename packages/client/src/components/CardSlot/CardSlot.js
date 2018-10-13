@@ -6,15 +6,19 @@ import Card from 'components/Card/Card';
 import connect from 'utilities/mobx/Connect';
 import styles from './CardSlot.scss';
 
-@connect(({ cardStore, userStore, actionStore }, { userId, slotIndex }) => {
+@connect(({
+  cardStore, userStore, actionStore, windowSizeStore,
+}, { userId, slotIndex }) => {
   const card = cardStore.getCardAtSlot(userId, slotIndex);
   const isOwn = userId === userStore.currentUserId;
   const isEmpty = !card;
+  const size = windowSizeStore.responsiveCardSize;
 
   return {
     cardId: card && card.id,
     onClick: isOwn && isEmpty ? () => actionStore.onSlotClicked(slotIndex) : () => {},
     highlightStyle: actionStore.getHighlight(userId, slotIndex),
+    size,
   };
 })
 export default class CardSlot extends Component {
@@ -27,6 +31,7 @@ export default class CardSlot extends Component {
       'enemy',
       'none',
     ]),
+    size: PropTypes.string,
   };
 
   static defaultProps = {
@@ -34,6 +39,7 @@ export default class CardSlot extends Component {
     cardId: undefined,
     onClick: () => {},
     highlightStyle: 'none',
+    size: 'md',
   }
 
   render() {
@@ -42,6 +48,7 @@ export default class CardSlot extends Component {
       className,
       onClick,
       highlightStyle,
+      size,
     } = this.props;
 
     const classes = classNames(
@@ -53,9 +60,9 @@ export default class CardSlot extends Component {
     return (
       <div className={classes}>
         {cardId ? (
-          <Card cardId={cardId} onClick={onClick}/>
+          <Card cardId={cardId} onClick={onClick} size={size}/>
         ) : (
-          <CardContainer onClick={onClick}/>
+          <CardContainer onClick={onClick} size={size}/>
         )}
       </div>
     );

@@ -47,7 +47,7 @@ export default class CardInspector extends Component {
             {cardType.name}
           </Heading>
           <div className={styles.inspectedCard}>
-            <Card cardId={card.id} size="xl"/>
+            <Card cardId={card.id} size="xxl"/>
           </div>
           <div className={styles.inspectedDescription}>
             <p>

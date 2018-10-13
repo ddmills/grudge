@@ -4,7 +4,9 @@ import { CardView, CardContainer } from '@grudge/components';
 import { Card as CardModel, CardType } from '@grudge/domain';
 import connect from 'utilities/mobx/Connect';
 
-@connect(({ cardTypeStore, cardStore, actionStore }, { cardId }) => {
+@connect(({
+  cardTypeStore, cardStore, actionStore, windowSizeStore,
+}, { cardId }) => {
   const card = cardStore.getCard(cardId);
 
   return {
@@ -14,6 +16,7 @@ import connect from 'utilities/mobx/Connect';
     cardType: card && cardTypeStore.findCardType(card.cardTypeId),
     onClick: () => actionStore.onClickCard(card),
     onClickHold: () => cardStore.inspectCard(card.id),
+    responsiveCardSize: windowSizeStore.responsiveCardSize,
   };
 })
 export default class Card extends Component {
@@ -24,6 +27,8 @@ export default class Card extends Component {
     onClickHold: PropTypes.func,
     isSelected: PropTypes.bool,
     isTargeted: PropTypes.bool,
+    isResponsive: PropTypes.bool,
+    responsiveCardSize: PropTypes.string,
   }
 
   static defaultProps = {
@@ -31,8 +36,10 @@ export default class Card extends Component {
     cardType: undefined,
     onClick: undefined,
     onClickHold: undefined,
+    isResponsive: true,
     isSelected: false,
     isTargeted: false,
+    responsiveCardSize: 'lg',
   }
 
   render() {
@@ -43,8 +50,12 @@ export default class Card extends Component {
       onClickHold,
       isSelected,
       isTargeted,
+      isResponsive,
+      responsiveCardSize,
       ...passProps
     } = this.props;
+
+    const size = isResponsive ? responsiveCardSize : undefined;
 
     if (card) {
       return (
@@ -55,11 +66,12 @@ export default class Card extends Component {
           onClickHold={onClickHold}
           isSelected={isSelected}
           isTargeted={isTargeted}
+          size={size}
           {...passProps}
         />
       );
     }
 
-    return <CardContainer/>;
+    return <CardContainer size={size}/>;
   }
 }

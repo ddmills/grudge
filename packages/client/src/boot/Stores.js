@@ -1,3 +1,4 @@
+import WindowSizeStore from 'stores/WindowSizeStore';
 import AuthStore from 'stores/AuthStore';
 import ConnectionStore from 'stores/ConnectionStore';
 import RouterStore from 'stores/RouterStore';
@@ -9,6 +10,7 @@ import CardStore from 'stores/CardStore';
 import ActionStore from 'stores/ActionStore';
 
 export default () => {
+  const windowSizeStore = new WindowSizeStore();
   const authStore = new AuthStore();
   const connectionStore = new ConnectionStore(authStore);
   const routerStore = new RouterStore(authStore);
@@ -20,6 +22,7 @@ export default () => {
   const actionStore = new ActionStore(cardStore, turnStore, userStore);
 
   return {
+    windowSizeStore,
     authStore,
     connectionStore,
     routerStore,

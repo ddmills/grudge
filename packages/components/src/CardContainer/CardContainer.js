@@ -12,11 +12,13 @@ export default class CardContainer extends Component {
     onClick: PropTypes.func,
     onClickHold: PropTypes.func,
     size: PropTypes.oneOf([
+      'xxs',
       'xs',
       'sm',
       'md',
       'lg',
       'xl',
+      'xxl',
     ]),
   }
 

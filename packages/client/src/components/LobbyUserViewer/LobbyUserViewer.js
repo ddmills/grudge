@@ -25,7 +25,7 @@ export default class LobbyUserViewer extends Component {
     } = this.props;
 
     return (
-      <Container className={styles.lobbyUserViewer}>
+      <Container className={styles.lobbyUserViewer} isPadded={false}>
         {user && (
           <Heading size={4}>
             {user.displayName}
