@@ -2,27 +2,27 @@ import UserRepository from 'repositories/UserRepository';
 import LobbyRepository from 'repositories/LobbyRepository';
 import NotificationService from 'services/NotificationService';
 
-export default class MoneyService {
-  static async set(userId, money) {
+export default class HealthService {
+  static async set(userId, health) {
     const id = await UserRepository.updateForId(userId, {
-      money,
+      health,
     });
 
     const updated = await UserRepository.get(id);
     const lobby = await LobbyRepository.get(updated.lobbyId);
 
-    NotificationService.onMoneyUpdated(lobby, updated);
+    NotificationService.onHealthUpdated(lobby, updated);
   }
 
-  static async add(userId, money) {
+  static async add(userId, health) {
     const user = await UserRepository.get(userId);
 
-    await this.set(userId, user.money + money);
+    await this.set(userId, user.health + health);
   }
 
-  static async subtract(userId, money) {
+  static async subtract(userId, health) {
     const user = await UserRepository.get(userId);
 
-    await this.set(userId, user.money - money);
+    await this.set(userId, user.health - health);
   }
 }

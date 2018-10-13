@@ -24,6 +24,7 @@ export default class EventMap {
       new EventHook(Events.CARD_TRAIT_ADDED, 'onCardTraitAdded', ResponseTransformer.toModel(Card)),
       new EventHook(Events.CARD_TRAIT_REMOVED, 'onCardTraitRemoved', ResponseTransformer.toModel(Card)),
       new EventHook(Events.USER_MONEY_UPDATED, 'onUserMoneyUpdated', ResponseTransformer.toModel(User)),
+      new EventHook(Events.USER_HEALTH_UPDATED, 'onUserHealthUpdated', ResponseTransformer.toModel(User)),
     ];
   }
 }
