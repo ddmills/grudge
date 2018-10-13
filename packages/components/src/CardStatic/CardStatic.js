@@ -70,13 +70,11 @@ export default class CardStatic extends Component {
             <h2 className={styles.cardTitle}>
               {name}
             </h2>
-            <div className={styles.attributes}>
-              {value && (
-                <span className={styles.value}>
-                  {value}
-                </span>
-              )}
-            </div>
+            {value && (
+              <span className={styles.value}>
+                {value}
+              </span>
+            )}
           </div>
           <div className={overlayClasses}>
             {attack && (

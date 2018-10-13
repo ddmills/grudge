@@ -6,11 +6,11 @@
 
 @keyframes blinkEnemy {
   0% {
-    @include cardhighlight(rgb(241, 20, 186), 0.25);
+    @include cardhighlight($attack, 0.25);
   }
 
   100% {
-    @include cardhighlight(rgb(241, 20, 186), 0.75);
+    @include cardhighlight($attack, 0.75);
   }
 }
 
@@ -29,7 +29,7 @@
   margin: 8px;
   background-color: fade($white, 2);
   border-radius: 4px;
-  transition: box-shadow 0.3s ease-in-out;
+  transition: box-shadow 0.2s ease-in-out;
 
   &.none {
     box-shadow: 0 0 0 2px fade($black, 8);
@@ -37,14 +37,14 @@
 
   &.enemy {
     animation-name: blinkEnemy;
-    animation-duration: 0.3s;
+    animation-duration: 0.4s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
   }
 
   &.open {
     animation-name: blinkOpen;
-    animation-duration: 0.3s;
+    animation-duration: 0.4s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
   }

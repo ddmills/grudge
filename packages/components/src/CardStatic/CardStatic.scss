@@ -6,21 +6,17 @@ $card-radius: 4px;
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: $primary-200;
+  background-color: #4b5661;
   border-radius: $card-radius;
-
-  box-shadow:
-    0 2px 1px -1px rgba(0, 0, 0, 0.2),
-    0 1px 1px 0 rgba(0, 0, 0, 0.14),
-    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  @include shadow(1);
 }
 
 .cardTitle {
   padding: 3px 0;
-  font-size: 0.6em;
-  color: $primary-000;
+  margin: $spacer-4 0;
+  font-size: 0.9em;
+  color: #d6d6d6;
   text-align: center;
-  background-color: $black-fade-75;
 }
 
 .content {
@@ -33,7 +29,7 @@ $card-radius: 4px;
 
 .overlay {
   @include fill;
-  border: 2px solid transparent;
+  border: 2px solid $black-fade-30;
   border-radius: $card-radius;
   transition:
     background-color 0.1s ease-in-out,
@@ -63,25 +59,6 @@ $card-radius: 4px;
   opacity: 0.5;
 }
 
-.attributes {
-  display: flex;
-  flex-direction: column;
-
-  > * {
-    display: inline-flex;
-    width: 24px;
-    height: 24px;
-    margin: $spacer-1 0 0 $spacer-1;
-    align-items: center;
-    justify-content: center;
-    font-size: 1em;
-    font-weight: $font-weight-bold;
-    color: $white;
-    border: 2px solid $black-fade-15;
-    border-radius: 100%;
-  }
-}
-
 .cost {
   position: absolute;
   right: $spacer-1;
@@ -101,15 +78,27 @@ $card-radius: 4px;
   font-size: 1em;
   font-weight: $font-weight-bold;
   color: $white;
-  background-color: #9c2727;
-  border: 2px solid $black-fade-15;
+  color: shade($health, 70);
+  background-color: $health;
+  border: 3px solid shade($health, 20);
   border-radius: 100%;
   justify-content: center;
   align-items: center;
 }
 
 .value {
-  background-color: #fdb706;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  font-size: 1.4em;
+  font-weight: $font-weight-bold;
+  color: shade($money, 40);
+  background-color: $money;
+  border: 4px solid shade($money, 20);
+  border-radius: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 .attack {
@@ -121,16 +110,12 @@ $card-radius: 4px;
   height: 24px;
   font-size: 1em;
   font-weight: $font-weight-bold;
-  color: $white;
-  background-color: #3d6ea0;
-  border: 2px solid $black-fade-15;
+  color: shade($attack, 70);
+  background-color: $attack;
+  border: 3px solid shade($attack, 20);
   border-radius: 100%;
   justify-content: center;
   align-items: center;
-}
-
-.defense {
-  background-color: #657a8f;
 }
 
 .points {
