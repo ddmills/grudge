@@ -13,6 +13,7 @@ import connect from 'utilities/mobx/Connect';
     isTargeted: actionStore.isCardTargeted(card),
     cardType: card && cardTypeStore.findCardType(card.cardTypeId),
     onClick: () => actionStore.onClickCard(card),
+    onClickHold: () => {},
   };
 })
 export default class Card extends Component {
@@ -20,6 +21,7 @@ export default class Card extends Component {
     card: PropTypes.instanceOf(CardModel),
     cardType: PropTypes.instanceOf(CardType),
     onClick: PropTypes.func,
+    onClickHold: PropTypes.func,
     isSelected: PropTypes.bool,
     isTargeted: PropTypes.bool,
   }
@@ -28,6 +30,7 @@ export default class Card extends Component {
     card: undefined,
     cardType: undefined,
     onClick: undefined,
+    onClickHold: undefined,
     isSelected: false,
     isTargeted: false,
   }
@@ -37,6 +40,7 @@ export default class Card extends Component {
       card,
       cardType,
       onClick,
+      onClickHold,
       isSelected,
       isTargeted,
     } = this.props;
@@ -46,7 +50,8 @@ export default class Card extends Component {
         <CardView
           card={card}
           cardType={cardType}
-          onClickEnd={onClick}
+          onClick={onClick}
+          onClickHold={onClickHold}
           isSelected={isSelected}
           isTargeted={isTargeted}
         />
