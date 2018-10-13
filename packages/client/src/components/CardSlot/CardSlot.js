@@ -51,13 +51,13 @@ export default class CardSlot extends Component {
     );
 
     return (
-      <button className={classes} onClick={onClick}>
+      <div className={classes}>
         {cardId ? (
-          <Card cardId={cardId}/>
+          <Card cardId={cardId} onClick={onClick}/>
         ) : (
-          <CardContainer/>
+          <CardContainer onClick={onClick}/>
         )}
-      </button>
+      </div>
     );
   }
 }

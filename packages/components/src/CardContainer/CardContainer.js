@@ -31,7 +31,7 @@ export default class CardContainer extends Component {
     isClickHold: false,
   }
 
-  onClickStart(e) {
+  onClickStart() {
     this.setState({
       isClickHold: false,
     });
