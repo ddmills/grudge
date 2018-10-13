@@ -2,10 +2,54 @@
 
 .cardContainer {
   position: relative;
-  display: inline-block;
   cursor: pointer;
   user-select: none;
   flex: 0 0 auto;
+
+  &.xs {
+    width: 40px;
+    height: 56px;
+
+    .cardContainerContent {
+      zoom: 0.4;
+    }
+  }
+
+  &.sm {
+    width: 70px;
+    height: 98px;
+
+    .cardContainerContent {
+      zoom: 0.7;
+    }
+  }
+
+  &.md {
+    width: 100px;
+    height: 140px;
+
+    .cardContainerContent {
+      zoom: 1;
+    }
+  }
+
+  &.lg {
+    width: 120px;
+    height: 168px;
+
+    .cardContainerContent {
+      zoom: 1.2;
+    }
+  }
+
+  &.xl {
+    width: 140px;
+    height: 196px;
+
+    .cardContainerContent {
+      zoom: 1.4;
+    }
+  }
 }
 
 .cardContainerContent {

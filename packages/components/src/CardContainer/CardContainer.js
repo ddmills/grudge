@@ -1,17 +1,22 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import ResizeDetector from 'react-resize-detector';
 import ClickNHold from 'react-click-n-hold';
-import autobind from 'autobind-decorator';
+import classnames from 'classnames';
 import styles from './CardContainer.scss';
 
-@autobind
 export default class CardContainer extends Component {
   static propTypes = {
     clickHoldDuration: PropTypes.number,
     onClickStart: PropTypes.func,
     onClickEnd: PropTypes.func,
     onClickHold: PropTypes.func,
+    size: PropTypes.oneOf([
+      'xs',
+      'sm',
+      'md',
+      'lg',
+      'xl',
+    ]),
   }
 
   static defaultProps = {
@@ -19,19 +24,7 @@ export default class CardContainer extends Component {
     onClickStart: () => {},
     onClickEnd: () => {},
     onClickHold: () => {},
-  }
-
-  static computeStyle(height = 1) {
-    return {
-      width: height / 1.4,
-      height,
-    };
-  }
-
-  static computeZoomStyle(height = 1) {
-    return {
-      zoom: height / 140,
-    };
+    size: 'sm',
   }
 
   render() {
@@ -41,29 +34,27 @@ export default class CardContainer extends Component {
       onClickStart,
       onClickEnd,
       onClickHold,
+      size,
     } = this.props;
 
+    const classes = classnames(
+      styles.cardContainer,
+      styles[size],
+    );
+
     return (
-      <ResizeDetector
-        handleHeight
-        render={({ height }) => (
-          <ClickNHold
-            time={clickHoldDuration}
-            onStart={onClickStart}
-            onEnd={onClickEnd}
-            onClickNHold={onClickHold}
-          >
-            <div className={styles.cardContainer} style={CardContainer.computeStyle(height)}>
-              <div
-                className={styles.cardContainerContent}
-                style={CardContainer.computeZoomStyle(height)}
-              >
-                {children}
-              </div>
-            </div>
-          </ClickNHold>
-        )}
-      />
+      <ClickNHold
+        time={clickHoldDuration}
+        onStart={onClickStart}
+        onEnd={onClickEnd}
+        onClickNHold={onClickHold}
+      >
+        <div className={classes}>
+          <div className={styles.cardContainerContent}>
+            {children}
+          </div>
+        </div>
+      </ClickNHold>
     );
   }
 }
