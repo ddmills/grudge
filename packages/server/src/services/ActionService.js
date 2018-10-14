@@ -2,7 +2,8 @@ import CardRepository from 'repositories/CardRepository';
 import TurnService from 'services/TurnService';
 import PreconditionService from 'services/PreconditionService';
 import EffectService from 'services/EffectService';
-import Logger from '../utilities/Logger';
+import UserRepository from 'repositories/UserRepository';
+import Logger from 'utilities/Logger';
 
 export default class ActionService {
   static async perform(action, actionData) {
@@ -48,6 +49,20 @@ export default class ActionService {
       const targetCard = await CardRepository.get(actionData.targetCardId);
 
       Object.assign(actionData, { targetCard });
+    }
+
+    if (actionData.targetUserId) {
+      const targetUser = await UserRepository.get(actionData.targetUserId);
+
+      if (targetUser.lobbyId !== user.lobbyId) {
+        throw new Error('Cannot perform action against user in different lobby');
+      }
+
+      if (targetUser.isDead) {
+        throw new Error('Cannot perform action against deafeated user');
+      }
+
+      Object.assign(actionData, { targetUser });
     }
 
     if (card.isInHand) {

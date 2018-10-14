@@ -4,8 +4,10 @@ import NotificationService from 'services/NotificationService';
 
 export default class HealthService {
   static async set(userId, health) {
+    const value = health <= 0 ? 0 : health;
+
     const id = await UserRepository.updateForId(userId, {
-      health,
+      health: value,
     });
 
     const updated = await UserRepository.get(id);

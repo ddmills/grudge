@@ -1,6 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import autobind from 'autobind-decorator';
-import { PreconditionIds } from '@grudge/data';
+import { ActionSetups } from '@grudge/data';
 import sdk from '@grudge/sdk';
 
 @autobind
@@ -9,31 +9,83 @@ export default class ActionStore {
 
   @observable targetedCardId;
 
+  @observable targetedUserId;
+
   @observable targetedSlotIndex;
 
   @observable currentAction;
 
   @computed
-  get isTargetEnemyAction() {
-    return this.currentAction && this.currentAction.preconditions
-      .some((precondition) => precondition.id === PreconditionIds.TARGET_CARD_IS_ENEMY);
+  get allCardActions() {
+    const card = this.selectedCard;
+
+    if (!card) {
+      return [];
+    }
+
+    if (card.isInHand) {
+      return card.handActions;
+    }
+
+    if (card.isPlayed) {
+      return card.playActions;
+    }
+
+    return [];
+  }
+
+  static isTargetEnemyCardAction(act) {
+    return act.setup.some((setup) => setup === ActionSetups.TARGET_ENEMY_CARD);
+  }
+
+  static isTargetEnemyUserAction(act) {
+    return act.setup.some((setup) => setup === ActionSetups.TARGET_ENEMY_USER);
+  }
+
+  static isTargetSlotAction(act) {
+    return act.setup.some((setup) => setup === ActionSetups.TARGET_OPEN_SLOT);
   }
 
   @computed
-  get isTargetSlotAction() {
-    return this.currentAction && this.currentAction.preconditions
-      .some((precondition) => precondition.id === PreconditionIds.TARGET_SLOT_INDEX_IS_OPEN);
+  get validCardActions() {
+    return this.allCardActions.filter((act) => {
+      const targetEnemyCardMet = ActionStore.isTargetEnemyCardAction(act)
+        ? this.targetedCardId
+        : true;
+      const targetEnemyUserMet = ActionStore.isTargetEnemyUserAction(act)
+        ? this.targetedUserId
+        : true;
+      const targetSlotIndexMet = ActionStore.isTargetSlotAction(act)
+        ? Number.isInteger(this.targetedSlotIndex)
+        : true;
+
+      return targetEnemyCardMet && targetSlotIndexMet && targetEnemyUserMet;
+    });
   }
 
-  preconditionsGathered() {
-    const targetEnemyMet = this.isTargetEnemyAction
-      ? this.targetedCardId
-      : true;
-    const targetSlotIndexMet = this.isTargetSlotAction
-      ? Number.isInteger(this.targetedSlotIndex)
-      : true;
+  @computed
+  get hasTargetEnemyUserAction() {
+    return this.allCardActions.some((act) => ActionStore.isTargetEnemyUserAction(act));
+  }
 
-    return targetEnemyMet && targetSlotIndexMet;
+  @computed
+  get hasTargetEnemyCardAction() {
+    return this.allCardActions.some((act) => ActionStore.isTargetEnemyCardAction(act));
+  }
+
+  @computed
+  get hasTargetSlotAction() {
+    return this.allCardActions.some((act) => ActionStore.isTargetSlotAction(act));
+  }
+
+  get singleAction() {
+    const actions = this.validCardActions;
+
+    if (actions.length === 1) {
+      return actions[0];
+    }
+
+    return undefined;
   }
 
   constructor(cardStore, turnStore, userStore) {
@@ -54,11 +106,14 @@ export default class ActionStore {
 
   @action
   performAction() {
-    if (this.preconditionsGathered()) {
+    const act = this.singleAction;
+
+    if (act) {
       sdk.performAction({
-        actionIdx: 0,
+        actionIdx: this.allCardActions.indexOf(act),
         cardId: this.selectedCard.id,
         targetCardId: this.targetedCardId,
+        targetUserId: this.targetedUserId,
         targetSlotIndex: this.targetedSlotIndex,
       });
 
@@ -67,8 +122,7 @@ export default class ActionStore {
   }
 
   @action
-  initiateAction(actionData, card) {
-    this.currentAction = actionData;
+  initiateAction(card) {
     this.selectedCard = card;
 
     this.performAction();
@@ -78,28 +132,29 @@ export default class ActionStore {
   resetAction() {
     this.selectedCard = null;
     this.targetedCardId = null;
+    this.targetedUserId = null;
     this.targetedSlotIndex = null;
     this.currentAction = null;
   }
 
-  onHandCardClicked(card) {
-    return this.initiateAction(card.defaultHandAction, card);
-  }
-
-  onPlayCardClicked(card) {
-    return this.initiateAction(card.defaultPlayAction, card);
-  }
-
   onEnemyCardClicked(card) {
-    if (this.currentAction && this.isTargetEnemyAction) {
+    if (this.hasTargetEnemyCardAction) {
       this.targetedCardId = card.id;
 
       this.performAction();
     }
   }
 
+  onEnemyUserClicked(user) {
+    if (this.hasTargetEnemyUserAction) {
+      this.targetedUserId = user.id;
+
+      this.performAction();
+    }
+  }
+
   onSlotClicked(slotIndex) {
-    if (this.currentAction && this.isTargetSlotAction) {
+    if (this.hasTargetSlotAction) {
       this.targetedSlotIndex = slotIndex;
 
       this.performAction();
@@ -109,11 +164,7 @@ export default class ActionStore {
   onClickCard(card) {
     if (this.turnStore.isOwnTurn) {
       if (this.cardStore.isOwnCard(card)) {
-        if (card.isInHand) {
-          this.onHandCardClicked(card);
-        } else if (card.isPlayed) {
-          this.onPlayCardClicked(card);
-        }
+        this.initiateAction(card);
       } else {
         this.onEnemyCardClicked(card);
       }
@@ -121,13 +172,15 @@ export default class ActionStore {
   }
 
   getHighlight(userId, slotIndex) {
-    if (this.isTargetSlotAction) {
+    if (this.hasTargetSlotAction) {
       const card = this.cardStore.getCardAtSlot(userId, slotIndex);
 
       if (!card && userId === this.userStore.currentUserId) {
         return 'open';
       }
-    } else if (this.isTargetEnemyAction) {
+    }
+
+    if (this.hasTargetEnemyCardAction) {
       const card = this.cardStore.getCardAtSlot(userId, slotIndex);
 
       if (card && userId !== this.userStore.currentUserId) {

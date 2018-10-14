@@ -1,6 +1,7 @@
 import * as TraitIds from './TraitIds';
 import * as EffectIds from './EffectIds';
 import * as PreconditionIds from './PreconditionIds';
+import * as ActionSetups from './ActionSetups';
 
 const CardTypes = [
   {
@@ -19,6 +20,9 @@ const CardTypes = [
     playActions: [
       {
         name: 'Attack',
+        setup: [
+          ActionSetups.TARGET_ENEMY_CARD,
+        ],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
@@ -30,10 +34,27 @@ const CardTypes = [
           { id: EffectIds.DISABLE },
         ],
       },
+      {
+        name: 'Attack',
+        setup: [
+          ActionSetups.TARGET_ENEMY_USER,
+        ],
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.USER_CAN_AFFORD },
+        ],
+        effects: [
+          { id: EffectIds.DAMAGE_PLAYER },
+          { id: EffectIds.DISABLE },
+        ],
+      },
     ],
     handActions: [
       {
         name: 'Play',
+        setup: [
+          ActionSetups.TARGET_OPEN_SLOT,
+        ],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
@@ -42,6 +63,7 @@ const CardTypes = [
         effects: [
           { id: EffectIds.PLAY },
           { id: EffectIds.PAY },
+          { id: EffectIds.DISABLE },
         ],
       },
     ],
@@ -58,6 +80,7 @@ const CardTypes = [
     handActions: [
       {
         name: 'Collect',
+        setup: [],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.CARD_HAS_VALUE },
@@ -86,6 +109,9 @@ const CardTypes = [
     handActions: [
       {
         name: 'Play',
+        setup: [
+          ActionSetups.TARGET_OPEN_SLOT,
+        ],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
@@ -94,6 +120,7 @@ const CardTypes = [
         effects: [
           { id: EffectIds.PLAY },
           { id: EffectIds.PAY },
+          { id: EffectIds.DISABLE },
           {
             id: EffectIds.ADD_TRAIT,
             traitId: TraitIds.VALUE,
@@ -107,6 +134,7 @@ const CardTypes = [
     playActions: [
       {
         name: 'Collect',
+        setup: [],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.CARD_HAS_VALUE },
@@ -130,6 +158,7 @@ const CardTypes = [
     handActions: [
       {
         name: 'Collect',
+        setup: [],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.CARD_HAS_VALUE },
@@ -153,6 +182,9 @@ const CardTypes = [
     handActions: [
       {
         name: 'Attack',
+        setup: [
+          ActionSetups.TARGET_ENEMY_CARD,
+        ],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
@@ -191,6 +223,9 @@ const CardTypes = [
     playActions: [
       {
         name: 'Attack',
+        setup: [
+          ActionSetups.TARGET_ENEMY_CARD,
+        ],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
@@ -206,6 +241,9 @@ const CardTypes = [
     handActions: [
       {
         name: 'Play',
+        setup: [
+          ActionSetups.TARGET_OPEN_SLOT,
+        ],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
           { id: PreconditionIds.USER_CAN_AFFORD },
@@ -214,6 +252,7 @@ const CardTypes = [
         effects: [
           { id: EffectIds.PLAY },
           { id: EffectIds.PAY },
+          { id: EffectIds.DISABLE },
         ],
       },
     ],

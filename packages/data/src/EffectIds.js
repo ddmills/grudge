@@ -6,3 +6,4 @@ export const ADD_TRAIT = 'efx-add-trait';
 export const PAY = 'efx-pay';
 export const DAMAGE = 'efx-damage';
 export const TRASH = 'efx-trash';
+export const DAMAGE_PLAYER = 'efx-damage-player';

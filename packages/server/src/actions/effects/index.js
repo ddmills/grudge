@@ -6,6 +6,7 @@ import AddTraitEffect from './AddTraitEffect';
 import PayEffect from './PayEffect';
 import DamageEffect from './DamageEffect';
 import TrashEffect from './TrashEffect';
+import DamagePlayerEffect from './DamagePlayerEffect';
 
 export default [
   CollectEffect,
@@ -16,4 +17,5 @@ export default [
   PayEffect,
   DamageEffect,
   TrashEffect,
+  DamagePlayerEffect,
 ];

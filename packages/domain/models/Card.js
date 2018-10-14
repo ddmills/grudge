@@ -15,6 +15,7 @@ export default class Card extends Model {
       slotIndex: undefined,
       traits: [],
       handActions: [],
+      playActions: [],
     };
   }
 
