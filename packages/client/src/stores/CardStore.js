@@ -40,7 +40,7 @@ export default class CardStore {
     this.cards[card.id] = card;
   }
 
-  setCards(cards) {
+  setCards(cards = []) {
     cards.forEach(this.setCard);
   }
 
@@ -69,6 +69,7 @@ export default class CardStore {
     sdk.onCardTraitAdded(this.setCard);
     sdk.onCardTraitRemoved(this.setCard);
     sdk.onConnected(this.fetchHand);
+    sdk.onLeftLobby(this.onLeftLobby);
 
     autorun(this.getPlayedCardsForUsers);
   }
@@ -83,6 +84,11 @@ export default class CardStore {
 
   fetchHand() {
     sdk.getHand().then(this.setCards);
+  }
+
+  onLeftLobby() {
+    this.setCards();
+    this.clearInspectedCard();
   }
 
   getPlayedCardsForUsers() {

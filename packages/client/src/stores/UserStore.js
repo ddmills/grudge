@@ -25,6 +25,11 @@ export default class UserStore {
     return this.users.find((user) => user.id === this.selectedUserId);
   }
 
+  @computed
+  get winnerUser() {
+    return this.lobbyStore.lobby && this.lobbyStore.lobby.pickWinnerUser(this.users);
+  }
+
   constructor(authStore, lobbyStore) {
     this.authStore = authStore;
     this.lobbyStore = lobbyStore;

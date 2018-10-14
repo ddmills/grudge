@@ -24,7 +24,7 @@ export default class TurnService {
   static async endTurn(user) {
     const lobby = await LobbyRepository.get(user.lobbyId);
 
-    if (lobby.isOver) {
+    if (lobby.isEnded) {
       throw new Error('Cannot end turn when the game is over');
     }
 

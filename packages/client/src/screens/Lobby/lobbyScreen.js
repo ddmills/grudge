@@ -7,43 +7,40 @@ import { Lobby } from '@grudge/domain';
 import Redirect from 'components/Redirect/Redirect';
 import LobbySetup from './LobbySetup';
 import LobbyGame from './LobbyGame';
+import LobbyEnded from './LobbyEnded';
 
 @connect(({ lobbyStore }) => ({
   lobby: lobbyStore.lobby,
-  isSettingUp: lobbyStore.isSettingUp,
-  isRunning: lobbyStore.isRunning,
+  error: lobbyStore.error,
 }))
 export default class LobbyScreen extends Component {
   static propTypes = {
     lobby: PropTypes.instanceOf(Lobby),
-    lobbyId: PropTypes.string.isRequired,
-    isSettingUp: PropTypes.bool.isRequired,
-    isRunning: PropTypes.bool.isRequired,
+    error: PropTypes.instanceOf(Error),
   }
 
   static defaultProps = {
     lobby: null,
+    error: null,
   }
 
   render() {
     const {
       lobby,
-      lobbyId,
-      isSettingUp,
-      isRunning,
+      error,
     } = this.props;
 
-    if (lobby) {
-      if (lobbyId !== lobby.id) {
-        return (
-          <Page>
-            <Alert>
-              User is already in a lobby;
-            </Alert>
-          </Page>
-        );
-      }
-    } else {
+    if (error) {
+      return (
+        <Page>
+          <Alert>
+            {error.message}
+          </Alert>
+        </Page>
+      );
+    }
+
+    if (!lobby) {
       return (
         <Page>
           <LoadingIndicator/>
@@ -51,12 +48,16 @@ export default class LobbyScreen extends Component {
       );
     }
 
-    if (isSettingUp) {
+    if (lobby.isSettingUp) {
       return <LobbySetup/>;
     }
 
-    if (isRunning) {
+    if (lobby.isRunning) {
       return <LobbyGame/>;
+    }
+
+    if (lobby.isEnded) {
+      return <LobbyEnded/>;
     }
 
     return (

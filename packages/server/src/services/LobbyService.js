@@ -4,7 +4,6 @@ import DeckService from 'services/DeckService';
 import NotificationService from 'services/NotificationService';
 import timestamp from 'utilities/Timestamp';
 import Random from 'utilities/Random';
-import Logger from 'utilities/Logger';
 import LobbyProcessor from './LobbyProcessor';
 
 export default class LobbyService {
@@ -40,7 +39,7 @@ export default class LobbyService {
     await Promise.all(Random.shuffle(users).map((user, idx) => {
       return UserRepository.save(user.clone({
         money: 0,
-        health: 4,
+        health: 16,
         turnOrder: idx,
       }));
     }));
@@ -121,6 +120,10 @@ export default class LobbyService {
       throw new Error('Lobby is already starting');
     }
 
+    if (lobby.isEnded) {
+      throw new Error('Lobby is already over');
+    }
+
     if (lobby.isStarted) {
       throw new Error('Lobby is already started');
     }
@@ -149,7 +152,7 @@ export default class LobbyService {
 
     NotificationService.onUserLeftLobby(lobby, user);
 
-    return lobby;
+    return this.checkWinCondition(lobby.id);
   }
 
   static async checkWinCondition(lobbyId) {
@@ -159,8 +162,16 @@ export default class LobbyService {
     if (aliveUsers.length === 1) {
       await LobbyRepository.updateForId(lobbyId, {
         endedAt: timestamp(),
+        winnerId: aliveUsers[0].id,
       });
-      Logger.log('WINNER', aliveUsers[0]);
+
+      const lobby = await LobbyRepository.get(lobbyId);
+
+      NotificationService.onLobbyEnded(lobby);
+
+      return lobby;
     }
+
+    return LobbyRepository.get(lobbyId);
   }
 }

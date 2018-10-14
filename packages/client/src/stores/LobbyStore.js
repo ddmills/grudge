@@ -33,7 +33,7 @@ export default class LobbyStore {
 
   @computed
   get isSettingUp() {
-    return Boolean(this.lobby && !this.lobby.isRunning);
+    return Boolean(this.lobby && this.lobby.isSettingUp);
   }
 
   @computed
@@ -41,12 +41,14 @@ export default class LobbyStore {
     return this.lobby && this.lobby.id;
   }
 
-  constructor(authStore) {
+  constructor(authStore, routerStore) {
     this.authStore = authStore;
+    this.routerStore = routerStore;
 
     sdk.onJoinedLobby(this.setLobby);
-    sdk.onLeftLobby(() => this.setLobby(null));
+    sdk.onLeftLobby(this.onLeftLobby);
     sdk.onLobbyStarted(this.setLobby);
+    sdk.onLobbyEnded(this.setLobby);
     sdk.onTurnEnded(this.setLobby);
     sdk.onLobbyCountdownStarted(this.setLobby);
     sdk.onLobbyCountdownStopped(this.setLobby);
@@ -79,6 +81,11 @@ export default class LobbyStore {
     }
   }
 
+  onLeftLobby() {
+    this.setLobby();
+    this.setError();
+  }
+
   @computed
   get startLobbyCountdown() {
     if (this.isLobbyOwner && !this.isLobbyCountdownStarted) {
@@ -98,10 +105,10 @@ export default class LobbyStore {
   }
 
   joinLobby(lobbyId) {
-    if (!this.lobby) {
-      this.setError();
-      sdk.joinLobby(lobbyId).then(this.setLobby).catch(this.setError);
-    }
+    this.setError();
+    sdk.joinLobby(lobbyId)
+      .then(this.setLobby)
+      .catch(this.setError);
   }
 
   leaveLobby() {
@@ -109,6 +116,7 @@ export default class LobbyStore {
       sdk.leaveLobby().then(() => {
         this.setLobby();
         this.setError();
+        this.routerStore.navigate('landing');
       });
     }
   }

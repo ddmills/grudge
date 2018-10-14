@@ -5,6 +5,7 @@ export default class Lobby extends Model {
     return {
       id: undefined,
       ownerId: undefined,
+      winnerId: undefined,
       isPublic: true,
       currentTurn: 0,
       startedAt: undefined,
@@ -19,14 +20,18 @@ export default class Lobby extends Model {
   }
 
   get isRunning() {
-    return this.isStarted;
+    return this.isStarted && !this.isEnded;
+  }
+
+  get isSettingUp() {
+    return !this.isStarted && !this.isEnded;
   }
 
   get isCountdownStarted() {
     return Boolean(this.countdownStartedAt);
   }
 
-  get isOver() {
+  get isEnded() {
     return Boolean(this.endedAt);
   }
 
@@ -59,6 +64,12 @@ export default class Lobby extends Model {
       const turnId = this.currentTurn % users.length;
 
       return users.find((user) => user.turnOrder === turnId);
+    }
+  }
+
+  pickWinnerUser(users = []) {
+    if (this.isEnded && this.winnerId) {
+      return users.find((user) => user.id === this.winnerId);
     }
   }
 }

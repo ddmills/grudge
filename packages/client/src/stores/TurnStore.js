@@ -34,7 +34,7 @@ export default class UserStore {
 
   @computed
   get endTurn() {
-    if (this.isOwnTurn) {
+    if (this.lobbyStore.isRunning && this.isOwnTurn) {
       return () => sdk.endTurn();
     }
 

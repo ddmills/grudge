@@ -66,6 +66,7 @@ export default class SDK {
     return this.connect().then(() => {
       return Query.send(this.socket, event, params).catch((error) => {
         this.onErrorEventHook.trigger(error);
+        throw error;
       });
     });
   }
