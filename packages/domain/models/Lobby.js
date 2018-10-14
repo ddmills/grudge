@@ -9,6 +9,7 @@ export default class Lobby extends Model {
       currentTurn: 0,
       startedAt: undefined,
       createdAt: undefined,
+      endedAt: undefined,
       turnStartedAt: undefined,
       turnDuration: 30000,
       countdownStartedAt: undefined,
@@ -23,6 +24,10 @@ export default class Lobby extends Model {
 
   get isCountdownStarted() {
     return Boolean(this.countdownStartedAt);
+  }
+
+  get isOver() {
+    return Boolean(this.endedAt);
   }
 
   get isStarted() {

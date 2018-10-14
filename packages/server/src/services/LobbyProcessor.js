@@ -18,7 +18,7 @@ lobbyTurnQueue.process(async (job) => {
 
   const lobby = await LobbyRepository.get(lobbyId);
 
-  if (lobby.currentTurn === turn) {
+  if (!lobby.isOver && lobby.currentTurn === turn) {
     await TurnService.turnTimeout(lobby);
   }
 });

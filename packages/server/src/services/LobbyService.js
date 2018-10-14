@@ -4,6 +4,7 @@ import DeckService from 'services/DeckService';
 import NotificationService from 'services/NotificationService';
 import timestamp from 'utilities/Timestamp';
 import Random from 'utilities/Random';
+import Logger from 'utilities/Logger';
 import LobbyProcessor from './LobbyProcessor';
 
 export default class LobbyService {
@@ -39,7 +40,7 @@ export default class LobbyService {
     await Promise.all(Random.shuffle(users).map((user, idx) => {
       return UserRepository.save(user.clone({
         money: 0,
-        health: 24,
+        health: 4,
         turnOrder: idx,
       }));
     }));
@@ -149,5 +150,17 @@ export default class LobbyService {
     NotificationService.onUserLeftLobby(lobby, user);
 
     return lobby;
+  }
+
+  static async checkWinCondition(lobbyId) {
+    const users = await UserRepository.getForLobby(lobbyId);
+    const aliveUsers = users.filter((u) => u.isAlive);
+
+    if (aliveUsers.length === 1) {
+      await LobbyRepository.updateForId(lobbyId, {
+        endedAt: timestamp(),
+      });
+      Logger.log('WINNER', aliveUsers[0]);
+    }
   }
 }

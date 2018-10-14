@@ -18,4 +18,8 @@ export default class User extends Model {
   get isDead() {
     return this.health <= 0;
   }
+
+  get isAlive() {
+    return this.health > 0;
+  }
 }

@@ -1,6 +1,7 @@
 import UserRepository from 'repositories/UserRepository';
 import LobbyRepository from 'repositories/LobbyRepository';
 import NotificationService from 'services/NotificationService';
+import LobbyService from 'services/LobbyService';
 
 export default class HealthService {
   static async set(userId, health) {
@@ -14,6 +15,10 @@ export default class HealthService {
     const lobby = await LobbyRepository.get(updated.lobbyId);
 
     NotificationService.onHealthUpdated(lobby, updated);
+
+    if (value === 0) {
+      await LobbyService.checkWinCondition(lobby.id);
+    }
   }
 
   static async add(userId, health) {
