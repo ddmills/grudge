@@ -1,8 +1,9 @@
 import { Component } from 'react';
-import { Container, Heading, Button } from '@grudge/components';
+import { Container, Heading } from '@grudge/components';
 import { User } from '@grudge/domain';
 import Arena from 'components/Arena/Arena';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import connect from 'utilities/mobx/Connect';
 import styles from './LobbyUserViewer.scss';
 
@@ -15,17 +16,20 @@ import styles from './LobbyUserViewer.scss';
   return {
     user,
     playedCards: cardStore.selectedUserPlayedCards,
+    highlightStyle: user && actionStore.getUserHighlight(user.id),
     onClick,
   };
 })
 export default class LobbyUserViewer extends Component {
   static propTypes = {
     user: PropTypes.instanceOf(User),
+    highlightStyle: PropTypes.string,
     onClick: PropTypes.func,
   };
 
   static defaultProps = {
     user: undefined,
+    highlightStyle: undefined,
     onClick: () => {},
   };
 
@@ -33,17 +37,23 @@ export default class LobbyUserViewer extends Component {
     const {
       user,
       onClick,
+      highlightStyle,
     } = this.props;
 
     if (!user) {
       return <Container className={styles.lobbyUserViewer} isPadded={false}/>;
     }
 
+    const classes = classnames(
+      styles.userName,
+      styles[highlightStyle],
+    );
+
     return (
       <Container className={styles.lobbyUserViewer} isPadded={false}>
-        <Button onClick={onClick} color="red">
+        <button className={classes} onClick={onClick}>
           {user.displayName}
-        </Button>
+        </button>
         <Heading size={4}>
           {`money: ${user.money}`}
         </Heading>

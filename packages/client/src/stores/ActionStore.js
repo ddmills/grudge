@@ -171,7 +171,15 @@ export default class ActionStore {
     }
   }
 
-  getHighlight(userId, slotIndex) {
+  getUserHighlight(userId) {
+    if (this.hasTargetEnemyUserAction) {
+      if (userId !== this.userStore.currentUserId) {
+        return 'enemy';
+      }
+    }
+  }
+
+  getCardHighlight(userId, slotIndex) {
     if (this.hasTargetSlotAction) {
       const card = this.cardStore.getCardAtSlot(userId, slotIndex);
 

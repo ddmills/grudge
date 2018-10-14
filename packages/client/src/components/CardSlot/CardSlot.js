@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import classnames from 'classnames';
 import { CardContainer } from '@grudge/components';
 import Card from 'components/Card/Card';
 import connect from 'utilities/mobx/Connect';
@@ -17,7 +17,7 @@ import styles from './CardSlot.scss';
   return {
     cardId: card && card.id,
     onClick: isOwn && isEmpty ? () => actionStore.onSlotClicked(slotIndex) : () => {},
-    highlightStyle: actionStore.getHighlight(userId, slotIndex),
+    highlightStyle: actionStore.getCardHighlight(userId, slotIndex),
     size,
   };
 })
@@ -51,7 +51,7 @@ export default class CardSlot extends Component {
       size,
     } = this.props;
 
-    const classes = classNames(
+    const classes = classnames(
       styles.slot,
       className,
       styles[highlightStyle],

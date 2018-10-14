@@ -1,5 +1,35 @@
+@import "@grudge/styles";
+
+@mixin cardhighlight($color, $percentage) {
+  box-shadow: 0 0 2px 2px rgba($color, $percentage);
+}
+
+@keyframes blinkEnemy {
+  0% {
+    @include cardhighlight($attack, 0.25);
+  }
+
+  100% {
+    @include cardhighlight($attack, 0.75);
+  }
+}
+
 .lobbyUserViewer {
   flex: 0 0 50%;
   height: 50%;
   overflow: hidden;
+}
+
+.userName {
+  @include buttonReset();
+
+  padding: $spacer-1;
+  margin: $spacer-1;
+
+  &.enemy {
+    animation-name: blinkEnemy;
+    animation-duration: 0.4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
 }
