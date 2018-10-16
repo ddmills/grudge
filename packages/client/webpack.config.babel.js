@@ -10,7 +10,7 @@ const isDebug = process.env.NODE_ENV === 'development';
 
 export default {
   output: {
-    publicPath: '/client',
+    publicPath: '/client/',
   },
   devtool: 'eval-source-map',
   optimization: {
@@ -24,6 +24,15 @@ export default {
   },
   module: {
     rules: [
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {},
+          },
+        ],
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

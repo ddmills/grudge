@@ -6,12 +6,11 @@ $card-radius: 4px;
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: #4b5661;
   border-radius: $card-radius;
-  @include shadow(1);
 }
 
 .cardTitle {
+  position: relative;
   padding: 3px 0;
   margin: $spacer-4 0;
   font-size: 0.9em;
@@ -20,32 +19,36 @@ $card-radius: 4px;
 }
 
 .content {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
   overflow: hidden;
+  background-color: #4b5661;
   border-radius: $card-radius;
+  box-shadow:
+    0 0 6px 4px rgba(41, 42, 43, 0.74) inset,
+    0 0 14px 5px rgba(37, 53, 68, 0.74) inset;
 }
 
 .overlay {
   @include fill;
-  border: 2px solid $black-fade-30;
   border-radius: $card-radius;
   transition:
     background-color 0.1s ease-in-out,
-    border-color 0.25s ease-in-out;
+    box-shadow 0.25s ease-in-out;
 
   &.isDisabled {
     background-color: $black-fade-50;
-    border-color: $black-fade-15;
   }
 
   &.isSelected {
-    border-color: $blue;
+    box-shadow: 0 0 3px 1px rgba(0, 243, 255, 0.67);
   }
 
   &.isTargeted {
-    border-color: $red;
+    box-shadow: 0 0 3px 1px $attack;
   }
 }
 
@@ -56,13 +59,21 @@ $card-radius: 4px;
   width: 100%;
   height: 100%;
   border-radius: $card-radius;
-  opacity: 0.5;
+  opacity: 0.35;
+}
+
+.cardBorder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .cost {
   position: absolute;
-  right: $spacer-1;
-  bottom: $spacer-1;
+  right: $spacer-2;
+  bottom: $spacer-2;
   font-size: 1.2em;
   font-weight: $font-weight-bold;
   color: $white;
@@ -87,6 +98,7 @@ $card-radius: 4px;
 }
 
 .value {
+  position: relative;
   display: flex;
   width: 40px;
   height: 40px;

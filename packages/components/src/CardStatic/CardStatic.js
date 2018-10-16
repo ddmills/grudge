@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './CardStatic.scss';
 import CardContainer from '../CardContainer/CardContainer';
+import cardBorder from './card-border.png';
 
 export default class CardStatic extends Component {
   static propTypes = {
@@ -61,12 +62,12 @@ export default class CardStatic extends Component {
     return (
       <CardContainer {...passProps}>
         <section className={styles.cardStatic}>
-          <img
-            className={styles.image}
-            src={`https://loremflickr.com/300/420/${name}?random=${id}&lock=${name.length}`}
-            alt={description}
-          />
           <div className={styles.content}>
+            <img
+              className={styles.image}
+              src={`https://loremflickr.com/300/420/${name}?random=${id}&lock=${name.length}`}
+              alt={description}
+            />
             <h2 className={styles.cardTitle}>
               {name}
             </h2>
@@ -76,6 +77,11 @@ export default class CardStatic extends Component {
               </span>
             )}
           </div>
+          <img
+            className={styles.cardBorder}
+            src={cardBorder}
+            alt="border"
+          />
           <div className={overlayClasses}>
             {attack && (
               <span className={styles.attack}>
