@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import styles from './CardStatic.scss';
 import CardContainer from '../CardContainer/CardContainer';
-import cardBorder from './card-border.png';
+import cardBorderImage from './card-border.png';
+import attackImage from './attack.png';
+import healthImage from './health.png';
+import moneyImage from './money.png';
 
 export default class CardStatic extends Component {
   static propTypes = {
@@ -13,8 +16,6 @@ export default class CardStatic extends Component {
     value: PropTypes.number,
     attack: PropTypes.number,
     defense: PropTypes.number,
-    cost: PropTypes.number,
-    points: PropTypes.number,
     health: PropTypes.number,
     maxHealth: PropTypes.number,
     isDisabled: PropTypes.bool,
@@ -26,8 +27,6 @@ export default class CardStatic extends Component {
     value: undefined,
     attack: undefined,
     defense: undefined,
-    cost: undefined,
-    points: undefined,
     health: undefined,
     maxHealth: undefined,
     isDisabled: false,
@@ -43,8 +42,6 @@ export default class CardStatic extends Component {
       value,
       attack,
       defense,
-      cost,
-      points,
       health,
       maxHealth,
       isDisabled,
@@ -71,38 +68,51 @@ export default class CardStatic extends Component {
             <h2 className={styles.cardTitle}>
               {name}
             </h2>
-            {value && (
-              <span className={styles.value}>
-                {value}
-              </span>
-            )}
           </div>
           <img
             className={styles.cardBorder}
-            src={cardBorder}
+            src={cardBorderImage}
             alt="border"
           />
           <div className={overlayClasses}>
-            {attack && (
-              <span className={styles.attack}>
-                {attack}
-              </span>
-            )}
-            {health && (
-              <span className={styles.health}>
-                {health}
-              </span>
-            )}
-            {cost && (
-              <span className={styles.cost}>
-                {cost}
-              </span>
-            )}
-            {points && (
-              <span className={styles.points}>
-                {points}
-              </span>
-            )}
+            <div className={styles.attributes}>
+              {attack && (
+                <span className={styles.attack}>
+                  <img
+                    className={styles.attackImage}
+                    src={attackImage}
+                    alt="sword"
+                  />
+                  <span className={styles.attributeValue}>
+                    {attack}
+                  </span>
+                </span>
+              )}
+              {value && (
+                <span className={styles.money}>
+                  <img
+                    className={styles.moneyImage}
+                    src={moneyImage}
+                    alt="money"
+                  />
+                  <span className={styles.attributeValue}>
+                    {value}
+                  </span>
+                </span>
+              )}
+              {health && (
+                <span className={styles.health}>
+                  <img
+                    className={styles.healthImage}
+                    src={healthImage}
+                    alt="health"
+                  />
+                  <span className={styles.attributeValue}>
+                    {health}
+                  </span>
+                </span>
+              )}
+            </div>
           </div>
         </section>
       </CardContainer>
