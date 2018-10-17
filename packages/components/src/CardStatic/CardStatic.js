@@ -7,6 +7,7 @@ import cardBorderImage from './card-border.png';
 import attackImage from './attack.png';
 import healthImage from './health.png';
 import moneyImage from './money.png';
+import bannerImage from './banner.png';
 
 export default class CardStatic extends Component {
   static propTypes = {
@@ -65,9 +66,6 @@ export default class CardStatic extends Component {
               src={`https://loremflickr.com/300/420/${name}?random=${id}&lock=${name.length}`}
               alt={description}
             />
-            <h2 className={styles.cardTitle}>
-              {name}
-            </h2>
           </div>
           <img
             className={styles.cardBorder}
@@ -113,6 +111,14 @@ export default class CardStatic extends Component {
                 </span>
               )}
             </div>
+            <img
+              className={styles.bannerImage}
+              src={bannerImage}
+              alt="banner"
+            />
+            <h2 className={styles.cardTitle}>
+              {name}
+            </h2>
           </div>
         </section>
       </CardContainer>

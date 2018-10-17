@@ -10,12 +10,19 @@ $card-radius: 4px;
 }
 
 .cardTitle {
-  position: relative;
-  padding: 3px 0;
-  margin: $spacer-4 0;
-  font-size: 0.9em;
-  color: #d6d6d6;
+  position: absolute;
+  bottom: -3px;
+  width: 100%;
+  font-size: 0.7em;
+  color: #2c2b2b;
   text-align: center;
+}
+
+.bannerImage {
+  position: absolute;
+  bottom: -4px;
+  left: 15%;
+  width: 70%;
 }
 
 .content {
