@@ -65,6 +65,7 @@ export default class CardStore {
     sdk.onCardDrawn(this.setCard);
     sdk.onCardDiscarded(this.setCard);
     sdk.onCardTrashed(this.removeCard);
+    sdk.onCardKilled(this.removeCard);
     sdk.onCardPlayed(this.setCard);
     sdk.onCardTraitAdded(this.setCard);
     sdk.onCardTraitRemoved(this.setCard);

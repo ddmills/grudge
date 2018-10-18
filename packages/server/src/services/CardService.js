@@ -1,5 +1,7 @@
-import CardRepository from 'repositories/CardRepository';
 import NotificationService from 'services/NotificationService';
+import CardTypeRepository from 'repositories/CardTypeRepository';
+import LobbyRepository from 'repositories/LobbyRepository';
+import CardRepository from 'repositories/CardRepository';
 import UserRepository from 'repositories/UserRepository';
 import TraitService from 'services/TraitService';
 import { TraitIds } from '@grudge/data';
@@ -37,6 +39,21 @@ export default class CardService {
     NotificationService.onCardDrawn(user, updatedCard);
 
     return updatedCard;
+  }
+
+  static async killCard(card) {
+    const cardType = await CardTypeRepository.get(card.cardTypeId);
+
+    await CardRepository.resetForCardType(card, cardType, {
+      slotIndex: null,
+      isTrashed: false,
+      isDiscarded: true,
+      isDrawn: false,
+    });
+
+    const lobby = await LobbyRepository.get(card.lobbyId);
+
+    NotificationService.onCardKilled(lobby, card);
   }
 
   static async recycleCard(card) {

@@ -1,7 +1,7 @@
-import TraitService from 'services/TraitService';
-import NotificationService from 'services/NotificationService';
-import CardRepository from 'repositories/CardRepository';
 import LobbyRepository from 'repositories/LobbyRepository';
+import NotificationService from 'services/NotificationService';
+import TraitService from 'services/TraitService';
+import CardService from 'services/CardService';
 import { EffectIds, TraitIds } from '@grudge/data';
 import Effect from './Effect';
 
@@ -21,16 +21,7 @@ export default class DamageEffect extends Effect {
     });
 
     if (value <= 0) {
-      const trashedCard = updatedCard.clone({
-        isTrashed: true,
-        slotIndex: null,
-      });
-
-      await CardRepository.save(trashedCard);
-
-      const lobby = await LobbyRepository.get(user.lobbyId);
-
-      NotificationService.onCardTrashed(lobby, trashedCard);
+      await CardService.killCard(updatedCard);
     }
   }
 }

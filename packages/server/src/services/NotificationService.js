@@ -81,6 +81,10 @@ export default class NotificationService {
     this.notifyLobby(lobby.id, Events.CARD_TRASHED, card.properties);
   }
 
+  static onCardKilled(lobby, card) {
+    this.notifyLobby(lobby.id, Events.CARD_KILLED, card.properties);
+  }
+
   static onLobbyEnded(lobby) {
     this.notifyLobby(lobby.id, Events.LOBBY_ENDED, lobby.properties);
   }

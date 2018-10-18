@@ -22,7 +22,7 @@ export default class DeckService {
       'cdt-stag-beetle',
       'cdt-stoat',
       'cdt-stoat',
-      'cdt-goose',
+      'cdt-stoat',
       'cdt-goose',
       'cdt-goose',
       'cdt-goose',

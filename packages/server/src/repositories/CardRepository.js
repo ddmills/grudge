@@ -16,8 +16,18 @@ export default class CardRepository extends ModelRepository {
     return this.where({ userId, lobbyId });
   }
 
-  static async createForCardType(cardType, properties) {
+  static async createForCardType(cardType, properties = {}) {
     return this.create({
+      cardTypeId: cardType.id,
+      traits: cardType.traits,
+      playActions: cardType.playActions,
+      handActions: cardType.handActions,
+      ...properties,
+    });
+  }
+
+  static async resetForCardType(card, cardType, properties = {}) {
+    return this.updateForId(card.id, {
       cardTypeId: cardType.id,
       traits: cardType.traits,
       playActions: cardType.playActions,

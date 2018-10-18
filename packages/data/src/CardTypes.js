@@ -65,7 +65,7 @@ const CardTypes = [
       },
       {
         id: TraitIds.COST,
-        value: 2,
+        value: 3,
       },
     ],
     playActions: [
@@ -115,8 +115,8 @@ const CardTypes = [
       },
       {
         id: TraitIds.HEALTH,
-        value: 3,
-        max: 3,
+        value: 4,
+        max: 4,
       },
     ],
     handActions: [
