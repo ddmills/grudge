@@ -17,21 +17,16 @@ export default class DeckService {
     });
 
     const startingCardTypes = [
-      'cdt-soldier',
-      'cdt-soldier',
-      'cdt-soldier',
-      'cdt-tax-collector',
-      'cdt-tax-collector',
-      'cdt-watchtower',
-      'cdt-watchtower',
-      'cdt-watchtower',
-      'cdt-cathedral',
-      'cdt-cathedral',
-      'cdt-cathedral',
-      'cdt-thief',
-      'cdt-thief',
-      'cdt-monk',
-      'cdt-monk',
+      'cdt-otter',
+      'cdt-toad',
+      'cdt-stag-beetle',
+      'cdt-stoat',
+      'cdt-stoat',
+      'cdt-goose',
+      'cdt-goose',
+      'cdt-goose',
+      'cdt-goose',
+      'cdt-goose',
     ];
 
     return Promise.all(startingCardTypes.map(async (cardTypeId) => {
