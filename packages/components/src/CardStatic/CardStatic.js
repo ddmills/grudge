@@ -8,6 +8,7 @@ import attackImage from './attack.png';
 import healthImage from './health.png';
 import moneyImage from './money.png';
 import bannerImage from './banner.png';
+import costImage from './coin.png';
 
 export default class CardStatic extends Component {
   static propTypes = {
@@ -18,6 +19,7 @@ export default class CardStatic extends Component {
     attack: PropTypes.number,
     defense: PropTypes.number,
     health: PropTypes.number,
+    cost: PropTypes.number,
     maxHealth: PropTypes.number,
     isDisabled: PropTypes.bool,
     isSelected: PropTypes.bool,
@@ -29,6 +31,7 @@ export default class CardStatic extends Component {
     attack: undefined,
     defense: undefined,
     health: undefined,
+    cost: undefined,
     maxHealth: undefined,
     isDisabled: false,
     isSelected: false,
@@ -44,6 +47,7 @@ export default class CardStatic extends Component {
       attack,
       defense,
       health,
+      cost,
       maxHealth,
       isDisabled,
       isSelected,
@@ -73,6 +77,14 @@ export default class CardStatic extends Component {
             alt="border"
           />
           <div className={overlayClasses}>
+            <img
+              className={styles.bannerImage}
+              src={bannerImage}
+              alt="banner"
+            />
+            <h2 className={styles.cardTitle}>
+              {name}
+            </h2>
             <div className={styles.attributes}>
               {attack && (
                 <span className={styles.attack}>
@@ -111,14 +123,18 @@ export default class CardStatic extends Component {
                 </span>
               )}
             </div>
-            <img
-              className={styles.bannerImage}
-              src={bannerImage}
-              alt="banner"
-            />
-            <h2 className={styles.cardTitle}>
-              {name}
-            </h2>
+            {cost && (
+              <div className={styles.cost}>
+                <span className={styles.costValue}>
+                  {cost}
+                </span>
+                <img
+                  className={styles.costImage}
+                  src={costImage}
+                  alt="cost"
+                />
+              </div>
+            )}
           </div>
         </section>
       </CardContainer>

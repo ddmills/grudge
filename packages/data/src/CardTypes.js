@@ -115,8 +115,8 @@ const CardTypes = [
       },
       {
         id: TraitIds.HEALTH,
-        value: 4,
-        max: 4,
+        value: 3,
+        max: 3,
       },
     ],
     handActions: [

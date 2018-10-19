@@ -38,7 +38,7 @@ export default class LobbyService {
 
     await Promise.all(Random.shuffle(users).map((user, idx) => {
       return UserRepository.save(user.clone({
-        money: 0,
+        money: 3,
         health: 16,
         turnOrder: idx,
       }));

@@ -31,6 +31,7 @@ export default class CardView extends Component {
         attack={getTrait(card, TraitIds.ATTACK)}
         defense={getTrait(card, TraitIds.DEFENSE)}
         health={getTrait(card, TraitIds.HEALTH)}
+        cost={card.isInHand && getTrait(card, TraitIds.COST)}
         maxHealth={getTrait(card, TraitIds.HEALTH, 'max')}
         {...passProps}
       />
