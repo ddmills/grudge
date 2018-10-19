@@ -1,10 +1,16 @@
+@import "@grudge/styles";
+
 .hand {
   display: flex;
   flex: 0 0 auto;
   overflow: hidden;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .handCard {
-  margin: 8px;
+  margin: $spacer-1;
+
+  @include breakpoint(sm) {
+    margin: $spacer-2;
+  }
 }

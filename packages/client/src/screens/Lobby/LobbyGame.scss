@@ -19,7 +19,8 @@
 
 .content {
   position: relative;
-  flex: 1 1 100%;
+  display: flex;
+  flex-flow: column nowrap;
   height: 100%;
   overflow: hidden;
   background-color: $primary-400;
@@ -27,8 +28,20 @@
 
 .viewer {
   display: flex;
-  height: 50%;
-  flex: 0 0 50%;
+  height: 25%;
+  flex: 1 0 25%;
   flex-flow: column nowrap;
   overflow: hidden;
+}
+
+.userGui {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.userGuiBanner {
+  position: relative;
+  flex: 1 1 auto;
+  max-height: 200px;
+  background-color: $primary;
 }

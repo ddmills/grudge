@@ -1,9 +1,7 @@
 @import "@grudge/styles";
 
 .lobbyTimelineBanner {
-  position: absolute;
   flex: 0 0 auto;
-  bottom: calc(50% - $spacer / 2);
   width: 100%;
   height: $spacer-1;
   background-color: fade($primary-300, 75);

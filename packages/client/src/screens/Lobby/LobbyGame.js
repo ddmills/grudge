@@ -39,8 +39,12 @@ export default class LobbyGame extends Component {
             {user && (
               <Arena userId={user.id}/>
             )}
-            <Hand/>
           </Container>
+          <div className={styles.userGuiBanner}>
+            <Container className={styles.userGui}>
+              <Hand/>
+            </Container>
+          </div>
         </div>
       </section>
     );
