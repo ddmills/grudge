@@ -28,7 +28,8 @@ export default class CardSlot extends Component {
     onClick: PropTypes.func,
     highlightStyle: PropTypes.oneOf([
       'open',
-      'enemy',
+      'attack',
+      'heal',
       'none',
     ]),
     size: PropTypes.string,

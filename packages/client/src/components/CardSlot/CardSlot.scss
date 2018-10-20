@@ -4,23 +4,33 @@
   box-shadow: 0 0 2px 2px rgba($color, $percentage);
 }
 
-@keyframes blinkEnemy {
+@keyframes blinkAttack {
   0% {
-    @include cardhighlight($attack, 0.25);
+    @include cardhighlight($attack, 0.75);
   }
 
   100% {
-    @include cardhighlight($attack, 0.75);
+    @include cardhighlight($attack, 0.25);
+  }
+}
+
+@keyframes blinkHeal {
+  0% {
+    @include cardhighlight(rgb(14, 226, 96), 0.75);
+  }
+
+  100% {
+    @include cardhighlight(rgb(14, 226, 96), 0.25);
   }
 }
 
 @keyframes blinkOpen {
   0% {
-    @include cardhighlight(rgb(42, 160, 216), 0.25);
+    @include cardhighlight(rgb(42, 160, 216), 0.75);
   }
 
   100% {
-    @include cardhighlight(rgb(42, 160, 216), 0.75);
+    @include cardhighlight(rgb(42, 160, 216), 0.25);
   }
 }
 
@@ -42,8 +52,15 @@
     box-shadow: 0 0 0 2px fade($black, 8);
   }
 
-  &.enemy {
-    animation-name: blinkEnemy;
+  &.attack {
+    animation-name: blinkAttack;
+    animation-duration: 0.4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  &.heal {
+    animation-name: blinkHeal;
     animation-duration: 0.4s;
     animation-iteration-count: infinite;
     animation-direction: alternate;

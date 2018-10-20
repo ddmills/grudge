@@ -38,6 +38,10 @@ export default class ActionStore {
     return act.setup.some((setup) => setup === ActionSetups.TARGET_ENEMY_CARD);
   }
 
+  static isTargetAllyCardAction(act) {
+    return act.setup.some((setup) => setup === ActionSetups.TARGET_ALLY_CARD);
+  }
+
   static isTargetEnemyUserAction(act) {
     return act.setup.some((setup) => setup === ActionSetups.TARGET_ENEMY_USER);
   }
@@ -52,6 +56,9 @@ export default class ActionStore {
       const targetEnemyCardMet = ActionStore.isTargetEnemyCardAction(act)
         ? this.targetedCardId
         : true;
+      const targetAllyCardMet = ActionStore.isTargetAllyCardAction(act)
+        ? this.targetedCardId
+        : true;
       const targetEnemyUserMet = ActionStore.isTargetEnemyUserAction(act)
         ? this.targetedUserId
         : true;
@@ -59,7 +66,10 @@ export default class ActionStore {
         ? Number.isInteger(this.targetedSlotIndex)
         : true;
 
-      return targetEnemyCardMet && targetSlotIndexMet && targetEnemyUserMet;
+      return targetEnemyCardMet
+        && targetSlotIndexMet
+        && targetEnemyUserMet
+        && targetAllyCardMet;
     });
   }
 
@@ -71,6 +81,11 @@ export default class ActionStore {
   @computed
   get hasTargetEnemyCardAction() {
     return this.allCardActions.some((act) => ActionStore.isTargetEnemyCardAction(act));
+  }
+
+  @computed
+  get hasTargetAllyCardAction() {
+    return this.allCardActions.some((act) => ActionStore.isTargetAllyCardAction(act));
   }
 
   @computed
@@ -145,6 +160,18 @@ export default class ActionStore {
     }
   }
 
+  onAllyCardClicked(card) {
+    if (this.isCardSelected(card)) {
+      this.selectedCard = null;
+    } else if (this.hasTargetAllyCardAction && card.isPlayed) {
+      this.targetedCardId = card.id;
+
+      this.performAction();
+    } else {
+      this.initiateAction(card);
+    }
+  }
+
   onEnemyUserClicked(user) {
     if (this.hasTargetEnemyUserAction) {
       this.targetedUserId = user.id;
@@ -162,19 +189,21 @@ export default class ActionStore {
   }
 
   onClickCard(card) {
-    if (this.turnStore.isOwnTurn) {
-      if (this.cardStore.isOwnCard(card)) {
-        this.initiateAction(card);
-      } else {
-        this.onEnemyCardClicked(card);
-      }
+    if (!this.turnStore.isOwnTurn) {
+      return;
+    }
+
+    if (this.cardStore.isOwnCard(card)) {
+      this.onAllyCardClicked(card);
+    } else {
+      this.onEnemyCardClicked(card);
     }
   }
 
   getUserHighlight(userId) {
     if (this.hasTargetEnemyUserAction) {
       if (userId !== this.userStore.currentUserId) {
-        return 'enemy';
+        return 'attack';
       }
     }
   }
@@ -192,7 +221,15 @@ export default class ActionStore {
       const card = this.cardStore.getCardAtSlot(userId, slotIndex);
 
       if (card && userId !== this.userStore.currentUserId) {
-        return 'enemy';
+        return 'attack';
+      }
+    }
+
+    if (this.hasTargetAllyCardAction) {
+      const card = this.cardStore.getCardAtSlot(userId, slotIndex);
+
+      if (card && card.isPlayed && userId === this.userStore.currentUserId) {
+        return 'heal';
       }
     }
   }

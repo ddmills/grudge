@@ -7,6 +7,7 @@ import PayEffect from './PayEffect';
 import DamageEffect from './DamageEffect';
 import TrashEffect from './TrashEffect';
 import DamagePlayerEffect from './DamagePlayerEffect';
+import HealEffect from './HealEffect';
 
 export default [
   CollectEffect,
@@ -18,4 +19,5 @@ export default [
   DamageEffect,
   TrashEffect,
   DamagePlayerEffect,
+  HealEffect,
 ];

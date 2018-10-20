@@ -3,7 +3,7 @@ import * as EffectIds from './EffectIds';
 import * as PreconditionIds from './PreconditionIds';
 import * as ActionSetups from './ActionSetups';
 
-const basicCardAttack = {
+const attackCardAction = {
   name: 'Attack',
   setup: [
     ActionSetups.TARGET_ENEMY_CARD,
@@ -19,7 +19,7 @@ const basicCardAttack = {
   ],
 };
 
-const basicPlayerAttack = {
+const attackPlayerAction = {
   name: 'Attack',
   setup: [
     ActionSetups.TARGET_ENEMY_USER,
@@ -33,7 +33,24 @@ const basicPlayerAttack = {
   ],
 };
 
-const basicPlay = {
+const healAction = {
+  name: 'Heal',
+  setup: [
+    ActionSetups.TARGET_ALLY_CARD,
+  ],
+  preconditions: [
+    { id: PreconditionIds.CARD_IS_ENABLED },
+    { id: PreconditionIds.TARGET_CARD_IS_ALLY },
+    { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
+  ],
+  effects: [
+    { id: EffectIds.PAY },
+    { id: EffectIds.HEAL },
+    { id: EffectIds.DISABLE },
+  ],
+};
+
+const playAction = {
   name: 'Play',
   setup: [
     ActionSetups.TARGET_OPEN_SLOT,
@@ -58,6 +75,7 @@ const CardTypes = [
       {
         id: TraitIds.HEALTH,
         value: 1,
+        max: 1,
       },
       {
         id: TraitIds.ATTACK,
@@ -69,11 +87,11 @@ const CardTypes = [
       },
     ],
     playActions: [
-      basicCardAttack,
-      basicPlayerAttack,
+      attackCardAction,
+      attackPlayerAction,
     ],
     handActions: [
-      basicPlay,
+      playAction,
     ],
   },
   {
@@ -120,11 +138,11 @@ const CardTypes = [
       },
     ],
     handActions: [
-      basicPlay,
+      playAction,
     ],
     playActions: [
-      basicCardAttack,
-      basicPlayerAttack,
+      attackCardAction,
+      attackPlayerAction,
     ],
   },
   {
@@ -133,17 +151,16 @@ const CardTypes = [
     description: 'Heal an ally card',
     traits: [
       {
-        id: TraitIds.HEALTH,
-        value: 2,
-        max: 2,
+        id: TraitIds.COST,
+        value: 1,
       },
       {
-        id: TraitIds.COST,
-        value: 2,
+        id: TraitIds.HEAL,
+        value: 1,
       },
     ],
     handActions: [
-      basicPlay,
+      healAction,
     ],
   },
   {
@@ -161,8 +178,8 @@ const CardTypes = [
       },
     ],
     handActions: [
-      basicCardAttack,
-      basicPlayerAttack,
+      attackCardAction,
+      attackPlayerAction,
     ],
   },
 ];
