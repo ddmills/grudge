@@ -1,0 +1,22 @@
+@import "@grudge/styles";
+
+.userHUD {
+  display: flex;
+  flex-flow: row nowrap;
+
+  &Left {
+    flex: 1 1 auto;
+  }
+
+  &Right {
+    width: 80%;
+    flex: 0 0 auto;
+  }
+}
+
+.userHUDBanner {
+  position: relative;
+  flex: 1 1 auto;
+  max-height: 200px;
+  background-color: $primary;
+}

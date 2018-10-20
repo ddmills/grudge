@@ -5,10 +5,10 @@ import PageSuperHeader from 'components/Page/SuperHeader/PageSuperHeader';
 import LobbyGameHeader from 'components/LobbyGameHeader/LobbyGameHeader';
 import LobbyTimeline from 'components/LobbyTimeline/LobbyTimeline';
 import LobbyUserViewer from 'components/LobbyUserViewer/LobbyUserViewer';
+import LobbyUserHUD from 'components/LobbyUserHUD/LobbyUserHUD';
 import CardInspector from 'components/CardInspector/CardInspector';
 import { User } from '@grudge/domain';
 import Arena from 'components/Arena/Arena';
-import Hand from 'components/Hand/Hand';
 import connect from 'utilities/mobx/Connect';
 import styles from './LobbyGame.scss';
 
@@ -40,11 +40,7 @@ export default class LobbyGame extends Component {
               <Arena userId={user.id}/>
             )}
           </Container>
-          <div className={styles.userGuiBanner}>
-            <Container className={styles.userGui}>
-              <Hand/>
-            </Container>
-          </div>
+          <LobbyUserHUD/>
         </div>
       </section>
     );
