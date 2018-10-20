@@ -1,6 +1,6 @@
 {
   "name": "@grudge/api-events",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "Shared socket events between @grudge/sdk and @grudge/server",
   "main": "index.js",
   "publishConfig": {

@@ -1,6 +1,6 @@
 {
   "name": "@grudge/server",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "main": "dist/main.js",
   "description": "Express server for Grudge",
   "scripts": {
@@ -11,9 +11,9 @@
     "generate-ssl": "node scripts/generate-ssl.js"
   },
   "dependencies": {
-    "@grudge/api-events": "^0.2.2",
-    "@grudge/data": "^0.2.2",
-    "@grudge/domain": "^0.2.2",
+    "@grudge/api-events": "^1.0.0",
+    "@grudge/data": "^1.0.0",
+    "@grudge/domain": "^1.0.0",
     "autobind-decorator": "^2.1.0",
     "bull": "^3.4.8",
     "chalk": "^2.4.1",

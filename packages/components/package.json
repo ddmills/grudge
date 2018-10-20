@@ -1,12 +1,12 @@
 {
   "name": "@grudge/components",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "React components for Grudge",
   "main": "index.js",
   "dependencies": {
-    "@grudge/data": "^0.2.2",
-    "@grudge/domain": "^0.2.2",
-    "@grudge/styles": "^0.2.0",
+    "@grudge/data": "^1.0.0",
+    "@grudge/domain": "^1.0.0",
+    "@grudge/styles": "^1.0.0",
     "autobind-decorator": "^2.1.0",
     "classnames": "^2.2.6",
     "prop-types": "^15.6.2",
