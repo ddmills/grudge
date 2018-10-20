@@ -7,7 +7,9 @@ import sdk from '@grudge/sdk';
 export default class ActionStore {
   @observable selectedCard;
 
-  @observable targetedCardId;
+  @observable targetEnemyCardId;
+
+  @observable targetAllyCardId;
 
   @observable targetedUserId;
 
@@ -54,10 +56,10 @@ export default class ActionStore {
   get validCardActions() {
     return this.allCardActions.filter((act) => {
       const targetEnemyCardMet = ActionStore.isTargetEnemyCardAction(act)
-        ? this.targetedCardId
+        ? this.targetEnemyCardId
         : true;
       const targetAllyCardMet = ActionStore.isTargetAllyCardAction(act)
-        ? this.targetedCardId
+        ? this.targetAllyCardId
         : true;
       const targetEnemyUserMet = ActionStore.isTargetEnemyUserAction(act)
         ? this.targetedUserId
@@ -116,7 +118,7 @@ export default class ActionStore {
   }
 
   isCardTargeted(card) {
-    return card.id === this.targetedCardId;
+    return card.id === this.targetEnemyCardId || card.id === this.targetAllyCardId;
   }
 
   @action
@@ -127,7 +129,7 @@ export default class ActionStore {
       sdk.performAction({
         actionIdx: this.allCardActions.indexOf(act),
         cardId: this.selectedCard.id,
-        targetCardId: this.targetedCardId,
+        targetCardId: this.targetEnemyCardId || this.targetAllyCardId,
         targetUserId: this.targetedUserId,
         targetSlotIndex: this.targetedSlotIndex,
       });
@@ -146,7 +148,8 @@ export default class ActionStore {
   @action
   resetAction() {
     this.selectedCard = null;
-    this.targetedCardId = null;
+    this.targetEnemyCardId = null;
+    this.targetAllyCardId = null;
     this.targetedUserId = null;
     this.targetedSlotIndex = null;
     this.currentAction = null;
@@ -154,7 +157,7 @@ export default class ActionStore {
 
   onEnemyCardClicked(card) {
     if (this.hasTargetEnemyCardAction) {
-      this.targetedCardId = card.id;
+      this.targetEnemyCardId = card.id;
 
       this.performAction();
     }
@@ -164,7 +167,7 @@ export default class ActionStore {
     if (this.isCardSelected(card)) {
       this.selectedCard = null;
     } else if (this.hasTargetAllyCardAction && card.isPlayed) {
-      this.targetedCardId = card.id;
+      this.targetAllyCardId = card.id;
 
       this.performAction();
     } else {

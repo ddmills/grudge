@@ -88,7 +88,7 @@ export default class CardStore {
   }
 
   onLeftLobby() {
-    this.setCards();
+    this.cards = {};
     this.clearInspectedCard();
   }
 

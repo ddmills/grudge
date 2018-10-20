@@ -3,7 +3,7 @@ import * as EffectIds from './EffectIds';
 import * as PreconditionIds from './PreconditionIds';
 import * as ActionSetups from './ActionSetups';
 
-const attackCardAction = {
+const attackAction = {
   name: 'Attack',
   setup: [
     ActionSetups.TARGET_ENEMY_CARD,
@@ -88,7 +88,7 @@ const CardTypes = [
       },
     ],
     playActions: [
-      attackCardAction,
+      attackAction,
       attackPlayerAction,
     ],
     handActions: [
@@ -142,7 +142,7 @@ const CardTypes = [
       playAction,
     ],
     playActions: [
-      attackCardAction,
+      attackAction,
       attackPlayerAction,
     ],
   },
@@ -179,7 +179,7 @@ const CardTypes = [
       },
     ],
     handActions: [
-      attackCardAction,
+      attackAction,
       attackPlayerAction,
     ],
   },
