@@ -1,3 +1,4 @@
+import * as RefIds from './RefIds';
 import * as TraitIds from './TraitIds';
 import * as EffectIds from './EffectIds';
 import * as PreconditionIds from './PreconditionIds';
@@ -14,7 +15,13 @@ const attackAction = {
     { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
   ],
   effects: [
-    { id: EffectIds.DAMAGE },
+    {
+      id: EffectIds.DAMAGE,
+      value: {
+        id: RefIds.TRAIT,
+        traitId: TraitIds.ATTACK,
+      },
+    },
     { id: EffectIds.DISABLE },
   ],
 };
@@ -28,7 +35,13 @@ const attackPlayerAction = {
     { id: PreconditionIds.CARD_IS_ENABLED },
   ],
   effects: [
-    { id: EffectIds.DAMAGE_PLAYER },
+    {
+      id: EffectIds.DAMAGE_PLAYER,
+      value: {
+        id: RefIds.TRAIT,
+        traitId: TraitIds.ATTACK,
+      },
+    },
     { id: EffectIds.DISABLE },
   ],
 };
@@ -45,8 +58,20 @@ const healAction = {
     { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
   ],
   effects: [
-    { id: EffectIds.PAY },
-    { id: EffectIds.HEAL },
+    {
+      id: EffectIds.PAY,
+      value: {
+        id: RefIds.TRAIT,
+        traitId: TraitIds.COST,
+      },
+    },
+    {
+      id: EffectIds.HEAL,
+      value: {
+        id: RefIds.TRAIT,
+        traitId: TraitIds.HEAL,
+      },
+    },
     { id: EffectIds.DISABLE },
   ],
 };
@@ -62,7 +87,13 @@ const playAction = {
     { id: PreconditionIds.TARGET_SLOT_INDEX_IS_OPEN },
   ],
   effects: [
-    { id: EffectIds.PAY },
+    {
+      id: EffectIds.PAY,
+      value: {
+        id: RefIds.TRAIT,
+        traitId: TraitIds.COST,
+      },
+    },
     { id: EffectIds.PLAY },
     { id: EffectIds.DISABLE },
   ],
@@ -84,7 +115,7 @@ const CardTypes = [
       },
       {
         id: TraitIds.COST,
-        value: 3,
+        value: 4,
       },
     ],
     playActions: [
@@ -114,7 +145,46 @@ const CardTypes = [
           { id: PreconditionIds.CARD_HAS_VALUE },
         ],
         effects: [
-          { id: EffectIds.COLLECT },
+          {
+            id: EffectIds.COLLECT,
+            value: {
+              id: RefIds.TRAIT,
+              traitId: TraitIds.VALUE,
+            },
+          },
+          { id: EffectIds.DISABLE },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'cdt-golden-pear-tree',
+    name: 'Pear Tree',
+    description: 'Worth one gold for every empty slot',
+    traits: [
+      {
+        id: TraitIds.VALUE,
+        value: {
+          id: RefIds.EMPTY_ALLY_SLOT_COUNT,
+        },
+      },
+    ],
+    handActions: [
+      {
+        name: 'Collect',
+        setup: [],
+        preconditions: [
+          { id: PreconditionIds.CARD_IS_ENABLED },
+          { id: PreconditionIds.CARD_HAS_VALUE },
+        ],
+        effects: [
+          {
+            id: EffectIds.COLLECT,
+            value: {
+              id: RefIds.TRAIT,
+              traitId: TraitIds.VALUE,
+            },
+          },
           { id: EffectIds.DISABLE },
         ],
       },
@@ -126,7 +196,7 @@ const CardTypes = [
     traits: [
       {
         id: TraitIds.COST,
-        value: 3,
+        value: 8,
       },
       {
         id: TraitIds.ATTACK,
@@ -153,7 +223,7 @@ const CardTypes = [
     traits: [
       {
         id: TraitIds.COST,
-        value: 1,
+        value: 2,
       },
       {
         id: TraitIds.HEAL,
@@ -165,13 +235,13 @@ const CardTypes = [
     ],
   },
   {
-    id: 'cdt-stag-beetle',
-    name: 'Stag Beetle',
+    id: 'cdt-praying-mantis',
+    name: 'Praying Mantis',
     description: 'Instantly attack an enemy card',
     traits: [
       {
         id: TraitIds.COST,
-        value: 1,
+        value: 3,
       },
       {
         id: TraitIds.ATTACK,

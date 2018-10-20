@@ -8,6 +8,7 @@ import TurnStore from 'stores/TurnStore';
 import CardTypeStore from 'stores/CardTypeStore';
 import CardStore from 'stores/CardStore';
 import ActionStore from 'stores/ActionStore';
+import ActionRefStore from 'stores/ActionRefStore';
 
 export default () => {
   const windowSizeStore = new WindowSizeStore();
@@ -20,6 +21,7 @@ export default () => {
   const cardTypeStore = new CardTypeStore();
   const cardStore = new CardStore(userStore);
   const actionStore = new ActionStore(cardStore, turnStore, userStore);
+  const actionRefStore = new ActionRefStore(cardStore);
 
   return {
     windowSizeStore,
@@ -32,5 +34,6 @@ export default () => {
     cardTypeStore,
     cardStore,
     actionStore,
+    actionRefStore,
   };
 };

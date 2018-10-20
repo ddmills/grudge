@@ -1,15 +1,16 @@
+import ActionRefService from 'services/ActionRefService';
 import MoneyService from 'services/MoneyService';
-import { EffectIds, TraitIds } from '@grudge/data';
+import { EffectIds } from '@grudge/data';
 import Effect from './Effect';
 
 export default class PayEffect extends Effect {
   static id = EffectIds.PAY;
 
-  static async apply(effectParams, { card, user }) {
-    if (card.hasTrait(TraitIds.COST)) {
-      const amount = card.getTrait(TraitIds.COST).value;
+  static async apply({ value }, { card, user }) {
+    const cost = await ActionRefService.getRefValue(card, value);
 
-      return MoneyService.subtract(user.id, amount);
+    if (Number.isInteger(cost)) {
+      return MoneyService.subtract(user.id, cost);
     }
   }
 }

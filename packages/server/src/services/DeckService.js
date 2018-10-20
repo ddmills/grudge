@@ -17,14 +17,14 @@ export default class DeckService {
     });
 
     const startingCardTypes = [
+      'cdt-praying-mantis',
+      'cdt-golden-pear-tree',
+      'cdt-golden-pear-tree',
       'cdt-otter',
       'cdt-toad',
-      'cdt-stag-beetle',
       'cdt-stoat',
       'cdt-stoat',
       'cdt-stoat',
-      'cdt-goose',
-      'cdt-goose',
       'cdt-goose',
       'cdt-goose',
     ];
