@@ -6,11 +6,11 @@
 
 @keyframes blinkAttack {
   0% {
-    @include cardhighlight($attack, 0.25);
+    @include cardhighlight(#e95757, 0.75);
   }
 
   100% {
-    @include cardhighlight($attack, 0.75);
+    @include cardhighlight(#e95757, 0.25);
   }
 }
 
