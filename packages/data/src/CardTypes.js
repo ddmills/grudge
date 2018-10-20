@@ -40,6 +40,7 @@ const healAction = {
   ],
   preconditions: [
     { id: PreconditionIds.CARD_IS_ENABLED },
+    { id: PreconditionIds.USER_CAN_AFFORD },
     { id: PreconditionIds.TARGET_CARD_IS_ALLY },
     { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
   ],
