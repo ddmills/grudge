@@ -4,7 +4,8 @@
   "main": "dist/main.js",
   "description": "Express server for Grudge",
   "scripts": {
-    "start": "webpack --mode development --watch --display minimal",
+    "start": "node ./dist/main.js",
+    "dev": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
     "db:migrate": "knex migrate:latest",
     "db:rollback": "knex migrate:rollback",

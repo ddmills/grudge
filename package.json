@@ -2,8 +2,10 @@
   "name": "@grudge/app",
   "version": "1.0.0",
   "scripts": {
-    "start": "lerna run start --parallel --stream --no-prefix",
+    "start": "node ./packages/server/dist/main.js",
+    "postinstall": "npm run build",
     "build": "lerna run build",
+    "dev": "lerna run dev --parallel --stream --no-prefix",
     "bootstrap": "lerna bootstrap",
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint **/*.js",
@@ -11,6 +13,9 @@
     "fixlint": "npm run eslint -- --fix && npm run stylelint -- --fix"
   },
   "private": true,
+  "engines": {
+    "node": "8.9.4"
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.6",

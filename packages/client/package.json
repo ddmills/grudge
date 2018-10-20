@@ -4,7 +4,7 @@
   "main": "dist/index.js",
   "description": "React client for Grudge",
   "scripts": {
-    "start": "webpack --mode development --watch --display minimal",
+    "dev": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production"
   },
   "dependencies": {
