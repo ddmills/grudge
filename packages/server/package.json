@@ -1,13 +1,12 @@
 {
   "name": "@grudge/server",
   "version": "2.0.0-alpha.0",
-  "main": "dist/main.js",
+  "main": "./index.js",
   "description": "Express server for Grudge",
   "scripts": {
-    "start": "node ./dist/main.js",
     "dev": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
-    "db:migrate": "node ./scripts/migrate.js",
+    "db:migrate": "knex migrate",
     "db:rollback": "knex migrate:rollback",
     "generate-ssl": "node scripts/generate-ssl.js"
   },
