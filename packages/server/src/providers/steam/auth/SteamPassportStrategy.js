@@ -16,7 +16,13 @@ const verify = (associateUser) => (identityUrl, profile, done) => {
   });
 };
 
-const url = `${config.server.protocol}://${config.server.host}:${config.server.port}`;
+const protocol = config.get('server.protocol');
+const host = config.get('server.host');
+const port = config.get('server.port');
+const isDev = config.get('env') === 'development';
+const base = `${protocol}://${host}`;
+const url = isDev ? `${base}:${port}` : base;
+
 const steamOptions = {
   returnURL: `${url}/sign-in/steam/return`,
   realm: url,
