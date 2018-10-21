@@ -9,7 +9,7 @@ import styles from './LibraryScreen.scss';
 @connect(({ cardTypeStore }) => ({
   cardTypes: cardTypeStore.cardTypes,
 }))
-export default class LobbyScreen extends Component {
+export default class LibraryScreen extends Component {
   static propTypes = {
     cardTypes: PropTypes.arrayOf(PropTypes.instanceOf(CardType)),
   }
