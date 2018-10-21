@@ -64,6 +64,7 @@
     "@grudge/server": "^2.0.4",
     "config": "^2.0.1",
     "dotenv": "^6.1.0",
+    "knex": "^0.15.2",
     "lodash.defaultsdeep": "^4.6.0"
   }
 }
