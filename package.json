@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@grudge/client": "^2.0.4",
-    "@grudge/server": "^2.0.5",
+    "@grudge/server": "^2.0.6",
     "config": "^2.0.1",
     "dotenv": "^6.1.0",
     "knex": "^0.15.2",
