@@ -12,7 +12,7 @@ export default {
   output: {
     publicPath: '/client/',
   },
-  devtool: 'eval-source-map',
+  devtool: isDebug ? 'eval-source-map' : 'source-map',
   optimization: {
     minimizer: [
       new UglifyJsPlugin(),
