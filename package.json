@@ -58,8 +58,8 @@
     "workbox-build": "^3.4.1"
   },
   "dependencies": {
-    "@grudge/client": "^2.0.3",
-    "@grudge/server": "^2.0.3",
+    "@grudge/client": "^2.0.4",
+    "@grudge/server": "^2.0.4",
     "config": "^2.0.1",
     "dotenv": "^6.1.0",
     "lodash.defaultsdeep": "^4.6.0"

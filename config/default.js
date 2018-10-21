@@ -6,6 +6,7 @@ module.exports = {
   server: {
     host: process.env.HOST,
     port: process.env.PORT,
+    protocol: process.env.PROTOCOL,
   },
   client: {
     path: path.join(__dirname, '..', 'packages', 'client', 'dist'),
