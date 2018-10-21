@@ -1,10 +1,14 @@
 require('dotenv').config();
+const path = require('path');
 
 module.exports = {
   env: process.env.NODE_ENV,
   server: {
     host: process.env.HOST,
     port: process.env.PORT,
+  },
+  client: {
+    path: path.join(__dirname, 'packages', 'client', 'dist'),
   },
   jwt: {
     secret: process.env.JWT_SECRET,

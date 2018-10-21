@@ -7,7 +7,7 @@
     "start": "node ./dist/main.js",
     "dev": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production",
-    "db:migrate": "knex migrate:latest",
+    "db:migrate": "node ./scripts/migrate.js",
     "db:rollback": "knex migrate:rollback",
     "generate-ssl": "node scripts/generate-ssl.js"
   },
