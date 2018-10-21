@@ -1,5 +1,6 @@
 import config from 'config';
 import SteamStrategy from 'passport-steam';
+import Logger from 'utilities/Logger';
 
 const verify = (associateUser) => (identityUrl, profile, done) => {
   associateUser({
@@ -22,6 +23,8 @@ const port = config.get('server.port');
 const isDev = config.get('env') === 'development';
 const base = `${protocol}://${host}`;
 const url = isDev ? `${base}:${port}` : base;
+
+Logger.debug('Steam return URL', config.get('env'), url);
 
 const steamOptions = {
   returnURL: `${url}/sign-in/steam/return`,
