@@ -1,6 +1,6 @@
 {
   "name": "@grudge/app",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "> TODO: description",
   "main": "./index.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@grudge/server": "^2.0.1",
+    "@grudge/server": "^2.0.2",
     "lodash.defaultsdeep": "^4.6.0"
   }
 }
