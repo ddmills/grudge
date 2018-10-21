@@ -7,6 +7,9 @@
     "dev": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@grudge/components": "^2.0.2",
     "@grudge/data": "^1.0.0",

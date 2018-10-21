@@ -10,6 +10,9 @@
     "db:rollback": "knex migrate:rollback",
     "generate-ssl": "node scripts/generate-ssl.js"
   },
+  "files": [
+    "dist"
+  ],
   "dependencies": {
     "@grudge/api-events": "^1.0.0",
     "@grudge/data": "^1.0.0",
