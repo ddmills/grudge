@@ -1,15 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import dotenv from 'dotenv';
 import nodeExternals from 'webpack-node-externals';
-import NodemonPlugin from 'nodemon-webpack-plugin';
 import path from 'path';
 
 dotenv.config();
 
 export default {
-  entry: [
-    './src/main.js',
-  ],
+  entry: {
+    main: './src/main.js',
+  },
   target: 'node',
   node: {
     __dirname: false,
@@ -35,13 +34,11 @@ export default {
       ],
     }),
   ],
-  // plugins: [
-  //   new NodemonPlugin({
-  //     args: ['--color'],
-  //   }),
-  // ],
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'main.js',
+    filename: '[name].js',
+    library: 'GrudgeServer',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
   },
 };

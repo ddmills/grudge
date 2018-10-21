@@ -8,7 +8,7 @@ module.exports = {
     port: process.env.PORT,
   },
   client: {
-    path: path.join(__dirname, 'packages', 'client', 'dist'),
+    path: path.join(__dirname, '..', 'packages', 'client', 'dist'),
   },
   jwt: {
     secret: process.env.JWT_SECRET,

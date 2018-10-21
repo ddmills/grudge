@@ -1,0 +1,24 @@
+{
+  "name": "@grudge/app",
+  "version": "2.0.0-alpha.0",
+  "description": "> TODO: description",
+  "main": "./index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js --watch ./node_modules/* --color"
+  },
+  "bin": {
+    "grudge-app": "./index.js"
+  },
+  "engines": {
+    "node": "8.9.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@grudge/client": "^2.0.0-alpha.0",
+    "@grudge/server": "^2.0.0-alpha.0",
+    "lodash.defaultsdeep": "^4.6.0"
+  }
+}
