@@ -1,6 +1,6 @@
 {
   "name": "@grudge/sdk",
-  "version": "2.0.2",
+  "version": "2.0.4",
   "description": "Client-side sdk for interacting with @grudge/server",
   "main": "main.js",
   "dependencies": {
