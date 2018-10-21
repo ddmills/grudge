@@ -11,6 +11,7 @@
     "generate-ssl": "node scripts/generate-ssl.js"
   },
   "files": [
+    "index",
     "dist"
   ],
   "dependencies": {

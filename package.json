@@ -2,8 +2,7 @@
   "name": "@grudge/app",
   "version": "1.0.0",
   "scripts": {
-    "postinstall": "npm run bootstrap && npm run build",
-    "start": "cd packages/app && npm start",
+    "start": "node ./index.js",
     "build": "lerna run build --stream",
     "dev": "lerna run dev --parallel --stream --no-prefix",
     "bootstrap": "lerna bootstrap",
@@ -59,6 +58,8 @@
     "workbox-build": "^3.4.1"
   },
   "dependencies": {
+    "@grudge/client": "^2.0.3",
+    "@grudge/server": "^2.0.3",
     "config": "^2.0.1",
     "dotenv": "^6.1.0",
     "lodash.defaultsdeep": "^4.6.0"
