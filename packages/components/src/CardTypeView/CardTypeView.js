@@ -4,7 +4,13 @@ import { CardType } from '@grudge/domain';
 import CardStatic from '../CardStatic/CardStatic';
 
 const getTrait = (cardType, traitId, property = 'value') => {
-  return cardType.hasTrait(traitId) ? cardType.getTrait(traitId)[property] : undefined;
+  const value = cardType.hasTrait(traitId) ? cardType.getTrait(traitId)[property] : undefined;
+
+  if (typeof value === 'object') {
+    return undefined;
+  }
+
+  return value;
 };
 
 export default class CardTypeView extends Component {

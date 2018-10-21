@@ -1,7 +1,7 @@
 {
   "name": "@grudge/client",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/main.js",
   "description": "React client for Grudge",
   "scripts": {
     "dev": "webpack --mode development --watch --display minimal",

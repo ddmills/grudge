@@ -12,8 +12,10 @@ const logServerStarted = () => {
   Logger.info(`Serving on ${location}`);
 };
 
-const webServer = WebServer(WebApp());
-const socketServer = SocketServer(webServer);
+export const start = () => {
+  const webServer = WebServer(WebApp());
+  const socketServer = SocketServer(webServer);
 
-webServer.listen(config.server.port, logServerStarted);
-SocketApp(socketServer);
+  webServer.listen(config.server.port, logServerStarted);
+  SocketApp(socketServer);
+};

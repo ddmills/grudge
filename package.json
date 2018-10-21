@@ -2,7 +2,7 @@
   "name": "@grudge/app",
   "version": "1.0.0",
   "scripts": {
-    "start": "node ./packages/server/dist/main.js",
+    "start": "node ./app/index.js",
     "postinstall": "npm run bootstrap && npm run build",
     "build": "lerna run build",
     "dev": "lerna run dev --parallel --stream --no-prefix",
@@ -56,5 +56,11 @@
     "webpack-node-externals": "^1.7.2",
     "webpack-pwa-manifest": "^3.7.1",
     "workbox-build": "^3.4.1"
+  },
+  "dependencies": {
+    "@grudge/server": "^1.0.0",
+    "config": "^2.0.1",
+    "dotenv": "^6.1.0",
+    "lodash.defaultsdeep": "^4.6.0"
   }
 }

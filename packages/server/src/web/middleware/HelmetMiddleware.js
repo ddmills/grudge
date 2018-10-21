@@ -11,7 +11,7 @@ export default function createMiddleware() {
   return helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'"],
+        defaultSrc: ["'self'", 'blob:'],
         connectSrc: ["'self'", `${connectProtocol}${config.server.host}:*`],
         scriptSrc: ["'self'", workboxCDN].concat(isDev ? ["'unsafe-eval'", "'nonce-browser-sync'"] : []),
         imgSrc: ["'self'", steamCDN, loremFlicker],

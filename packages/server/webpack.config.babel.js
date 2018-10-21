@@ -35,11 +35,11 @@ export default {
       ],
     }),
   ],
-  plugins: [
-    new NodemonPlugin({
-      args: ['--color'],
-    }),
-  ],
+  // plugins: [
+  //   new NodemonPlugin({
+  //     args: ['--color'],
+  //   }),
+  // ],
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'main.js',
