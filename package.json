@@ -9,7 +9,7 @@
     "lint": "npm run eslint && npm run stylelint",
     "eslint": "eslint **/*.js",
     "stylelint": "stylelint **/*.scss",
-    "db:migrate": "knex migrate",
+    "db:migrate": "knex migrate:latest",
     "db:rollback": "knex migrate:rollback",
     "fixlint": "npm run eslint -- --fix && npm run stylelint -- --fix"
   },
