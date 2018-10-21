@@ -1,3 +1,3 @@
-const server = require('@grudge/server/dist/main');
+const server = require('@grudge/server');
 
 server.start();
