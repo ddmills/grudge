@@ -1,6 +1,6 @@
 # Grudge
 
-Multiplayer deck building game built on socket.io and react. 
+Multiplayer deck building game built on socket.io and react.
 
 ![ipad screenshot](screenshots/ipad.png)
 
@@ -9,7 +9,13 @@ Multiplayer deck building game built on socket.io and react.
 ```
 $ npm install
 $ npm run bootstrap
-$ npm start
+$ npm run dev
+```
+
+## Deployment
+
+```
+$ git push heroku
 ```
 
 ## HTTPS locally
