@@ -1,5 +1,5 @@
 export const DISABLED = 'trt-disabled';
-export const DEFENSE = 'trt-defense';
+export const DEFENDER = 'trt-defender';
 export const HEALTH = 'trt-health';
 export const ATTACK = 'trt-attack';
 export const HEAL = 'trt-heal';

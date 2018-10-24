@@ -196,7 +196,7 @@ const CardTypes = [
     traits: [
       {
         id: TraitIds.COST,
-        value: 8,
+        value: 6,
       },
       {
         id: TraitIds.ATTACK,
@@ -206,6 +206,17 @@ const CardTypes = [
         id: TraitIds.HEALTH,
         value: 3,
         max: 3,
+      },
+      {
+        id: TraitIds.DEFENDER,
+        slots: [
+          {
+            id: RefIds.SLOT_INDEX_LEFT,
+          },
+          {
+            id: RefIds.SLOT_INDEX_RIGHT,
+          },
+        ],
       },
     ],
     handActions: [

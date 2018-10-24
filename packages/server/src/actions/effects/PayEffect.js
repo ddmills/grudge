@@ -7,7 +7,7 @@ export default class PayEffect extends Effect {
   static id = EffectIds.PAY;
 
   static async apply({ value }, { card, user }) {
-    const cost = await ActionRefService.getRefValue(card, value);
+    const cost = await ActionRefService.resolve(card, value);
 
     if (Number.isInteger(cost)) {
       return MoneyService.subtract(user.id, cost);

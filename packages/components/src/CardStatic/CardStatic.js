@@ -17,7 +17,6 @@ export default class CardStatic extends Component {
     description: PropTypes.string.isRequired,
     value: PropTypes.number,
     attack: PropTypes.number,
-    defense: PropTypes.number,
     health: PropTypes.number,
     cost: PropTypes.number,
     maxHealth: PropTypes.number,
@@ -29,7 +28,6 @@ export default class CardStatic extends Component {
   static defaultProps = {
     value: undefined,
     attack: undefined,
-    defense: undefined,
     health: undefined,
     cost: undefined,
     maxHealth: undefined,
@@ -45,7 +43,6 @@ export default class CardStatic extends Component {
       description,
       value,
       attack,
-      defense,
       health,
       cost,
       maxHealth,

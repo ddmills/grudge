@@ -3,8 +3,28 @@ import { RefIds } from '@grudge/data';
 
 @autobind
 export default class ActionStore {
+  constructor(cardStore) {
+    this.cardStore = cardStore;
+  }
+
   static isRef(property) {
     return property !== null && typeof property === 'object';
+  }
+
+  static slotIndexLeft(card) {
+    const currentSlot = card.slotIndex;
+
+    if (currentSlot && currentSlot > 1) {
+      return currentSlot - 1;
+    }
+  }
+
+  static slotIndexRight(card) {
+    const currentSlot = card.slotIndex;
+
+    if (currentSlot && currentSlot < 5) {
+      return currentSlot + 1;
+    }
   }
 
   emptyAllySlotCount(card) {
@@ -19,25 +39,29 @@ export default class ActionStore {
     const property = ref.traitProp || 'value';
     const value = card.getTrait(ref.traitId)[property];
 
-    return ActionStore.isRef(value) ? this.getRefValue(card, value) : value;
-  }
-
-  constructor(cardStore) {
-    this.cardStore = cardStore;
+    return this.resolve(card, value);
   }
 
   getRefValue(card, ref) {
-    if (!ActionStore.isRef(ref)) {
-      return ref;
-    }
-
     switch (ref.id) {
       case RefIds.EMPTY_ALLY_SLOT_COUNT:
         return this.emptyAllySlotCount(card, ref);
       case RefIds.TRAIT:
         return this.trait(card, ref);
+      case RefIds.SLOT_INDEX_LEFT:
+        return ActionStore.slotIndexLeft(card);
+      case RefIds.SLOT_INDEX_RIGHT:
+        return ActionStore.slotIndexRight(card);
       default:
         return ref;
     }
+  }
+
+  resolve(card, value) {
+    if (Array.isArray(value)) {
+      return value.map((v) => this.resolve(card, v));
+    }
+
+    return ActionStore.isRef(value) ? this.getRefValue(card, value) : value;
   }
 }

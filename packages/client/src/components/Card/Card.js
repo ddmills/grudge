@@ -5,14 +5,14 @@ import { Card as CardModel, CardType } from '@grudge/domain';
 import { TraitIds } from '@grudge/data';
 import connect from 'utilities/mobx/Connect';
 
-const getTrait = (card, traitId, getRefValue, property = 'value') => {
+const getTrait = (card, traitId, resolveRef, property = 'value') => {
   if (!card.hasTrait(traitId)) {
     return;
   }
 
   const value = card.getTrait(traitId)[property];
 
-  return getRefValue(card, value);
+  return resolveRef(card, value);
 };
 
 @connect(({
@@ -27,7 +27,7 @@ const getTrait = (card, traitId, getRefValue, property = 'value') => {
     cardType: card && cardTypeStore.findCardType(card.cardTypeId),
     onClick: () => actionStore.onClickCard(card),
     onClickHold: () => cardStore.inspectCard(card.id),
-    getRefValue: actionRefStore.getRefValue,
+    resolveRef: actionRefStore.resolve,
     responsiveCardSize: windowSizeStore.responsiveCardSize,
   };
 })
@@ -37,7 +37,7 @@ export default class Card extends Component {
     cardType: PropTypes.instanceOf(CardType).isRequired,
     onClick: PropTypes.func.isRequired,
     onClickHold: PropTypes.func.isRequired,
-    getRefValue: PropTypes.func.isRequired,
+    resolveRef: PropTypes.func.isRequired,
     isSelected: PropTypes.bool,
     isTargeted: PropTypes.bool,
     isResponsive: PropTypes.bool,
@@ -57,7 +57,7 @@ export default class Card extends Component {
       cardType,
       onClick,
       onClickHold,
-      getRefValue,
+      resolveRef,
       isSelected,
       isTargeted,
       isResponsive,
@@ -74,12 +74,11 @@ export default class Card extends Component {
           name={cardType.name}
           description={cardType.description}
           isDisabled={card.hasTrait(TraitIds.DISABLED)}
-          value={getTrait(card, TraitIds.VALUE, getRefValue)}
-          attack={getTrait(card, TraitIds.ATTACK, getRefValue)}
-          defense={getTrait(card, TraitIds.DEFENSE, getRefValue)}
-          health={getTrait(card, TraitIds.HEALTH, getRefValue)}
-          cost={card.isInHand ? getTrait(card, TraitIds.COST, getRefValue) : undefined}
-          maxHealth={getTrait(card, TraitIds.HEALTH, getRefValue, 'max')}
+          value={getTrait(card, TraitIds.VALUE, resolveRef)}
+          attack={getTrait(card, TraitIds.ATTACK, resolveRef)}
+          health={getTrait(card, TraitIds.HEALTH, resolveRef)}
+          cost={card.isInHand ? getTrait(card, TraitIds.COST, resolveRef) : undefined}
+          maxHealth={getTrait(card, TraitIds.HEALTH, resolveRef, 'max')}
           onClick={onClick}
           onClickHold={onClickHold}
           isSelected={isSelected}

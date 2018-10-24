@@ -7,7 +7,7 @@ export default class DamagePlayerEffect extends Effect {
   static id = EffectIds.DAMAGE_PLAYER;
 
   static async apply({ value }, { card, targetUser }) {
-    const damage = await ActionRefService.getRefValue(card, value);
+    const damage = await ActionRefService.resolve(card, value);
     const difference = targetUser.health - damage;
     const remaining = difference <= 0 ? 0 : difference;
 

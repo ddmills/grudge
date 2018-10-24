@@ -8,9 +8,9 @@ export default class HealEffect extends Effect {
 
   static async apply({ value }, { card, targetCard }) {
     const targetHealthTrait = targetCard.getTrait(TraitIds.HEALTH);
-    const heal = await ActionRefService.getRefValue(card, value);
-    const health = await ActionRefService.getRefValue(targetCard, targetHealthTrait.value);
-    const max = await ActionRefService.getRefValue(targetCard, targetHealthTrait.max);
+    const heal = await ActionRefService.resolve(card, value);
+    const health = await ActionRefService.resolve(targetCard, targetHealthTrait.value);
+    const max = await ActionRefService.resolve(targetCard, targetHealthTrait.max);
     const difference = health + heal;
     const remaining = difference >= max ? max : difference;
 

@@ -30,7 +30,6 @@ export default class CardTypeView extends Component {
         description={cardType.description}
         value={getTrait(cardType, 'trt-value')}
         attack={getTrait(cardType, 'trt-attack')}
-        defense={getTrait(cardType, 'trt-defense')}
         health={getTrait(cardType, 'trt-health')}
         cost={getTrait(cardType, 'trt-cost')}
         maxHealth={getTrait(cardType, 'trt-health', 'max')}

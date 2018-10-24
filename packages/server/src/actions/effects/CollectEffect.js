@@ -7,7 +7,7 @@ export default class CollectEffect extends Effect {
   static id = EffectIds.COLLECT;
 
   static async apply({ value }, { card }) {
-    const amount = await ActionRefService.getRefValue(card, value);
+    const amount = await ActionRefService.resolve(card, value);
 
     if (Number.isInteger(amount)) {
       return MoneyService.add(card.userId, amount);

@@ -9,8 +9,8 @@ export default class DamageEffect extends Effect {
 
   static async apply({ value }, { card, targetCard }) {
     const targetHealthTrait = targetCard.getTrait(TraitIds.HEALTH);
-    const damage = await ActionRefService.getRefValue(card, value);
-    const health = await ActionRefService.getRefValue(targetCard, targetHealthTrait.value);
+    const damage = await ActionRefService.resolve(card, value);
+    const health = await ActionRefService.resolve(targetCard, targetHealthTrait.value);
     const difference = health - damage;
     const remaining = difference <= 0 ? 0 : difference;
 
