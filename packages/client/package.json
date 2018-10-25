@@ -1,6 +1,6 @@
 {
   "name": "@grudge/client",
-  "version": "2.0.4",
+  "version": "2.0.8",
   "main": "dist/main.js",
   "description": "React client for Grudge",
   "scripts": {
@@ -11,11 +11,11 @@
     "dist"
   ],
   "dependencies": {
-    "@grudge/components": "^2.0.4",
-    "@grudge/data": "^1.0.0",
-    "@grudge/domain": "^1.0.0",
-    "@grudge/sdk": "^2.0.4",
-    "@grudge/styles": "^1.0.0",
+    "@grudge/components": "^2.0.8",
+    "@grudge/data": "^2.0.8",
+    "@grudge/domain": "^2.0.8",
+    "@grudge/sdk": "^2.0.8",
+    "@grudge/styles": "^2.0.8",
     "autobind-decorator": "^2.1.0",
     "browser-cookie": "^1.2.1",
     "browser-cookies": "^1.2.0",

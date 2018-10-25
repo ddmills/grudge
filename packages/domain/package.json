@@ -1,6 +1,6 @@
 {
   "name": "@grudge/domain",
-  "version": "1.0.0",
+  "version": "2.0.8",
   "description": "Grudge domain models",
   "main": "index.js",
   "publishConfig": {
