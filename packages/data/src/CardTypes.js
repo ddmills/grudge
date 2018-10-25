@@ -13,6 +13,7 @@ const attackAction = {
     { id: PreconditionIds.CARD_IS_ENABLED },
     { id: PreconditionIds.TARGET_CARD_IS_ENEMY },
     { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
+    { id: PreconditionIds.TARGET_CARD_IS_NOT_DEFENDED },
   ],
   effects: [
     {

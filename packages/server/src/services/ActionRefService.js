@@ -26,7 +26,7 @@ export default class ActionRefService {
   static async slotIndexLeft(card) {
     const currentSlot = card.slotIndex;
 
-    if (currentSlot && currentSlot > 1) {
+    if (currentSlot && currentSlot > 0) {
       return currentSlot - 1;
     }
   }
@@ -34,14 +34,14 @@ export default class ActionRefService {
   static async slotIndexRight(card) {
     const currentSlot = card.slotIndex;
 
-    if (currentSlot && currentSlot < 5) {
+    if (currentSlot && currentSlot < 6) {
       return currentSlot + 1;
     }
   }
 
   static async resolve(card, value) {
     if (Array.isArray(value)) {
-      return value.map((v) => this.resolve(card, v));
+      return Promise.all(value.map((v) => this.resolve(card, v)));
     }
 
     return this.isRef(value) ? this.getRefValue(card, value) : value;
