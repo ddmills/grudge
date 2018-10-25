@@ -105,10 +105,11 @@ export default class ActionStore {
     return undefined;
   }
 
-  constructor(cardStore, turnStore, userStore) {
+  constructor(cardStore, turnStore, userStore, traitStore) {
     this.cardStore = cardStore;
     this.turnStore = turnStore;
     this.userStore = userStore;
+    this.traitStore = traitStore;
 
     sdk.onTurnEnded(this.resetAction);
   }
@@ -156,7 +157,7 @@ export default class ActionStore {
   }
 
   onEnemyCardClicked(card) {
-    if (this.hasTargetEnemyCardAction) {
+    if (this.hasTargetEnemyCardAction && !this.traitStore.isCardDefended(card)) {
       this.targetEnemyCardId = card.id;
 
       this.performAction();
@@ -222,8 +223,10 @@ export default class ActionStore {
 
     if (this.hasTargetEnemyCardAction) {
       const card = this.cardStore.getCardAtSlot(userId, slotIndex);
+      const isAttackable = () => !this.traitStore.isCardDefended(card);
+      const isOwnedByEnemey = () => userId !== this.userStore.currentUserId;
 
-      if (card && userId !== this.userStore.currentUserId) {
+      if (card && isAttackable() && isOwnedByEnemey()) {
         return 'attack';
       }
     }
