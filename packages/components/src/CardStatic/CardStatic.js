@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import styles from './CardStatic.scss';
 import CardContainer from '../CardContainer/CardContainer';
 import cardBorderImage from './card-border.png';
+import shieldImage from './shield.png';
 import attackImage from './attack.png';
 import healthImage from './health.png';
 import moneyImage from './money.png';
@@ -20,6 +21,7 @@ export default class CardStatic extends Component {
     health: PropTypes.number,
     cost: PropTypes.number,
     maxHealth: PropTypes.number,
+    isDefender: PropTypes.bool,
     isDisabled: PropTypes.bool,
     isSelected: PropTypes.bool,
     isTargeted: PropTypes.bool,
@@ -31,6 +33,7 @@ export default class CardStatic extends Component {
     health: undefined,
     cost: undefined,
     maxHealth: undefined,
+    isDefender: false,
     isDisabled: false,
     isSelected: false,
     isTargeted: false,
@@ -46,6 +49,7 @@ export default class CardStatic extends Component {
       health,
       cost,
       maxHealth,
+      isDefender,
       isDisabled,
       isSelected,
       isTargeted,
@@ -74,6 +78,13 @@ export default class CardStatic extends Component {
             alt="border"
           />
           <div className={overlayClasses}>
+            {isDefender && (
+              <img
+                className={styles.shieldImage}
+                src={shieldImage}
+                alt="shield"
+              />
+            )}
             <img
               className={styles.bannerImage}
               src={bannerImage}

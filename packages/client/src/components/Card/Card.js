@@ -81,6 +81,7 @@ export default class Card extends Component {
           maxHealth={getTrait(card, TraitIds.HEALTH, resolveRef, 'max')}
           onClick={onClick}
           onClickHold={onClickHold}
+          isDefender={card.hasTrait(TraitIds.DEFENDER)}
           isSelected={isSelected}
           isTargeted={isTargeted}
           size={size}
