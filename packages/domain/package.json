@@ -2,6 +2,7 @@
   "name": "@grudge/domain",
   "version": "2.0.8",
   "description": "Grudge domain models",
+  "homepage": "https://github.com/ddmills/grudge/blob/master/packages/domain/readme.md",
   "main": "index.js",
   "publishConfig": {
     "access": "public"

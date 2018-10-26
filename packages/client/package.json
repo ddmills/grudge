@@ -1,8 +1,9 @@
 {
   "name": "@grudge/client",
   "version": "2.0.9",
-  "main": "dist/main.js",
   "description": "React client for Grudge",
+  "homepage": "https://github.com/ddmills/grudge/blob/master/packages/client/readme.md",
+  "main": "dist/main.js",
   "scripts": {
     "dev": "webpack --mode development --watch --display minimal",
     "build": "webpack --mode production"

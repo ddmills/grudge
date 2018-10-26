@@ -2,6 +2,7 @@
   "name": "@grudge/components",
   "version": "2.0.9",
   "description": "React components for Grudge",
+  "homepage": "https://github.com/ddmills/grudge/blob/master/packages/components/readme.md",
   "main": "index.js",
   "dependencies": {
     "@grudge/data": "^2.0.9",

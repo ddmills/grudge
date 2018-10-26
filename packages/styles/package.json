@@ -2,6 +2,7 @@
   "name": "@grudge/styles",
   "version": "2.0.8",
   "description": "Sass mixins and variables for Grudge styles",
+  "homepage": "https://github.com/ddmills/grudge/blob/master/packages/styles/readme.md",
   "main": "index.scss",
   "publishConfig": {
     "access": "public"
