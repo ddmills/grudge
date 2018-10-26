@@ -1,6 +1,6 @@
 {
   "name": "@grudge/client",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "main": "dist/main.js",
   "description": "React client for Grudge",
   "scripts": {
@@ -11,8 +11,8 @@
     "dist"
   ],
   "dependencies": {
-    "@grudge/components": "^2.0.8",
-    "@grudge/data": "^2.0.8",
+    "@grudge/components": "^2.0.9",
+    "@grudge/data": "^2.0.9",
     "@grudge/domain": "^2.0.8",
     "@grudge/sdk": "^2.0.8",
     "@grudge/styles": "^2.0.8",

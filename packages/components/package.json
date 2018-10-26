@@ -1,10 +1,10 @@
 {
   "name": "@grudge/components",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "React components for Grudge",
   "main": "index.js",
   "dependencies": {
-    "@grudge/data": "^2.0.8",
+    "@grudge/data": "^2.0.9",
     "@grudge/domain": "^2.0.8",
     "@grudge/styles": "^2.0.8",
     "autobind-decorator": "^2.1.0",
