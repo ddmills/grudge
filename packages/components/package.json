@@ -1,13 +1,13 @@
 {
   "name": "@grudge/components",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "React components for Grudge",
   "homepage": "https://github.com/ddmills/grudge/blob/master/packages/components/readme.md",
   "main": "index.js",
   "dependencies": {
-    "@grudge/data": "^2.0.9",
-    "@grudge/domain": "^2.0.8",
-    "@grudge/styles": "^2.0.8",
+    "@grudge/data": "^2.0.10",
+    "@grudge/domain": "^2.0.10",
+    "@grudge/styles": "^2.0.10",
     "autobind-decorator": "^2.1.0",
     "classnames": "^2.2.6",
     "prop-types": "^15.6.2",

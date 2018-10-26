@@ -1,6 +1,6 @@
 {
   "name": "@grudge/domain",
-  "version": "2.0.8",
+  "version": "2.0.10",
   "description": "Grudge domain models",
   "homepage": "https://github.com/ddmills/grudge/blob/master/packages/domain/readme.md",
   "main": "index.js",

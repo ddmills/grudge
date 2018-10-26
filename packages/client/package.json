@@ -1,6 +1,6 @@
 {
   "name": "@grudge/client",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "React client for Grudge",
   "homepage": "https://github.com/ddmills/grudge/blob/master/packages/client/readme.md",
   "main": "dist/main.js",
@@ -12,11 +12,11 @@
     "dist"
   ],
   "dependencies": {
-    "@grudge/components": "^2.0.9",
-    "@grudge/data": "^2.0.9",
-    "@grudge/domain": "^2.0.8",
-    "@grudge/sdk": "^2.0.8",
-    "@grudge/styles": "^2.0.8",
+    "@grudge/components": "^2.0.10",
+    "@grudge/data": "^2.0.10",
+    "@grudge/domain": "^2.0.10",
+    "@grudge/sdk": "^2.0.10",
+    "@grudge/styles": "^2.0.10",
     "autobind-decorator": "^2.1.0",
     "browser-cookie": "^1.2.1",
     "browser-cookies": "^1.2.0",
