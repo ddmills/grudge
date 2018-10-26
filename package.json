@@ -62,7 +62,7 @@
     "workbox-build": "^3.4.1"
   },
   "dependencies": {
-    "@grudge/client": "^2.0.11",
+    "@grudge/client": "^2.0.12",
     "@grudge/server": "^2.0.11",
     "config": "^2.0.1",
     "dotenv": "^6.1.0",
