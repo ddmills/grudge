@@ -7,6 +7,7 @@
     "dev": "lerna run dev --parallel --stream --no-prefix",
     "bootstrap": "lerna bootstrap",
     "lint": "npm run eslint && npm run stylelint",
+    "publish": "npm run build && lerna publish && npm i @grudge/server @grudge/client -S",
     "eslint": "eslint **/*.js",
     "stylelint": "stylelint **/*.scss",
     "db:migrate": "knex migrate:latest",
@@ -60,8 +61,8 @@
     "workbox-build": "^3.4.1"
   },
   "dependencies": {
-    "@grudge/client": "^2.0.4",
-    "@grudge/server": "^2.0.7",
+    "@grudge/client": "^2.0.10",
+    "@grudge/server": "^2.0.10",
     "config": "^2.0.1",
     "dotenv": "^6.1.0",
     "knex": "^0.15.2",
