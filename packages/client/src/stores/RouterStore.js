@@ -86,7 +86,11 @@ export default class RouterStore {
       return this.navigate(match.name, match.params);
     }
 
-    window.location.href = target;
+    if (target.includes(window.location.hostname)) {
+      this.navigate('landing');
+    } else {
+      window.location.href = target;
+    }
   }
 
   buildUrl(name, params = {}) {
