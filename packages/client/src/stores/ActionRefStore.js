@@ -14,7 +14,7 @@ export default class ActionStore {
   static slotIndexLeft(card) {
     const currentSlot = card.slotIndex;
 
-    if (currentSlot && currentSlot > 1) {
+    if (currentSlot && currentSlot > 0) {
       return currentSlot - 1;
     }
   }
@@ -22,7 +22,7 @@ export default class ActionStore {
   static slotIndexRight(card) {
     const currentSlot = card.slotIndex;
 
-    if (currentSlot && currentSlot < 5) {
+    if (currentSlot && currentSlot < 6) {
       return currentSlot + 1;
     }
   }

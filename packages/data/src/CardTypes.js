@@ -197,16 +197,12 @@ const CardTypes = [
     traits: [
       {
         id: TraitIds.COST,
-        value: 6,
-      },
-      {
-        id: TraitIds.ATTACK,
-        value: 1,
+        value: 5,
       },
       {
         id: TraitIds.HEALTH,
-        value: 3,
-        max: 3,
+        value: 4,
+        max: 4,
       },
       {
         id: TraitIds.DEFENDER,
@@ -223,10 +219,7 @@ const CardTypes = [
     handActions: [
       playAction,
     ],
-    playActions: [
-      attackAction,
-      attackPlayerAction,
-    ],
+    playActions: [],
   },
   {
     id: 'cdt-otter',
