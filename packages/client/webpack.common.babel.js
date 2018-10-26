@@ -6,13 +6,11 @@ import WebpackPwaManifestPlugin from 'webpack-pwa-manifest';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import path from 'path';
 
-const isDebug = process.env.NODE_ENV === 'development';
-
-export default {
+export default (debug) => ({
   output: {
     publicPath: '/client/',
   },
-  devtool: isDebug ? 'eval-source-map' : 'source-map',
+  devtool: debug ? 'eval-source-map' : 'source-map',
   optimization: {
     minimizer: [
       new UglifyJsPlugin(),
@@ -43,12 +41,12 @@ export default {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [{
-          loader: isDebug ? 'style-loader' : MiniCssExtractPlugin.loader,
+          loader: debug ? 'style-loader' : MiniCssExtractPlugin.loader,
         }, {
           loader: 'css-loader',
           options: {
             modules: true,
-            sourceMap: isDebug,
+            sourceMap: debug,
             localIdentName: '[name]-[local]-[hash:base64:6]',
           },
         }, {
@@ -68,7 +66,7 @@ export default {
           {
             loader: 'html-loader',
             options: {
-              minimize: !isDebug,
+              minimize: !debug,
             },
           },
         ],
@@ -104,4 +102,4 @@ export default {
       ],
     }),
   ],
-};
+});

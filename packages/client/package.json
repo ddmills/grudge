@@ -5,8 +5,8 @@
   "homepage": "https://github.com/ddmills/grudge/blob/master/packages/client/readme.md",
   "main": "dist/main.js",
   "scripts": {
-    "dev": "webpack --mode development --watch --display minimal",
-    "build": "webpack --mode production"
+    "dev": "webpack --mode development --watch --config webpack.dev.babel.js --display minimal",
+    "build": "webpack --mode production --config webpack.prod.babel.js"
   },
   "files": [
     "dist"
