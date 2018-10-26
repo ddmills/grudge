@@ -102,7 +102,10 @@ export default class LobbyService {
   }
 
   static async list() {
-    return LobbyRepository.list();
+    return LobbyRepository.where({
+      isPublic: true,
+      countdownStartedAt: null,
+    });
   }
 
   static async join(user, lobbyId) {
