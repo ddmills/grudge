@@ -1,31 +1,21 @@
 export default class Model {
   constructor(props = {}) {
-    Object.assign(this, this.constructor.defaults, props);
-    Object.freeze(this);
-    Object.keys(this).forEach((key) => {
-      Object.freeze(this[key]);
-    });
+    Object.assign(this, this.constructor.defaults);
+    Object.assign(this, props);
   }
 
   static get defaults() {
-    return {};
+    return Object.entries(this.properties).reduce((o, [k, v]) => ({
+      ...o,
+      [k]: v.defaultValue,
+    }), {});
   }
 
-  get properties() {
-    return Object.keys(this).reduce((props, key) => ({
-      ...props,
-      [key]: this[key],
-    }), {});
+  static get properties() {
+    return {};
   }
 
   static create(overrides = {}) {
     return new this(overrides);
-  }
-
-  clone(overrides = {}) {
-    return this.constructor.create({
-      ...this.properties,
-      ...overrides,
-    });
   }
 }

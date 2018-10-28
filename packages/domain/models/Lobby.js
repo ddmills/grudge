@@ -1,6 +1,6 @@
-import Model from './Model';
+import BasicModel from './BasicModel';
 
-export default class Lobby extends Model {
+export default class Lobby extends BasicModel {
   static get defaults() {
     return {
       id: undefined,

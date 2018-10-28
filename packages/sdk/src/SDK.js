@@ -1,5 +1,5 @@
 import {
-  Card, CardType, User, Lobby,
+  Card, CardType, User, Lobby, Context,
 } from '@grudge/domain';
 import * as Events from '@grudge/api-events';
 import SocketFactory from './SocketFactory';
@@ -129,5 +129,13 @@ export default class SDK {
 
   listPlayedCardsForUser(userId) {
     return this.query(Events.CARD_PLAYED_LIST, { userId }).then(ResponseTransformer.toModel(Card));
+  }
+
+  listContexts() {
+    return this.query(Events.CONTEXT_LIST).then(ResponseTransformer.toModel(Context));
+  }
+
+  createContext() {
+    return this.query(Events.CONTEXT_CREATE).then(ResponseTransformer.toModel(Context));
   }
 }

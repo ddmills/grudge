@@ -1,6 +1,6 @@
-import Model from './Model';
+import BasicModel from './BasicModel';
 
-export default class OpenId extends Model {
+export default class OpenId extends BasicModel {
   static get defaults() {
     return {
       id: undefined,

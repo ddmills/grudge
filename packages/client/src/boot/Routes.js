@@ -6,6 +6,7 @@ import ProfileRoute from 'screens/Profile/ProfileRoute';
 import LobbyListRoute from 'screens/LobbyList/LobbyListRoute';
 import LobbyRoute from 'screens/Lobby/LobbyRoute';
 import LibraryRoute from 'screens/Library/LibraryRoute';
+import ContextListRoute from 'screens/ContextList/ContextListRoute';
 
 class AuthSteamRoute extends Route {
   name = 'auth-steam';
@@ -24,4 +25,5 @@ export default (stores) => ([
   new LobbyListRoute(stores),
   new LobbyRoute(stores),
   new LibraryRoute(stores),
+  new ContextListRoute(stores),
 ]);

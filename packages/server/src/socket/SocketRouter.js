@@ -7,6 +7,7 @@ import DeckController from './controllers/DeckController';
 import TurnController from './controllers/TurnController';
 import CardController from './controllers/CardController';
 import ActionController from './controllers/ActionController';
+import ContextController from './controllers/ContextController';
 
 const eventMap = [{
   event: Events.USER_GET,
@@ -32,6 +33,12 @@ const eventMap = [{
 }, {
   event: Events.LOBBY_LIST,
   handler: LobbyController.list,
+}, {
+  event: Events.CONTEXT_LIST,
+  handler: ContextController.list,
+}, {
+  event: Events.CONTEXT_CREATE,
+  handler: ContextController.create,
 }, {
   event: Events.LOBBY_TURN_END,
   handler: TurnController.endTurn,
