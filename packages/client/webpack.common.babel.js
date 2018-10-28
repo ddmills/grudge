@@ -10,7 +10,7 @@ export default (debug) => ({
   output: {
     publicPath: '/client/',
   },
-  devtool: debug ? 'eval-source-map' : 'source-map',
+  devtool: 'source-map',
   optimization: {
     minimizer: [
       new UglifyJsPlugin(),
