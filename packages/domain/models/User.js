@@ -8,6 +8,7 @@ export default class User extends BasicModel {
       displayName: '',
       avatar: '',
       lobbyId: undefined,
+      contextId: undefined,
       createdAt: undefined,
       turnOrder: undefined,
       money: 0,

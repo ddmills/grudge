@@ -2,7 +2,7 @@ import { action, observable } from 'mobx';
 import sdk from '@grudge/sdk';
 import autobind from 'autobind-decorator';
 
-export default class ContextListStore {
+export default class BrowseStore {
   @observable
   contexts = [];
 
@@ -22,9 +22,8 @@ export default class ContextListStore {
   @autobind
   createContext() {
     sdk.createContext().then(action((context) => {
-      console.log(context);
-      // this.routerStore.navigate('context', { contextId: context.id });
-      // this.contexts.unshift(context);
+      this.routerStore.navigate('game', { contextId: context.id });
+      this.contexts.unshift(context);
     }));
   }
 }

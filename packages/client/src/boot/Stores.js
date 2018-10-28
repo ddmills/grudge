@@ -4,6 +4,7 @@ import ConnectionStore from 'stores/ConnectionStore';
 import RouterStore from 'stores/RouterStore';
 import UserStore from 'stores/UserStore';
 import LobbyStore from 'stores/LobbyStore';
+import ContextStore from 'stores/ContextStore';
 import TurnStore from 'stores/TurnStore';
 import CardTypeStore from 'stores/CardTypeStore';
 import CardStore from 'stores/CardStore';
@@ -17,6 +18,7 @@ export default () => {
   const connectionStore = new ConnectionStore(authStore);
   const routerStore = new RouterStore(authStore);
   const lobbyStore = new LobbyStore(authStore, routerStore);
+  const contextStore = new ContextStore(authStore, routerStore);
   const userStore = new UserStore(authStore, lobbyStore);
   const turnStore = new TurnStore(lobbyStore, userStore);
   const cardTypeStore = new CardTypeStore();
@@ -32,6 +34,7 @@ export default () => {
     routerStore,
     userStore,
     lobbyStore,
+    contextStore,
     turnStore,
     cardTypeStore,
     cardStore,

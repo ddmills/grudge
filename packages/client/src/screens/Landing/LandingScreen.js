@@ -14,8 +14,11 @@ export default class LandingScreen extends Component {
           <ButtonLink to="library">
             Card Library
           </ButtonLink>
-          <ButtonLink to="lobbies">
-            Join a game
+          <ButtonLink to="browse">
+            Browse
+          </ButtonLink>
+          <ButtonLink to="lobbies" color="red">
+            Join a game (OLD)
           </ButtonLink>
         </ButtonGroup>
       </Page>

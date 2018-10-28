@@ -14,6 +14,17 @@ export default class ContextRepository extends ModelRepository {
 
   static idPrefix = 'ctx';
 
+  static async browse() {
+    const query = {
+      isPublic: true,
+      countdownStartedAt: null,
+    };
+
+    return DB.table(this.tableName).whereRaw(`
+      state @> '${JSON.stringify(query)}'
+    `);
+  }
+
   static async save(context) {
     if (context.id) {
       return this.update(context);

@@ -8,4 +8,8 @@ export default class ContextController {
   static async create({ user }) {
     return ContextService.create(user);
   }
+
+  static async join({ user, contextId }) {
+    return ContextService.join(user, contextId);
+  }
 }

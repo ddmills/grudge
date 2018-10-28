@@ -40,6 +40,9 @@ const eventMap = [{
   event: Events.CONTEXT_CREATE,
   handler: ContextController.create,
 }, {
+  event: Events.CONTEXT_JOIN,
+  handler: ContextController.join,
+}, {
   event: Events.LOBBY_TURN_END,
   handler: TurnController.endTurn,
 }, {

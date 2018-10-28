@@ -1,9 +1,10 @@
 import { Player } from '@grudge/domain';
 import ContextRepository from 'repositories/ContextRepository';
+import UserRepository from 'repositories/UserRepository';
 
 export default class ContextService {
   static async list() {
-    return [];
+    return ContextRepository.browse();
   }
 
   static async create(user) {
@@ -41,11 +42,18 @@ export default class ContextService {
       throw new Error('Game is already started');
     }
 
+    if (context.isFull) {
+      throw new Error('Game doesn\'t have enough room for additional player');
+    }
+
     const player = Player.createForUser(user);
 
     context.addPlayer(player);
 
     await ContextRepository.save(context);
+    await UserRepository.updateForId(user.id, {
+      contextId: context.id,
+    });
 
     return context;
   }

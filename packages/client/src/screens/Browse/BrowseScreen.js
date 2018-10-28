@@ -1,18 +1,19 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, ButtonGroup, Heading, List, ListItem, ButtonLink,
+  Button, ButtonGroup, Heading, List, ListItem,
 } from '@grudge/components';
 import { Context } from '@grudge/domain';
+import ButtonLink from 'components/ButtonLink/ButtonLink';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 
-@connect(({ contextListStore }) => ({
-  refreshContexts: contextListStore.refreshContexts,
-  createContext: contextListStore.createContext,
-  contexts: contextListStore.contexts,
+@connect(({ browseStore }) => ({
+  refreshContexts: browseStore.refreshContexts,
+  createContext: browseStore.createContext,
+  contexts: browseStore.contexts.slice(),
 }))
-export default class ContextListScreen extends Component {
+export default class BrowseScreen extends Component {
   static propTypes = {
     refreshContexts: PropTypes.func.isRequired,
     createContext: PropTypes.func.isRequired,
@@ -29,7 +30,7 @@ export default class ContextListScreen extends Component {
     return (
       <Page>
         <Heading>
-          Lobbies
+          Browse Games
         </Heading>
         <ButtonGroup>
           <Button onClick={refreshContexts}>
@@ -43,7 +44,8 @@ export default class ContextListScreen extends Component {
           {contexts.map((context) => (
             <ListItem key={context.id}>
               {context.id}
-              <ButtonLink to="context" params={{ contextId: context.id }}>
+              {' '}
+              <ButtonLink to="game" params={{ contextId: context.id }}>
                 join
               </ButtonLink>
             </ListItem>

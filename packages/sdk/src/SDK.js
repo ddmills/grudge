@@ -138,4 +138,9 @@ export default class SDK {
   createContext() {
     return this.query(Events.CONTEXT_CREATE).then(ResponseTransformer.toModel(Context));
   }
+
+  joinContext(contextId) {
+    return this.query(Events.CONTEXT_JOIN, { contextId })
+      .then(ResponseTransformer.toModel(Context));
+  }
 }

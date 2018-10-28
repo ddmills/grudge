@@ -4,12 +4,19 @@ import PlayerSerializer from './PlayerSerializer';
 
 export default class ContextSerializer extends Serializer {
   static serialize(context) {
+    const {
+      id,
+      createdAt,
+      players,
+      ...state
+    } = context;
+
     return {
-      id: context.id,
-      createdAt: context.createdAt,
+      id,
+      createdAt,
       state: {
-        players: PlayerSerializer.serializeAll(context.players),
-        currentTurn: context.currentTurn,
+        ...state,
+        players: PlayerSerializer.serializeAll(players),
       },
     };
   }
@@ -18,8 +25,8 @@ export default class ContextSerializer extends Serializer {
     return Context.create({
       id: data.id,
       createdAt: data.createdAt,
+      ...data.state,
       players: PlayerSerializer.deserializeAll(data.state.players),
-      currentTurn: data.state.currentTurn,
     });
   }
 }

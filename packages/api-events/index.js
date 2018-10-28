@@ -11,6 +11,7 @@ export const USER_MONEY_UPDATED = 'user/money/updated';
 export const USER_HEALTH_UPDATED = 'user/health/updated';
 export const CONTEXT_LIST = 'context/list';
 export const CONTEXT_CREATE = 'context/create';
+export const CONTEXT_JOIN = 'context/join';
 export const LOBBY_GET = 'lobby/get';
 export const LOBBY_USERS_GET = 'lobby/users/get';
 export const LOBBY_TURN_END = 'lobby/turn/end';
