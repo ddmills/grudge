@@ -1,8 +1,9 @@
 import { Player } from '@grudge/domain';
 import ContextRepository from 'repositories/ContextRepository';
 import UserRepository from 'repositories/UserRepository';
+import timestamp from 'utilities/Timestamp';
+import Logger from 'utilities/Logger';
 import NotificationService from './NotificationService';
-import Logger from '../utilities/Logger';
 
 export default class ContextService {
   static async list() {
@@ -82,5 +83,54 @@ export default class ContextService {
     NotificationService.onPlayerLeft(context, player);
 
     return context;
+  }
+
+  static async startCountdown(user) {
+    const { contextId } = user;
+
+    if (!contextId) {
+      return;
+    }
+
+    const context = await ContextRepository.get(contextId);
+
+    if (context.countdownStartedAt) {
+      throw new Error('Countdown has already started');
+    }
+
+    if (context.ownerId !== user.id) {
+      throw new Error('User does not have permission to start the game');
+    }
+
+    context.countdownStartedAt = timestamp();
+
+    await ContextRepository.save(context);
+
+    NotificationService.onCountdownStarted(context);
+    // LobbyProcessor.scheduleCountdown(updatedLobby);
+  }
+
+  static async stopCountdown(user) {
+    const { contextId } = user;
+
+    if (!contextId) {
+      return;
+    }
+
+    const context = await ContextRepository.get(contextId);
+
+    if (context.isStarted) {
+      throw new Error('Game has already started');
+    }
+
+    if (!context.isCountdownStarted) {
+      return context;
+    }
+
+    context.countdownStartedAt = null;
+
+    await ContextRepository.save(context);
+
+    NotificationService.onCountdownStopped(context);
   }
 }

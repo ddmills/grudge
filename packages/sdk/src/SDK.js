@@ -147,4 +147,12 @@ export default class SDK {
   leaveContext() {
     return this.query(Events.CONTEXT_LEAVE);
   }
+
+  startContextCountdown() {
+    return this.query(Events.CONTEXT_COUNTDOWN_START);
+  }
+
+  stopContextCountdown() {
+    return this.query(Events.CONTEXT_COUNTDOWN_STOP);
+  }
 }

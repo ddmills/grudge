@@ -47,6 +47,12 @@ const eventMap = [{
   event: Events.CONTEXT_LEAVE,
   handler: ContextController.leave,
 }, {
+  event: Events.CONTEXT_COUNTDOWN_START,
+  handler: ContextController.startCountdown,
+}, {
+  event: Events.CONTEXT_COUNTDOWN_STOP,
+  handler: ContextController.stopCountdown,
+}, {
   event: Events.LOBBY_TURN_END,
   handler: TurnController.endTurn,
 }, {

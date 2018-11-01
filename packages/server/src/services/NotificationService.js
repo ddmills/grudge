@@ -109,4 +109,12 @@ export default class NotificationService {
     this.notifyContext(context, Events.CONTEXT_PLAYER_LEFT, player.serialize());
     this.notifyPlayer(player.id, Events.CONTEXT_LEFT, context.serialize());
   }
+
+  static onCountdownStarted(context) {
+    this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STARTED, context.serialize());
+  }
+
+  static onCountdownStopped(context) {
+    this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STOPPED, context.serialize());
+  }
 }

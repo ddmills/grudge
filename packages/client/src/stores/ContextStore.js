@@ -13,6 +13,16 @@ export default class ContextStore {
     return this.context ? this.context.players : [];
   }
 
+  @computed
+  get isOwner() {
+    return this.context && this.context.ownerId === this.authStore.userId;
+  }
+
+  @computed
+  get isCountdownStarted() {
+    return this.context && this.context.isCountdownStarted;
+  }
+
   constructor(authStore, routerStore) {
     this.authStore = authStore;
     this.routerStore = routerStore;
@@ -21,6 +31,8 @@ export default class ContextStore {
     sdk.onLeftContext(this.onLeftContext);
     sdk.onPlayerJoined(this.onPlayerJoined);
     sdk.onPlayerLeft(this.onPlayerLeft);
+    sdk.onCountdownStarted(this.onCountdownStarted);
+    sdk.onCountdownStopped(this.onCountdownStopped);
   }
 
   joinContext(contextId) {
@@ -29,6 +41,24 @@ export default class ContextStore {
 
   leaveContext() {
     sdk.leaveContext().then(this.onLeftContext);
+  }
+
+  @computed
+  get startContextCountdown() {
+    if (this.isOwner && !this.isCountdownStarted) {
+      return () => sdk.startContextCountdown();
+    }
+
+    return undefined;
+  }
+
+  @computed
+  get stopContextCountdown() {
+    if (this.isCountdownStarted) {
+      return () => sdk.stopContextCountdown();
+    }
+
+    return undefined;
   }
 
   @action
@@ -54,5 +84,17 @@ export default class ContextStore {
     if (this.context) {
       this.context.removePlayer(player.id);
     }
+  }
+
+  @action
+  onCountdownStarted(context) {
+    console.log('countdown started!', context.countdownStartedAt);
+    this.context.countdownStartedAt = context.countdownStartedAt;
+  }
+
+  @action
+  onCountdownStopped(context) {
+    console.log('countdown stopped!');
+    this.context.countdownStartedAt = context.countdownStartedAt;
   }
 }

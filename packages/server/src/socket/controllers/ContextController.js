@@ -16,4 +16,12 @@ export default class ContextController {
   static async leave({ user }) {
     return ContextService.leave(user);
   }
+
+  static async startCountdown({ user }) {
+    return ContextService.startCountdown(user);
+  }
+
+  static async stopCountdown({ user }) {
+    return ContextService.stopCountdown(user);
+  }
 }

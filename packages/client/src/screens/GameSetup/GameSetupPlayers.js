@@ -1,7 +1,5 @@
 import { Component } from 'react';
-import {
-  Button, ButtonGroup, List, ListItem,
-} from '@grudge/components';
+import { List, ListItem } from '@grudge/components';
 import { Player } from '@grudge/domain';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';

@@ -33,6 +33,8 @@ export default class EventMap {
       new EventHook(Events.CONTEXT_PLAYER_LEFT, 'onPlayerLeft', ResponseTransformer.toModel(Player)),
       new EventHook(Events.CONTEXT_JOINED, 'onJoinedContext', ResponseTransformer.toModel(Context)),
       new EventHook(Events.CONTEXT_LEFT, 'onLeftContext', ResponseTransformer.toModel(Context)),
+      new EventHook(Events.CONTEXT_COUNTDOWN_STOPPED, 'onCountdownStopped', ResponseTransformer.toModel(Context)),
+      new EventHook(Events.CONTEXT_COUNTDOWN_STARTED, 'onCountdownStarted', ResponseTransformer.toModel(Context)),
     ];
   }
 }
