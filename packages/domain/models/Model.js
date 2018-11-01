@@ -26,6 +26,12 @@ export default class Model {
     return new this(overrides);
   }
 
+  set(key, value) {
+    Object.assign(this, {
+      [key]: value,
+    });
+  }
+
   serialize() {
     return this.attributes;
   }

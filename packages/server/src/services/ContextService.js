@@ -1,9 +1,10 @@
 import { Player } from '@grudge/domain';
 import ContextRepository from 'repositories/ContextRepository';
 import UserRepository from 'repositories/UserRepository';
+import NotificationService from 'services/NotificationService';
+import DelayedProcessor from 'services/DelayedProcessor';
 import timestamp from 'utilities/Timestamp';
 import Logger from 'utilities/Logger';
-import NotificationService from './NotificationService';
 
 export default class ContextService {
   static async list() {
@@ -87,12 +88,12 @@ export default class ContextService {
       throw new Error('User does not have permission to start the game');
     }
 
-    context.countdownStartedAt = timestamp();
+    context.set('countdownStartedAt', timestamp());
 
     await ContextRepository.save(context);
 
     NotificationService.onCountdownStarted(context);
-    // LobbyProcessor.scheduleCountdown(updatedLobby);
+    DelayedProcessor.scheduleCountdown(context);
   }
 
   static async stopCountdown(user, context) {
@@ -104,10 +105,15 @@ export default class ContextService {
       return context;
     }
 
-    context.countdownStartedAt = null;
+    context.set('countdownStartedAt', null);
 
+    await DelayedProcessor.cancelCountdown(context);
     await ContextRepository.save(context);
 
     NotificationService.onCountdownStopped(context);
+  }
+
+  static async start(contextId) {
+    Logger.info('START CONTEXT', contextId);
   }
 }

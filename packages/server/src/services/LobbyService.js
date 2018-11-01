@@ -4,7 +4,7 @@ import DeckService from 'services/DeckService';
 import NotificationService from 'services/NotificationService';
 import timestamp from 'utilities/Timestamp';
 import Random from 'utilities/Random';
-import LobbyProcessor from './LobbyProcessor';
+import DelayedProcessor from './DelayedProcessor';
 
 export default class LobbyService {
   static async get(lobbyId) {
@@ -55,7 +55,7 @@ export default class LobbyService {
     await DeckService.drawHands(lobbyId);
 
     NotificationService.onLobbyStarted(updatedLobby);
-    LobbyProcessor.scheduleTurn(updatedLobby);
+    DelayedProcessor.scheduleTurn(updatedLobby);
 
     return updatedLobby;
   }
@@ -78,7 +78,7 @@ export default class LobbyService {
     const updatedLobby = await LobbyRepository.get(lobby.id);
 
     NotificationService.onLobbyCountdownStarted(updatedLobby);
-    LobbyProcessor.scheduleCountdown(updatedLobby);
+    DelayedProcessor.scheduleCountdown(updatedLobby);
   }
 
   static async stopCountdown(user) {

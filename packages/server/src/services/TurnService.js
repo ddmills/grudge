@@ -2,7 +2,7 @@ import UserRepository from 'repositories/UserRepository';
 import LobbyRepository from 'repositories/LobbyRepository';
 import NotificationService from 'services/NotificationService';
 import DeckService from 'services/DeckService';
-import LobbyProcessor from 'services/LobbyProcessor';
+import DelayedProcessor from 'services/DelayedProcessor';
 import timestamp from 'utilities/Timestamp';
 import CardService from 'services/CardService';
 
@@ -16,7 +16,7 @@ export default class TurnService {
     await LobbyRepository.save(updatedLobby);
 
     NotificationService.onTurnEnded(updatedLobby);
-    LobbyProcessor.scheduleTurn(updatedLobby);
+    DelayedProcessor.scheduleTurn(updatedLobby);
 
     return updatedLobby;
   }

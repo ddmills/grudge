@@ -88,13 +88,11 @@ export default class ContextStore {
 
   @action
   onCountdownStarted(context) {
-    console.log('countdown started!', context.countdownStartedAt);
-    this.context.countdownStartedAt = context.countdownStartedAt;
+    this.context.set('countdownStartedAt', context.countdownStartedAt);
   }
 
   @action
   onCountdownStopped(context) {
-    console.log('countdown stopped!');
-    this.context.countdownStartedAt = context.countdownStartedAt;
+    this.context.set('countdownStartedAt', context.countdownStartedAt);
   }
 }
