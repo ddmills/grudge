@@ -1,6 +1,5 @@
 import { DB } from 'services/StorageService';
 import { Context } from '@grudge/domain';
-import { ContextSerializer } from '@grudge/domain/serializers';
 import Logger from 'utilities/Logger';
 import autobind from 'autobind-decorator';
 import cuid from 'cuid';
@@ -33,7 +32,7 @@ export default class ContextRepository extends ModelRepository {
     const id = `${this.idPrefix}-${cuid()}`;
 
     try {
-      const serialized = ContextSerializer.serialize(context);
+      const serialized = context.serialize();
 
       await DB.table(this.tableName).insert({
         createdAt: serialized.createdAt,
@@ -58,7 +57,7 @@ export default class ContextRepository extends ModelRepository {
 
   static async update(context) {
     try {
-      const serialized = ContextSerializer.serialize(context);
+      const serialized = context.serialize();
 
       await DB
         .table(this.tableName)
@@ -87,7 +86,7 @@ export default class ContextRepository extends ModelRepository {
         return Promise.reject(error);
       }
 
-      const context = ContextSerializer.deserialize(data);
+      const context = Context.deserialize(data);
 
       return Promise.resolve(context);
     } catch (error) {

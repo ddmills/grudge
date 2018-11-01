@@ -11,7 +11,7 @@ export default class ResponseTransformer {
       return response.map((chunk) => this.transform(ModelClass, chunk));
     }
 
-    return ModelClass.create(response);
+    return ModelClass.deserialize(response);
   }
 
   static toModel(ModelClass) {

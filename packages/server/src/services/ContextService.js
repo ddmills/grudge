@@ -1,6 +1,8 @@
 import { Player } from '@grudge/domain';
 import ContextRepository from 'repositories/ContextRepository';
 import UserRepository from 'repositories/UserRepository';
+import NotificationService from './NotificationService';
+import Logger from '../utilities/Logger';
 
 export default class ContextService {
   static async list() {
@@ -54,6 +56,30 @@ export default class ContextService {
     await UserRepository.updateForId(user.id, {
       contextId: context.id,
     });
+
+    NotificationService.onPlayerJoined(context, player);
+
+    return context;
+  }
+
+  static async leave(user) {
+    const { contextId } = user;
+
+    if (!contextId) {
+      return;
+    }
+
+    const context = await ContextRepository.get(contextId);
+    const player = context.getPlayer(user.id);
+
+    context.removePlayer(player.id);
+
+    await ContextRepository.save(context);
+    await UserRepository.updateForId(user.id, {
+      contextId: null,
+    });
+
+    NotificationService.onPlayerLeft(context, player);
 
     return context;
   }

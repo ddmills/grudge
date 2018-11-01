@@ -1,10 +1,6 @@
 export default class BasicModel {
   constructor(props = {}) {
     Object.assign(this, this.constructor.defaults, props);
-    Object.freeze(this);
-    Object.keys(this).forEach((key) => {
-      Object.freeze(this[key]);
-    });
   }
 
   static get defaults() {
@@ -27,5 +23,9 @@ export default class BasicModel {
       ...this.properties,
       ...overrides,
     });
+  }
+
+  static deserialize(data) {
+    return this.create(data);
   }
 }

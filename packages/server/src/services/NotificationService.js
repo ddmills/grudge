@@ -23,6 +23,17 @@ export default class NotificationService {
     });
   }
 
+  static async notifyPlayer(playerId, event, data) {
+    Logger.info('emit', event, playerId, data ? data.id : 'NO DATA');
+    SocketEmitter.to(playerId).emit(event, data);
+  }
+
+  static async notifyContext(context, event, data) {
+    context.players.forEach((player) => {
+      this.notifyPlayer(player.id, event, data);
+    });
+  }
+
   static onUserJoinedLobby(lobby, user) {
     this.notifyLobby(lobby.id, Events.LOBBY_USER_JOINED, user.properties);
     this.notifyUser(user.id, Events.LOBBY_JOINED, lobby.properties);
@@ -87,5 +98,15 @@ export default class NotificationService {
 
   static onLobbyEnded(lobby) {
     this.notifyLobby(lobby.id, Events.LOBBY_ENDED, lobby.properties);
+  }
+
+  static onPlayerJoined(context, player) {
+    this.notifyContext(context, Events.CONTEXT_PLAYER_JOINED, player.serialize());
+    this.notifyPlayer(player.id, Events.CONTEXT_JOINED, context.serialize());
+  }
+
+  static onPlayerLeft(context, player) {
+    this.notifyContext(context, Events.CONTEXT_PLAYER_LEFT, player.serialize());
+    this.notifyPlayer(player.id, Events.CONTEXT_LEFT, context.serialize());
   }
 }

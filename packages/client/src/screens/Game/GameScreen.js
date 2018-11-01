@@ -1,30 +1,30 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { LoadingIndicator } from '@grudge/components';
+import { LoadingIndicator, CodeBlock, Button } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { Context } from '@grudge/domain';
+import GameSetupScreen from 'screens/GameSetup/GameSetupScreen';
 import Redirect from 'components/Redirect/Redirect';
 
 @connect(({ contextStore }) => ({
-  context: contextStore.context,
-  error: contextStore.error,
+  ctx: contextStore.context,
 }))
 export default class GameScreen extends Component {
   static propTypes = {
-    context: PropTypes.instanceOf(Context),
+    ctx: PropTypes.instanceOf(Context),
   }
 
   static defaultProps = {
-    context: null,
+    ctx: null,
   }
 
   render() {
     const {
-      context,
+      ctx,
     } = this.props;
 
-    if (!context) {
+    if (!ctx) {
       return (
         <Page>
           <LoadingIndicator/>
@@ -32,38 +32,34 @@ export default class GameScreen extends Component {
       );
     }
 
-    if (context.isSettingUp) {
-      return (
-        <Page>
-          {'isSettingUp'}
-        </Page>
-      );
+    if (ctx.isSettingUp) {
+      return <GameSetupScreen/>;
     }
 
-    if (context.isRunning) {
+    if (ctx.isRunning) {
       return (
         <Page>
           {'isRunning'}
+          <CodeBlock>
+            {ctx}
+          </CodeBlock>
         </Page>
       );
     }
 
-    if (context.isEnded) {
+    if (ctx.isEnded) {
       return (
         <Page>
           {'isEnded'}
+          <CodeBlock>
+            {ctx}
+          </CodeBlock>
         </Page>
       );
     }
 
     return (
-      <Page>
-        {'yo'}
-      </Page>
+      <Redirect to="landing"/>
     );
-
-    // return (
-    //   <Redirect to="landing"/>
-    // );
   }
 }

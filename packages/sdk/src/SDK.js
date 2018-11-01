@@ -143,4 +143,8 @@ export default class SDK {
     return this.query(Events.CONTEXT_JOIN, { contextId })
       .then(ResponseTransformer.toModel(Context));
   }
+
+  leaveContext() {
+    return this.query(Events.CONTEXT_LEAVE);
+  }
 }

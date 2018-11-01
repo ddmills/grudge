@@ -1,7 +1,7 @@
 import Model from './Model';
 
 export default class Player extends Model {
-  static get properties() {
+  static get schema() {
     return {
       id: {
         defaultValue: undefined,
@@ -25,7 +25,7 @@ export default class Player extends Model {
   }
 
   static createForUser(user) {
-    return new Player({
+    return this.create({
       id: user.id,
       userId: user.id,
       displayName: user.displayName,

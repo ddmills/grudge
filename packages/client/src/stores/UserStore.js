@@ -36,6 +36,8 @@ export default class UserStore {
 
     sdk.onUserJoinedLobby(this.addUser);
     sdk.onUserLeftLobby(this.removeUser);
+    sdk.onJoinedContext(this.onJoinedContext);
+    sdk.onLeftContext(this.onLeftContext);
     sdk.onLobbyStarted(this.fetchUsers);
     sdk.onUserMoneyUpdated(this.updateUser);
     sdk.onUserHealthUpdated(this.updateUser);
@@ -105,5 +107,15 @@ export default class UserStore {
     } else {
       this.setCurrentUser();
     }
+  }
+
+  @action
+  onJoinedContext(contextId) {
+    this.currentUser.contextId = contextId;
+  }
+
+  @action
+  onLeftContext() {
+    this.currentUser.contextId = null;
   }
 }

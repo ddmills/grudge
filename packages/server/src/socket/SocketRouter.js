@@ -1,4 +1,5 @@
 import * as Events from '@grudge/api-events';
+import { Model } from '@grudge/domain';
 import Logger from 'utilities/Logger';
 import UserController from './controllers/UserController';
 import LobbyController from './controllers/LobbyController';
@@ -43,6 +44,9 @@ const eventMap = [{
   event: Events.CONTEXT_JOIN,
   handler: ContextController.join,
 }, {
+  event: Events.CONTEXT_LEAVE,
+  handler: ContextController.leave,
+}, {
   event: Events.LOBBY_TURN_END,
   handler: TurnController.endTurn,
 }, {
@@ -71,7 +75,17 @@ export default class SocketRouter {
       try {
         const result = await handler(params, socket);
 
-        callback(null, result);
+        if (result instanceof Model) {
+          callback(null, result.serialize());
+        } else if (Array.isArray(result) && result.length > 0) {
+          if (result[0] instanceof Model) {
+            callback(null, result.serialize());
+          } else {
+            callback(null, result);
+          }
+        } else {
+          callback(null, result);
+        }
       } catch (error) {
         Logger.error(error);
 

@@ -1,27 +1,58 @@
-import {
-  autorun, action, observable, computed,
-} from 'mobx';
+import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
-import MobXCountdownTimer from 'utilities/mobx/MobXCountdownTimer';
+import observeClass from 'utilities/mobx/ObservableClass';
 
 @autobind
-export default class LobbyStore {
+export default class ContextStore {
   @observable
   context = null;
+
+  @computed
+  get players() {
+    return this.context ? this.context.players : [];
+  }
 
   constructor(authStore, routerStore) {
     this.authStore = authStore;
     this.routerStore = routerStore;
-  }
 
-  @action
-  setContext(context = null) {
-    this.context = context;
-    console.log(context);
+    sdk.onJoinedContext(this.onJoinedContext);
+    sdk.onLeftContext(this.onLeftContext);
+    sdk.onPlayerJoined(this.onPlayerJoined);
+    sdk.onPlayerLeft(this.onPlayerLeft);
   }
 
   joinContext(contextId) {
-    sdk.joinContext(contextId).then(this.setContext);
+    sdk.joinContext(contextId).then(this.onJoinedContext);
+  }
+
+  leaveContext() {
+    sdk.leaveContext().then(this.onLeftContext);
+  }
+
+  @action
+  onLeftContext() {
+    this.context = null;
+    this.routerStore.navigate('landing');
+  }
+
+  @action
+  onJoinedContext(context) {
+    this.context = observeClass(context);
+  }
+
+  @action
+  onPlayerJoined(player) {
+    if (this.context) {
+      this.context.addPlayer(player);
+    }
+  }
+
+  @action
+  onPlayerLeft(player) {
+    if (this.context) {
+      this.context.removePlayer(player.id);
+    }
   }
 }

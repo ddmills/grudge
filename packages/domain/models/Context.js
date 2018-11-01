@@ -1,7 +1,8 @@
 import Model from './Model';
+import { ContextSerializer } from '../serializers/index';
 
 export default class Context extends Model {
-  static get properties() {
+  static get schema() {
     return {
       id: {
         defaultValue: undefined,
@@ -38,11 +39,20 @@ export default class Context extends Model {
   }
 
   addPlayer(player) {
-    this.players.push(player);
+    if (this.getPlayer(player.id)) {
+      this.removePlayer(player.id);
+      this.players.push(player);
+    } else {
+      this.players.push(player);
+    }
+  }
+
+  removePlayer(playerId) {
+    this.players = this.players.filter((p) => p.id !== playerId);
   }
 
   getPlayer(id) {
-    this.players.find((p) => p.id === id);
+    return this.players.find((p) => p.id === id);
   }
 
   get isCountdownStarted() {
@@ -71,5 +81,13 @@ export default class Context extends Model {
 
   get isFull() {
     return this.players.length >= this.maxNumberOfPlayers;
+  }
+
+  serialize() {
+    return ContextSerializer.serialize(this);
+  }
+
+  static deserialize(data) {
+    return ContextSerializer.deserialize(data);
   }
 }

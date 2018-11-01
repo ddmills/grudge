@@ -12,4 +12,8 @@ export default class ContextController {
   static async join({ user, contextId }) {
     return ContextService.join(user, contextId);
   }
+
+  static async leave({ user }) {
+    return ContextService.leave(user);
+  }
 }
