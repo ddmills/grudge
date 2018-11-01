@@ -21,6 +21,7 @@ export const CONTEXT_COUNTDOWN_STARTED = 'context/countdown/started';
 export const CONTEXT_COUNTDOWN_STOPPED = 'context/countdown/stopped';
 export const CONTEXT_PLAYER_JOINED = 'context/players/joined';
 export const CONTEXT_PLAYER_LEFT = 'context/players/left';
+export const CONTEXT_STARTED = 'context/started';
 export const LOBBY_GET = 'lobby/get';
 export const LOBBY_USERS_GET = 'lobby/users/get';
 export const LOBBY_TURN_END = 'lobby/turn/end';

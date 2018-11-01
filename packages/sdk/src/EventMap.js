@@ -35,6 +35,7 @@ export default class EventMap {
       new EventHook(Events.CONTEXT_LEFT, 'onLeftContext', ResponseTransformer.toModel(Context)),
       new EventHook(Events.CONTEXT_COUNTDOWN_STOPPED, 'onCountdownStopped', ResponseTransformer.toModel(Context)),
       new EventHook(Events.CONTEXT_COUNTDOWN_STARTED, 'onCountdownStarted', ResponseTransformer.toModel(Context)),
+      new EventHook(Events.CONTEXT_STARTED, 'onContextStarted', ResponseTransformer.toModel(Context)),
     ];
   }
 }

@@ -33,6 +33,7 @@ export default class ContextStore {
     sdk.onPlayerLeft(this.onPlayerLeft);
     sdk.onCountdownStarted(this.onCountdownStarted);
     sdk.onCountdownStopped(this.onCountdownStopped);
+    sdk.onContextStarted(this.onContextStarted);
   }
 
   joinContext(contextId) {
@@ -94,5 +95,12 @@ export default class ContextStore {
   @action
   onCountdownStopped(context) {
     this.context.set('countdownStartedAt', context.countdownStartedAt);
+  }
+
+  @action
+  onContextStarted(context) {
+    this.context.set('players', context.players);
+    this.context.set('startedAt', context.startedAt);
+    this.context.set('turnStartedAt', context.turnStartedAt);
   }
 }

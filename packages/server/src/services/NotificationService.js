@@ -117,4 +117,8 @@ export default class NotificationService {
   static onCountdownStopped(context) {
     this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STOPPED, context.serialize());
   }
+
+  static onContextStarted(context) {
+    this.notifyContext(context, Events.CONTEXT_STARTED, context.serialize());
+  }
 }

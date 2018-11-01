@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { LoadingIndicator, CodeBlock, Button } from '@grudge/components';
+import { LoadingIndicator, CodeBlock } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { Context } from '@grudge/domain';
 import GameSetupScreen from 'screens/GameSetup/GameSetupScreen';
+import GamePlayScreen from 'screens/GamePlay/GamePlayScreen';
 import Redirect from 'components/Redirect/Redirect';
 
 @connect(({ contextStore }) => ({
@@ -37,14 +38,7 @@ export default class GameScreen extends Component {
     }
 
     if (ctx.isRunning) {
-      return (
-        <Page>
-          {'isRunning'}
-          <CodeBlock>
-            {ctx}
-          </CodeBlock>
-        </Page>
-      );
+      return <GamePlayScreen/>;
     }
 
     if (ctx.isEnded) {

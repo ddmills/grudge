@@ -4,7 +4,7 @@ import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
 import DelayedProcessor from 'services/DelayedProcessor';
 import timestamp from 'utilities/Timestamp';
-import Logger from 'utilities/Logger';
+import Random from 'utilities/Random';
 
 export default class ContextService {
   static async list() {
@@ -114,6 +114,34 @@ export default class ContextService {
   }
 
   static async start(contextId) {
-    Logger.info('START CONTEXT', contextId);
+    const context = await ContextRepository.get(contextId);
+
+    if (!context.isCountdownStarted) {
+      throw new Error('Game countdown has been cancelled');
+    }
+
+    if (context.isStarted) {
+      throw new Error('Game has already started');
+    }
+
+    context.set('players', Random.shuffle(context.players));
+
+    context.players.forEach((p, idx) => {
+      p.set('turnOrder', idx);
+      p.set('money', 3);
+      p.set('health', 16);
+    });
+
+    context.set('startedAt', timestamp());
+    context.set('turnStartedAt', timestamp());
+
+    await ContextRepository.save(context);
+    // await DeckService.createStarterDecks(lobbyId);
+    // await DeckService.drawHands(lobbyId);
+
+    NotificationService.onContextStarted(context);
+    // DelayedProcessor.scheduleTurn(updatedLobby);
+
+    return context;
   }
 }
