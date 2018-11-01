@@ -13,15 +13,15 @@ export default class ContextController {
     return ContextService.join(user, contextId);
   }
 
-  static async leave({ user }) {
-    return ContextService.leave(user);
+  static async leave({ user, context }) {
+    return ContextService.leave(user, context);
   }
 
-  static async startCountdown({ user }) {
-    return ContextService.startCountdown(user);
+  static async startCountdown({ user, context }) {
+    return ContextService.startCountdown(user, context);
   }
 
-  static async stopCountdown({ user }) {
-    return ContextService.stopCountdown(user);
+  static async stopCountdown({ user, context }) {
+    return ContextService.stopCountdown(user, context);
   }
 }

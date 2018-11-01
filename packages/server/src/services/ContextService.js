@@ -63,14 +63,7 @@ export default class ContextService {
     return context;
   }
 
-  static async leave(user) {
-    const { contextId } = user;
-
-    if (!contextId) {
-      return;
-    }
-
-    const context = await ContextRepository.get(contextId);
+  static async leave(user, context) {
     const player = context.getPlayer(user.id);
 
     context.removePlayer(player.id);
@@ -85,15 +78,7 @@ export default class ContextService {
     return context;
   }
 
-  static async startCountdown(user) {
-    const { contextId } = user;
-
-    if (!contextId) {
-      return;
-    }
-
-    const context = await ContextRepository.get(contextId);
-
+  static async startCountdown(user, context) {
     if (context.countdownStartedAt) {
       throw new Error('Countdown has already started');
     }
@@ -110,15 +95,7 @@ export default class ContextService {
     // LobbyProcessor.scheduleCountdown(updatedLobby);
   }
 
-  static async stopCountdown(user) {
-    const { contextId } = user;
-
-    if (!contextId) {
-      return;
-    }
-
-    const context = await ContextRepository.get(contextId);
-
+  static async stopCountdown(user, context) {
     if (context.isStarted) {
       throw new Error('Game has already started');
     }

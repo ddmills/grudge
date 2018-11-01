@@ -9,6 +9,7 @@ import TurnController from './controllers/TurnController';
 import CardController from './controllers/CardController';
 import ActionController from './controllers/ActionController';
 import ContextController from './controllers/ContextController';
+import ContextRepository from '../repositories/ContextRepository';
 
 const eventMap = [{
   event: Events.USER_GET,
@@ -46,12 +47,15 @@ const eventMap = [{
 }, {
   event: Events.CONTEXT_LEAVE,
   handler: ContextController.leave,
+  hydrateContext: true,
 }, {
   event: Events.CONTEXT_COUNTDOWN_START,
   handler: ContextController.startCountdown,
+  hydrateContext: true,
 }, {
   event: Events.CONTEXT_COUNTDOWN_STOP,
   handler: ContextController.stopCountdown,
+  hydrateContext: true,
 }, {
   event: Events.LOBBY_TURN_END,
   handler: TurnController.endTurn,
@@ -76,10 +80,28 @@ const eventMap = [{
 }];
 
 export default class SocketRouter {
-  static wrapResponse(handler, socket) {
+  static async hydrateParams(mapping, params) {
+    if (!mapping.hydrateContext) {
+      return params;
+    }
+
+    if (!params.user.contextId) {
+      throw new Error('User is not in a game');
+    }
+
+    const context = await ContextRepository.get(params.user.contextId);
+
+    return {
+      ...params,
+      context,
+    };
+  }
+
+  static wrapResponse(mapping, socket) {
     return async (params, callback) => {
       try {
-        const result = await handler(params, socket);
+        const hydratedParams = await this.hydrateParams(mapping, params);
+        const result = await mapping.handler(hydratedParams, socket);
 
         if (result instanceof Model) {
           callback(null, result.serialize());
@@ -102,7 +124,7 @@ export default class SocketRouter {
 
   static attachListeners(socket) {
     eventMap.forEach((mapping) => {
-      socket.on(mapping.event, SocketRouter.wrapResponse(mapping.handler, socket));
+      socket.on(mapping.event, SocketRouter.wrapResponse(mapping, socket));
     });
   }
 }
