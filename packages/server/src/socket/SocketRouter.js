@@ -104,10 +104,10 @@ export default class SocketRouter {
         const result = await mapping.handler(hydratedParams, socket);
 
         if (result instanceof Model) {
-          callback(null, result.serialize());
+          callback(null, result.serialize(params.user));
         } else if (Array.isArray(result) && result.length > 0) {
           if (result[0] instanceof Model) {
-            callback(null, result.serialize());
+            callback(null, result.serialize(params.user));
           } else {
             callback(null, result);
           }

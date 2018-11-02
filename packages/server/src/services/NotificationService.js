@@ -1,6 +1,7 @@
 import SocketEmitter from 'providers/socketio/SocketEmitter';
 import UserLobbyRepository from 'repositories/UserLobbyRepository';
 import * as Events from '@grudge/api-events';
+import { Model } from '@grudge/domain';
 import autobind from 'autobind-decorator';
 import Logger from 'utilities/Logger';
 
@@ -23,14 +24,16 @@ export default class NotificationService {
     });
   }
 
-  static async notifyPlayer(playerId, event, data) {
-    Logger.info('emit', event, playerId, data ? data.id : 'NO DATA');
-    SocketEmitter.to(playerId).emit(event, data);
+  static async notifyPlayer(player, event, data) {
+    Logger.info('emit', event, player.id, data ? data.id : 'NO_DATA');
+    const serialized = data instanceof Model ? data.serialize(player) : data;
+
+    SocketEmitter.to(player.id).emit(event, serialized);
   }
 
-  static async notifyContext(context, event, data) {
+  static async notifyContext(context, event, model) {
     context.players.forEach((player) => {
-      this.notifyPlayer(player.id, event, data);
+      this.notifyPlayer(player, event, model);
     });
   }
 
@@ -101,24 +104,24 @@ export default class NotificationService {
   }
 
   static onPlayerJoined(context, player) {
-    this.notifyContext(context, Events.CONTEXT_PLAYER_JOINED, player.serialize());
-    this.notifyPlayer(player.id, Events.CONTEXT_JOINED, context.serialize());
+    this.notifyContext(context, Events.CONTEXT_PLAYER_JOINED, player);
+    this.notifyPlayer(player, Events.CONTEXT_JOINED, context);
   }
 
   static onPlayerLeft(context, player) {
-    this.notifyContext(context, Events.CONTEXT_PLAYER_LEFT, player.serialize());
-    this.notifyPlayer(player.id, Events.CONTEXT_LEFT, context.serialize());
+    this.notifyContext(context, Events.CONTEXT_PLAYER_LEFT, player);
+    this.notifyPlayer(player, Events.CONTEXT_LEFT, context);
   }
 
   static onCountdownStarted(context) {
-    this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STARTED, context.serialize());
+    this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STARTED, context);
   }
 
   static onCountdownStopped(context) {
-    this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STOPPED, context.serialize());
+    this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STOPPED, context);
   }
 
   static onContextStarted(context) {
-    this.notifyContext(context, Events.CONTEXT_STARTED, context.serialize());
+    this.notifyContext(context, Events.CONTEXT_STARTED, context);
   }
 }

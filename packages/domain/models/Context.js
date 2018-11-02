@@ -86,8 +86,8 @@ export default class Context extends Model {
     return this.players.length >= this.maxNumberOfPlayers;
   }
 
-  serialize() {
-    return ContextSerializer.serialize(this);
+  serialize(user) {
+    return ContextSerializer.serialize(this, user);
   }
 
   static deserialize(data) {

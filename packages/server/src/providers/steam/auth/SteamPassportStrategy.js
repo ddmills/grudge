@@ -24,8 +24,6 @@ const isDev = config.get('env') === 'development';
 const base = `${protocol}://${host}`;
 const url = isDev ? `${base}:${port}` : base;
 
-Logger.debug('Steam return URL', config.get('env'), url);
-
 const steamOptions = {
   returnURL: `${url}/sign-in/steam/return`,
   realm: url,
