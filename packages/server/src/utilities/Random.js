@@ -1,4 +1,5 @@
 import RandomJS from 'random-js';
+import cuid from 'cuid';
 
 const generator = new RandomJS();
 
@@ -33,6 +34,14 @@ export default class Random {
 
   static uuid() {
     return generator.uuid4();
+  }
+
+  static cuid() {
+    return cuid();
+  }
+
+  static id(prefix) {
+    return `${prefix}-${cuid()}`;
   }
 
   static bool(percentage) {

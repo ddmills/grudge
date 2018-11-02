@@ -23,6 +23,9 @@ export default class Context extends Model {
       players: {
         defaultValue: [],
       },
+      cards: {
+        defaultValue: [],
+      },
       maxNumberOfPlayers: {
         defaultValue: 3,
       },

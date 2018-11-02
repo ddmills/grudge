@@ -1,21 +1,41 @@
-import BasicModel from './BasicModel';
+import Model from './Model';
 
-export default class Card extends BasicModel {
-  static get defaults() {
+export default class Card extends Model {
+  static get schema() {
     return {
-      id: undefined,
-      cardTypeId: undefined,
-      deckId: undefined,
-      userId: undefined,
-      lobbyId: undefined,
-      createdAt: undefined,
-      isDrawn: false,
-      isDiscarded: false,
-      isTrashed: false,
-      slotIndex: undefined,
-      traits: [],
-      handActions: [],
-      playActions: [],
+      id: {
+        defaultValue: undefined,
+      },
+      cardTypeId: {
+        defaultValue: undefined,
+      },
+      deckId: {
+        defaultValue: undefined,
+      },
+      playerId: {
+        defaultValue: undefined,
+      },
+      isDrawn: {
+        defaultValue: false,
+      },
+      isDiscarded: {
+        defaultValue: false,
+      },
+      isTrashed: {
+        defaultValue: false,
+      },
+      slotIndex: {
+        defaultValue: undefined,
+      },
+      traits: {
+        defaultValue: [],
+      },
+      handActions: {
+        defaultValue: [],
+      },
+      playActions: {
+        defaultValue: [],
+      },
     };
   }
 
@@ -35,8 +55,8 @@ export default class Card extends BasicModel {
     return this.traits.find((trait) => trait.id === traitId);
   }
 
-  isOwnedBy(userId) {
-    return this.userId === userId;
+  isOwnedBy(playerId) {
+    return this.playerId === playerId;
   }
 
   get isPlayed() {

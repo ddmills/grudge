@@ -99,6 +99,7 @@ export default class ContextStore {
 
   @action
   onContextStarted(context) {
+    console.log('ON CONTEXT STARTED', context);
     this.context.set('players', context.players);
     this.context.set('startedAt', context.startedAt);
     this.context.set('turnStartedAt', context.turnStartedAt);

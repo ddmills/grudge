@@ -6,30 +6,62 @@ import UserRepository from 'repositories/UserRepository';
 import UserService from 'services/UserService';
 import CardService from 'services/CardService';
 import Random from 'utilities/Random';
+import { Card } from '@grudge/domain';
 
 const HAND_CARD_COUNT = 5;
+const STARTING_CARD_TYPES = [
+  'cdt-praying-mantis',
+  'cdt-otter',
+  'cdt-toad',
+  'cdt-stoat',
+  'cdt-stoat',
+  'cdt-stoat',
+  'cdt-goose',
+  'cdt-goose',
+  'cdt-goose',
+  'cdt-goose',
+];
 
 export default class DeckService {
+  static async createCardForPlayer(player, cardTypeId) {
+    const cardType = await CardTypeRepository.get(cardTypeId);
+
+    return Card.create({
+      id: Random.id('crd'),
+      cardTypeId: cardType.id,
+      playerId: player.id,
+      traits: cardType.traits,
+      playActions: cardType.playActions,
+      handActions: cardType.handActions,
+    });
+  }
+
+  static async populateStarterCardsForPlayer(context, player) {
+    const cardPromises = STARTING_CARD_TYPES.map(async (cardTypeId) => {
+      return this.createCardForPlayer(player, cardTypeId);
+    });
+    const cards = await Promise.all(cardPromises);
+
+    context.cards.push(...cards);
+  }
+
+  static async populateStarterCards(context) {
+    const playerPromises = context.players.map((player) => {
+      return this.populateStarterCardsForPlayer(context, player);
+    });
+
+    await Promise.all(playerPromises);
+
+    return context;
+  }
+
   static async createStarterDeck(lobbyId, userId) {
     const deck = await DeckRepository.create({
       lobbyId,
       userId,
     });
 
-    const startingCardTypes = [
-      'cdt-praying-mantis',
-      'cdt-otter',
-      'cdt-toad',
-      'cdt-stoat',
-      'cdt-stoat',
-      'cdt-stoat',
-      'cdt-goose',
-      'cdt-goose',
-      'cdt-goose',
-      'cdt-goose',
-    ];
-
-    return Promise.all(startingCardTypes.map(async (cardTypeId) => {
+    return Promise.all(STARTING_CARD_TYPES.map(async (cardTypeId) => {
       const cardType = await CardTypeRepository.get(cardTypeId);
 
       return CardRepository.createForCardType(cardType, {

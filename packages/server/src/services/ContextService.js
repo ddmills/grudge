@@ -3,6 +3,7 @@ import ContextRepository from 'repositories/ContextRepository';
 import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
 import DelayedProcessor from 'services/DelayedProcessor';
+import DeckService from 'services/DeckService';
 import timestamp from 'utilities/Timestamp';
 import Random from 'utilities/Random';
 
@@ -135,8 +136,8 @@ export default class ContextService {
     context.set('startedAt', timestamp());
     context.set('turnStartedAt', timestamp());
 
+    await DeckService.populateStarterCards(context);
     await ContextRepository.save(context);
-    // await DeckService.createStarterDecks(lobbyId);
     // await DeckService.drawHands(lobbyId);
 
     NotificationService.onContextStarted(context);

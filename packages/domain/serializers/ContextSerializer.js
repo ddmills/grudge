@@ -1,4 +1,4 @@
-import { Context, Player } from '../index';
+import { Context, Player, Card } from '../index';
 import Serializer from './Serializer';
 
 export default class ContextSerializer extends Serializer {
@@ -7,6 +7,7 @@ export default class ContextSerializer extends Serializer {
       id,
       createdAt,
       players,
+      cards,
       ...state
     } = context;
 
@@ -16,6 +17,7 @@ export default class ContextSerializer extends Serializer {
       state: {
         ...state,
         players: Player.serializeAll(players),
+        cards: Card.serializeAll(cards),
       },
     };
   }
