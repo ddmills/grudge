@@ -22,6 +22,9 @@ export default class GamePlayScreen extends Component {
           </Button>
         )}
         <CodeBlock>
+          {context.cards}
+        </CodeBlock>
+        <CodeBlock>
           {context}
         </CodeBlock>
       </Page>

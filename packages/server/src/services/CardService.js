@@ -4,7 +4,12 @@ import LobbyRepository from 'repositories/LobbyRepository';
 import CardRepository from 'repositories/CardRepository';
 import UserRepository from 'repositories/UserRepository';
 import TraitService from 'services/TraitService';
+import Random from 'utilities/Random';
 import { TraitIds } from '@grudge/data';
+import ContextRepository from 'repositories/ContextRepository';
+import Logger from 'utilities/Logger';
+
+const HAND_CARD_COUNT = 5;
 
 export default class CardService {
   static async enableCard(cardId) {
@@ -24,21 +29,6 @@ export default class CardService {
     NotificationService.onCardDiscarded(user, discardedCard);
 
     return discardedCard;
-  }
-
-  static async drawCard(user, card) {
-    const drawnCard = card.clone({
-      isDrawn: true,
-      isDiscarded: false,
-      isTrashed: false,
-    });
-
-    await CardRepository.save(drawnCard);
-    const updatedCard = await this.enableCard(drawnCard.id);
-
-    NotificationService.onCardDrawn(user, updatedCard);
-
-    return updatedCard;
   }
 
   static async killCard(card) {
@@ -86,5 +76,40 @@ export default class CardService {
     const playedCards = await this.getPlayedCardsForUser(user.id);
 
     return Promise.all(playedCards.map((card) => this.enableCard(card.id)));
+  }
+
+  static async draw(context, player, count = 1) {
+    const allCards = context.getCardsForPlayer(player.id);
+    const freshPile = allCards.filter((card) => card.isFresh);
+
+    if (freshPile.length >= count) {
+      const cardsToDraw = Random.sample(freshPile, count);
+
+      cardsToDraw.map((card) => card.draw());
+    } else {
+      freshPile.map((card) => card.draw());
+
+      const discardPile = allCards.filter((card) => card.isDiscarded && !card.isTrashed);
+
+      discardPile.map((card) => card.recycle());
+
+      const cardsToDraw = Random.sample(discardPile, count - freshPile.length);
+
+      cardsToDraw.map((card) => card.draw());
+    }
+
+    await ContextRepository.save(context);
+
+    const drawnCards = context.getCardsForPlayer(player.id).filter((card) => card.isDrawn);
+
+    drawnCards.forEach((card) => NotificationService.onCardDrawn(context, card));
+  }
+
+  static async drawHand(context, player) {
+    return this.draw(context, player, HAND_CARD_COUNT);
+  }
+
+  static async drawHands(context) {
+    await Promise.all(context.players.map((player) => this.drawHand(context, player)));
   }
 }
