@@ -1,5 +1,7 @@
-import Model from './Model';
 import { ContextSerializer } from '../serializers/index';
+import Model from './Model';
+import Player from './Player';
+import Card from './Card';
 
 export default class Context extends Model {
   static get schema() {
@@ -22,9 +24,11 @@ export default class Context extends Model {
       createdAt: {},
       players: {
         defaultValue: [],
+        modelClass: Player,
       },
       cards: {
         defaultValue: [],
+        modelClass: Card,
       },
       maxNumberOfPlayers: {
         defaultValue: 3,
@@ -39,23 +43,6 @@ export default class Context extends Model {
         defaultValue: 0,
       },
     };
-  }
-
-  addPlayer(player) {
-    if (this.getPlayer(player.id)) {
-      this.removePlayer(player.id);
-      this.players.push(player);
-    } else {
-      this.players.push(player);
-    }
-  }
-
-  removePlayer(playerId) {
-    this.players = this.players.filter((p) => p.id !== playerId);
-  }
-
-  getPlayer(id) {
-    return this.players.find((p) => p.id === id);
   }
 
   get isCountdownStarted() {
@@ -86,11 +73,46 @@ export default class Context extends Model {
     return this.players.length >= this.maxNumberOfPlayers;
   }
 
+  addPlayer(player) {
+    if (this.getPlayer(player.id)) {
+      this.removePlayer(player.id);
+      this.players.push(player);
+    } else {
+      this.players.push(player);
+    }
+  }
+
+  removePlayer(playerId) {
+    this.players = this.players.filter((p) => p.id !== playerId);
+  }
+
+  getPlayer(playerId) {
+    return this.players.find((p) => p.id === playerId);
+  }
+
+  getPlayerForUser(userId) {
+    return this.players.find((p) => p.userId === userId);
+  }
+
   serialize(user) {
     return ContextSerializer.serialize(this, user);
   }
 
   static deserialize(data) {
     return ContextSerializer.deserialize(data);
+  }
+
+  getCardsForPlayer(playerId) {
+    return this.cards.filter((c) => c.playerId === playerId);
+  }
+
+  getCard(cardId) {
+    return this.cards.find((c) => c.cardId === cardId);
+  }
+
+  getPlayerForCard(cardId) {
+    const card = this.getCard(cardId);
+
+    return card && this.getPlayer(card.playerId);
   }
 }

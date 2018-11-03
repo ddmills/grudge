@@ -4,6 +4,7 @@ import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
 import DelayedProcessor from 'services/DelayedProcessor';
 import DeckService from 'services/DeckService';
+import CardService from 'services/CardService';
 import timestamp from 'utilities/Timestamp';
 import Random from 'utilities/Random';
 
@@ -66,7 +67,7 @@ export default class ContextService {
   }
 
   static async leave(user, context) {
-    const player = context.getPlayer(user.id);
+    const player = context.getPlayerForUser(user.id);
 
     context.removePlayer(player.id);
 
@@ -138,9 +139,11 @@ export default class ContextService {
 
     await DeckService.populateStarterCards(context);
     await ContextRepository.save(context);
-    // await DeckService.drawHands(lobbyId);
 
     NotificationService.onContextStarted(context);
+
+    await CardService.drawHands(context);
+
     // DelayedProcessor.scheduleTurn(updatedLobby);
 
     return context;

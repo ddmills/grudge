@@ -87,24 +87,6 @@ export default class DeckService {
     }));
   }
 
-  static async draw(user, count = 1) {
-    const allCards = await CardRepository.findForUser(user.id, user.lobbyId);
-    const freshPile = allCards.filter((card) => card.isFresh);
-
-    if (freshPile.length >= count) {
-      const cardsToDraw = Random.sample(freshPile, count);
-
-      await Promise.all(cardsToDraw.map((card) => CardService.drawCard(user, card)));
-    } else {
-      await Promise.all(freshPile.map((card) => CardService.drawCard(user, card)));
-
-      const recycledFreshPile = await this.recycleDiscardPile(user);
-      const cardsToDraw = Random.sample(recycledFreshPile, count - freshPile.length);
-
-      await Promise.all(cardsToDraw.map((card) => CardService.drawCard(user, card)));
-    }
-  }
-
   static async getHand(user) {
     const lobby = await UserService.getLobbyForUser(user.id);
 
@@ -130,9 +112,7 @@ export default class DeckService {
     return this.draw(user, HAND_CARD_COUNT);
   }
 
-  static async drawHands(lobbyId) {
-    const users = await UserRepository.getForLobby(lobbyId);
-
-    await Promise.all(users.map((user) => this.draw(user, HAND_CARD_COUNT)));
+  static async drawHands(context) {
+    await Promise.all(context.players.map((player) => this.draw(context, player, HAND_CARD_COUNT)));
   }
 }

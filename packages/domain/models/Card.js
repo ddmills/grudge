@@ -24,6 +24,9 @@ export default class Card extends Model {
       isTrashed: {
         defaultValue: false,
       },
+      isDisabled: {
+        defaultValue: true,
+      },
       slotIndex: {
         defaultValue: undefined,
       },
@@ -77,5 +80,19 @@ export default class Card extends Model {
 
   get defaultPlayAction() {
     return this.playActions[0];
+  }
+
+  draw() {
+    this.set('isDrawn', true);
+    this.set('isDiscarded', false);
+    this.set('isTrashed', false);
+    this.set('isDisabled', false);
+  }
+
+  recycle() {
+    this.set('isDrawn', false);
+    this.set('isDiscarded', false);
+    this.set('isTrashed', false);
+    this.set('slotIndex', null);
   }
 }

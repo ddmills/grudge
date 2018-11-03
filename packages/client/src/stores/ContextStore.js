@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
-import observeClass from 'utilities/mobx/ObservableClass';
+import deepObserve from 'utilities/mobx/DeepObserve';
 
 @autobind
 export default class ContextStore {
@@ -34,6 +34,7 @@ export default class ContextStore {
     sdk.onCountdownStarted(this.onCountdownStarted);
     sdk.onCountdownStopped(this.onCountdownStopped);
     sdk.onContextStarted(this.onContextStarted);
+    sdk.onCardDrawn(this.onCardDrawn);
   }
 
   joinContext(contextId) {
@@ -70,7 +71,9 @@ export default class ContextStore {
 
   @action
   onJoinedContext(context) {
-    this.context = observeClass(context);
+    deepObserve(context);
+    this.context = context;
+    console.log('onJoinedContext', this.context);
   }
 
   @action
@@ -99,9 +102,17 @@ export default class ContextStore {
 
   @action
   onContextStarted(context) {
-    console.log('ON CONTEXT STARTED', context);
     this.context.set('players', context.players);
+    this.context.set('cards', context.cards);
     this.context.set('startedAt', context.startedAt);
     this.context.set('turnStartedAt', context.turnStartedAt);
+    deepObserve(context.players);
+    deepObserve(context.cards);
+  }
+
+  @action
+  onCardDrawn(card) {
+    this.context.getCard(card.id);
+    card.draw();
   }
 }
