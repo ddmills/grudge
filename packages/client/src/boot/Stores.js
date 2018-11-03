@@ -11,6 +11,7 @@ import CardStore from 'stores/CardStore';
 import ActionStore from 'stores/ActionStore';
 import ActionRefStore from 'stores/ActionRefStore';
 import TraitStore from 'stores/TraitStore';
+import MenuStore from 'stores/MenuStore';
 
 export default () => {
   const windowSizeStore = new WindowSizeStore();
@@ -26,6 +27,7 @@ export default () => {
   const actionRefStore = new ActionRefStore(cardStore);
   const traitStore = new TraitStore(cardStore, actionRefStore);
   const actionStore = new ActionStore(cardStore, turnStore, userStore, traitStore);
+  const menuStore = new MenuStore(contextStore);
 
   return {
     windowSizeStore,
@@ -41,5 +43,6 @@ export default () => {
     actionStore,
     actionRefStore,
     traitStore,
+    menuStore,
   };
 };

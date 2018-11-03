@@ -25,3 +25,13 @@
   text-decoration: none;
   text-shadow: 1px 1px 1px $primary-400;
 }
+
+.menuButton {
+  @include buttonReset();
+  padding: 0 $spacer;
+  font-weight: $font-weight-bold;
+  line-height: 1em;
+  color: $white;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px $primary-400;
+}
