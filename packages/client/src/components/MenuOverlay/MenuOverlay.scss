@@ -1,0 +1,36 @@
+@import "@grudge/styles";
+
+.curtain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  overflow: auto;
+  backdrop-filter: blur(5px);
+  background-color: $black-fade-75;
+}
+
+.closeButton {
+  @include buttonReset();
+}
+
+.menuList {
+  display: flex;
+  padding: 0;
+  margin: $spacer-3;
+  list-style: none;
+  flex-flow: column nowrap;
+}
+
+.menuItem {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  margin: $spacer-2 auto;
+}
