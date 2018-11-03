@@ -9,7 +9,7 @@ import connect from 'utilities/mobx/Connect';
 }))
 export default class GameSetupPlayers extends Component {
   static propTypes = {
-    players: PropTypes.arrayOf(PropTypes.instanceOf(Player)).isRequired,
+    players: PropTypes.arrayOf(PropTypes.object).isRequired,
   };
 
   render() {

@@ -1,5 +1,5 @@
 import {
-  Card, CardType, User, Lobby, Context,
+  Card, CardType, User, Lobby,
 } from '@grudge/domain';
 import * as Events from '@grudge/api-events';
 import SocketFactory from './SocketFactory';
@@ -132,16 +132,15 @@ export default class SDK {
   }
 
   listContexts() {
-    return this.query(Events.CONTEXT_LIST).then(ResponseTransformer.toModel(Context));
+    return this.query(Events.CONTEXT_LIST);
   }
 
   createContext() {
-    return this.query(Events.CONTEXT_CREATE).then(ResponseTransformer.toModel(Context));
+    return this.query(Events.CONTEXT_CREATE);
   }
 
   joinContext(contextId) {
-    return this.query(Events.CONTEXT_JOIN, { contextId })
-      .then(ResponseTransformer.toModel(Context));
+    return this.query(Events.CONTEXT_JOIN, { contextId });
   }
 
   leaveContext() {

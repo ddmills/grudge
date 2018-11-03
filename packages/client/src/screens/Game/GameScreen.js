@@ -9,7 +9,7 @@ import GamePlayScreen from 'screens/GamePlay/GamePlayScreen';
 import Redirect from 'components/Redirect/Redirect';
 
 @connect(({ contextStore }) => ({
-  ctx: contextStore.context,
+  ctx: contextStore.ctx,
 }))
 export default class GameScreen extends Component {
   static propTypes = {
