@@ -1,26 +1,50 @@
 import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
-import deepObserve from 'utilities/mobx/DeepObserve';
+import { Context } from '@grudge/domain';
 
 @autobind
 export default class ContextStore {
   @observable
-  context = null;
+  ctxData = null;
 
   @computed
   get players() {
-    return this.context ? this.context.players : [];
+    return this.ctxData ? this.ctxData.state.players : [];
+  }
+
+  @computed
+  get ctx() {
+    console.log('~ ctx');
+    return this.ctxData ? Context.deserialize(this.ctxData) : undefined;
   }
 
   @computed
   get isOwner() {
-    return this.context && this.context.ownerId === this.authStore.userId;
+    return this.ctxData && this.ctxData.state.ownerId === this.authStore.userId;
   }
 
   @computed
   get isCountdownStarted() {
-    return this.context && this.context.isCountdownStarted;
+    return Boolean(this.ctxData && this.ctxData.state.countdownStartedAt);
+  }
+
+  @computed
+  get startContextCountdown() {
+    if (this.isOwner && !this.isCountdownStarted) {
+      return () => sdk.startContextCountdown();
+    }
+
+    return undefined;
+  }
+
+  @computed
+  get stopContextCountdown() {
+    if (this.isCountdownStarted) {
+      return () => sdk.stopContextCountdown();
+    }
+
+    return undefined;
   }
 
   constructor(authStore, routerStore) {
@@ -45,74 +69,49 @@ export default class ContextStore {
     sdk.leaveContext().then(this.onLeftContext);
   }
 
-  @computed
-  get startContextCountdown() {
-    if (this.isOwner && !this.isCountdownStarted) {
-      return () => sdk.startContextCountdown();
-    }
-
-    return undefined;
-  }
-
-  @computed
-  get stopContextCountdown() {
-    if (this.isCountdownStarted) {
-      return () => sdk.stopContextCountdown();
-    }
-
-    return undefined;
-  }
-
   @action
   onLeftContext() {
-    this.context = null;
+    this.ctxData = null;
     this.routerStore.navigate('landing');
   }
 
   @action
   onJoinedContext(context) {
-    deepObserve(context);
-    this.context = context;
-    console.log('onJoinedContext', this.context);
+    this.ctxData = context;
   }
 
   @action
   onPlayerJoined(player) {
-    if (this.context) {
-      this.context.addPlayer(player);
+    if (this.ctxData) {
+      this.ctxData.state.players.push(player);
     }
   }
 
   @action
   onPlayerLeft(player) {
-    if (this.context) {
-      this.context.removePlayer(player.id);
+    if (this.ctxData) {
+      this.ctxData.state.players = this.ctxData.state.players.filter((p) => p.id !== player.id);
     }
   }
 
   @action
   onCountdownStarted(context) {
-    this.context.set('countdownStartedAt', context.countdownStartedAt);
+    this.ctxData.state.countdownStartedAt = context.state.countdownStartedAt;
   }
 
   @action
   onCountdownStopped(context) {
-    this.context.set('countdownStartedAt', context.countdownStartedAt);
+    this.ctxData.state.countdownStartedAt = context.state.countdownStartedAt;
   }
 
   @action
   onContextStarted(context) {
-    this.context.set('players', context.players);
-    this.context.set('cards', context.cards);
-    this.context.set('startedAt', context.startedAt);
-    this.context.set('turnStartedAt', context.turnStartedAt);
-    deepObserve(context.players);
-    deepObserve(context.cards);
+    this.ctxData.state = context.state;
   }
 
   @action
-  onCardDrawn(card) {
-    this.context.getCard(card.id);
-    card.draw();
+  onCardDrawn({ id }) {
+    const card = this.ctxData.state.cards.find((c) => c.id === id);
+    card.isDrawn = true;
   }
 }

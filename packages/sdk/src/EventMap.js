@@ -29,13 +29,13 @@ export default class EventMap {
       new EventHook(Events.CARD_TRAIT_REMOVED, 'onCardTraitRemoved', ResponseTransformer.toModel(Card)),
       new EventHook(Events.USER_MONEY_UPDATED, 'onUserMoneyUpdated', ResponseTransformer.toModel(User)),
       new EventHook(Events.USER_HEALTH_UPDATED, 'onUserHealthUpdated', ResponseTransformer.toModel(User)),
-      new EventHook(Events.CONTEXT_PLAYER_JOINED, 'onPlayerJoined', ResponseTransformer.toModel(Player)),
-      new EventHook(Events.CONTEXT_PLAYER_LEFT, 'onPlayerLeft', ResponseTransformer.toModel(Player)),
-      new EventHook(Events.CONTEXT_JOINED, 'onJoinedContext', ResponseTransformer.toModel(Context)),
-      new EventHook(Events.CONTEXT_LEFT, 'onLeftContext', ResponseTransformer.toModel(Context)),
-      new EventHook(Events.CONTEXT_COUNTDOWN_STOPPED, 'onCountdownStopped', ResponseTransformer.toModel(Context)),
-      new EventHook(Events.CONTEXT_COUNTDOWN_STARTED, 'onCountdownStarted', ResponseTransformer.toModel(Context)),
-      new EventHook(Events.CONTEXT_STARTED, 'onContextStarted', ResponseTransformer.toModel(Context)),
+      new EventHook(Events.CONTEXT_PLAYER_JOINED, 'onPlayerJoined'),
+      new EventHook(Events.CONTEXT_PLAYER_LEFT, 'onPlayerLeft'),
+      new EventHook(Events.CONTEXT_JOINED, 'onJoinedContext'),
+      new EventHook(Events.CONTEXT_LEFT, 'onLeftContext'),
+      new EventHook(Events.CONTEXT_COUNTDOWN_STOPPED, 'onCountdownStopped'),
+      new EventHook(Events.CONTEXT_COUNTDOWN_STARTED, 'onCountdownStarted'),
+      new EventHook(Events.CONTEXT_STARTED, 'onContextStarted'),
     ];
   }
 }

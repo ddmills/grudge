@@ -4,13 +4,13 @@ import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 
 @connect(({ contextStore }) => ({
-  context: contextStore.context,
+  ctx: contextStore.ctx,
   leaveContext: contextStore.leaveContext,
 }))
 export default class GamePlayScreen extends Component {
   render() {
     const {
-      context,
+      ctx,
       leaveContext,
     } = this.props;
 
@@ -22,10 +22,7 @@ export default class GamePlayScreen extends Component {
           </Button>
         )}
         <CodeBlock>
-          {context.cards}
-        </CodeBlock>
-        <CodeBlock>
-          {context}
+          {ctx}
         </CodeBlock>
       </Page>
     );
