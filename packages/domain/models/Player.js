@@ -21,14 +21,9 @@ export default class Player extends Model {
       health: {
         defaultValue: 0,
       },
+      isBot: {
+        defaultValue: false,
+      },
     };
-  }
-
-  static createForUser(user) {
-    return this.create({
-      id: user.id,
-      userId: user.id,
-      displayName: user.displayName,
-    });
   }
 }

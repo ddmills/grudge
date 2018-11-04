@@ -30,6 +30,16 @@ export default class ContextStore {
   }
 
   @computed
+  get isSettingUp() {
+    return this.ctx && this.ctx.isSettingUp;
+  }
+
+  @computed
+  get isCountingDown() {
+    return this.ctx && this.ctx.isCountingDown;
+  }
+
+  @computed
   get isCountdownStarted() {
     return Boolean(this.ctxData && this.ctxData.state.countdownStartedAt);
   }

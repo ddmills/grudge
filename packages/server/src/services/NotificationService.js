@@ -25,10 +25,14 @@ export default class NotificationService {
   }
 
   static async notifyPlayer(player, event, data) {
-    Logger.info('emit', event, player.id, data ? data.id : 'NO_DATA');
+    if (player.isBot) {
+      return;
+    }
+
+    Logger.info('emit', event, player.userId, data ? data.id : 'NO_DATA');
     const serialized = data instanceof Model ? data.serialize(player) : data;
 
-    SocketEmitter.to(player.id).emit(event, serialized);
+    SocketEmitter.to(player.userId).emit(event, serialized);
   }
 
   static async notifyContext(context, event, model) {
@@ -96,12 +100,12 @@ export default class NotificationService {
   }
 
   static onPlayerJoined(context, player) {
-    this.notifyContext(context, Events.CONTEXT_PLAYER_JOINED, player);
+    this.notifyContext(context, Events.PLAYER_JOINED, player);
     this.notifyPlayer(player, Events.CONTEXT_JOINED, context);
   }
 
   static onPlayerLeft(context, player) {
-    this.notifyContext(context, Events.CONTEXT_PLAYER_LEFT, player);
+    this.notifyContext(context, Events.PLAYER_LEFT, player);
     this.notifyPlayer(player, Events.CONTEXT_LEFT, context);
   }
 

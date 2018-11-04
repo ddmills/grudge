@@ -49,6 +49,10 @@ const eventMap = [{
   handler: ContextController.leave,
   hydrateContext: true,
 }, {
+  event: Events.PLAYER_BOT_ADD,
+  handler: ContextController.addBotPlayer,
+  hydrateContext: true,
+}, {
   event: Events.CONTEXT_COUNTDOWN_START,
   handler: ContextController.startCountdown,
   hydrateContext: true,
