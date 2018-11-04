@@ -1,58 +1,53 @@
-import UserRepository from 'repositories/UserRepository';
-import LobbyRepository from 'repositories/LobbyRepository';
+import ContextRepository from 'repositories/ContextRepository';
 import NotificationService from 'services/NotificationService';
 import DeckService from 'services/DeckService';
 import DelayedProcessor from 'services/DelayedProcessor';
 import timestamp from 'utilities/Timestamp';
 import CardService from 'services/CardService';
+import Logger from '../utilities/Logger';
 
 export default class TurnService {
-  static async incrementTurnCounter(lobby) {
-    const updatedLobby = lobby.clone({
-      currentTurn: lobby.currentTurn + 1,
-      turnStartedAt: timestamp(),
-    });
+  static async incrementTurnCounter(context) {
+    context.set('turnStartedAt', timestamp());
+    context.set('currentTurn', context.currentTurn + 1);
 
-    await LobbyRepository.save(updatedLobby);
+    await ContextRepository.save(context);
 
-    NotificationService.onTurnEnded(updatedLobby);
-    DelayedProcessor.scheduleTurn(updatedLobby);
+    NotificationService.onTurnEnded(context);
+    DelayedProcessor.scheduleTurn(context);
 
-    return updatedLobby;
+    return context;
   }
 
-  static async endTurn(user) {
-    const lobby = await LobbyRepository.get(user.lobbyId);
-
-    if (lobby.isEnded) {
+  static async endPlayerTurn(context, player) {
+    if (context.isEnded) {
       throw new Error('Cannot end turn when the game is over');
     }
 
-    const users = await UserRepository.getForLobby(lobby.id);
-    const currentTurnUser = lobby.pickCurrentTurnUser(users);
-
-    if (user.id !== currentTurnUser.id) {
+    if (!context.isPlayersTurn(player.id)) {
       throw new Error('Cannot end someone elses turn');
     }
 
-    await DeckService.refreshHand(currentTurnUser);
-    await CardService.enablePlayed(currentTurnUser);
+    Logger.debug('endPlayerTurn', context.currentTurn);
+    // await DeckService.refreshHand(currentTurnUser);
+    // await CardService.enablePlayed(currentTurnUser);
 
-    return this.incrementTurnCounter(lobby);
+    return this.incrementTurnCounter(context);
   }
 
-  static async turnTimeout(lobby) {
-    const users = await UserRepository.getForLobby(lobby.id);
-    const currentTurnUser = lobby.pickCurrentTurnUser(users);
+  static async endTurn(user, context) {
+    const player = context.getPlayerForUser(user.id);
 
-    return this.endTurn(currentTurnUser);
+    return this.endPlayerTurn(context, player);
   }
 
-  static async isUsersTurn(user) {
-    const lobby = await LobbyRepository.get(user.lobbyId);
-    const users = await UserRepository.getForLobby(lobby.id);
-    const currentTurnUser = lobby.pickCurrentTurnUser(users);
+  static async turnTimeout(contextId, turn) {
+    const context = await ContextRepository.get(contextId);
 
-    return user.id !== currentTurnUser.id;
+    if (context.isEnded || !context.currentTurn === turn) {
+      return;
+    }
+
+    return this.endPlayerTurn(context, context.currentTurnPlayer);
   }
 }

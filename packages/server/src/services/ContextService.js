@@ -144,7 +144,7 @@ export default class ContextService {
 
     await CardService.drawHands(context);
 
-    // DelayedProcessor.scheduleTurn(updatedLobby);
+    DelayedProcessor.scheduleTurn(context);
 
     return context;
   }
