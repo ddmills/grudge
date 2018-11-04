@@ -107,10 +107,6 @@ export default class SDK {
     return this.query(Events.LOBBY_JOIN, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
   }
 
-  endTurn() {
-    return this.query(Events.LOBBY_TURN_END).then(ResponseTransformer.toModel(Lobby));
-  }
-
   getHand() {
     return this.query(Events.HAND_GET).then(ResponseTransformer.toModel(Card));
   }
@@ -153,5 +149,9 @@ export default class SDK {
 
   stopContextCountdown() {
     return this.query(Events.CONTEXT_COUNTDOWN_STOP);
+  }
+
+  endTurn() {
+    return this.query(Events.CONTEXT_TURN_END);
   }
 }

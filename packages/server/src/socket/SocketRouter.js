@@ -57,8 +57,9 @@ const eventMap = [{
   handler: ContextController.stopCountdown,
   hydrateContext: true,
 }, {
-  event: Events.LOBBY_TURN_END,
+  event: Events.CONTEXT_TURN_END,
   handler: TurnController.endTurn,
+  hydrateContext: true,
 }, {
   event: Events.CARDTYPE_LIST,
   handler: CardTypeController.list,

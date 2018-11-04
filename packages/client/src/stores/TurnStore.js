@@ -11,14 +11,9 @@ export default class UserStore {
   timer = new MobXCountdownTimer();
 
   @computed
-  get currentTurnUser() {
-    return this.contextStore.ctx && this.contextStore.ctx.pickCurrentTurnUser(this.userStore.users);
-  }
-
-  @computed
   get isOwnTurn() {
     return Boolean(
-      this.currentTurnUser && this.currentTurnUser.id === this.userStore.currentUserId,
+      this.contextStore.ctx && this.contextStore.ctx.isUsersTurn(this.userStore.currentUserId),
     );
   }
 

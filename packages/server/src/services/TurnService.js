@@ -2,9 +2,9 @@ import ContextRepository from 'repositories/ContextRepository';
 import NotificationService from 'services/NotificationService';
 import DeckService from 'services/DeckService';
 import DelayedProcessor from 'services/DelayedProcessor';
-import timestamp from 'utilities/Timestamp';
 import CardService from 'services/CardService';
-import Logger from '../utilities/Logger';
+import timestamp from 'utilities/Timestamp';
+import Logger from 'utilities/Logger';
 
 export default class TurnService {
   static async incrementTurnCounter(context) {
@@ -28,7 +28,6 @@ export default class TurnService {
       throw new Error('Cannot end someone elses turn');
     }
 
-    Logger.debug('endPlayerTurn', context.currentTurn);
     // await DeckService.refreshHand(currentTurnUser);
     // await CardService.enablePlayed(currentTurnUser);
 
@@ -44,7 +43,7 @@ export default class TurnService {
   static async turnTimeout(contextId, turn) {
     const context = await ContextRepository.get(contextId);
 
-    if (context.isEnded || !context.currentTurn === turn) {
+    if (context.isEnded || !(context.currentTurn === turn)) {
       return;
     }
 
