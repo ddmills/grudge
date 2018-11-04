@@ -107,6 +107,12 @@ export default class Context extends Model {
     return Boolean(this.currentTurnPlayer && this.currentTurnPlayer.id === playerId);
   }
 
+  isUsersTurn(userId) {
+    const player = this.getPlayerForUser(userId);
+
+    return Boolean(player && this.isPlayersTurn(player.id));
+  }
+
   removePlayer(playerId) {
     this.players = this.players.filter((p) => p.id !== playerId);
   }
