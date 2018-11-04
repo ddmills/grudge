@@ -4,28 +4,34 @@ import { LoadingIndicator, CodeBlock } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import { Context } from '@grudge/domain';
+import { ContextInterpreter } from '@grudge/domain/interpreters';
 import GameSetupScreen from 'screens/GameSetup/GameSetupScreen';
 import GamePlayScreen from 'screens/GamePlay/GamePlayScreen';
 import Redirect from 'components/Redirect/Redirect';
 
 @connect(({ contextStore }) => ({
-  ctx: contextStore.ctx,
+  isLoading: contextStore.isLoading,
+  isSettingUp: contextStore.isSettingUp,
+  isRunning: contextStore.isRunning,
+  isEnded: contextStore.isEnded,
 }))
 export default class GameScreen extends Component {
   static propTypes = {
-    ctx: PropTypes.instanceOf(Context),
-  }
-
-  static defaultProps = {
-    ctx: null,
+    isLoading: PropTypes.bool.isRequired,
+    isSettingUp: PropTypes.bool.isRequired,
+    isRunning: PropTypes.bool.isRequired,
+    isEnded: PropTypes.bool.isRequired,
   }
 
   render() {
     const {
-      ctx,
+      isLoading,
+      isSettingUp,
+      isRunning,
+      isEnded,
     } = this.props;
 
-    if (!ctx) {
+    if (isLoading) {
       return (
         <Page>
           <LoadingIndicator/>
@@ -33,21 +39,18 @@ export default class GameScreen extends Component {
       );
     }
 
-    if (ctx.isSettingUp) {
+    if (isSettingUp) {
       return <GameSetupScreen/>;
     }
 
-    if (ctx.isRunning) {
+    if (isRunning) {
       return <GamePlayScreen/>;
     }
 
-    if (ctx.isEnded) {
+    if (isEnded) {
       return (
         <Page>
           {'isEnded'}
-          <CodeBlock>
-            {ctx}
-          </CodeBlock>
         </Page>
       );
     }

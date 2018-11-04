@@ -3,9 +3,9 @@ import { Container } from '@grudge/components';
 import PropTypes from 'prop-types';
 import PageSuperHeader from 'components/Page/SuperHeader/PageSuperHeader';
 import LobbyGameHeader from 'components/LobbyGameHeader/LobbyGameHeader';
-import LobbyTimeline from 'components/LobbyTimeline/LobbyTimeline';
+import TurnCountdown from 'components/TurnCountdown/TurnCountdown';
 import LobbyUserViewer from 'components/LobbyUserViewer/LobbyUserViewer';
-import LobbyUserHUD from 'components/LobbyUserHUD/LobbyUserHUD';
+import PlayerHUD from 'components/PlayerHUD/PlayerHUD';
 import CardInspector from 'components/CardInspector/CardInspector';
 import { User } from '@grudge/domain';
 import Arena from 'components/Arena/Arena';
@@ -34,13 +34,13 @@ export default class LobbyGame extends Component {
         <LobbyGameHeader/>
         <div className={styles.content}>
           <LobbyUserViewer/>
-          <LobbyTimeline/>
+          <TurnCountdown/>
           <Container className={styles.viewer} isPadded={false}>
             {user && (
               <Arena userId={user.id}/>
             )}
           </Container>
-          <LobbyUserHUD/>
+          <PlayerHUD/>
         </div>
       </section>
     );

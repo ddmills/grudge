@@ -22,14 +22,14 @@ export default () => {
   const lobbyStore = new LobbyStore(authStore, routerStore);
   const contextStore = new ContextStore(authStore, routerStore);
   const userStore = new UserStore(authStore, lobbyStore);
+  const playerStore = new PlayerStore(contextStore, userStore);
   const turnStore = new TurnStore(contextStore, userStore);
   const cardTypeStore = new CardTypeStore();
-  const cardStore = new CardStore(userStore);
+  const cardStore = new CardStore(contextStore, playerStore);
   const actionRefStore = new ActionRefStore(cardStore);
   const traitStore = new TraitStore(cardStore, actionRefStore);
   const actionStore = new ActionStore(cardStore, turnStore, userStore, traitStore);
   const menuStore = new MenuStore(contextStore);
-  const playerStore = new PlayerStore(contextStore);
 
   return {
     windowSizeStore,

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import Card from 'components/Card/Card';
 import connect from 'utilities/mobx/Connect';
+import Card from 'components/Card/Card';
 import styles from './Hand.scss';
 
 @connect(({ cardStore }) => ({
@@ -25,7 +25,8 @@ export default class Hand extends Component {
       <div className={styles.hand}>
         {cardIds.map((cardId) => (
           <div key={cardId} className={styles.handCard}>
-            <Card cardId={cardId}/>
+            {cardId}
+            {/* <Card cardId={cardId}/> */}
           </div>
         ))}
       </div>

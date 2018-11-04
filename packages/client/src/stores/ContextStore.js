@@ -1,47 +1,51 @@
 import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
-import { Context } from '@grudge/domain';
+import { ContextInterpreter } from '@grudge/domain/interpreters';
 
 @autobind
 export default class ContextStore {
   @observable
-  ctxData = null;
+  ctx = null;
 
   @computed
-  get players() {
-    return this.ctxData ? this.ctxData.state.players : [];
-  }
-
-  @computed
-  get ctx() {
-    console.log('~ ctx');
-    return this.ctxData ? Context.deserialize(this.ctxData) : undefined;
+  get isLoading() {
+    return Boolean(!this.ctx);
   }
 
   @computed
   get isOwner() {
-    return this.ctxData && this.ctxData.state.ownerId === this.authStore.userId;
+    return ContextInterpreter.isUserOwner(this.ctx, this.authStore.userId);
   }
 
   @computed
   get isRunning() {
-    return this.ctx && this.ctx.isRunning;
+    return ContextInterpreter.isRunning(this.ctx);
   }
 
   @computed
   get isSettingUp() {
-    return this.ctx && this.ctx.isSettingUp;
+    return ContextInterpreter.isSettingUp(this.ctx);
+  }
+
+  @computed
+  get isFull() {
+    return ContextInterpreter.isFull(this.ctx);
+  }
+
+  @computed
+  get isEnded() {
+    return ContextInterpreter.isEnded(this.ctx);
   }
 
   @computed
   get isCountingDown() {
-    return this.ctx && this.ctx.isCountingDown;
+    return ContextInterpreter.isCountingDown(this.ctx);
   }
 
   @computed
   get isCountdownStarted() {
-    return Boolean(this.ctxData && this.ctxData.state.countdownStartedAt);
+    return ContextInterpreter.isCountdownStarted(this.ctx);
   }
 
   @computed
@@ -87,53 +91,54 @@ export default class ContextStore {
 
   @action
   onLeftContext() {
-    this.ctxData = null;
+    this.ctx = null;
     this.routerStore.navigate('landing');
   }
 
   @action
   onJoinedContext(context) {
-    this.ctxData = context;
+    this.ctx = context;
   }
 
   @action
   onPlayerJoined(player) {
-    if (this.ctxData) {
-      this.ctxData.state.players.push(player);
+    if (this.ctx) {
+      this.ctx.players.push(player);
     }
   }
 
   @action
   onPlayerLeft(player) {
-    if (this.ctxData) {
-      this.ctxData.state.players = this.ctxData.state.players.filter((p) => p.id !== player.id);
+    if (this.ctx) {
+      this.ctx.players = this.ctx.players.filter((p) => p.id !== player.id);
     }
   }
 
   @action
   onCountdownStarted(context) {
-    this.ctxData.state.countdownStartedAt = context.state.countdownStartedAt;
+    this.ctx.countdownStartedAt = context.countdownStartedAt;
   }
 
   @action
   onCountdownStopped(context) {
-    this.ctxData.state.countdownStartedAt = context.state.countdownStartedAt;
+    this.ctx.countdownStartedAt = context.countdownStartedAt;
   }
 
   @action
   onContextStarted(context) {
-    this.ctxData.state = context.state;
+    this.ctx = context;
   }
 
   @action
   onCardDrawn({ id }) {
-    const card = this.ctxData.state.cards.find((c) => c.id === id);
+    const card = ContextInterpreter.getCard(this.ctx, id);
+
     card.isDrawn = true;
   }
 
   @action
   onTurnEnded(context) {
-    this.ctxData.state.currentTurn = context.state.currentTurn;
-    this.ctxData.state.turnStartedAt = context.state.turnStartedAt;
+    this.ctx.currentTurn = context.currentTurn;
+    this.ctx.turnStartedAt = context.turnStartedAt;
   }
 }

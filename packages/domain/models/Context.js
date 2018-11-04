@@ -9,6 +9,9 @@ export default class Context extends Model {
       id: {
         defaultValue: undefined,
       },
+      ownerId: {
+        defaultValue: undefined,
+      },
       isPublic: {
         defaultValue: true,
       },

@@ -1,47 +1,39 @@
-import {
-  action, autorun, computed, observable,
-} from 'mobx';
-import sdk from '@grudge/sdk';
+import { action, computed, observable } from 'mobx';
+import { ContextInterpreter } from '@grudge/domain/interpreters';
 import autobind from 'autobind-decorator';
 
 @autobind
 export default class CardStore {
   @observable inspectedCardId = null;
 
-  @observable cards = {};
-
-  getCardsForUser(userId) {
-    return Object.values(this.cards).filter((card) => card.isOwnedBy(userId));
+  getCard(cardId) {
+    return ContextInterpreter.getCard(this.contextStore.ctx, cardId);
   }
 
-  getPlayedCardsForUser(userId) {
-    return this.getCardsForUser(userId).filter((card) => card.isPlayed);
+  getCardsForPlayer(playerId) {
+    return ContextInterpreter.getCardsForPlayer(this.contextStore.ctx, playerId);
+  }
+
+  getPlayedCardsForPlayer(playerId) {
+    return ContextInterpreter.getPlayedCardsForPlayer(this.contextStore.ctx, playerId);
   }
 
   @computed
   get inspectedCard() {
-    return this.cards[this.inspectedCardId];
+    return this.getCard(this.inspectedCardId);
   }
 
   @computed
   get hand() {
-    return this.getCardsForUser(this.userStore.currentUserId).filter((card) => card.isInHand);
+    return ContextInterpreter.getCardsForPlayer(
+      this.contextStore.ctx,
+      this.playerStore.currentPlayerId,
+    );
   }
 
-  @computed
-  get selectedUserPlayedCards() {
-    const user = this.userStore.selectedUser;
-
-    return this.getPlayedCardsForUser(user);
-  }
-
-  @action
-  setCard(card) {
-    this.cards[card.id] = card;
-  }
-
-  setCards(cards = []) {
-    cards.forEach(this.setCard);
+  constructor(contextStore, playerStore) {
+    this.contextStore = contextStore;
+    this.playerStore = playerStore;
   }
 
   @action
@@ -52,51 +44,5 @@ export default class CardStore {
   @action
   clearInspectedCard() {
     this.inspectedCardId = null;
-  }
-
-  @action
-  removeCard(card) {
-    delete this.cards[card.id];
-  }
-
-  constructor(userStore) {
-    this.userStore = userStore;
-
-    sdk.onCardDrawn(this.setCard);
-    sdk.onCardDiscarded(this.setCard);
-    sdk.onCardTrashed(this.removeCard);
-    sdk.onCardKilled(this.removeCard);
-    sdk.onCardPlayed(this.setCard);
-    sdk.onConnected(this.fetchHand);
-    sdk.onLeftLobby(this.onLeftLobby);
-
-    autorun(this.getPlayedCardsForUsers);
-  }
-
-  getCard(cardId) {
-    return this.cards[cardId];
-  }
-
-  isOwnCard(card) {
-    return card.userId === this.userStore.currentUserId;
-  }
-
-  fetchHand() {
-    sdk.getHand().then(this.setCards);
-  }
-
-  onLeftLobby() {
-    this.cards = {};
-    this.clearInspectedCard();
-  }
-
-  getPlayedCardsForUsers() {
-    this.userStore.users.forEach((user) => {
-      sdk.listPlayedCardsForUser(user.id).then(this.setCards);
-    });
-  }
-
-  getCardAtSlot(userId, slotIndex) {
-    return this.getPlayedCardsForUser(userId).find((card) => card.slotIndex === slotIndex);
   }
 }
