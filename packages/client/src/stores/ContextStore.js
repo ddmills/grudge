@@ -25,6 +25,11 @@ export default class ContextStore {
   }
 
   @computed
+  get isRunning() {
+    return this.ctx && this.ctx.isRunning;
+  }
+
+  @computed
   get isCountdownStarted() {
     return Boolean(this.ctxData && this.ctxData.state.countdownStartedAt);
   }
@@ -59,6 +64,7 @@ export default class ContextStore {
     sdk.onCountdownStopped(this.onCountdownStopped);
     sdk.onContextStarted(this.onContextStarted);
     sdk.onCardDrawn(this.onCardDrawn);
+    sdk.onTurnEnded(this.onTurnEnded);
   }
 
   joinContext(contextId) {
@@ -113,5 +119,11 @@ export default class ContextStore {
   onCardDrawn({ id }) {
     const card = this.ctxData.state.cards.find((c) => c.id === id);
     card.isDrawn = true;
+  }
+
+  @action
+  onTurnEnded(context) {
+    this.ctxData.state.currentTurn = context.state.currentTurn;
+    this.ctxData.state.turnStartedAt = context.state.turnStartedAt;
   }
 }

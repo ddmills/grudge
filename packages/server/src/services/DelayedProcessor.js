@@ -1,14 +1,13 @@
 import BullQueue from 'providers/bull/BullQueue';
 import ContextService from 'services/ContextService';
 import TurnService from 'services/TurnService';
-import ContextRepository from 'repositories/ContextRepository';
 import Logger from 'utilities/Logger';
 
 const contextCountdownQueue = BullQueue.create('context:countdown');
 const contextTurnQueue = BullQueue.create('context:turn');
 
 contextCountdownQueue.process(async (job) => {
-  await ContextService.start(job.data.contextId);
+  return ContextService.start(job.data.contextId);
 });
 
 contextTurnQueue.process(async (job) => {
@@ -17,12 +16,23 @@ contextTurnQueue.process(async (job) => {
     turn,
   } = job.data;
 
-  const context = await ContextRepository.get(contextId);
-
-  if (!context.isEnded && context.currentTurn === turn) {
-    await TurnService.turnTimeout(context);
-  }
+  return TurnService.turnTimeout(contextId, turn);
 });
+
+const logError = (type) => (error) => {
+  Logger.error(`DelayedProcessor ${type}`, error);
+};
+
+const logJobError = (type) => (job, error) => {
+  Logger.error(`DelayedProcessor job ${type}.`, error);
+};
+
+contextCountdownQueue.on('error', logError('error'));
+contextCountdownQueue.on('failed', logJobError('failed'));
+contextCountdownQueue.on('stalled', logJobError('stalled'));
+contextTurnQueue.on('error', logError('error'));
+contextTurnQueue.on('failed', logJobError('failed'));
+contextTurnQueue.on('stalled', logJobError('stalled'));
 
 export default class DelayedProcessor {
   static scheduleCountdown(context) {

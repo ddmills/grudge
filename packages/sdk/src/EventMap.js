@@ -1,7 +1,5 @@
 import * as Events from '@grudge/api-events';
-import {
-  Card, User, Lobby, Player, Context,
-} from '@grudge/domain';
+import { Card, User, Lobby } from '@grudge/domain';
 import EventHook from './EventHook';
 import ResponseTransformer from './ResponseTransformer';
 
@@ -19,7 +17,6 @@ export default class EventMap {
       new EventHook(Events.LOBBY_JOINED, 'onJoinedLobby', ResponseTransformer.toModel(Lobby)),
       new EventHook(Events.LOBBY_USER_JOINED, 'onUserJoinedLobby', ResponseTransformer.toModel(User)),
       new EventHook(Events.LOBBY_USER_LEFT, 'onUserLeftLobby', ResponseTransformer.toModel(User)),
-      new EventHook(Events.LOBBY_TURN_ENDED, 'onTurnEnded', ResponseTransformer.toModel(Lobby)),
       new EventHook(Events.CARD_DRAWN, 'onCardDrawn', ResponseTransformer.toModel(Card)),
       new EventHook(Events.CARD_DISCARDED, 'onCardDiscarded', ResponseTransformer.toModel(Card)),
       new EventHook(Events.CARD_TRASHED, 'onCardTrashed', ResponseTransformer.toModel(Card)),
@@ -36,6 +33,7 @@ export default class EventMap {
       new EventHook(Events.CONTEXT_COUNTDOWN_STOPPED, 'onCountdownStopped'),
       new EventHook(Events.CONTEXT_COUNTDOWN_STARTED, 'onCountdownStarted'),
       new EventHook(Events.CONTEXT_STARTED, 'onContextStarted'),
+      new EventHook(Events.CONTEXT_TURN_ENDED, 'onTurnEnded'),
     ];
   }
 }

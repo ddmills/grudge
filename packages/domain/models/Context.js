@@ -21,6 +21,9 @@ export default class Context extends Model {
       countdownStartedAt: {
         defaultValue: null,
       },
+      turnStartedAt: {
+        defaultValue: null,
+      },
       createdAt: {},
       players: {
         defaultValue: [],
@@ -34,10 +37,10 @@ export default class Context extends Model {
         defaultValue: 3,
       },
       turnDuration: {
-        defaultValue: 30000,
+        defaultValue: 10000,
       },
       countdownDuration: {
-        defaultValue: 10000,
+        defaultValue: 5000,
       },
       currentTurn: {
         defaultValue: 0,
@@ -73,6 +76,24 @@ export default class Context extends Model {
     return this.players.length >= this.maxNumberOfPlayers;
   }
 
+  get turnStartedAtMs() {
+    if (this.turnStartedAt) {
+      return (new Date(this.turnStartedAt)).getTime();
+    }
+
+    return -1;
+  }
+
+  get currentTurnPlayer() {
+    if (!this.isRunning) {
+      return undefined;
+    }
+
+    const turnId = this.currentTurn % this.players.length;
+
+    return this.players.find((p) => p.turnOrder === turnId);
+  }
+
   addPlayer(player) {
     if (this.getPlayer(player.id)) {
       this.removePlayer(player.id);
@@ -80,6 +101,10 @@ export default class Context extends Model {
     } else {
       this.players.push(player);
     }
+  }
+
+  isPlayersTurn(playerId) {
+    return Boolean(this.currentTurnPlayer && this.currentTurnPlayer.id === playerId);
   }
 
   removePlayer(playerId) {

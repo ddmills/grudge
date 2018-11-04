@@ -12,7 +12,7 @@ export default class UserStore {
 
   @computed
   get currentTurnUser() {
-    return this.lobbyStore.lobby && this.lobbyStore.lobby.pickCurrentTurnUser(this.userStore.users);
+    return this.contextStore.ctx && this.contextStore.ctx.pickCurrentTurnUser(this.userStore.users);
   }
 
   @computed
@@ -24,32 +24,32 @@ export default class UserStore {
 
   @computed
   get turnStartedAtMs() {
-    return this.lobbyStore.lobby && this.lobbyStore.lobby.turnStartedAtMs;
+    return this.contextStore.ctx && this.contextStore.ctx.turnStartedAtMs;
   }
 
   @computed
   get turnDuration() {
-    return this.lobbyStore.lobby && this.lobbyStore.lobby.turnDuration;
+    return this.contextStore.ctx && this.contextStore.ctx.turnDuration;
   }
 
   @computed
   get endTurn() {
-    if (this.lobbyStore.isRunning && this.isOwnTurn) {
+    if (this.contextStore.isRunning && this.isOwnTurn) {
       return () => sdk.endTurn();
     }
 
     return undefined;
   }
 
-  constructor(lobbyStore, userStore) {
-    this.lobbyStore = lobbyStore;
+  constructor(contextStore, userStore) {
+    this.contextStore = contextStore;
     this.userStore = userStore;
 
     autorun(this.configureTurnTimer);
   }
 
   configureTurnTimer() {
-    if (this.lobbyStore.isRunning) {
+    if (this.contextStore.isRunning) {
       this.timer.restart(this.turnStartedAtMs, this.turnDuration);
     } else {
       this.timer.reset();
