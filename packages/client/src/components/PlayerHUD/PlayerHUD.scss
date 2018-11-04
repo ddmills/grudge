@@ -1,6 +1,6 @@
 @import "@grudge/styles";
 
-.userHUD {
+.playerHUD {
   display: flex;
   flex-flow: row nowrap;
 
@@ -14,7 +14,7 @@
   }
 }
 
-.userHUDBanner {
+.playerHUDBanner {
   position: relative;
   flex: 1 1 auto;
   max-height: 200px;

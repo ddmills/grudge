@@ -1,4 +1,6 @@
 import { computed } from 'mobx';
+import { Player } from '@grudge/domain';
+import { ContextInterpreter } from '@grudge/domain/interpreters';
 import sdk from '@grudge/sdk';
 import autobind from 'autobind-decorator';
 
@@ -6,9 +8,36 @@ import autobind from 'autobind-decorator';
 export default class PlayerStore {
   @computed
   get canAddBotPlayer() {
-    const { ctx } = this.contextStore;
+    const {
+      isLoading,
+      isSettingUp,
+      isCountingDown,
+      isFull,
+    } = this.contextStore;
 
-    return Boolean(ctx && ctx.isSettingUp && !ctx.isCountingDown && !ctx.isFull);
+    return Boolean(!isLoading && isSettingUp && !isCountingDown && !isFull);
+  }
+
+  @computed
+  get players() {
+    console.log('∆ players');
+    const rawPlayers = ContextInterpreter.getPlayers(this.contextStore.ctx);
+
+    return Player.deserializeAll(rawPlayers);
+  }
+
+  @computed
+  get currentPlayer() {
+    const { ctx } = this.contextStore;
+    const { currentUserId } = this.userStore;
+    const rawPlayer = ContextInterpreter.getPlayerForUser(ctx, currentUserId);
+
+    return rawPlayer && Player.deserialize(rawPlayer);
+  }
+
+  @computed
+  get currentPlayerId() {
+    return this.currentPlayer ? this.currentPlayer.id : undefined;
   }
 
   @computed
@@ -22,7 +51,8 @@ export default class PlayerStore {
     return undefined;
   }
 
-  constructor(contextStore) {
+  constructor(contextStore, userStore) {
     this.contextStore = contextStore;
+    this.userStore = userStore;
   }
 }

@@ -2,7 +2,8 @@ import { Component } from 'react';
 import { Context } from '@grudge/domain';
 import { CodeBlock, Container } from '@grudge/components';
 import PageSuperHeader from 'components/Page/SuperHeader/PageSuperHeader';
-import LobbyTimeline from 'components/LobbyTimeline/LobbyTimeline';
+import TurnCountdown from 'components/TurnCountdown/TurnCountdown';
+import PlayerHUD from 'components/PlayerHUD/PlayerHUD';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';
 import styles from './GamePlayScreen.scss';
@@ -12,7 +13,7 @@ import styles from './GamePlayScreen.scss';
 }))
 export default class GamePlayScreen extends Component {
   static propTypes = {
-    ctx: PropTypes.instanceOf(Context).isRequired,
+    ctx: PropTypes.object.isRequired,
   }
 
   render() {
@@ -24,12 +25,13 @@ export default class GamePlayScreen extends Component {
       <section className={styles.fullPage}>
         <PageSuperHeader/>
         <div className={styles.content}>
-          <LobbyTimeline/>
+          <TurnCountdown/>
           <Container className={styles.viewer} isPadded={false}>
             <CodeBlock>
               {ctx}
             </CodeBlock>
           </Container>
+          <PlayerHUD/>
         </div>
       </section>
     );

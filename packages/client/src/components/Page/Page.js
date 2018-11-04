@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { Container } from '@grudge/components';
 import PropTypes from 'prop-types';
-import LobbySetupHeader from 'components/LobbySetupHeader/LobbySetupHeader';
 import PageSuperHeader from './SuperHeader/PageSuperHeader';
 import PageHeader from './Header/PageHeader';
 import PageFooter from './Footer/PageFooter';
@@ -16,14 +15,12 @@ export default class Page extends Component {
       'xl',
       'max',
     ]),
-    showLobbySetupHeader: PropTypes.bool,
     showFooter: PropTypes.bool,
     showHeader: PropTypes.bool,
   }
 
   static defaultProps = {
     size: 'md',
-    showLobbySetupHeader: true,
     showHeader: false,
     showFooter: true,
   }
@@ -32,7 +29,6 @@ export default class Page extends Component {
     const {
       size,
       children,
-      showLobbySetupHeader,
       showHeader,
       showFooter,
     } = this.props;
@@ -42,9 +38,6 @@ export default class Page extends Component {
         <PageSuperHeader size={size}/>
         {showHeader && (
           <PageHeader size={size}/>
-        )}
-        {showLobbySetupHeader && (
-          <LobbySetupHeader size={size}/>
         )}
         <Container size={size} className={styles.pageContent}>
           {children}

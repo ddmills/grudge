@@ -1,13 +1,13 @@
 @import "@grudge/styles";
 
-.lobbyTimelineBanner {
+.turnCountdownBanner {
   flex: 0 0 auto;
   width: 100%;
   height: $spacer-1;
   background-color: fade($primary-300, 75);
 }
 
-.lobbyTimeline {
+.turnCountdown {
   height: 100%;
 }
 

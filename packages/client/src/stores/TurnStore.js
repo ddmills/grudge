@@ -1,6 +1,7 @@
 import {
   autorun, computed, observable,
 } from 'mobx';
+import { ContextInterpreter } from '@grudge/domain/interpreters';
 import sdk from '@grudge/sdk';
 import autobind from 'autobind-decorator';
 import MobXCountdownTimer from 'utilities/mobx/MobXCountdownTimer';
@@ -12,14 +13,12 @@ export default class UserStore {
 
   @computed
   get isOwnTurn() {
-    return Boolean(
-      this.contextStore.ctx && this.contextStore.ctx.isUsersTurn(this.userStore.currentUserId),
-    );
+    return ContextInterpreter.isUsersTurn(this.contextStore.ctx, this.userStore.currentUserId);
   }
 
   @computed
   get turnStartedAtMs() {
-    return this.contextStore.ctx && this.contextStore.ctx.turnStartedAtMs;
+    return ContextInterpreter.turnStartedAtMs(this.contextStore.ctx);
   }
 
   @computed

@@ -36,7 +36,10 @@ export default class ContextRepository extends ModelRepository {
 
       await DB.table(this.tableName).insert({
         createdAt: serialized.createdAt,
-        state: JSON.stringify(serialized.state),
+        state: JSON.stringify({
+          ...serialized,
+          id,
+        }),
         id,
       });
     } catch (error) {
@@ -65,7 +68,7 @@ export default class ContextRepository extends ModelRepository {
         .update({
           id: serialized.id,
           createdAt: serialized.createdAt,
-          state: JSON.stringify(serialized.state),
+          state: JSON.stringify(serialized),
         });
 
       return serialized.id;
@@ -86,7 +89,7 @@ export default class ContextRepository extends ModelRepository {
         return Promise.reject(error);
       }
 
-      const context = Context.deserialize(data);
+      const context = Context.deserialize(data.state);
 
       return Promise.resolve(context);
     } catch (error) {

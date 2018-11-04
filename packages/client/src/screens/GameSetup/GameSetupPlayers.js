@@ -4,12 +4,12 @@ import { Player } from '@grudge/domain';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';
 
-@connect(({ contextStore }) => ({
-  players: contextStore.players,
+@connect(({ playerStore }) => ({
+  players: playerStore.players,
 }))
 export default class GameSetupPlayers extends Component {
   static propTypes = {
-    players: PropTypes.arrayOf(PropTypes.object).isRequired,
+    players: PropTypes.arrayOf(PropTypes.instanceOf(Player)).isRequired,
   };
 
   render() {

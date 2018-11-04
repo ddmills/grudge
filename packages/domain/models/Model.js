@@ -41,7 +41,7 @@ export default class Model {
   }
 
   static serializeAll(datas = []) {
-    return datas.map((data) => this.deserialize(data));
+    return datas.map((data) => data.serialize());
   }
 
   static deserializeAll(datas = []) {
