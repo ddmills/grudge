@@ -24,4 +24,8 @@ export default class ContextController {
   static async stopCountdown({ user, context }) {
     return ContextService.stopCountdown(user, context);
   }
+
+  static async addBotPlayer({ user, context }) {
+    return ContextService.addBotPlayer(user, context);
+  }
 }

@@ -139,6 +139,10 @@ export default class SDK {
     return this.query(Events.CONTEXT_JOIN, { contextId });
   }
 
+  addBotPlayer() {
+    return this.query(Events.PLAYER_BOT_ADD);
+  }
+
   leaveContext() {
     return this.query(Events.CONTEXT_LEAVE);
   }

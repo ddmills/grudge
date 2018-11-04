@@ -25,17 +25,7 @@ export default class ContextService {
     return this.join(user, context.id);
   }
 
-  static async join(user, contextId) {
-    if (user.contextId) {
-      if (user.contextId === contextId) {
-        return ContextRepository.get(contextId);
-      }
-
-      throw new Error('User is already in a game');
-    }
-
-    const context = await ContextRepository.get(contextId);
-
+  static async addPlayer(player, context) {
     if (context.isCountingDown) {
       throw new Error('Game is already starting');
     }
@@ -52,16 +42,36 @@ export default class ContextService {
       throw new Error('Game doesn\'t have enough room for additional player');
     }
 
-    const player = Player.createForUser(user);
-
     context.addPlayer(player);
 
     await ContextRepository.save(context);
+
+    NotificationService.onPlayerJoined(context, player);
+
+    return context;
+  }
+
+  static async join(user, contextId) {
+    if (user.contextId) {
+      if (user.contextId === contextId) {
+        return ContextRepository.get(contextId);
+      }
+
+      throw new Error('User is already in a game');
+    }
+
+    const context = await ContextRepository.get(contextId);
+    const player = Player.create({
+      id: Random.id('ply'),
+      userId: user.id,
+      displayName: user.displayName,
+      isBot: false,
+    });
+
+    await this.addPlayer(player, context);
     await UserRepository.updateForId(user.id, {
       contextId: context.id,
     });
-
-    NotificationService.onPlayerJoined(context, player);
 
     return context;
   }
@@ -147,5 +157,21 @@ export default class ContextService {
     DelayedProcessor.scheduleTurn(context);
 
     return context;
+  }
+
+  static async addBotPlayer(user, context) {
+    if (context.ownerId !== user.id) {
+      throw new Error('User does not have permission to add a bot to the current game');
+    }
+
+    const player = Player.create({
+      id: Random.id('ply'),
+      displayName: 'Bot boy',
+      isBot: true,
+    });
+
+    await this.addPlayer(player, context);
+
+    return player;
   }
 }
