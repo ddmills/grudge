@@ -5,9 +5,9 @@ import CardRepository from 'repositories/CardRepository';
 import UserRepository from 'repositories/UserRepository';
 import TraitService from 'services/TraitService';
 import Random from 'utilities/Random';
-import { TraitIds } from '@grudge/data';
+import { ContextInterpreter } from '@grudge/domain/interpreters';
+import { TraitIds, CardLocations } from '@grudge/data';
 import ContextRepository from 'repositories/ContextRepository';
-import Logger from 'utilities/Logger';
 
 const HAND_CARD_COUNT = 5;
 
@@ -79,30 +79,30 @@ export default class CardService {
   }
 
   static async draw(context, player, count = 1) {
-    const allCards = context.getCardsForPlayer(player.id);
-    const freshPile = allCards.filter((card) => card.isFresh);
+    const cards = ContextInterpreter.getCardsForPlayer(context, player.id);
+    const deck = cards.filter((c) => c.location === CardLocations.DECK);
 
-    if (freshPile.length >= count) {
-      const cardsToDraw = Random.sample(freshPile, count);
+    if (deck.length >= count) {
+      const cardsToDraw = Random.sample(deck, count);
 
-      cardsToDraw.map((card) => card.draw());
+      cardsToDraw.forEach((c) => c.set('location', CardLocations.HAND));
     } else {
-      freshPile.map((card) => card.draw());
+      deck.forEach((c) => c.set('location', CardLocations.HAND));
 
-      const discardPile = allCards.filter((card) => card.isDiscarded && !card.isTrashed);
+      const discardPile = cards.filter((c) => c.location === CardLocations.DISCARD);
 
-      discardPile.map((card) => card.recycle());
+      discardPile.forEach((c) => c.set('location', CardLocations.DECK));
 
-      const cardsToDraw = Random.sample(discardPile, count - freshPile.length);
+      const cardsToDraw = Random.sample(discardPile, count - deck.length);
 
-      cardsToDraw.map((card) => card.draw());
+      cardsToDraw.forEach((c) => c.set('location', CardLocations.HAND));
     }
 
     await ContextRepository.save(context);
 
-    const drawnCards = context.getCardsForPlayer(player.id).filter((card) => card.isDrawn);
+    const hand = ContextInterpreter.getHandForPlayer(context, player.id);
 
-    drawnCards.forEach((card) => NotificationService.onCardDrawn(context, card));
+    hand.forEach((c) => NotificationService.onCardDrawn(context, c));
   }
 
   static async drawHand(context, player) {

@@ -1,4 +1,5 @@
 import { action, computed, observable } from 'mobx';
+import { Card } from '@grudge/domain';
 import { ContextInterpreter } from '@grudge/domain/interpreters';
 import autobind from 'autobind-decorator';
 
@@ -7,7 +8,9 @@ export default class CardStore {
   @observable inspectedCardId = null;
 
   getCard(cardId) {
-    return ContextInterpreter.getCard(this.contextStore.ctx, cardId);
+    const rawCard = ContextInterpreter.getCard(this.contextStore.ctx, cardId);
+
+    return rawCard && Card.create(rawCard);
   }
 
   getCardsForPlayer(playerId) {
@@ -25,7 +28,7 @@ export default class CardStore {
 
   @computed
   get hand() {
-    return ContextInterpreter.getCardsForPlayer(
+    const cards = ContextInterpreter.getCardsForPlayer(
       this.contextStore.ctx,
       this.playerStore.currentPlayerId,
     );

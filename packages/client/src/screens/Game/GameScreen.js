@@ -1,10 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { LoadingIndicator, CodeBlock } from '@grudge/components';
+import { LoadingIndicator } from '@grudge/components';
 import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
-import { Context } from '@grudge/domain';
-import { ContextInterpreter } from '@grudge/domain/interpreters';
 import GameSetupScreen from 'screens/GameSetup/GameSetupScreen';
 import GamePlayScreen from 'screens/GamePlay/GamePlayScreen';
 import Redirect from 'components/Redirect/Redirect';

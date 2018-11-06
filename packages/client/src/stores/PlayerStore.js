@@ -21,7 +21,6 @@ export default class PlayerStore {
 
   @computed
   get players() {
-    console.log('∆ players');
     const rawPlayers = ContextInterpreter.getPlayers(this.contextStore.ctx);
 
     return Player.deserializeAll(rawPlayers);
@@ -44,9 +43,7 @@ export default class PlayerStore {
   @computed
   get addBotPlayer() {
     if (this.canAddBotPlayer) {
-      return () => {
-        sdk.addBotPlayer();
-      };
+      return () => sdk.addBotPlayer();
     }
 
     return undefined;

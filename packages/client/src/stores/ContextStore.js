@@ -2,6 +2,7 @@ import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
 import { ContextInterpreter } from '@grudge/domain/interpreters';
+import { CardLocations } from '@grudge/data';
 
 @autobind
 export default class ContextStore {
@@ -133,7 +134,7 @@ export default class ContextStore {
   onCardDrawn({ id }) {
     const card = ContextInterpreter.getCard(this.ctx, id);
 
-    card.isDrawn = true;
+    card.location = CardLocations.HAND;
   }
 
   @action

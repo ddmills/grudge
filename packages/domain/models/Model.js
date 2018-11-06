@@ -22,6 +22,13 @@ export default class Model {
     }), {});
   }
 
+  clone(overrides = {}) {
+    return this.constructor.create({
+      ...this.attributes,
+      ...overrides,
+    });
+  }
+
   static create(overrides = {}) {
     return new this(overrides);
   }
