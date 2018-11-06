@@ -30,7 +30,7 @@ export default class NotificationService {
     }
 
     Logger.info('emit', event, player.userId, data ? data.id : 'NO_DATA');
-    const serialized = data instanceof Model ? data.serialize(player) : data;
+    const serialized = data instanceof Model ? data.serialize(player.userId) : data;
 
     SocketEmitter.to(player.userId).emit(event, serialized);
   }

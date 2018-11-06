@@ -40,8 +40,8 @@ export default class Model {
     return this.create(data);
   }
 
-  static serializeAll(datas = []) {
-    return datas.map((data) => data.serialize());
+  static serializeAll(datas = [], userId) {
+    return datas.map((data) => data.serialize(userId));
   }
 
   static deserializeAll(datas = []) {

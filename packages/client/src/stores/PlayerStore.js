@@ -11,11 +11,12 @@ export default class PlayerStore {
     const {
       isLoading,
       isSettingUp,
+      isOwner,
       isCountingDown,
       isFull,
     } = this.contextStore;
 
-    return Boolean(!isLoading && isSettingUp && !isCountingDown && !isFull);
+    return Boolean(!isLoading && isSettingUp && isOwner && !isCountingDown && !isFull);
   }
 
   @computed

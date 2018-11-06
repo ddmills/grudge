@@ -9,9 +9,13 @@ export default function createMiddleware() {
 
     socket.use(async (packet, next) => {
       try {
-        const user = await UserService.get(socket.userId);
+        const { userId } = socket;
+        const user = await UserService.get(userId);
 
-        Object.assign(packet[1], { user });
+        Object.assign(packet[1], {
+          user,
+          userId,
+        });
 
         next();
       } catch (error) {
