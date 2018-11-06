@@ -1,3 +1,4 @@
+import { CardLocations } from '@grudge/data';
 import Model from './Model';
 
 export default class Card extends Model {
@@ -15,18 +16,6 @@ export default class Card extends Model {
       playerId: {
         defaultValue: undefined,
       },
-      isDrawn: {
-        defaultValue: false,
-      },
-      isDiscarded: {
-        defaultValue: false,
-      },
-      isTrashed: {
-        defaultValue: false,
-      },
-      isDisabled: {
-        defaultValue: true,
-      },
       slotIndex: {
         defaultValue: undefined,
       },
@@ -38,6 +27,9 @@ export default class Card extends Model {
       },
       playActions: {
         defaultValue: [],
+      },
+      location: {
+        defaultValue: CardLocations.UNKNOWN,
       },
     };
   }
@@ -63,15 +55,7 @@ export default class Card extends Model {
   }
 
   get isPlayed() {
-    return Number.isInteger(this.slotIndex) && this.slotIndex >= 0;
-  }
-
-  get isFresh() {
-    return !this.isDrawn && !this.isPlayed && !this.isDiscarded && !this.isTrashed;
-  }
-
-  get isInHand() {
-    return this.isDrawn && !this.isPlayed && !this.isDiscarded && !this.isTrashed;
+    return this.location === CardLocations.ARENA;
   }
 
   get defaultHandAction() {
@@ -80,19 +64,5 @@ export default class Card extends Model {
 
   get defaultPlayAction() {
     return this.playActions[0];
-  }
-
-  draw() {
-    this.set('isDrawn', true);
-    this.set('isDiscarded', false);
-    this.set('isTrashed', false);
-    this.set('isDisabled', false);
-  }
-
-  recycle() {
-    this.set('isDrawn', false);
-    this.set('isDiscarded', false);
-    this.set('isTrashed', false);
-    this.set('slotIndex', null);
   }
 }

@@ -25,8 +25,7 @@ export default class Hand extends Component {
       <div className={styles.hand}>
         {cardIds.map((cardId) => (
           <div key={cardId} className={styles.handCard}>
-            {cardId}
-            {/* <Card cardId={cardId}/> */}
+            <Card cardId={cardId}/>
           </div>
         ))}
       </div>

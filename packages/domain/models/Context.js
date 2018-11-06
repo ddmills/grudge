@@ -125,7 +125,7 @@ export default class Context extends Model {
   }
 
   getPlayerForUser(userId) {
-    return this.players.find((p) => p.userId === userId);
+    return userId ? this.players.find((p) => p.userId === userId) : undefined;
   }
 
   serialize(userId) {

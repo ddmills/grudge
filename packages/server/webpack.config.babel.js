@@ -29,6 +29,7 @@ export default {
     nodeExternals({
       whitelist: [
         '@grudge/domain',
+        '@grudge/domain/interpreters',
         '@grudge/api-events',
         '@grudge/data',
       ],

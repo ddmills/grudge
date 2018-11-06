@@ -22,11 +22,11 @@ const getTrait = (card, traitId, resolveRef, property = 'value') => {
 
   return {
     card,
-    isSelected: actionStore.isCardSelected(card),
-    isTargeted: actionStore.isCardTargeted(card),
+    isSelected: false, //actionStore.isCardSelected(card),
+    isTargeted: false, //actionStore.isCardTargeted(card),
     cardType: card && cardTypeStore.findCardType(card.cardTypeId),
-    onClick: () => actionStore.onClickCard(card),
-    onClickHold: () => cardStore.inspectCard(card.id),
+    onClick: () => {}, // () => actionStore.onClickCard(card),
+    onClickHold: () => {}, // () => cardStore.inspectCard(card.id),
     resolveRef: actionRefStore.resolve,
     responsiveCardSize: windowSizeStore.responsiveCardSize,
   };

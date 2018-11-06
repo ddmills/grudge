@@ -1,3 +1,5 @@
+import { CardLocations } from '@grudge/data';
+
 export default class ContextInterpreter {
   static isCountdownStarted(ctx) {
     if (!ctx) return false;
@@ -82,12 +84,7 @@ export default class ContextInterpreter {
 
   static getPlayerForUser(ctx, userId) {
     if (!ctx) return;
-    return ctx.players.find((p) => p.userId === userId);
-  }
-
-  static getCardsForPlayer(ctx, playerId) {
-    if (!ctx) return [];
-    return ctx.cards.filter((c) => c.playerId === playerId);
+    return userId ? ctx.players.find((p) => p.userId === userId) : undefined;
   }
 
   static getCard(ctx, cardId) {
@@ -95,11 +92,51 @@ export default class ContextInterpreter {
     return ctx.cards.find((c) => c.id === cardId);
   }
 
+  static isCardPlayed(ctx, cardId) {
+    const card = this.getCard(ctx, cardId);
+    if (!card) return false;
+
+    return card.location === CardLocations.ARENA;
+  }
+
+  static isCardDiscarded(ctx, cardId) {
+    const card = this.getCard(ctx, cardId);
+    if (!card) return false;
+
+    return card.location === CardLocations.DISCARD;
+  }
+
+  static isCardTrashed(ctx, cardId) {
+    const card = this.getCard(ctx, cardId);
+    if (!card) return false;
+
+    return card.location === CardLocations.TRASH;
+  }
+
+  static cardIsInHand(ctx, cardId) {
+    const card = this.getCard(ctx, cardId);
+    if (!card) return false;
+
+    return card.location === CardLocations.HAND;
+  }
+
   static getPlayerForCard(ctx, cardId) {
     if (!ctx) return;
     const card = this.getCard(ctx, cardId);
 
     return card && this.getPlayer(ctx, card.playerId);
+  }
+
+  static getCardsForPlayer(ctx, playerId) {
+    if (!ctx) return [];
+    return ctx.cards.filter((c) => c.playerId === playerId);
+  }
+
+  static getHandForPlayer(ctx, playerId) {
+    if (!ctx) return [];
+    return ctx.cards.filter((c) => {
+      return c.playerId === playerId && c.location === CardLocations.HAND;
+    });
   }
 
   static getPlayedCardsForPlayer(ctx, playerId) {

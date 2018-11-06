@@ -1,8 +1,23 @@
+import { CardLocations } from '@grudge/data';
 import { Context, Player, Card } from '../index';
 import Serializer from './Serializer';
 
-const cardFilterForUser = (player) => (card) => {
-  return card.isOwnedBy(player.id) || card.isPlayed;
+const hideCard = (card) => {
+  return card.clone({
+    location: card.location === CardLocations.ARENA ? card.location : CardLocations.UNKNOWN,
+  });
+};
+
+const mapCardForPlayer = (player) => (card) => {
+  if (!player) {
+    return card;
+  }
+
+  if (card.playerId === player.id) {
+    return card;
+  }
+
+  return hideCard(card);
 };
 
 export default class ContextSerializer extends Serializer {
@@ -14,12 +29,12 @@ export default class ContextSerializer extends Serializer {
     } = context;
 
     const player = context.getPlayerForUser(userId);
-    const filteredCards = userId ? cards.filter(cardFilterForUser(player)) : cards;
+    const mappedCards = cards.map(mapCardForPlayer(player));
 
     return {
       ...state,
       players: Player.serializeAll(players),
-      cards: Card.serializeAll(filteredCards),
+      cards: Card.serializeAll(mappedCards),
     };
   }
 
