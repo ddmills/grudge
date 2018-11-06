@@ -1,20 +1,20 @@
 import { Context, Player, Card } from '../index';
 import Serializer from './Serializer';
 
-const cardFilterForPlayer = (player) => (card) => {
+const cardFilterForUser = (player) => (card) => {
   return card.isOwnedBy(player.id) || card.isPlayed;
 };
 
 export default class ContextSerializer extends Serializer {
-  static serialize(context, user) {
+  static serialize(context, userId) {
     const {
       players,
       cards,
       ...state
     } = context;
 
-    const player = context.getPlayerForUser(user.id);
-    const filteredCards = user ? cards.filter(cardFilterForPlayer(player)) : cards;
+    const player = context.getPlayerForUser(userId);
+    const filteredCards = userId ? cards.filter(cardFilterForUser(player)) : cards;
 
     return {
       ...state,

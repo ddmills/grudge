@@ -128,8 +128,8 @@ export default class Context extends Model {
     return this.players.find((p) => p.userId === userId);
   }
 
-  serialize(user) {
-    return ContextSerializer.serialize(this, user);
+  serialize(userId) {
+    return ContextSerializer.serialize(this, userId);
   }
 
   static deserialize(data) {
