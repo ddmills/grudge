@@ -18,15 +18,16 @@ const getTrait = (card, traitId, resolveRef, property = 'value') => {
 @connect(({
   cardTypeStore, cardStore, actionStore, windowSizeStore, actionRefStore,
 }, { cardId }) => {
-  const card = cardStore.getCard(cardId);
+  const cardData = cardStore.getCard(cardId);
+  const card = cardData && CardModel.deserialize(cardData);
 
   return {
     card,
     isSelected: false, //actionStore.isCardSelected(card),
     isTargeted: false, //actionStore.isCardTargeted(card),
-    cardType: card && cardTypeStore.findCardType(card.cardTypeId),
+    cardType: card && CardType.deserialize(cardTypeStore.findCardType(card.cardTypeId)),
     onClick: () => {}, // () => actionStore.onClickCard(card),
-    onClickHold: () => {}, // () => cardStore.inspectCard(card.id),
+    onClickHold: () => cardStore.inspectCard(card.id),
     resolveRef: actionRefStore.resolve,
     responsiveCardSize: windowSizeStore.responsiveCardSize,
   };
