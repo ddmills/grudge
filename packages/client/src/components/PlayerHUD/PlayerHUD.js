@@ -26,7 +26,7 @@ export default class PlayerHUD extends Component {
         {player && (
           <Container className={styles.playerHUD} isPadded={false}>
             <div className={styles.playerHUDRight}>
-              {/* <Hand/> */}
+              <Hand/>
             </div>
             <div className={styles.playerHUDLeft}>
               <p>

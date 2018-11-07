@@ -28,7 +28,7 @@ export default class CardStore {
 
   @computed
   get hand() {
-    const cards = ContextInterpreter.getCardsForPlayer(
+    return ContextInterpreter.getHandForPlayer(
       this.contextStore.ctx,
       this.playerStore.currentPlayerId,
     );

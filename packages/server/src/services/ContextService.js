@@ -166,7 +166,7 @@ export default class ContextService {
 
     const player = Player.create({
       id: Random.id('ply'),
-      displayName: 'Bot boy',
+      displayName: 'Bot',
       isBot: true,
     });
 
