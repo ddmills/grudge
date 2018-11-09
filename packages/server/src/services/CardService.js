@@ -110,6 +110,8 @@ export default class CardService {
   }
 
   static async drawHands(context) {
-    await Promise.all(context.players.map((player) => this.drawHand(context, player)));
+    for (const player of context.players) { // eslint-disable-line no-restricted-syntax
+      await this.drawHand(context, player); // eslint-disable-line no-await-in-loop
+    }
   }
 }
