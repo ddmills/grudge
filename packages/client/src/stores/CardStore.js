@@ -48,4 +48,8 @@ export default class CardStore {
   clearInspectedCard() {
     this.inspectedCardId = null;
   }
+
+  getCardAtSlot(playerId, slotIndex) {
+    return undefined;
+  }
 }

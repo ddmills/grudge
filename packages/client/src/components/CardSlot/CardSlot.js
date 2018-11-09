@@ -8,16 +8,16 @@ import styles from './CardSlot.scss';
 
 @connect(({
   cardStore, userStore, actionStore, windowSizeStore,
-}, { userId, slotIndex }) => {
-  const card = cardStore.getCardAtSlot(userId, slotIndex);
-  const isOwn = userId === userStore.currentUserId;
+}, { playerId, slotIndex }) => {
+  const card = cardStore.getCardAtSlot(playerId, slotIndex);
+  const isOwn = playerId === userStore.currentUserId;
   const isEmpty = !card;
   const size = windowSizeStore.responsiveCardSize;
 
   return {
     cardId: card && card.id,
     onClick: isOwn && isEmpty ? () => actionStore.onSlotClicked(slotIndex) : () => {},
-    highlightStyle: actionStore.getCardHighlight(userId, slotIndex),
+    highlightStyle: actionStore.getCardHighlight(playerId, slotIndex),
     size,
   };
 })
