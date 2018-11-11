@@ -1,4 +1,5 @@
-import { CardLocations } from '@grudge/data';
+import { CardLocations, TraitIds } from '@grudge/data';
+import ReferenceResolver from './ReferenceResolver';
 
 export default class ContextInterpreter {
   static isCountdownStarted(ctx) {
@@ -113,11 +114,57 @@ export default class ContextInterpreter {
     return card.location === CardLocations.TRASH;
   }
 
-  static cardIsInHand(ctx, cardId) {
+  static isCardInHand(ctx, cardId) {
     const card = this.getCard(ctx, cardId);
     if (!card) return false;
 
     return card.location === CardLocations.HAND;
+  }
+
+  static isCardOwnedBy(ctx, cardId, playerId) {
+    if (!ctx) return [];
+    const card = this.getCard(ctx, cardId);
+
+    return card ? card.playerId === playerId : false;
+  }
+
+  static isCardDefender(ctx, cardId) {
+    if (!ctx) return [];
+    const card = this.getCard(ctx, cardId);
+
+    return card ? card.traits.some((t) => t.id === TraitIds.DEFENDER) : false;
+  }
+
+  static getDefendedSlotsForCard(ctx, cardId) {
+    const card = this.getCard(ctx, cardId);
+    if (!card) return [];
+
+    const defender = card.traits.find((t) => t.id === TraitIds.DEFENDER);
+
+    if (!defender) {
+      return [];
+    }
+
+    return ReferenceResolver.resolve(ctx, cardId, defender.slots);
+  }
+
+  static getDefendedSlots(ctx, playerId) {
+    return this.getCardsForPlayer(ctx, playerId)
+      .map((c) => this.getDefendedSlotsForCard(ctx, c.id))
+      .reduce((acc, arr) => [...acc, ...arr])
+      .filter((s, idx, self) => self.indexOf(s) === idx);
+  }
+
+  static isCardDefended(ctx, cardId) {
+    if (this.isCardDefender(ctx, cardId)) {
+      return false;
+    }
+
+    const card = this.getCard(ctx, cardId);
+    const player = this.getPlayerForCard(ctx, cardId);
+    const defended = this.getDefendedSlots(ctx, player.id);
+
+    return defended.includes(card.slotIndex);
   }
 
   static getPlayerForCard(ctx, cardId) {
@@ -125,6 +172,55 @@ export default class ContextInterpreter {
     const card = this.getCard(ctx, cardId);
 
     return card && this.getPlayer(ctx, card.playerId);
+  }
+
+  static getHandActionsForCard(ctx, cardId) {
+    if (!ctx) return [];
+    const card = this.getCard(ctx, cardId);
+
+    return card && card.handActions;
+  }
+
+  static getHandActionForCard(ctx, cardId, actionIdx) {
+    const actions = this.getHandActionsForCard(ctx, cardId);
+
+    return actions[actionIdx];
+  }
+
+  static getPlayActionsForCard(ctx, cardId) {
+    if (!ctx) return [];
+    const card = this.getCard(ctx, cardId);
+
+    return card && card.playActions;
+  }
+
+  static getPlayActionForCard(ctx, cardId, actionIdx) {
+    const actions = this.getPlayActionsForCard(ctx, cardId);
+
+    return actions[actionIdx];
+  }
+
+  static getTraitsForCard(ctx, cardId) {
+    const card = this.getCard(ctx, cardId);
+    if (!card) return [];
+
+    return card.traits;
+  }
+
+  static getTraitForCard(ctx, cardId, traitId) {
+    const traits = this.getTraitsForCard(ctx, cardId);
+
+    return traits.find((t) => t.id === traitId);
+  }
+
+  static getCardAtSlot(ctx, playerId, slotIndex) {
+    const cards = this.getPlayedCardsForPlayer(ctx, playerId);
+
+    return cards.find((c) => c.slotIndex === slotIndex);
+  }
+
+  static cardHasTrait(ctx, cardId, traitId) {
+    return Boolean(this.getTraitForCard(ctx, cardId, traitId));
   }
 
   static getCardsForPlayer(ctx, playerId) {
@@ -140,8 +236,8 @@ export default class ContextInterpreter {
   }
 
   static getPlayedCardsForPlayer(ctx, playerId) {
-    if (!ctx) return;
-    const cards = this.getCardsForPlayer(this.contextStore.ctx, playerId);
+    if (!ctx) return [];
+    const cards = this.getCardsForPlayer(ctx, playerId);
 
     return cards.filter((c) => c.playerId === playerId);
   }
