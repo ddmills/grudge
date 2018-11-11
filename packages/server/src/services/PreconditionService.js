@@ -12,6 +12,7 @@ export default class PreconditionService {
     if (!precondition) {
       Logger.warn(`Precondition ${preconditionParams.id} not found`);
     } else {
+      Logger.debug(`Validating precondition ${precondition.id}`);
       precondition.validate(context, preconditionParams, actionData);
     }
   }

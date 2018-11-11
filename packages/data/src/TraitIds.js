@@ -1,4 +1,3 @@
-export const DISABLED = 'trt-disabled';
 export const DEFENDER = 'trt-defender';
 export const HEALTH = 'trt-health';
 export const ATTACK = 'trt-attack';

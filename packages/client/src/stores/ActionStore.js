@@ -1,7 +1,7 @@
 import { action, observable, computed } from 'mobx';
 import autobind from 'autobind-decorator';
 import { ActionSetups } from '@grudge/data';
-import { ContextInterpreter } from '@grudge/domain/interpreters';
+import { ContextInterrogator } from '@grudge/domain/interpreters';
 import sdk from '@grudge/sdk';
 
 @autobind

@@ -1,6 +1,6 @@
 import { computed } from 'mobx';
 import { Player } from '@grudge/domain';
-import { ContextInterpreter } from '@grudge/domain/interpreters';
+import { ContextInterrogator } from '@grudge/domain/interpreters';
 import sdk from '@grudge/sdk';
 import autobind from 'autobind-decorator';
 
@@ -21,7 +21,7 @@ export default class PlayerStore {
 
   @computed
   get players() {
-    const rawPlayers = ContextInterpreter.getPlayers(this.contextStore.ctx);
+    const rawPlayers = ContextInterrogator.getPlayers(this.contextStore.ctx);
 
     return Player.deserializeAll(rawPlayers);
   }
@@ -30,7 +30,7 @@ export default class PlayerStore {
   get currentPlayer() {
     const { ctx } = this.contextStore;
     const { currentUserId } = this.userStore;
-    const rawPlayer = ContextInterpreter.getPlayerForUser(ctx, currentUserId);
+    const rawPlayer = ContextInterrogator.getPlayerForUser(ctx, currentUserId);
 
     return rawPlayer && Player.deserialize(rawPlayer);
   }

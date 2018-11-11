@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
-import { ContextInterpreter } from '@grudge/domain/interpreters';
+import { ContextInterrogator } from '@grudge/domain/interpreters';
 import { CardLocations } from '@grudge/data';
 
 @autobind
@@ -16,37 +16,37 @@ export default class ContextStore {
 
   @computed
   get isOwner() {
-    return ContextInterpreter.isUserOwner(this.ctx, this.authStore.userId);
+    return ContextInterrogator.isUserOwner(this.ctx, this.authStore.userId);
   }
 
   @computed
   get isRunning() {
-    return ContextInterpreter.isRunning(this.ctx);
+    return ContextInterrogator.isRunning(this.ctx);
   }
 
   @computed
   get isSettingUp() {
-    return ContextInterpreter.isSettingUp(this.ctx);
+    return ContextInterrogator.isSettingUp(this.ctx);
   }
 
   @computed
   get isFull() {
-    return ContextInterpreter.isFull(this.ctx);
+    return ContextInterrogator.isFull(this.ctx);
   }
 
   @computed
   get isEnded() {
-    return ContextInterpreter.isEnded(this.ctx);
+    return ContextInterrogator.isEnded(this.ctx);
   }
 
   @computed
   get isCountingDown() {
-    return ContextInterpreter.isCountingDown(this.ctx);
+    return ContextInterrogator.isCountingDown(this.ctx);
   }
 
   @computed
   get isCountdownStarted() {
-    return ContextInterpreter.isCountdownStarted(this.ctx);
+    return ContextInterrogator.isCountdownStarted(this.ctx);
   }
 
   @computed
@@ -132,7 +132,7 @@ export default class ContextStore {
 
   @action
   onCardDrawn({ id }) {
-    const card = ContextInterpreter.getCard(this.ctx, id);
+    const card = ContextInterrogator.getCard(this.ctx, id);
 
     card.location = CardLocations.HAND;
   }

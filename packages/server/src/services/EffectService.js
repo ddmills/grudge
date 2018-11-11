@@ -2,23 +2,26 @@ import Logger from 'utilities/Logger';
 import Effects from 'actions/effects/index';
 
 export default class EffectService {
-  static get(effectId) {
+  static getEffect(effectId) {
     return Effects.find((effect) => effect.id === effectId);
   }
 
-  static async apply(effectParams, actionData) {
-    const effect = this.get(effectParams.id);
+  static execute(context, effectParams, actionData) {
+    const effect = this.getEffect(effectParams.id);
 
     if (!effect) {
       Logger.warn(`Effect ${effectParams.id} not found`);
+      return;
     }
 
-    await effect.apply(effectParams, actionData);
+    Logger.debug(`Executing effect ${effect.id}`);
+
+    effect.execute(context, effectParams, actionData);
   }
 
-  static async applyAll(allEffectParams, actionData) {
-    for (const effectParams of allEffectParams) { // eslint-disable-line no-restricted-syntax
-      await this.apply(effectParams, actionData); // eslint-disable-line no-await-in-loop
-    }
+  static executeAll(context, allEffectParams, actionData) {
+    allEffectParams.forEach((effectParams) => {
+      this.execute(context, effectParams, actionData);
+    });
   }
 }

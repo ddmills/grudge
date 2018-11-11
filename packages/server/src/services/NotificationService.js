@@ -11,9 +11,9 @@ setInterval(() => {
 
 @autobind
 export default class NotificationService {
-  static notifyUser(userId, event, data) {
-    Logger.info('emit', event, userId, data && data.id);
-    SocketEmitter.to(userId).emit(event, data);
+  static notifyUser(userId, event, ...data) {
+    Logger.info('emit', event, userId);
+    SocketEmitter.to(userId).emit(event, ...data);
   }
 
   static async notifyLobby(lobbyId, event, data) {
@@ -24,20 +24,19 @@ export default class NotificationService {
     });
   }
 
-  static async notifyPlayer(player, event, data) {
-    if (player.isBot) {
-      return;
-    }
+  static notifyPlayer(player, event, ...data) {
+    if (player.isBot) return;
 
-    Logger.info('emit', event, player.userId, data ? data.id : 'NO_DATA');
-    const serialized = data instanceof Model ? data.serialize(player.userId) : data;
+    const serialized = data.map((d) => {
+      return d instanceof Model ? d.serialize(player.userId) : d;
+    });
 
-    SocketEmitter.to(player.userId).emit(event, serialized);
+    this.notifyUser(player.userId, event, ...serialized);
   }
 
-  static async notifyContext(context, event, model) {
+  static notifyContext(context, event, ...data) {
     context.players.forEach((player) => {
-      this.notifyPlayer(player, event, model);
+      this.notifyPlayer(player, event, ...data);
     });
   }
 
@@ -71,20 +70,28 @@ export default class NotificationService {
     this.notifyLobby(lobby.id, Events.CARD_PLAYED, card.properties);
   }
 
-  static onMoneyUpdated(lobby, user) {
-    this.notifyLobby(lobby.id, Events.USER_MONEY_UPDATED, user.properties);
+  static onCardEnabled(context, cardId) {
+    this.notifyContext(context, Events.CARD_ENABLED, cardId);
+  }
+
+  static onCardDisabled(context, cardId) {
+    this.notifyContext(context, Events.CARD_DISABLED, cardId);
+  }
+
+  static onMoneyUpdated(context, playerId, amount) {
+    this.notifyContext(context, Events.USER_MONEY_UPDATED, playerId, amount);
   }
 
   static onHealthUpdated(lobby, user) {
     this.notifyLobby(lobby.id, Events.USER_HEALTH_UPDATED, user.properties);
   }
 
-  static onCardTraitAdded(lobby, card) {
-    this.notifyLobby(lobby.id, Events.CARD_TRAIT_ADDED, card.properties);
+  static onTraitAddedToCard(context, cardId, trait) {
+    this.notifyContext(context, Events.CARD_TRAIT_ADDED, cardId, trait);
   }
 
-  static onCardTraitRemoved(lobby, card) {
-    this.notifyLobby(lobby.id, Events.CARD_TRAIT_REMOVED, card.properties);
+  static onTraitRemovedFromCard(context, cardId, traitId) {
+    this.notifyContext(context, Events.CARD_TRAIT_REMOVED, cardId, traitId);
   }
 
   static onCardTrashed(lobby, card) {

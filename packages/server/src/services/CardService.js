@@ -5,13 +5,13 @@ import CardRepository from 'repositories/CardRepository';
 import UserRepository from 'repositories/UserRepository';
 import TraitService from 'services/TraitService';
 import Random from 'utilities/Random';
-import { ContextInterpreter } from '@grudge/domain/interpreters';
+import { ContextInterrogator } from '@grudge/domain/interpreters';
 import { TraitIds, CardLocations, HAND_CARD_COUNT } from '@grudge/data';
 import ContextRepository from 'repositories/ContextRepository';
 
 export default class CardService {
   static async enableCard(cardId) {
-    return TraitService.removeTrait(cardId, TraitIds.DISABLED);
+    // card.isDisabled = false;
   }
 
   static async discardCard(user, card) {
@@ -77,7 +77,7 @@ export default class CardService {
   }
 
   static async draw(context, player, count = 1) {
-    const cards = ContextInterpreter.getCardsForPlayer(context, player.id);
+    const cards = ContextInterrogator.getCardsForPlayer(context, player.id);
     const deck = cards.filter((c) => c.location === CardLocations.DECK);
 
     if (deck.length >= count) {
@@ -98,7 +98,7 @@ export default class CardService {
 
     await ContextRepository.save(context);
 
-    const hand = ContextInterpreter.getHandForPlayer(context, player.id);
+    const hand = ContextInterrogator.getHandForPlayer(context, player.id);
 
     hand.forEach((c) => NotificationService.onCardDrawn(context, c));
   }
