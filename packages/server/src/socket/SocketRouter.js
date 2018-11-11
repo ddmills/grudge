@@ -79,6 +79,7 @@ const eventMap = [{
 }, {
   event: Events.ACTION_PERFORM,
   handler: ActionController.performAction,
+  hydrateContext: true,
 }, {
   event: Events.CARD_PLAYED_LIST,
   handler: CardController.getPlayedCardsForUser,

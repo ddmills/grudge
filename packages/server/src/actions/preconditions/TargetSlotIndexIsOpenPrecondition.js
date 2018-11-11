@@ -1,11 +1,12 @@
 import { PreconditionIds } from '@grudge/data';
+import { ContextInterpreter } from '@grudge/domain/interpreters';
 import CardRepository from 'repositories/CardRepository';
 import Precondition from './Precondition';
 
 export default class TargetSlotIndexIsOpenPrecondition extends Precondition {
   static id = PreconditionIds.TARGET_SLOT_INDEX_IS_OPEN;
 
-  static async validate(preconditionParams, { user, targetSlotIndex }) {
+  static async validate(context, preconditionParams, { playerId, targetSlotIndex }) {
     const isValidSlotIndex = Number.isInteger(targetSlotIndex)
       && targetSlotIndex >= 0
       && targetSlotIndex <= 6;
@@ -14,10 +15,9 @@ export default class TargetSlotIndexIsOpenPrecondition extends Precondition {
       throw new Error(`Target slot ${targetSlotIndex} is not valid`);
     }
 
-    const allCards = await CardRepository.findForUser(user.id, user.lobbyId);
-    const isSlotIndexTaken = allCards.some((c) => c.isPlayed && c.slotIndex === targetSlotIndex);
+    const cardAtSlot = ContextInterpreter.getCardAtSlot(context, playerId, targetSlotIndex);
 
-    if (isSlotIndexTaken) {
+    if (cardAtSlot) {
       throw new Error(`Target slot ${targetSlotIndex} is not open`);
     }
   }

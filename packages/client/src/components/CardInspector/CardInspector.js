@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import Card from 'components/Card/Card';
 import { Heading } from '@grudge/components';
-import { Card as CardModel, CardType } from '@grudge/domain';
 import connect from 'utilities/mobx/Connect';
 import styles from './CardInspector.scss';
 
@@ -18,8 +17,8 @@ import styles from './CardInspector.scss';
 })
 export default class CardInspector extends Component {
   static propTypes = {
-    card: PropTypes.instanceOf(CardModel),
-    cardType: PropTypes.instanceOf(CardType),
+    card: PropTypes.object, // eslint-disable-line
+    cardType: PropTypes.object, // eslint-disable-line
     onClick: PropTypes.func,
   }
 

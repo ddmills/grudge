@@ -7,20 +7,6 @@ import autobind from 'autobind-decorator';
 export default class CardStore {
   @observable inspectedCardId = null;
 
-  getCard(cardId) {
-    const rawCard = ContextInterpreter.getCard(this.contextStore.ctx, cardId);
-
-    return rawCard && Card.create(rawCard);
-  }
-
-  getCardsForPlayer(playerId) {
-    return ContextInterpreter.getCardsForPlayer(this.contextStore.ctx, playerId);
-  }
-
-  getPlayedCardsForPlayer(playerId) {
-    return ContextInterpreter.getPlayedCardsForPlayer(this.contextStore.ctx, playerId);
-  }
-
   @computed
   get inspectedCard() {
     return this.getCard(this.inspectedCardId);
@@ -49,7 +35,37 @@ export default class CardStore {
     this.inspectedCardId = null;
   }
 
+  getCard(cardId) {
+    const rawCard = ContextInterpreter.getCard(this.contextStore.ctx, cardId);
+
+    return rawCard && Card.create(rawCard);
+  }
+
+  isCardPlayed(cardId) {
+    return ContextInterpreter.isCardPlayed(this.contextStore.ctx, cardId);
+  }
+
+  isCardInHand(cardId) {
+    return ContextInterpreter.isCardInHand(this.contextStore.ctx, cardId);
+  }
+
+  isOwnCard(cardId) {
+    return ContextInterpreter.isCardOwnedBy(
+      this.contextStore.ctx,
+      cardId,
+      this.playerStore.currentPlayerId,
+    );
+  }
+
+  getCardsForPlayer(playerId) {
+    return ContextInterpreter.getCardsForPlayer(this.contextStore.ctx, playerId);
+  }
+
+  getPlayedCardsForPlayer(playerId) {
+    return ContextInterpreter.getPlayedCardsForPlayer(this.contextStore.ctx, playerId);
+  }
+
   getCardAtSlot(playerId, slotIndex) {
-    return undefined;
+    return ContextInterpreter.getCardAtSlot(this.contextStore.ctx, playerId, slotIndex);
   }
 }

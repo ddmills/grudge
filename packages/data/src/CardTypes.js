@@ -12,7 +12,10 @@ const attackAction = {
   preconditions: [
     { id: PreconditionIds.CARD_IS_ENABLED },
     { id: PreconditionIds.TARGET_CARD_IS_ENEMY },
-    { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
+    {
+      id: PreconditionIds.TARGET_CARD_HAS_TRAIT,
+      traitId: TraitIds.HEALTH,
+    },
     { id: PreconditionIds.TARGET_CARD_IS_NOT_DEFENDED },
   ],
   effects: [
@@ -56,7 +59,10 @@ const healAction = {
     { id: PreconditionIds.CARD_IS_ENABLED },
     { id: PreconditionIds.USER_CAN_AFFORD },
     { id: PreconditionIds.TARGET_CARD_IS_ALLY },
-    { id: PreconditionIds.TARGET_CARD_HAS_HEALTH },
+    {
+      id: PreconditionIds.TARGET_CARD_HAS_TRAIT,
+      traitId: TraitIds.HEALTH,
+    },
   ],
   effects: [
     {
@@ -143,7 +149,10 @@ const CardTypes = [
         setup: [],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
-          { id: PreconditionIds.CARD_HAS_VALUE },
+          {
+            id: PreconditionIds.CARD_HAS_TRAIT,
+            traitId: TraitIds.VALUE,
+          },
         ],
         effects: [
           {
@@ -176,7 +185,10 @@ const CardTypes = [
         setup: [],
         preconditions: [
           { id: PreconditionIds.CARD_IS_ENABLED },
-          { id: PreconditionIds.CARD_HAS_VALUE },
+          {
+            id: PreconditionIds.CARD_HAS_TRAIT,
+            traitId: TraitIds.VALUE,
+          },
         ],
         effects: [
           {

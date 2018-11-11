@@ -6,10 +6,8 @@ import UserRepository from 'repositories/UserRepository';
 import TraitService from 'services/TraitService';
 import Random from 'utilities/Random';
 import { ContextInterpreter } from '@grudge/domain/interpreters';
-import { TraitIds, CardLocations } from '@grudge/data';
+import { TraitIds, CardLocations, HAND_CARD_COUNT } from '@grudge/data';
 import ContextRepository from 'repositories/ContextRepository';
-
-const HAND_CARD_COUNT = 5;
 
 export default class CardService {
   static async enableCard(cardId) {

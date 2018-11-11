@@ -26,7 +26,7 @@ const getTrait = (card, traitId, resolveRef, property = 'value') => {
     isSelected: false, //actionStore.isCardSelected(card),
     isTargeted: false, //actionStore.isCardTargeted(card),
     cardType: card && CardType.deserialize(cardTypeStore.findCardType(card.cardTypeId)),
-    onClick: () => {}, // () => actionStore.onClickCard(card),
+    onClick: () => actionStore.onClickCard(card),
     onClickHold: () => cardStore.inspectCard(card.id),
     resolveRef: actionRefStore.resolve,
     responsiveCardSize: windowSizeStore.responsiveCardSize,

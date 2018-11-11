@@ -1,36 +1,40 @@
 import { action, observable, computed } from 'mobx';
 import autobind from 'autobind-decorator';
 import { ActionSetups } from '@grudge/data';
+import { ContextInterpreter } from '@grudge/domain/interpreters';
 import sdk from '@grudge/sdk';
 
 @autobind
 export default class ActionStore {
-  @observable selectedCard;
+  @observable selectedCardId;
 
   @observable targetEnemyCardId;
 
   @observable targetAllyCardId;
 
-  @observable targetedUserId;
+  @observable targetPlayerId;
 
   @observable targetedSlotIndex;
 
   @observable currentAction;
 
   @computed
-  get allCardActions() {
-    const card = this.selectedCard;
+  get selectedCard() {
+    return this.selectedCardId ? this.cardStore.getCard(this.selectedCardId) : undefined;
+  }
 
-    if (!card) {
+  @computed
+  get allCardActions() {
+    if (!this.selectedCardId) {
       return [];
     }
 
-    if (card.isInHand) {
-      return card.handActions;
+    if (this.cardStore.isCardInHand(this.selectedCardId)) {
+      return this.selectedCard.handActions;
     }
 
-    if (card.isPlayed) {
-      return card.playActions;
+    if (this.cardStore.isCardPlayed(this.selectedCardId)) {
+      return this.selectedCard.playActions;
     }
 
     return [];
@@ -62,7 +66,7 @@ export default class ActionStore {
         ? this.targetAllyCardId
         : true;
       const targetEnemyUserMet = ActionStore.isTargetEnemyUserAction(act)
-        ? this.targetedUserId
+        ? this.targetPlayerId
         : true;
       const targetSlotIndexMet = ActionStore.isTargetSlotAction(act)
         ? Number.isInteger(this.targetedSlotIndex)
@@ -115,7 +119,7 @@ export default class ActionStore {
   }
 
   isCardSelected(card) {
-    return this.selectedCard && card.id === this.selectedCard.id;
+    return card.id === this.selectedCardId;
   }
 
   isCardTargeted(card) {
@@ -131,7 +135,7 @@ export default class ActionStore {
         actionIdx: this.allCardActions.indexOf(act),
         cardId: this.selectedCard.id,
         targetCardId: this.targetEnemyCardId || this.targetAllyCardId,
-        targetUserId: this.targetedUserId,
+        targetPlayerId: this.targetPlayerId,
         targetSlotIndex: this.targetedSlotIndex,
       });
 
@@ -141,17 +145,17 @@ export default class ActionStore {
 
   @action
   initiateAction(card) {
-    this.selectedCard = card;
+    this.selectedCardId = card.id;
 
     this.performAction();
   }
 
   @action
   resetAction() {
-    this.selectedCard = null;
+    this.selectedCardId = null;
     this.targetEnemyCardId = null;
     this.targetAllyCardId = null;
-    this.targetedUserId = null;
+    this.targetPlayerId = null;
     this.targetedSlotIndex = null;
     this.currentAction = null;
   }
@@ -166,8 +170,8 @@ export default class ActionStore {
 
   onAllyCardClicked(card) {
     if (this.isCardSelected(card)) {
-      this.selectedCard = null;
-    } else if (this.hasTargetAllyCardAction && card.isPlayed) {
+      this.selectedCardId = null;
+    } else if (this.hasTargetAllyCardAction && this.cardStore.isCardPlayed(card.id)) {
       this.targetAllyCardId = card.id;
 
       this.performAction();
@@ -178,7 +182,7 @@ export default class ActionStore {
 
   onEnemyUserClicked(user) {
     if (this.hasTargetEnemyUserAction) {
-      this.targetedUserId = user.id;
+      this.targetPlayerId = user.id;
 
       this.performAction();
     }
@@ -197,10 +201,11 @@ export default class ActionStore {
       return;
     }
 
-    if (this.cardStore.isOwnCard(card)) {
+    if (this.cardStore.isOwnCard(card.id)) {
       this.onAllyCardClicked(card);
     } else {
-      this.onEnemyCardClicked(card);
+      console.log('onEnemyCardClicked', card);
+      // this.onEnemyCardClicked(card);
     }
   }
 
