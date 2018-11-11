@@ -1,27 +1,37 @@
-import ActionRefService from 'services/ActionRefService';
-import TraitService from 'services/TraitService';
-import CardService from 'services/CardService';
+import {
+  ContextAdministrator,
+  ContextInterrogator,
+  ReferenceResolver,
+} from '@grudge/domain/interpreters';
 import { EffectIds, TraitIds } from '@grudge/data';
 import Effect from './Effect';
+import NotificationService from 'services/NotificationService';
 
 export default class DamageEffect extends Effect {
   static id = EffectIds.DAMAGE;
 
-  static async apply({ value }, { card, targetCard }) {
-    const targetHealthTrait = targetCard.getTrait(TraitIds.HEALTH);
-    const damage = await ActionRefService.resolve(card, value);
-    const health = await ActionRefService.resolve(targetCard, targetHealthTrait.value);
+  static async execute(context, { value }, { cardId, targetCardId }) {
+    const targetHealthTrait = ContextInterrogator.getTraitForCard(
+      context,
+      targetCardId,
+      TraitIds.HEALTH,
+    );
+    const damage = ReferenceResolver.resolve(context, cardId, value);
+    const health = ReferenceResolver.resolve(context, targetCardId, targetHealthTrait.value);
     const difference = health - damage;
     const remaining = difference <= 0 ? 0 : difference;
 
-    const updatedCard = await TraitService.addTrait(targetCard.id, {
+    const trait = {
       id: TraitIds.HEALTH,
       max: targetHealthTrait.max,
       value: remaining,
-    });
+    };
+
+    ContextAdministrator.addTraitToCard(context, targetCardId, trait);
+    NotificationService.onTraitAddedToCard(context, targetCardId, trait);
 
     if (remaining <= 0) {
-      await CardService.killCard(updatedCard);
+      // ContextAdministrator.
     }
   }
 }

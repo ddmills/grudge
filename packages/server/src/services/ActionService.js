@@ -1,18 +1,21 @@
 import PreconditionService from 'services/PreconditionService';
 import EffectService from 'services/EffectService';
-import { ContextInterpreter } from '@grudge/domain/interpreters';
+import { ContextInterrogator } from '@grudge/domain/interpreters';
 import Logger from 'utilities/Logger';
+import ContextRepository from 'repositories/ContextRepository';
 
 export default class ActionService {
   static async perform(context, action, actionData) {
     Logger.debug(`Performing action ${action.name}`);
 
     PreconditionService.validateAll(context, action.preconditions, actionData);
-    // await EffectService.applyAll(action.effects, actionData);
+    EffectService.executeAll(context, action.effects, actionData);
+
+    await ContextRepository.save(context);
   }
 
   static async performHandAction(context, actionData) {
-    const action = ContextInterpreter.getHandActionForCard(
+    const action = ContextInterrogator.getHandActionForCard(
       context,
       actionData.cardId,
       actionData.actionIdx,
@@ -26,7 +29,7 @@ export default class ActionService {
   }
 
   static async performPlayAction(context, actionData) {
-    const action = ContextInterpreter.getPlayActionForCard(
+    const action = ContextInterrogator.getPlayActionForCard(
       context,
       actionData.cardId,
       actionData.actionIdx,
@@ -40,23 +43,25 @@ export default class ActionService {
   }
 
   static async performAction(user, context, actionData) {
-    if (!ContextInterpreter.isUsersTurn(context, user.id)) {
+    if (!ContextInterrogator.isUsersTurn(context, user.id)) {
       throw new Error('Cannot perform action on someone elses turn');
     }
 
-    const player = ContextInterpreter.getPlayerForUser(context, user.id);
-    const card = ContextInterpreter.getCard(context, actionData.cardId);
+    const { cardId } = actionData;
+    const { id: playerId } = ContextInterrogator.getPlayerForUser(context, user.id);
 
-    if (!ContextInterpreter.isCardOwnedBy(context, card.id, player.id)) {
+    Object.assign(actionData, { playerId });
+
+    if (!ContextInterrogator.isCardOwnedBy(context, cardId, playerId)) {
       throw new Error('Cannot perform action on unowned card');
     }
 
-    if (ContextInterpreter.isCardInHand(context, card.id)) {
+    if (ContextInterrogator.isCardInHand(context, cardId)) {
       await this.performHandAction(context, actionData);
-    } else if (ContextInterpreter.isCardPlayed(context, card.id)) {
+    } else if (ContextInterrogator.isCardPlayed(context, cardId)) {
       await this.performPlayAction(context, actionData);
     }
 
-    return ContextInterpreter.getCard(context, card.id);
+    return ContextInterrogator.getCard(context, cardId);
   }
 }

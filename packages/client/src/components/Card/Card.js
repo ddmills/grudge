@@ -74,7 +74,7 @@ export default class Card extends Component {
           id={cardType.id}
           name={cardType.name}
           description={cardType.description}
-          isDisabled={card.hasTrait(TraitIds.DISABLED)}
+          isDisabled={card.isDisabled}
           value={getTrait(card, TraitIds.VALUE, resolveRef)}
           attack={getTrait(card, TraitIds.ATTACK, resolveRef)}
           health={getTrait(card, TraitIds.HEALTH, resolveRef)}

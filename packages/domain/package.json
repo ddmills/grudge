@@ -8,6 +8,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@grudge/data": "^2.0.10"
+    "@grudge/data": "^2.0.10",
+    "lodash.clonedeep": "^4.5.0"
   }
 }

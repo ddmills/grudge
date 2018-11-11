@@ -19,6 +19,9 @@ export default class Card extends Model {
       slotIndex: {
         defaultValue: undefined,
       },
+      isDisabled: {
+        defaultValue: false,
+      },
       traits: {
         defaultValue: [],
       },

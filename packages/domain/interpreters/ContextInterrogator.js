@@ -1,7 +1,7 @@
-import { CardLocations, TraitIds } from '@grudge/data';
+import { CardLocations, TraitIds, CardTypes } from '@grudge/data';
 import ReferenceResolver from './ReferenceResolver';
 
-export default class ContextInterpreter {
+export default class ContextInterrogator {
   static isCountdownStarted(ctx) {
     if (!ctx) return false;
     return Boolean(ctx.countdownStartedAt);
@@ -93,6 +93,13 @@ export default class ContextInterpreter {
     return ctx.cards.find((c) => c.id === cardId);
   }
 
+  static getCardTypeForCard(ctx, cardId) {
+    if (!ctx) return;
+    const card = ctx.getCard(ctx, cardId);
+
+    return CardTypes.find((c) => c.id === card.cardTypeId);
+  }
+
   static isCardPlayed(ctx, cardId) {
     const card = this.getCard(ctx, cardId);
     if (!card) return false;
@@ -112,6 +119,17 @@ export default class ContextInterpreter {
     if (!card) return false;
 
     return card.location === CardLocations.TRASH;
+  }
+
+  static isCardDisabled(ctx, cardId) {
+    const card = this.getCard(ctx, cardId);
+    if (!card) return false;
+
+    return card.isDisabled;
+  }
+
+  static isCardEnabled(ctx, cardId) {
+    return !this.isCardDisabled(ctx, cardId);
   }
 
   static isCardInHand(ctx, cardId) {

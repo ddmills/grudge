@@ -1,12 +1,12 @@
-import { TraitIds, PreconditionIds } from '@grudge/data';
-import { ContextInterpreter } from '@grudge/domain/interpreters';
+import { PreconditionIds } from '@grudge/data';
+import { ContextInterrogator } from '@grudge/domain/interpreters';
 import Precondition from './Precondition';
 
 export default class CardIsEnabledPrecondition extends Precondition {
   static id = PreconditionIds.CARD_IS_ENABLED;
 
-  static async validate(context, preconditionParams, { cardId }) {
-    if (ContextInterpreter.cardHasTrait(context, cardId, TraitIds.DISABLED)) {
+  static validate(context, preconditionParams, { cardId }) {
+    if (ContextInterrogator.isCardDisabled(context, cardId)) {
       throw new Error(`Card ${cardId} is disabled`);
     }
   }
