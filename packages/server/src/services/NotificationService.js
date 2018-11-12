@@ -1,5 +1,4 @@
 import SocketEmitter from 'providers/socketio/SocketEmitter';
-import UserLobbyRepository from 'repositories/UserLobbyRepository';
 import * as Events from '@grudge/api-events';
 import { Model } from '@grudge/domain';
 import autobind from 'autobind-decorator';
@@ -17,11 +16,7 @@ export default class NotificationService {
   }
 
   static async notifyLobby(lobbyId, event, data) {
-    const userIds = await UserLobbyRepository.findForLobby(lobbyId);
 
-    userIds.forEach((userId) => {
-      this.notifyUser(userId, event, data);
-    });
   }
 
   static notifyPlayer(player, event, ...data) {
@@ -66,8 +61,8 @@ export default class NotificationService {
     this.notifyUser(user.id, Events.CARD_DISCARDED, card.properties);
   }
 
-  static onCardPlayed(lobby, card) {
-    this.notifyLobby(lobby.id, Events.CARD_PLAYED, card.properties);
+  static onCardPlayed(ctx, cardId, targetSlotIndex) {
+    this.notifyContext(ctx, Events.CARD_PLAYED, cardId, targetSlotIndex);
   }
 
   static onCardEnabled(context, cardId) {
@@ -94,12 +89,12 @@ export default class NotificationService {
     this.notifyContext(context, Events.CARD_TRAIT_REMOVED, cardId, traitId);
   }
 
-  static onCardTrashed(lobby, card) {
-    this.notifyLobby(lobby.id, Events.CARD_TRASHED, card.properties);
+  static onCardTrashed(ctx, cardId) {
+    this.notifyContext(ctx, Events.CARD_TRASHED, cardId);
   }
 
-  static onCardKilled(lobby, card) {
-    this.notifyLobby(lobby.id, Events.CARD_KILLED, card.properties);
+  static onCardKilled(context, cardId) {
+    this.notifyContext(context, Events.CARD_KILLED, cardId);
   }
 
   static onLobbyEnded(lobby) {

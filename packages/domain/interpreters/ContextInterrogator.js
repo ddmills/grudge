@@ -253,6 +253,18 @@ export default class ContextInterrogator {
     });
   }
 
+  static getHealthForPlayer(ctx, playerId) {
+    const player = ctx.getPlayer(playerId);
+
+    return player.health;
+  }
+
+  static getMoneyForPlayer(ctx, playerId) {
+    const player = ctx.getPlayer(playerId);
+
+    return player.money;
+  }
+
   static getPlayedCardsForPlayer(ctx, playerId) {
     if (!ctx) return [];
     const cards = this.getCardsForPlayer(ctx, playerId);

@@ -1,16 +1,22 @@
+import {
+  ContextAdministrator,
+  ContextInterrogator,
+  ReferenceResolver,
+} from '@grudge/domain/interpreters';
 import { EffectIds } from '@grudge/data';
-import ActionRefService from 'services/ActionRefService';
-import HealthService from 'services/HealthService';
+import NotificationService from 'services/NotificationService';
 import Effect from './Effect';
 
 export default class DamagePlayerEffect extends Effect {
   static id = EffectIds.DAMAGE_PLAYER;
 
-  static async apply({ value }, { card, targetUser }) {
-    const damage = await ActionRefService.resolve(card, value);
-    const difference = targetUser.health - damage;
-    const remaining = difference <= 0 ? 0 : difference;
+  static apply(ctx, { value }, { cardId, targetPlayerId }) {
+    const damage = ReferenceResolver.resolve(ctx, cardId, value);
 
-    return HealthService.set(targetUser.id, remaining);
+    ContextAdministrator.subtractHealthFromPlayer(ctx, targetPlayerId, damage);
+
+    const health = ContextInterrogator.getHealthForPlayer(ctx, targetPlayerId);
+
+    NotificationService.onHealthUpdated(ctx, targetPlayerId, health);
   }
 }

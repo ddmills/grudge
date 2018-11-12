@@ -1,23 +1,29 @@
-import ActionRefService from 'services/ActionRefService';
-import TraitService from 'services/TraitService';
+import {
+  ContextAdministrator,
+  ContextInterrogator,
+  ReferenceResolver,
+} from '@grudge/domain/interpreters';
 import { EffectIds, TraitIds } from '@grudge/data';
+import NotificationService from 'services/NotificationService';
 import Effect from './Effect';
 
 export default class HealEffect extends Effect {
   static id = EffectIds.HEAL;
 
-  static async apply({ value }, { card, targetCard }) {
-    const targetHealthTrait = targetCard.getTrait(TraitIds.HEALTH);
-    const heal = await ActionRefService.resolve(card, value);
-    const health = await ActionRefService.resolve(targetCard, targetHealthTrait.value);
-    const max = await ActionRefService.resolve(targetCard, targetHealthTrait.max);
+  static execute(ctx, { value }, { cardId, targetCardId }) {
+    const healthTrait = ContextInterrogator.getTraitForCard(ctx, targetCardId, TraitIds.HEALTH);
+    const heal = ReferenceResolver.resolve(ctx, cardId, value);
+    const health = ReferenceResolver.resolve(ctx, targetCardId, healthTrait.value);
+    const max = ReferenceResolver.resolve(ctx, targetCardId, healthTrait.max);
     const difference = health + heal;
     const remaining = difference >= max ? max : difference;
-
-    await TraitService.addTrait(targetCard.id, {
+    const trait = {
       id: TraitIds.HEALTH,
-      max: targetHealthTrait.max,
+      max: healthTrait.max,
       value: remaining,
-    });
+    };
+
+    ContextAdministrator.addTraitToCard(ctx, targetCardId, trait);
+    NotificationService.onTraitAddedToCard(ctx, targetCardId, trait);
   }
 }

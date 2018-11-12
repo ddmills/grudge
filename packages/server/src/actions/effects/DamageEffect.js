@@ -4,34 +4,30 @@ import {
   ReferenceResolver,
 } from '@grudge/domain/interpreters';
 import { EffectIds, TraitIds } from '@grudge/data';
-import Effect from './Effect';
 import NotificationService from 'services/NotificationService';
+import Effect from './Effect';
 
 export default class DamageEffect extends Effect {
   static id = EffectIds.DAMAGE;
 
-  static async execute(context, { value }, { cardId, targetCardId }) {
-    const targetHealthTrait = ContextInterrogator.getTraitForCard(
-      context,
-      targetCardId,
-      TraitIds.HEALTH,
-    );
-    const damage = ReferenceResolver.resolve(context, cardId, value);
-    const health = ReferenceResolver.resolve(context, targetCardId, targetHealthTrait.value);
+  static async execute(ctx, { value }, { cardId, targetCardId }) {
+    const healthTrait = ContextInterrogator.getTraitForCard(ctx, targetCardId, TraitIds.HEALTH);
+    const damage = ReferenceResolver.resolve(ctx, cardId, value);
+    const health = ReferenceResolver.resolve(ctx, targetCardId, healthTrait.value);
     const difference = health - damage;
     const remaining = difference <= 0 ? 0 : difference;
-
     const trait = {
       id: TraitIds.HEALTH,
-      max: targetHealthTrait.max,
+      max: healthTrait.max,
       value: remaining,
     };
 
-    ContextAdministrator.addTraitToCard(context, targetCardId, trait);
-    NotificationService.onTraitAddedToCard(context, targetCardId, trait);
+    ContextAdministrator.addTraitToCard(ctx, targetCardId, trait);
+    NotificationService.onTraitAddedToCard(ctx, targetCardId, trait);
 
     if (remaining <= 0) {
-      // ContextAdministrator.
+      ContextAdministrator.resetCard(ctx, targetCardId);
+      NotificationService.onCardKilled(ctx, cardId);
     }
   }
 }
