@@ -5,8 +5,8 @@ import Precondition from './Precondition';
 export default class CardIsEnabledPrecondition extends Precondition {
   static id = PreconditionIds.CARD_IS_ENABLED;
 
-  static validate(context, preconditionParams, { cardId }) {
-    if (ContextInterrogator.isCardDisabled(context, cardId)) {
+  static validate(ctx, preconditionParams, { cardId }) {
+    if (ContextInterrogator.isCardDisabled(ctx, cardId)) {
       throw new Error(`Card ${cardId} is disabled`);
     }
   }

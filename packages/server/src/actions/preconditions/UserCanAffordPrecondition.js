@@ -5,13 +5,13 @@ import Precondition from './Precondition';
 export default class UserCanAffordPrecondition extends Precondition {
   static id = PreconditionIds.USER_CAN_AFFORD;
 
-  static validate(context, preconditionParams, { cardId }) {
-    if (!ContextInterrogator.cardHasTrait(context, cardId, TraitIds.COST)) {
+  static validate(ctx, preconditionParams, { cardId }) {
+    if (!ContextInterrogator.cardHasTrait(ctx, cardId, TraitIds.COST)) {
       return;
     }
 
-    const cost = ContextInterrogator.getTraitForCard(context, cardId, TraitIds.COST).value;
-    const player = ContextInterrogator.getPlayerForCard(context, cardId);
+    const cost = ContextInterrogator.getTraitForCard(ctx, cardId, TraitIds.COST).value;
+    const player = ContextInterrogator.getPlayerForCard(ctx, cardId);
 
     if (player.money < cost) {
       throw new Error(`Player cannot afford cost of card ${cardId}`);

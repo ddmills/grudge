@@ -5,12 +5,12 @@ import Precondition from './Precondition';
 export default class TargetCardIsAllyPrecondition extends Precondition {
   static id = PreconditionIds.TARGET_CARD_IS_ALLY;
 
-  static validate(context, preconditionParams, { targetCardId, playerId }) {
-    if (!ContextInterrogator.isCardOwnedBy(context, targetCardId, playerId)) {
+  static validate(ctx, preconditionParams, { targetCardId, playerId }) {
+    if (!ContextInterrogator.isCardOwnedBy(ctx, targetCardId, playerId)) {
       throw new Error('Target card must be owned by ally');
     }
 
-    if (!ContextInterrogator.isCardPlayed(context, targetCardId)) {
+    if (!ContextInterrogator.isCardPlayed(ctx, targetCardId)) {
       throw new Error('Target ally target card must be in play');
     }
   }

@@ -5,7 +5,7 @@ import Precondition from './Precondition';
 export default class TargetSlotIndexIsOpenPrecondition extends Precondition {
   static id = PreconditionIds.TARGET_SLOT_INDEX_IS_OPEN;
 
-  static validate(context, preconditionParams, { playerId, targetSlotIndex }) {
+  static validate(ctx, preconditionParams, { playerId, targetSlotIndex }) {
     const isValidSlotIndex = Number.isInteger(targetSlotIndex)
       && targetSlotIndex >= 0
       && targetSlotIndex <= 6;
@@ -14,7 +14,7 @@ export default class TargetSlotIndexIsOpenPrecondition extends Precondition {
       throw new Error(`Target slot ${targetSlotIndex} is not valid`);
     }
 
-    const cardAtSlot = ContextInterrogator.getCardAtSlot(context, playerId, targetSlotIndex);
+    const cardAtSlot = ContextInterrogator.getCardAtSlot(ctx, playerId, targetSlotIndex);
 
     if (cardAtSlot) {
       throw new Error(`Target slot ${targetSlotIndex} is not open`);

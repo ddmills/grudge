@@ -6,12 +6,12 @@ import Effect from './Effect';
 export default class CollectEffect extends Effect {
   static id = EffectIds.COLLECT;
 
-  static execute(context, { value }, { cardId, playerId }) {
-    const amount = ReferenceResolver.resolve(context, cardId, value);
+  static execute(ctx, { value }, { cardId, playerId }) {
+    const amount = ReferenceResolver.resolve(ctx, cardId, value);
 
     if (Number.isInteger(amount)) {
-      ContextAdministrator.addMoneyToPlayer(context, playerId, amount);
-      NotificationService.onMoneyUpdated(context, playerId, amount);
+      ContextAdministrator.addMoneyToPlayer(ctx, playerId, amount);
+      NotificationService.onMoneyUpdated(ctx, playerId, amount);
     }
   }
 }
