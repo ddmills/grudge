@@ -11,7 +11,7 @@ export default class MoneyService {
     const updated = await UserRepository.get(id);
     const lobby = await LobbyRepository.get(updated.lobbyId);
 
-    NotificationService.onMoneyUpdated(lobby, updated);
+    NotificationService.onPlayerMoneyUpdated(lobby, updated);
   }
 
   static async add(userId, money) {

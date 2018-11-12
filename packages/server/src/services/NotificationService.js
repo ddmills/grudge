@@ -11,7 +11,7 @@ setInterval(() => {
 @autobind
 export default class NotificationService {
   static notifyUser(userId, event, ...data) {
-    Logger.info('emit', event, userId);
+    Logger.info('emit', event, userId, ...data);
     SocketEmitter.to(userId).emit(event, ...data);
   }
 
@@ -73,12 +73,12 @@ export default class NotificationService {
     this.notifyContext(ctx, Events.CARD_DISABLED, cardId);
   }
 
-  static onMoneyUpdated(ctx, playerId, amount) {
-    this.notifyContext(ctx, Events.USER_MONEY_UPDATED, playerId, amount);
+  static onPlayerMoneyUpdated(ctx, playerId, value) {
+    this.notifyContext(ctx, Events.PLAYER_MONEY_UPDATED, playerId, value);
   }
 
-  static onHealthUpdated(lobby, user) {
-    this.notifyLobby(lobby.id, Events.USER_HEALTH_UPDATED, user.properties);
+  static onPlayerHealthUpdated(ctx, playerId, value) {
+    this.notifyContext(ctx, Events.PLAYER_HEALTH_UPDATED, playerId, value);
   }
 
   static onTraitAddedToCard(ctx, cardId, trait) {
