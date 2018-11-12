@@ -14,7 +14,7 @@ export default class HealthService {
     const updated = await UserRepository.get(id);
     const lobby = await LobbyRepository.get(updated.lobbyId);
 
-    NotificationService.onHealthUpdated(lobby, updated);
+    NotificationService.onPlayerHealthUpdated(lobby, updated);
 
     if (value === 0) {
       await LobbyService.checkWinCondition(lobby.id);

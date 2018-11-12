@@ -18,7 +18,7 @@ export default class PayEffect extends Effect {
 
       const money = ContextInterrogator.getMoneyForPlayer(ctx, playerId);
 
-      NotificationService.onMoneyUpdated(ctx, playerId, money);
+      NotificationService.onPlayerMoneyUpdated(ctx, playerId, money);
     }
   }
 }

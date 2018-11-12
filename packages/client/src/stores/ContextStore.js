@@ -1,7 +1,7 @@
 import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
-import { ContextInterrogator } from '@grudge/domain/interpreters';
+import { ContextAdministrator, ContextInterrogator } from '@grudge/domain/interpreters';
 import { CardLocations } from '@grudge/data';
 
 @autobind
@@ -79,6 +79,12 @@ export default class ContextStore {
     sdk.onCountdownStopped(this.onCountdownStopped);
     sdk.onContextStarted(this.onContextStarted);
     sdk.onCardDrawn(this.onCardDrawn);
+
+    sdk.onCardDisabled(this.onCardDisabled);
+    sdk.onCardEnabled(this.onCardEnabled);
+    sdk.onPlayerMoneyUpdated(this.onPlayerMoneyUpdated);
+    sdk.onPlayerHealthUpdated(this.onPlayerHealthUpdated);
+
     sdk.onTurnEnded(this.onTurnEnded);
   }
 
@@ -141,5 +147,25 @@ export default class ContextStore {
   onTurnEnded(context) {
     this.ctx.currentTurn = context.currentTurn;
     this.ctx.turnStartedAt = context.turnStartedAt;
+  }
+
+  @action
+  onCardDisabled(cardId) {
+    ContextAdministrator.disableCard(this.ctx, cardId);
+  }
+
+  @action
+  onCardEnabled(cardId) {
+    ContextAdministrator.enableCard(this.ctx, cardId);
+  }
+
+  @action
+  onPlayerMoneyUpdated(playerId, value) {
+    ContextAdministrator.setMoneyForPlayer(this.ctx, playerId, value);
+  }
+
+  @action
+  onPlayerHealthUpdated(playerId, value) {
+    ContextAdministrator.enableCard(this.ctx, playerId, value);
   }
 }

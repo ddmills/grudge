@@ -17,6 +17,6 @@ export default class DamagePlayerEffect extends Effect {
 
     const health = ContextInterrogator.getHealthForPlayer(ctx, targetPlayerId);
 
-    NotificationService.onHealthUpdated(ctx, targetPlayerId, health);
+    NotificationService.onPlayerHealthUpdated(ctx, targetPlayerId, health);
   }
 }

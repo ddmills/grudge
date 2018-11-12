@@ -4,16 +4,13 @@ import autobind from 'autobind-decorator';
 export default class EventHook {
   listeners = [];
 
-  constructor(eventName, hookName, transformer = (r) => r) {
+  constructor(eventName, hookName) {
     this.eventName = eventName;
     this.hookName = hookName;
-    this.transformer = transformer;
   }
 
-  trigger(payload) {
-    const result = this.transformer(payload);
-
-    this.listeners.forEach((listener) => listener(result));
+  trigger(...payload) {
+    this.listeners.forEach((listener) => listener(...payload));
   }
 
   addListener(fn) {

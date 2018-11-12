@@ -1,4 +1,8 @@
-import { ReferenceResolver, ContextAdministrator } from '@grudge/domain/interpreters';
+import {
+  ContextAdministrator,
+  ContextInterrogator,
+  ReferenceResolver,
+} from '@grudge/domain/interpreters';
 import NotificationService from 'services/NotificationService';
 import { EffectIds } from '@grudge/data';
 import Effect from './Effect';
@@ -11,7 +15,10 @@ export default class CollectEffect extends Effect {
 
     if (Number.isInteger(amount)) {
       ContextAdministrator.addMoneyToPlayer(ctx, playerId, amount);
-      NotificationService.onMoneyUpdated(ctx, playerId, amount);
+
+      const money = ContextInterrogator.getMoneyForPlayer(ctx, playerId);
+
+      NotificationService.onPlayerMoneyUpdated(ctx, playerId, money);
     }
   }
 }
