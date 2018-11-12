@@ -1,4 +1,5 @@
 import { Player } from '@grudge/domain';
+import { ContextInterrogator, ContextAdministrator } from '@grudge/domain/interpreters';
 import ContextRepository from 'repositories/ContextRepository';
 import UserRepository from 'repositories/UserRepository';
 import NotificationService from 'services/NotificationService';
@@ -173,5 +174,17 @@ export default class ContextService {
     await this.addPlayer(player, context);
 
     return player;
+  }
+
+  static async checkWinCondition(ctx) {
+    const winner = ContextInterrogator.getWinningPlayer(ctx);
+
+    if (winner) {
+      ContextAdministrator.contextEnded(ctx, winner.id, timestamp());
+
+      await ContextRepository.save(ctx);
+
+      NotificationService.onContextEnded(ctx);
+    }
   }
 }

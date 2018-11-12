@@ -97,8 +97,8 @@ export default class NotificationService {
     this.notifyContext(ctx, Events.CARD_KILLED, cardId);
   }
 
-  static onLobbyEnded(lobby) {
-    this.notifyLobby(lobby.id, Events.LOBBY_ENDED, lobby.properties);
+  static onContextEnded(ctx) {
+    this.notifyContext(ctx, Events.LOBBY_ENDED, ctx.winnerId, ctx.endedAt);
   }
 
   static onPlayerJoined(ctx, player) {
