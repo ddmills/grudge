@@ -6,8 +6,8 @@ import Effect from './Effect';
 export default class DisableEffect extends Effect {
   static id = EffectIds.DISABLE;
 
-  static execute(context, effectParams, { cardId }) {
-    ContextAdministrator.disableCard(context, cardId);
-    NotificationService.onCardDisabled(context, cardId);
+  static execute(ctx, effectParams, { cardId }) {
+    ContextAdministrator.disableCard(ctx, cardId);
+    NotificationService.onCardDisabled(ctx, cardId);
   }
 }

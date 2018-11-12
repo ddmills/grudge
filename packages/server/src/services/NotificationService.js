@@ -29,8 +29,8 @@ export default class NotificationService {
     this.notifyUser(player.userId, event, ...serialized);
   }
 
-  static notifyContext(context, event, ...data) {
-    context.players.forEach((player) => {
+  static notifyContext(ctx, event, ...data) {
+    ctx.players.forEach((player) => {
       this.notifyPlayer(player, event, ...data);
     });
   }
@@ -65,71 +65,71 @@ export default class NotificationService {
     this.notifyContext(ctx, Events.CARD_PLAYED, cardId, targetSlotIndex);
   }
 
-  static onCardEnabled(context, cardId) {
-    this.notifyContext(context, Events.CARD_ENABLED, cardId);
+  static onCardEnabled(ctx, cardId) {
+    this.notifyContext(ctx, Events.CARD_ENABLED, cardId);
   }
 
-  static onCardDisabled(context, cardId) {
-    this.notifyContext(context, Events.CARD_DISABLED, cardId);
+  static onCardDisabled(ctx, cardId) {
+    this.notifyContext(ctx, Events.CARD_DISABLED, cardId);
   }
 
-  static onMoneyUpdated(context, playerId, amount) {
-    this.notifyContext(context, Events.USER_MONEY_UPDATED, playerId, amount);
+  static onMoneyUpdated(ctx, playerId, amount) {
+    this.notifyContext(ctx, Events.USER_MONEY_UPDATED, playerId, amount);
   }
 
   static onHealthUpdated(lobby, user) {
     this.notifyLobby(lobby.id, Events.USER_HEALTH_UPDATED, user.properties);
   }
 
-  static onTraitAddedToCard(context, cardId, trait) {
-    this.notifyContext(context, Events.CARD_TRAIT_ADDED, cardId, trait);
+  static onTraitAddedToCard(ctx, cardId, trait) {
+    this.notifyContext(ctx, Events.CARD_TRAIT_ADDED, cardId, trait);
   }
 
-  static onTraitRemovedFromCard(context, cardId, traitId) {
-    this.notifyContext(context, Events.CARD_TRAIT_REMOVED, cardId, traitId);
+  static onTraitRemovedFromCard(ctx, cardId, traitId) {
+    this.notifyContext(ctx, Events.CARD_TRAIT_REMOVED, cardId, traitId);
   }
 
   static onCardTrashed(ctx, cardId) {
     this.notifyContext(ctx, Events.CARD_TRASHED, cardId);
   }
 
-  static onCardKilled(context, cardId) {
-    this.notifyContext(context, Events.CARD_KILLED, cardId);
+  static onCardKilled(ctx, cardId) {
+    this.notifyContext(ctx, Events.CARD_KILLED, cardId);
   }
 
   static onLobbyEnded(lobby) {
     this.notifyLobby(lobby.id, Events.LOBBY_ENDED, lobby.properties);
   }
 
-  static onPlayerJoined(context, player) {
-    this.notifyContext(context, Events.PLAYER_JOINED, player);
-    this.notifyPlayer(player, Events.CONTEXT_JOINED, context);
+  static onPlayerJoined(ctx, player) {
+    this.notifyContext(ctx, Events.PLAYER_JOINED, player);
+    this.notifyPlayer(player, Events.CONTEXT_JOINED, ctx);
   }
 
-  static onPlayerLeft(context, player) {
-    this.notifyContext(context, Events.PLAYER_LEFT, player);
-    this.notifyPlayer(player, Events.CONTEXT_LEFT, context);
+  static onPlayerLeft(ctx, player) {
+    this.notifyContext(ctx, Events.PLAYER_LEFT, player);
+    this.notifyPlayer(player, Events.CONTEXT_LEFT, ctx);
   }
 
-  static onCountdownStarted(context) {
-    this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STARTED, context);
+  static onCountdownStarted(ctx) {
+    this.notifyContext(ctx, Events.CONTEXT_COUNTDOWN_STARTED, ctx);
   }
 
-  static onCountdownStopped(context) {
-    this.notifyContext(context, Events.CONTEXT_COUNTDOWN_STOPPED, context);
+  static onCountdownStopped(ctx) {
+    this.notifyContext(ctx, Events.CONTEXT_COUNTDOWN_STOPPED, ctx);
   }
 
-  static onContextStarted(context) {
-    this.notifyContext(context, Events.CONTEXT_STARTED, context);
+  static onContextStarted(ctx) {
+    this.notifyContext(ctx, Events.CONTEXT_STARTED, ctx);
   }
 
-  static onCardDrawn(context, card) {
-    const player = context.getPlayer(card.playerId);
+  static onCardDrawn(ctx, card) {
+    const player = ctx.getPlayer(card.playerId);
 
     this.notifyPlayer(player, Events.CARD_DRAWN, card);
   }
 
-  static onTurnEnded(context) {
-    this.notifyContext(context, Events.CONTEXT_TURN_ENDED, context);
+  static onTurnEnded(ctx) {
+    this.notifyContext(ctx, Events.CONTEXT_TURN_ENDED, ctx);
   }
 }

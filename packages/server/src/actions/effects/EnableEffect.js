@@ -6,8 +6,8 @@ import Effect from './Effect';
 export default class EnableEffect extends Effect {
   static id = EffectIds.ENABLE;
 
-  static execute(context, effectParams, { cardId }) {
-    ContextAdministrator.enableCard(context, cardId);
-    NotificationService.onCardEnabled(context, cardId);
+  static execute(ctx, effectParams, { cardId }) {
+    ContextAdministrator.enableCard(ctx, cardId);
+    NotificationService.onCardEnabled(ctx, cardId);
   }
 }

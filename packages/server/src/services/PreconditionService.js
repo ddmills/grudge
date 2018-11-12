@@ -6,20 +6,20 @@ export default class PreconditionService {
     return Preconditions.find((precondition) => precondition.id === preconditionId);
   }
 
-  static validate(context, preconditionParams, actionData) {
+  static validate(ctx, preconditionParams, actionData) {
     const precondition = this.get(preconditionParams.id);
 
     if (!precondition) {
       Logger.warn(`Precondition ${preconditionParams.id} not found`);
     } else {
       Logger.debug(`Validating precondition ${precondition.id}`);
-      precondition.validate(context, preconditionParams, actionData);
+      precondition.validate(ctx, preconditionParams, actionData);
     }
   }
 
-  static validateAll(context, allPreconditionParams, actionData) {
+  static validateAll(ctx, allPreconditionParams, actionData) {
     allPreconditionParams.forEach((preconditionParams) => {
-      return this.validate(context, preconditionParams, actionData);
+      return this.validate(ctx, preconditionParams, actionData);
     });
   }
 }
