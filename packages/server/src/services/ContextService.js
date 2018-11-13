@@ -26,30 +26,30 @@ export default class ContextService {
     return this.join(user, context.id);
   }
 
-  static async addPlayer(player, context) {
-    if (context.isCountingDown) {
+  static async addPlayer(player, ctx) {
+    if (ctx.isCountingDown) {
       throw new Error('Game is already starting');
     }
 
-    if (context.isEnded) {
+    if (ctx.isEnded) {
       throw new Error('Game is already over');
     }
 
-    if (context.isStarted) {
+    if (ctx.isStarted) {
       throw new Error('Game is already started');
     }
 
-    if (context.isFull) {
+    if (ctx.isFull) {
       throw new Error('Game doesn\'t have enough room for additional player');
     }
 
-    context.addPlayer(player);
+    ContextAdministrator.addPlayer(ctx, player);
 
-    await ContextRepository.save(context);
+    await ContextRepository.save(ctx);
 
-    NotificationService.onPlayerJoined(context, player);
+    NotificationService.onPlayerJoined(ctx, player);
 
-    return context;
+    return ctx;
   }
 
   static async join(user, contextId) {
@@ -61,7 +61,7 @@ export default class ContextService {
       throw new Error('User is already in a game');
     }
 
-    const context = await ContextRepository.get(contextId);
+    const ctx = await ContextRepository.get(contextId);
     const player = Player.create({
       id: Random.id('ply'),
       userId: user.id,
@@ -69,27 +69,29 @@ export default class ContextService {
       isBot: false,
     });
 
-    await this.addPlayer(player, context);
+    await this.addPlayer(player, ctx);
     await UserRepository.updateForId(user.id, {
-      contextId: context.id,
+      contextId: ctx.id,
     });
 
-    return context;
+    return ctx;
   }
 
-  static async leave(user, context) {
-    const player = context.getPlayerForUser(user.id);
+  static async leave(user, ctx) {
+    const player = ctx.getPlayerForUser(user.id);
 
-    context.removePlayer(player.id);
+    ContextAdministrator.removePlayer(ctx, player.id);
 
-    await ContextRepository.save(context);
+    await ContextRepository.save(ctx);
     await UserRepository.updateForId(user.id, {
       contextId: null,
     });
 
-    NotificationService.onPlayerLeft(context, player);
+    NotificationService.onPlayerLeft(ctx, player);
 
-    return context;
+    await this.checkWinCondition(ctx);
+
+    return ctx;
   }
 
   static async startCountdown(user, context) {
@@ -109,55 +111,55 @@ export default class ContextService {
     DelayedProcessor.scheduleCountdown(context);
   }
 
-  static async stopCountdown(user, context) {
-    if (context.isStarted) {
+  static async stopCountdown(user, ctx) {
+    if (ctx.isStarted) {
       throw new Error('Game has already started');
     }
 
-    if (!context.isCountdownStarted) {
-      return context;
+    if (!ctx.isCountdownStarted) {
+      return ctx;
     }
 
-    context.set('countdownStartedAt', null);
+    ContextAdministrator.stopCountdown(ctx);
 
-    await DelayedProcessor.cancelCountdown(context);
-    await ContextRepository.save(context);
+    await DelayedProcessor.stopCountdown(ctx);
+    await ContextRepository.save(ctx);
 
-    NotificationService.onCountdownStopped(context);
+    NotificationService.onCountdownStopped(ctx);
   }
 
   static async start(contextId) {
-    const context = await ContextRepository.get(contextId);
+    const ctx = await ContextRepository.get(contextId);
 
-    if (!context.isCountdownStarted) {
+    if (!ctx.isCountdownStarted) {
       throw new Error('Game countdown has been cancelled');
     }
 
-    if (context.isStarted) {
+    if (ctx.isStarted) {
       throw new Error('Game has already started');
     }
 
-    context.set('players', Random.shuffle(context.players));
+    ctx.set('players', Random.shuffle(ctx.players));
 
-    context.players.forEach((p, idx) => {
+    ctx.players.forEach((p, idx) => {
       p.set('turnOrder', idx);
       p.set('money', 3);
       p.set('health', 16);
     });
 
-    context.set('startedAt', timestamp());
-    context.set('turnStartedAt', timestamp());
+    ctx.set('startedAt', timestamp());
+    ctx.set('turnStartedAt', timestamp());
 
-    await DeckService.populateStarterCards(context);
-    await ContextRepository.save(context);
+    await DeckService.populateStarterCards(ctx);
+    await ContextRepository.save(ctx);
 
-    NotificationService.onContextStarted(context);
+    NotificationService.onContextStarted(ctx);
 
-    await CardService.drawHands(context);
+    await CardService.drawHands(ctx);
 
-    DelayedProcessor.scheduleTurn(context);
+    DelayedProcessor.scheduleTurn(ctx);
 
-    return context;
+    return ctx;
   }
 
   static async addBotPlayer(user, context) {
@@ -177,10 +179,10 @@ export default class ContextService {
   }
 
   static async checkWinCondition(ctx) {
-    const winner = ContextInterrogator.getWinningPlayer(ctx);
+    const alive = ContextInterrogator.getAlivePlayers(ctx);
 
-    if (winner) {
-      ContextAdministrator.contextEnded(ctx, winner.id, timestamp());
+    if (alive === 1) {
+      ContextAdministrator.contextEnded(ctx, alive[0].id, timestamp());
 
       await ContextRepository.save(ctx);
 

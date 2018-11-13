@@ -100,7 +100,7 @@ export default class CardService {
 
     const hand = ContextInterrogator.getHandForPlayer(context, player.id);
 
-    hand.forEach((c) => NotificationService.onCardDrawn(context, c));
+    hand.forEach((c) => NotificationService.onCardDrawn(context, c.id));
   }
 
   static async drawHand(context, player) {

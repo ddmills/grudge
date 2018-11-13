@@ -48,8 +48,6 @@ export default class LobbyStore {
     sdk.onJoinedLobby(this.setLobby);
     sdk.onLeftLobby(this.onLeftLobby);
     sdk.onLobbyStarted(this.setLobby);
-    sdk.onLobbyEnded(this.setLobby);
-    sdk.onTurnEnded(this.setLobby);
     sdk.onLobbyCountdownStarted(this.setLobby);
     sdk.onLobbyCountdownStopped(this.setLobby);
 

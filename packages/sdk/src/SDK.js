@@ -1,12 +1,8 @@
-import {
-  Card, CardType, User, Lobby,
-} from '@grudge/domain';
 import * as Events from '@grudge/api-events';
 import SocketFactory from './SocketFactory';
 import EventMap from './EventMap';
 import EventHook from './EventHook';
 import Query from './Query';
-import ResponseTransformer from './ResponseTransformer';
 
 export default class SDK {
   constructor() {
@@ -72,27 +68,27 @@ export default class SDK {
   }
 
   getUser(userId) {
-    return this.query(Events.USER_GET, { userId }).then(ResponseTransformer.toModel(User));
+    return this.query(Events.USER_GET, { userId });
   }
 
   getLobbyForUser(userId) {
-    return this.query(Events.USER_LOBBY_GET, { userId }).then(ResponseTransformer.toModel(Lobby));
+    return this.query(Events.USER_LOBBY_GET, { userId });
   }
 
   getLobby(lobbyId) {
-    return this.query(Events.LOBBY_GET, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
+    return this.query(Events.LOBBY_GET, { lobbyId });
   }
 
   getUsersInLobby(lobbyId) {
-    return this.query(Events.LOBBY_USERS_GET, { lobbyId }).then(ResponseTransformer.toModel(User));
+    return this.query(Events.LOBBY_USERS_GET, { lobbyId });
   }
 
   listLobbies() {
-    return this.query(Events.LOBBY_LIST).then(ResponseTransformer.toModel(Lobby));
+    return this.query(Events.LOBBY_LIST);
   }
 
   createLobby() {
-    return this.query(Events.LOBBY_CREATE).then(ResponseTransformer.toModel(Lobby));
+    return this.query(Events.LOBBY_CREATE);
   }
 
   startLobbyCountdown() {
@@ -104,11 +100,11 @@ export default class SDK {
   }
 
   joinLobby(lobbyId) {
-    return this.query(Events.LOBBY_JOIN, { lobbyId }).then(ResponseTransformer.toModel(Lobby));
+    return this.query(Events.LOBBY_JOIN, { lobbyId });
   }
 
   getHand() {
-    return this.query(Events.HAND_GET).then(ResponseTransformer.toModel(Card));
+    return this.query(Events.HAND_GET);
   }
 
   leaveLobby() {
@@ -116,15 +112,15 @@ export default class SDK {
   }
 
   listCardTypes() {
-    return this.query(Events.CARDTYPE_LIST).then(ResponseTransformer.toModel(CardType));
+    return this.query(Events.CARDTYPE_LIST);
   }
 
   performAction(action) {
-    return this.query(Events.ACTION_PERFORM, { action }).then(ResponseTransformer.toModel(Card));
+    return this.query(Events.ACTION_PERFORM, { action });
   }
 
   listPlayedCardsForUser(userId) {
-    return this.query(Events.CARD_PLAYED_LIST, { userId }).then(ResponseTransformer.toModel(Card));
+    return this.query(Events.CARD_PLAYED_LIST, { userId });
   }
 
   listContexts() {

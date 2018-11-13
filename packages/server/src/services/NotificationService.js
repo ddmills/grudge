@@ -1,6 +1,7 @@
-import SocketEmitter from 'providers/socketio/SocketEmitter';
 import * as Events from '@grudge/api-events';
 import { Model } from '@grudge/domain';
+import { ContextInterrogator } from '@grudge/domain/interpreters';
+import SocketEmitter from 'providers/socketio/SocketEmitter';
 import autobind from 'autobind-decorator';
 import Logger from 'utilities/Logger';
 
@@ -98,7 +99,9 @@ export default class NotificationService {
   }
 
   static onContextEnded(ctx) {
-    this.notifyContext(ctx, Events.LOBBY_ENDED, ctx.winnerId, ctx.endedAt);
+    const winner = ContextInterrogator.getWinnerPlayer(ctx);
+
+    this.notifyContext(ctx, Events.CONTEXT_ENDED, winner.id, ctx.endedAt);
   }
 
   static onPlayerJoined(ctx, player) {
@@ -107,29 +110,29 @@ export default class NotificationService {
   }
 
   static onPlayerLeft(ctx, player) {
-    this.notifyContext(ctx, Events.PLAYER_LEFT, player);
-    this.notifyPlayer(player, Events.CONTEXT_LEFT, ctx);
+    this.notifyContext(ctx, Events.PLAYER_LEFT, player.id);
+    this.notifyPlayer(player, Events.CONTEXT_LEFT);
   }
 
   static onCountdownStarted(ctx) {
-    this.notifyContext(ctx, Events.CONTEXT_COUNTDOWN_STARTED, ctx);
+    this.notifyContext(ctx, Events.CONTEXT_COUNTDOWN_STARTED, ctx.countdownStartedAt);
   }
 
   static onCountdownStopped(ctx) {
-    this.notifyContext(ctx, Events.CONTEXT_COUNTDOWN_STOPPED, ctx);
+    this.notifyContext(ctx, Events.CONTEXT_COUNTDOWN_STOPPED);
   }
 
   static onContextStarted(ctx) {
     this.notifyContext(ctx, Events.CONTEXT_STARTED, ctx);
   }
 
-  static onCardDrawn(ctx, card) {
-    const player = ctx.getPlayer(card.playerId);
+  static onCardDrawn(ctx, cardId) {
+    const player = ContextInterrogator.getPlayerForCard(ctx, cardId);
 
-    this.notifyPlayer(player, Events.CARD_DRAWN, card);
+    this.notifyPlayer(player, Events.CARD_DRAWN, cardId);
   }
 
   static onTurnEnded(ctx) {
-    this.notifyContext(ctx, Events.CONTEXT_TURN_ENDED, ctx);
+    this.notifyContext(ctx, Events.CONTEXT_TURN_ENDED, ctx.currentTurn, ctx.turnStartedAt);
   }
 }
