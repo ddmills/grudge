@@ -8,7 +8,6 @@ export default class EventMap {
       new EventHook(Events.DISCONNECTED, 'onDisconnected'),
       new EventHook(Events.FLASH, 'onFlash'),
       new EventHook(Events.LOBBY_STARTED, 'onLobbyStarted'),
-      new EventHook(Events.LOBBY_ENDED, 'onLobbyEnded'),
       new EventHook(Events.LOBBY_COUNTDOWN_STOPPED, 'onLobbyCountdownStopped'),
       new EventHook(Events.LOBBY_COUNTDOWN_STARTED, 'onLobbyCountdownStarted'),
       new EventHook(Events.LOBBY_LEFT, 'onLeftLobby'),
@@ -34,6 +33,7 @@ export default class EventMap {
       new EventHook(Events.CONTEXT_LEFT, 'onLeftContext'),
       new EventHook(Events.CONTEXT_COUNTDOWN_STOPPED, 'onCountdownStopped'),
       new EventHook(Events.CONTEXT_COUNTDOWN_STARTED, 'onCountdownStarted'),
+      new EventHook(Events.CONTEXT_ENDED, 'onContextEnded'),
       new EventHook(Events.CONTEXT_STARTED, 'onContextStarted'),
       new EventHook(Events.CONTEXT_TURN_ENDED, 'onTurnEnded'),
     ];

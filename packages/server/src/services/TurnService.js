@@ -1,52 +1,51 @@
+import { ContextAdministrator, ContextInterrogator } from '@grudge/domain/interpreters';
 import ContextRepository from 'repositories/ContextRepository';
 import NotificationService from 'services/NotificationService';
-import DeckService from 'services/DeckService';
 import DelayedProcessor from 'services/DelayedProcessor';
-import CardService from 'services/CardService';
 import timestamp from 'utilities/Timestamp';
-import Logger from 'utilities/Logger';
 
 export default class TurnService {
-  static async incrementTurnCounter(context) {
-    context.set('turnStartedAt', timestamp());
-    context.set('currentTurn', context.currentTurn + 1);
+  static async incrementTurnCounter(ctx) {
+    ContextAdministrator.endTurn(ctx, ctx.currentTurn + 1, timestamp());
 
-    await ContextRepository.save(context);
+    await ContextRepository.save(ctx);
 
-    NotificationService.onTurnEnded(context);
-    DelayedProcessor.scheduleTurn(context);
+    NotificationService.onTurnEnded(ctx);
+    DelayedProcessor.scheduleTurn(ctx);
 
-    return context;
+    return ctx;
   }
 
-  static async endPlayerTurn(context, player) {
-    if (context.isEnded) {
+  static async endPlayerTurn(ctx, playerId) {
+    if (ContextInterrogator.isEnded(ctx)) {
       throw new Error('Cannot end turn when the game is over');
     }
 
-    if (!context.isPlayersTurn(player.id)) {
+    if (!ContextInterrogator.isPlayersTurn(ctx, playerId)) {
       throw new Error('Cannot end someone elses turn');
     }
 
     // await DeckService.refreshHand(currentTurnUser);
     // await CardService.enablePlayed(currentTurnUser);
 
-    return this.incrementTurnCounter(context);
+    return this.incrementTurnCounter(ctx);
   }
 
-  static async endTurn(user, context) {
-    const player = context.getPlayerForUser(user.id);
+  static async endTurn(user, ctx) {
+    const player = ContextInterrogator.getPlayerForUser(ctx, user.id);
 
-    return this.endPlayerTurn(context, player);
+    return this.endPlayerTurn(ctx, player.id);
   }
 
   static async turnTimeout(contextId, turn) {
-    const context = await ContextRepository.get(contextId);
+    const ctx = await ContextRepository.get(contextId);
 
-    if (context.isEnded || !(context.currentTurn === turn)) {
+    if (ctx.isEnded || !(ctx.currentTurn === turn)) {
       return;
     }
 
-    return this.endPlayerTurn(context, context.currentTurnPlayer);
+    const player = ContextInterrogator.currentTurnPlayer(ctx);
+
+    return this.endPlayerTurn(ctx, player.id);
   }
 }

@@ -78,6 +78,7 @@ export default class ContextStore {
     sdk.onCountdownStarted(this.onCountdownStarted);
     sdk.onCountdownStopped(this.onCountdownStopped);
     sdk.onContextStarted(this.onContextStarted);
+    sdk.onContextEnded(this.onContextEnded);
     sdk.onCardDrawn(this.onCardDrawn);
 
     sdk.onCardDisabled(this.onCardDisabled);
@@ -109,26 +110,22 @@ export default class ContextStore {
 
   @action
   onPlayerJoined(player) {
-    if (this.ctx) {
-      this.ctx.players.push(player);
-    }
+    ContextAdministrator.addPlayer(this.ctx, player);
   }
 
   @action
-  onPlayerLeft(player) {
-    if (this.ctx) {
-      this.ctx.players = this.ctx.players.filter((p) => p.id !== player.id);
-    }
+  onPlayerLeft(playerId) {
+    ContextAdministrator.removePlayer(this.ctx, playerId);
   }
 
   @action
-  onCountdownStarted(context) {
-    this.ctx.countdownStartedAt = context.countdownStartedAt;
+  onCountdownStarted(startedAt) {
+    ContextAdministrator.startCountdown(this.ctx, startedAt);
   }
 
   @action
-  onCountdownStopped(context) {
-    this.ctx.countdownStartedAt = context.countdownStartedAt;
+  onCountdownStopped() {
+    ContextAdministrator.stopCountdown(this.ctx);
   }
 
   @action
@@ -137,16 +134,20 @@ export default class ContextStore {
   }
 
   @action
-  onCardDrawn({ id }) {
-    const card = ContextInterrogator.getCard(this.ctx, id);
+  onContextEnded(playerId, endedAt) {
+    ContextAdministrator.end(this.ctx, playerId, endedAt);
+  }
+
+  @action
+  onCardDrawn(cardId) {
+    const card = ContextInterrogator.getCard(this.ctx, cardId);
 
     card.location = CardLocations.HAND;
   }
 
   @action
-  onTurnEnded(context) {
-    this.ctx.currentTurn = context.currentTurn;
-    this.ctx.turnStartedAt = context.turnStartedAt;
+  onTurnEnded(nextTurn, turnStartedAt) {
+    ContextAdministrator.endTurn(this.ctx, nextTurn, turnStartedAt);
   }
 
   @action

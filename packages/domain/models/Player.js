@@ -24,6 +24,9 @@ export default class Player extends Model {
       isBot: {
         defaultValue: false,
       },
+      isWinner: {
+        defaultValue: false,
+      },
     };
   }
 }

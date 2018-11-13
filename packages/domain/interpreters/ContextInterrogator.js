@@ -272,12 +272,15 @@ export default class ContextInterrogator {
     return cards.filter((c) => c.playerId === playerId);
   }
 
-  static getWinningPlayer(ctx) {
+  static getWinnerPlayer(ctx) {
     const players = this.getPlayers(ctx);
-    const alive = players.filter((p) => p.health <= 0);
 
-    if (alive.length === 1) {
-      return alive[0];
-    }
+    return players.find((p) => p.isWinner);
+  }
+
+  static getAlivePlayers(ctx) {
+    const players = this.getPlayers(ctx);
+
+    return players.filter((p) => p.health <= 0);
   }
 }

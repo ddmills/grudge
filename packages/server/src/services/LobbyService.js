@@ -170,8 +170,6 @@ export default class LobbyService {
 
       const lobby = await LobbyRepository.get(lobbyId);
 
-      NotificationService.onLobbyEnded(lobby);
-
       return lobby;
     }
 

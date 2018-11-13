@@ -43,7 +43,7 @@ export default class DelayedProcessor {
     });
   }
 
-  static async cancelCountdown(context) {
+  static async stopCountdown(context) {
     const jobs = await contextCountdownQueue.getJobs();
     const ctxJobs = jobs.filter((j) => j.data.contextId === context.id);
 
@@ -51,7 +51,7 @@ export default class DelayedProcessor {
       await Promise.all(ctxJobs.map((j) => j.remove()));
     } catch (error) {
       Logger.error(error);
-      throw new Error(`Failed to cancel the lobby countdown for game ${context.id}`);
+      throw new Error(`Failed to stop the lobby countdown for game ${context.id}`);
     }
   }
 

@@ -3,6 +3,18 @@ import clone from 'lodash.clonedeep';
 import ContextInterrogator from './ContextInterrogator';
 
 export default class ContextAdministrator {
+  static addPlayer(ctx, player) {
+    if (!ctx) return;
+
+    ctx.players.push(player);
+  }
+
+  static removePlayer(ctx, playerId) {
+    if (!ctx) return;
+
+    ctx.players = ctx.players.filter((p) => p.id !== playerId);
+  }
+
   static removeTraitFromCard(ctx, cardId, traitId) {
     const card = ContextInterrogator.getCard(ctx, cardId);
 
@@ -86,5 +98,25 @@ export default class ContextAdministrator {
     card.playActions = clone(cardType.playActions);
     card.handActions = clone(cardType.handActions);
     card.traits = clone(cardType.traits);
+  }
+
+  static endTurn(ctx, nextTurn, startedAt) {
+    ctx.currentTurn = nextTurn;
+    ctx.turnStartedAt = startedAt;
+  }
+
+  static end(ctx, winningPlayerId, endedAtTimestamp) {
+    const player = ContextInterrogator.getPlayer(ctx, winningPlayerId);
+
+    player.isWinner = true;
+    ctx.endedAt = endedAtTimestamp;
+  }
+
+  static startCountdown(ctx, startedAt) {
+    ctx.countdownStartedAt = startedAt;
+  }
+
+  static stopCountdown(ctx) {
+    ctx.countdownStartedAt = null;
   }
 }
