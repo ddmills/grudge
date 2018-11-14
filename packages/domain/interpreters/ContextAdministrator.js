@@ -43,6 +43,34 @@ export default class ContextAdministrator {
     card.isDisabled = false;
   }
 
+  static discardCard(ctx, cardId) {
+    const card = ContextInterrogator.getCard(ctx, cardId);
+
+    card.location = CardLocations.DISCARD;
+  }
+
+  static recycleCard(ctx, cardId) {
+    const card = ContextInterrogator.getCard(ctx, cardId);
+
+    card.location = CardLocations.DECK;
+  }
+
+  static drawCard(ctx, cardId) {
+    const card = ContextInterrogator.getCard(ctx, cardId);
+
+    card.location = CardLocations.HAND;
+  }
+
+  static drawCards(ctx, cardIds) {
+    cardIds.forEach((cardId) => this.drawCard(ctx, cardId));
+  }
+
+  static discardHand(ctx, playerId) {
+    const hand = ContextInterrogator.getHandForPlayer(ctx, playerId);
+
+    hand.forEach((c) => this.discardCard(ctx, c.id));
+  }
+
   static playCard(ctx, cardId, slotIndex) {
     const card = ContextInterrogator.getCard(ctx, cardId);
 
@@ -54,6 +82,12 @@ export default class ContextAdministrator {
 
     card.slotIndex = null;
     card.location = CardLocations.TRASH;
+  }
+
+  static recycleDiscardPile(ctx, playerId) {
+    const discardPile = ContextInterrogator.getDiscardsForPlayer(ctx, playerId);
+
+    discardPile.forEach((c) => this.recycleCard(ctx, c.id));
   }
 
   static setMoneyForPlayer(ctx, playerId, value) {

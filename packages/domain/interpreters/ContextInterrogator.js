@@ -246,6 +246,20 @@ export default class ContextInterrogator {
     return ctx.cards.filter((c) => c.playerId === playerId);
   }
 
+  static getDeckForPlayer(ctx, playerId) {
+    if (!ctx) return [];
+    return ctx.cards.filter((c) => {
+      return c.playerId === playerId && c.location === CardLocations.DECK;
+    });
+  }
+
+  static getDiscardsForPlayer(ctx, playerId) {
+    if (!ctx) return [];
+    return ctx.cards.filter((c) => {
+      return c.playerId === playerId && c.location === CardLocations.DISCARD;
+    });
+  }
+
   static getHandForPlayer(ctx, playerId) {
     if (!ctx) return [];
     return ctx.cards.filter((c) => {

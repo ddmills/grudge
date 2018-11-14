@@ -3,6 +3,7 @@ import ContextRepository from 'repositories/ContextRepository';
 import NotificationService from 'services/NotificationService';
 import DelayedProcessor from 'services/DelayedProcessor';
 import timestamp from 'utilities/Timestamp';
+import CardService from './CardService';
 
 export default class TurnService {
   static async incrementTurnCounter(ctx) {
@@ -25,8 +26,7 @@ export default class TurnService {
       throw new Error('Cannot end someone elses turn');
     }
 
-    // await DeckService.refreshHand(currentTurnUser);
-    // await CardService.enablePlayed(currentTurnUser);
+    await CardService.drawHand(ctx, playerId);
 
     return this.incrementTurnCounter(ctx);
   }

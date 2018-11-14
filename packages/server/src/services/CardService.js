@@ -1,12 +1,14 @@
+import {
+  ContextAdministrator,
+  ContextInterrogator,
+} from '@grudge/domain/interpreters';
+import { HAND_CARD_COUNT } from '@grudge/data';
 import NotificationService from 'services/NotificationService';
 import CardTypeRepository from 'repositories/CardTypeRepository';
 import LobbyRepository from 'repositories/LobbyRepository';
 import CardRepository from 'repositories/CardRepository';
 import UserRepository from 'repositories/UserRepository';
-import TraitService from 'services/TraitService';
 import Random from 'utilities/Random';
-import { ContextInterrogator } from '@grudge/domain/interpreters';
-import { TraitIds, CardLocations, HAND_CARD_COUNT } from '@grudge/data';
 import ContextRepository from 'repositories/ContextRepository';
 
 export default class CardService {
@@ -76,40 +78,38 @@ export default class CardService {
     return Promise.all(playedCards.map((card) => this.enableCard(card.id)));
   }
 
-  static async draw(context, player, count = 1) {
-    const cards = ContextInterrogator.getCardsForPlayer(context, player.id);
-    const deck = cards.filter((c) => c.location === CardLocations.DECK);
+  static async drawHand(ctx, playerId, count = HAND_CARD_COUNT) {
+    ContextAdministrator.discardHand(ctx, playerId);
+    const deckCardIds = ContextInterrogator.getDeckForPlayer(ctx, playerId).map((c) => c.id);
+    let isDiscardRecycled = false;
 
-    if (deck.length >= count) {
-      const cardsToDraw = Random.sample(deck, count);
+    if (deckCardIds.length >= count) {
+      const cardIdsToDraw = Random.sample(deckCardIds, count);
 
-      cardsToDraw.forEach((c) => c.set('location', CardLocations.HAND));
+      ContextAdministrator.drawCards(ctx, cardIdsToDraw);
     } else {
-      deck.forEach((c) => c.set('location', CardLocations.HAND));
+      isDiscardRecycled = true;
 
-      const discardPile = cards.filter((c) => c.location === CardLocations.DISCARD);
+      ContextAdministrator.drawCards(ctx, deckCardIds);
+      ContextAdministrator.recycleDiscardPile(ctx, playerId);
 
-      discardPile.forEach((c) => c.set('location', CardLocations.DECK));
+      const freshCards = ContextInterrogator.getDeckForPlayer(ctx, playerId);
 
-      const cardsToDraw = Random.sample(discardPile, count - deck.length);
+      const cardIdsToDraw = Random.sample(freshCards, count - deckCardIds.length).map((c) => c.id);
 
-      cardsToDraw.forEach((c) => c.set('location', CardLocations.HAND));
+      ContextAdministrator.drawCards(ctx, cardIdsToDraw);
     }
 
-    await ContextRepository.save(context);
+    await ContextRepository.save(ctx);
 
-    const hand = ContextInterrogator.getHandForPlayer(context, player.id);
+    const hand = ContextInterrogator.getHandForPlayer(ctx, playerId).map((c) => c.id);
 
-    hand.forEach((c) => NotificationService.onCardDrawn(context, c.id));
+    NotificationService.onHandDrawn(ctx, playerId, hand, isDiscardRecycled);
   }
 
-  static async drawHand(context, player) {
-    return this.draw(context, player, HAND_CARD_COUNT);
-  }
-
-  static async drawHands(context) {
-    for (const player of context.players) { // eslint-disable-line no-restricted-syntax
-      await this.drawHand(context, player); // eslint-disable-line no-await-in-loop
+  static async drawHands(ctx) {
+    for (const player of ctx.players) { // eslint-disable-line no-restricted-syntax
+      await this.drawHand(ctx, player); // eslint-disable-line no-await-in-loop
     }
   }
 }

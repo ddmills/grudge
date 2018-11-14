@@ -56,5 +56,6 @@ export const CARD_DISABLED = 'card/disabled';
 export const CARD_PLAYED_LIST = 'card/played/list';
 export const CARD_TRAIT_ADDED = 'card/trait/added';
 export const CARD_TRAIT_REMOVED = 'card/trait/removed';
+export const HAND_DRAWN = 'hand/drawn';
 export const HAND_GET = 'hand/get';
 export const ACTION_PERFORM = 'action/perform';
