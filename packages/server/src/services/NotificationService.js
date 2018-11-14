@@ -58,8 +58,8 @@ export default class NotificationService {
     this.notifyLobby(lobby.id, Events.LOBBY_STARTED, lobby.properties);
   }
 
-  static onCardDiscarded(user, card) {
-    this.notifyUser(user.id, Events.CARD_DISCARDED, card.properties);
+  static onCardDiscarded(ctx, cardId) {
+    this.notifyContext(ctx, Events.CARD_DISCARDED, cardId);
   }
 
   static onCardPlayed(ctx, cardId, targetSlotIndex) {
@@ -130,6 +130,13 @@ export default class NotificationService {
     const player = ContextInterrogator.getPlayerForCard(ctx, cardId);
 
     this.notifyPlayer(player, Events.CARD_DRAWN, cardId);
+  }
+
+  static onHandDrawn(ctx, playerId, isDiscardRecycled = false) {
+    const player = ContextInterrogator.getPlayer(ctx, playerId);
+    const cardIds = ContextInterrogator.getHandForPlayer(ctx, playerId).map((c) => c.id);
+
+    this.notifyPlayer(player, Events.HAND_DRAWN, cardIds, isDiscardRecycled);
   }
 
   static onTurnEnded(ctx) {

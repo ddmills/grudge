@@ -94,21 +94,21 @@ export default class ContextService {
     return ctx;
   }
 
-  static async startCountdown(user, context) {
-    if (context.countdownStartedAt) {
+  static async startCountdown(user, ctx) {
+    if (ctx.countdownStartedAt) {
       throw new Error('Countdown has already started');
     }
 
-    if (context.ownerId !== user.id) {
+    if (ctx.ownerId !== user.id) {
       throw new Error('User does not have permission to start the game');
     }
 
-    context.set('countdownStartedAt', timestamp());
+    ContextAdministrator.startCountdown(ctx, timestamp());
 
-    await ContextRepository.save(context);
+    await ContextRepository.save(ctx);
 
-    NotificationService.onCountdownStarted(context);
-    DelayedProcessor.scheduleCountdown(context);
+    NotificationService.onCountdownStarted(ctx);
+    DelayedProcessor.scheduleCountdown(ctx);
   }
 
   static async stopCountdown(user, ctx) {

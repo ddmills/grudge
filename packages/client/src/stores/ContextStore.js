@@ -2,7 +2,6 @@ import { action, computed, observable } from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
 import { ContextAdministrator, ContextInterrogator } from '@grudge/domain/interpreters';
-import { CardLocations } from '@grudge/data';
 
 @autobind
 export default class ContextStore {
@@ -80,7 +79,9 @@ export default class ContextStore {
     sdk.onContextStarted(this.onContextStarted);
     sdk.onContextEnded(this.onContextEnded);
     sdk.onCardDrawn(this.onCardDrawn);
+    sdk.onCardDiscarded(this.onCardDiscarded);
 
+    sdk.onHandDrawn(this.onHandDrawn);
     sdk.onCardDisabled(this.onCardDisabled);
     sdk.onCardEnabled(this.onCardEnabled);
     sdk.onPlayerMoneyUpdated(this.onPlayerMoneyUpdated);
@@ -139,10 +140,26 @@ export default class ContextStore {
   }
 
   @action
-  onCardDrawn(cardId) {
-    const card = ContextInterrogator.getCard(this.ctx, cardId);
+  onHandDrawn(cardIds, isDiscardRecycled) {
+    const player = ContextInterrogator.getPlayerForUser(this.ctx, this.authStore.userId);
 
-    card.location = CardLocations.HAND;
+    ContextAdministrator.discardHand(this.ctx, player.id);
+
+    if (isDiscardRecycled) {
+      ContextAdministrator.recycleDiscardPile(this.ctx, player.id);
+    }
+
+    ContextAdministrator.drawCards(this.ctx, cardIds);
+  }
+
+  @action
+  onCardDrawn(cardId) {
+    ContextAdministrator.drawCard(this.ctx, cardId);
+  }
+
+  @action
+  onCardDiscarded(cardId) {
+    ContextAdministrator.discardCard(this.ctx, cardId);
   }
 
   @action
