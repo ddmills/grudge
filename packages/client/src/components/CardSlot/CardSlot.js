@@ -7,10 +7,10 @@ import connect from 'utilities/mobx/Connect';
 import styles from './CardSlot.scss';
 
 @connect(({
-  cardStore, userStore, actionStore, windowSizeStore,
+  cardStore, playerStore, actionStore, windowSizeStore,
 }, { playerId, slotIndex }) => {
   const card = cardStore.getCardAtSlot(playerId, slotIndex);
-  const isOwn = playerId === userStore.currentUserId;
+  const isOwn = playerId === playerStore.currentPlayerId;
   const isEmpty = !card;
   const size = windowSizeStore.responsiveCardSize;
 

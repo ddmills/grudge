@@ -76,6 +76,7 @@ export default class ContextAdministrator {
     const card = ContextInterrogator.getCard(ctx, cardId);
 
     card.slotIndex = slotIndex;
+    card.location = CardLocations.ARENA;
   }
 
   static trashCard(ctx, cardId) {

@@ -109,21 +109,21 @@ export default class ActionStore {
     return undefined;
   }
 
-  constructor(cardStore, turnStore, userStore, traitStore) {
+  constructor(cardStore, turnStore, playerStore, traitStore) {
     this.cardStore = cardStore;
     this.turnStore = turnStore;
-    this.userStore = userStore;
+    this.playerStore = playerStore;
     this.traitStore = traitStore;
 
     sdk.onTurnEnded(this.resetAction);
   }
 
-  isCardSelected(card) {
-    return card.id === this.selectedCardId;
+  isCardSelected(cardId) {
+    return cardId === this.selectedCardId;
   }
 
-  isCardTargeted(card) {
-    return card.id === this.targetEnemyCardId || card.id === this.targetAllyCardId;
+  isCardTargeted(cardId) {
+    return cardId === this.targetEnemyCardId || cardId === this.targetAllyCardId;
   }
 
   @action
@@ -133,7 +133,7 @@ export default class ActionStore {
     if (act) {
       sdk.performAction({
         actionIdx: this.allCardActions.indexOf(act),
-        cardId: this.selectedCard.id,
+        cardId: this.selectedCardId,
         targetCardId: this.targetEnemyCardId || this.targetAllyCardId,
         targetPlayerId: this.targetPlayerId,
         targetSlotIndex: this.targetedSlotIndex,
@@ -144,8 +144,8 @@ export default class ActionStore {
   }
 
   @action
-  initiateAction(card) {
-    this.selectedCardId = card.id;
+  initiateAction(cardId) {
+    this.selectedCardId = cardId;
 
     this.performAction();
   }
@@ -160,29 +160,29 @@ export default class ActionStore {
     this.currentAction = null;
   }
 
-  onEnemyCardClicked(card) {
-    if (this.hasTargetEnemyCardAction && !this.traitStore.isCardDefended(card)) {
-      this.targetEnemyCardId = card.id;
+  onEnemyCardClicked(cardId) {
+    if (this.hasTargetEnemyCardAction && !this.traitStore.isCardDefended(cardId)) {
+      this.targetEnemyCardId = cardId;
 
       this.performAction();
     }
   }
 
-  onAllyCardClicked(card) {
-    if (this.isCardSelected(card)) {
+  onAllyCardClicked(cardId) {
+    if (this.isCardSelected(cardId)) {
       this.selectedCardId = null;
-    } else if (this.hasTargetAllyCardAction && this.cardStore.isCardPlayed(card.id)) {
-      this.targetAllyCardId = card.id;
+    } else if (this.hasTargetAllyCardAction && this.cardStore.isCardPlayed(cardId)) {
+      this.targetAllyCardId = cardId;
 
       this.performAction();
     } else {
-      this.initiateAction(card);
+      this.initiateAction(cardId);
     }
   }
 
-  onEnemyUserClicked(user) {
+  onEnemyUserClicked(player) {
     if (this.hasTargetEnemyUserAction) {
-      this.targetPlayerId = user.id;
+      this.targetPlayerId = player.id;
 
       this.performAction();
     }
@@ -196,40 +196,40 @@ export default class ActionStore {
     }
   }
 
-  onClickCard(card) {
+  onClickCard(cardId) {
     if (!this.turnStore.isOwnTurn) {
       return;
     }
 
-    if (this.cardStore.isOwnCard(card.id)) {
-      this.onAllyCardClicked(card);
+    if (this.cardStore.isOwnCard(cardId)) {
+      this.onAllyCardClicked(cardId);
     } else {
-      console.log('onEnemyCardClicked', card);
+      console.log('onEnemyCardClicked', cardId);
       // this.onEnemyCardClicked(card);
     }
   }
 
-  getUserHighlight(userId) {
+  getUserHighlight(playerId) {
     if (this.hasTargetEnemyUserAction) {
-      if (userId !== this.userStore.currentUserId) {
+      if (playerId !== this.playerStore.currentPlayerId) {
         return 'attack';
       }
     }
   }
 
-  getCardHighlight(userId, slotIndex) {
+  getCardHighlight(playerId, slotIndex) {
     if (this.hasTargetSlotAction) {
-      const card = this.cardStore.getCardAtSlot(userId, slotIndex);
+      const card = this.cardStore.getCardAtSlot(playerId, slotIndex);
 
-      if (!card && userId === this.userStore.currentUserId) {
+      if (!card && playerId === this.playerStore.currentPlayerId) {
         return 'open';
       }
     }
 
     if (this.hasTargetEnemyCardAction) {
-      const card = this.cardStore.getCardAtSlot(userId, slotIndex);
+      const card = this.cardStore.getCardAtSlot(playerId, slotIndex);
       const isAttackable = () => !this.traitStore.isCardDefended(card);
-      const isOwnedByEnemey = () => userId !== this.userStore.currentUserId;
+      const isOwnedByEnemey = () => playerId !== this.playerStore.currentPlayerId;
 
       if (card && isAttackable() && isOwnedByEnemey()) {
         return 'attack';
@@ -237,9 +237,9 @@ export default class ActionStore {
     }
 
     if (this.hasTargetAllyCardAction) {
-      const card = this.cardStore.getCardAtSlot(userId, slotIndex);
+      const card = this.cardStore.getCardAtSlot(playerId, slotIndex);
 
-      if (card && card.isPlayed && userId === this.userStore.currentUserId) {
+      if (card && card.isPlayed && playerId === this.playerStore.currentPlayerId) {
         return 'heal';
       }
     }

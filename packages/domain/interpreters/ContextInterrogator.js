@@ -283,7 +283,7 @@ export default class ContextInterrogator {
     if (!ctx) return [];
     const cards = this.getCardsForPlayer(ctx, playerId);
 
-    return cards.filter((c) => c.playerId === playerId);
+    return cards.filter((c) => c.location === CardLocations.ARENA);
   }
 
   static getWinnerPlayer(ctx) {

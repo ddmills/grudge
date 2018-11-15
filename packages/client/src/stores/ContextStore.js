@@ -86,6 +86,7 @@ export default class ContextStore {
     sdk.onHandDrawn(this.onHandDrawn);
     sdk.onCardDisabled(this.onCardDisabled);
     sdk.onCardEnabled(this.onCardEnabled);
+    sdk.onCardPlayed(this.onCardPlayed);
     sdk.onPlayerMoneyUpdated(this.onPlayerMoneyUpdated);
     sdk.onPlayerHealthUpdated(this.onPlayerHealthUpdated);
     sdk.onTurnEnded(this.onTurnEnded);
@@ -168,6 +169,11 @@ export default class ContextStore {
   @action
   onCardDrawn(cardId) {
     ContextAdministrator.drawCard(this.ctx, cardId);
+  }
+
+  @action
+  onCardPlayed(cardId, slotIndex) {
+    ContextAdministrator.playCard(this.ctx, cardId, slotIndex);
   }
 
   @action
