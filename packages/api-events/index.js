@@ -9,6 +9,7 @@ export const USER_GET = 'user/get';
 export const USER_LOBBY_GET = 'user/lobby/get';
 export const USER_MONEY_UPDATED = 'user/money/updated';
 export const USER_HEALTH_UPDATED = 'user/health/updated';
+export const CONTEXT_CURRENT_GET = 'context/current/get';
 export const CONTEXT_LIST = 'context/list';
 export const CONTEXT_CREATE = 'context/create';
 export const CONTEXT_JOIN = 'context/join';

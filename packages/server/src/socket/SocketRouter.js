@@ -36,6 +36,9 @@ const eventMap = [{
   event: Events.LOBBY_LIST,
   handler: LobbyController.list,
 }, {
+  event: Events.CONTEXT_CURRENT_GET,
+  handler: ContextController.getCurrentContext,
+}, {
   event: Events.CONTEXT_LIST,
   handler: ContextController.list,
 }, {

@@ -123,6 +123,10 @@ export default class SDK {
     return this.query(Events.CARD_PLAYED_LIST, { userId });
   }
 
+  getCurrentContext() {
+    return this.query(Events.CONTEXT_CURRENT_GET);
+  }
+
   listContexts() {
     return this.query(Events.CONTEXT_LIST);
   }

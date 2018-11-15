@@ -10,6 +10,12 @@ import timestamp from 'utilities/Timestamp';
 import Random from 'utilities/Random';
 
 export default class ContextService {
+  static async getCurrentContext(user) {
+    if (user.contextId) {
+      return ContextRepository.get(user.contextId);
+    }
+  }
+
   static async list() {
     return ContextRepository.browse();
   }
