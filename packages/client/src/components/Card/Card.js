@@ -23,11 +23,11 @@ const getTrait = (card, traitId, resolveRef, property = 'value') => {
 
   return {
     card,
-    isSelected: false, //actionStore.isCardSelected(card),
-    isTargeted: false, //actionStore.isCardTargeted(card),
+    isSelected: actionStore.isCardSelected(cardId),
+    isTargeted: actionStore.isCardTargeted(cardId),
     cardType: card && CardType.deserialize(cardTypeStore.findCardType(card.cardTypeId)),
-    onClick: () => actionStore.onClickCard(card),
-    onClickHold: () => cardStore.inspectCard(card.id),
+    onClick: () => actionStore.onClickCard(cardId),
+    onClickHold: () => cardStore.inspectCard(cardId),
     resolveRef: actionRefStore.resolve,
     responsiveCardSize: windowSizeStore.responsiveCardSize,
   };
@@ -78,7 +78,7 @@ export default class Card extends Component {
           value={getTrait(card, TraitIds.VALUE, resolveRef)}
           attack={getTrait(card, TraitIds.ATTACK, resolveRef)}
           health={getTrait(card, TraitIds.HEALTH, resolveRef)}
-          cost={card.isInHand ? getTrait(card, TraitIds.COST, resolveRef) : undefined}
+          cost={getTrait(card, TraitIds.COST, resolveRef)}
           maxHealth={getTrait(card, TraitIds.HEALTH, resolveRef, 'max')}
           onClick={onClick}
           onClickHold={onClickHold}

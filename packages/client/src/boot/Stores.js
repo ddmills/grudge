@@ -28,7 +28,7 @@ export default () => {
   const cardStore = new CardStore(contextStore, playerStore);
   const actionRefStore = new ActionRefStore(cardStore);
   const traitStore = new TraitStore(cardStore, actionRefStore);
-  const actionStore = new ActionStore(cardStore, turnStore, userStore, traitStore);
+  const actionStore = new ActionStore(cardStore, turnStore, playerStore, traitStore);
   const menuStore = new MenuStore(contextStore);
 
   return {

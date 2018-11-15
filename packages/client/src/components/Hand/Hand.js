@@ -5,7 +5,7 @@ import Card from 'components/Card/Card';
 import styles from './Hand.scss';
 
 @connect(({ cardStore }) => ({
-  cardIds: cardStore.hand.map((card) => card.id),
+  cardIds: cardStore.hand.map((c) => c.id),
 }))
 export default class Hand extends Component {
   static propTypes = {
