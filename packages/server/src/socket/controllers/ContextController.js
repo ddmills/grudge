@@ -1,6 +1,10 @@
 import ContextService from 'services/ContextService';
 
 export default class ContextController {
+  static async getCurrentContext({ user }) {
+    return ContextService.getCurrentContext(user);
+  }
+
   static async list() {
     return ContextService.list();
   }

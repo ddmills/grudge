@@ -1,4 +1,6 @@
-import { action, computed, observable } from 'mobx';
+import {
+  autorun, action, computed, observable,
+} from 'mobx';
 import autobind from 'autobind-decorator';
 import sdk from '@grudge/sdk';
 import { ContextAdministrator, ContextInterrogator } from '@grudge/domain/interpreters';
@@ -86,8 +88,20 @@ export default class ContextStore {
     sdk.onCardEnabled(this.onCardEnabled);
     sdk.onPlayerMoneyUpdated(this.onPlayerMoneyUpdated);
     sdk.onPlayerHealthUpdated(this.onPlayerHealthUpdated);
-
     sdk.onTurnEnded(this.onTurnEnded);
+
+    autorun(this.getCurrentContext);
+  }
+
+  @action
+  setContext(ctx) {
+    this.ctx = ctx;
+  }
+
+  getCurrentContext() {
+    if (this.authStore.userId) {
+      sdk.getCurrentContext().then(this.setContext);
+    }
   }
 
   joinContext(contextId) {
@@ -104,9 +118,8 @@ export default class ContextStore {
     this.routerStore.navigate('landing');
   }
 
-  @action
-  onJoinedContext(context) {
-    this.ctx = context;
+  onJoinedContext(ctx) {
+    this.setContext(ctx);
   }
 
   @action
