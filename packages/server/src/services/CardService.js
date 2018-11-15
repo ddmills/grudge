@@ -102,14 +102,12 @@ export default class CardService {
 
     await ContextRepository.save(ctx);
 
-    const hand = ContextInterrogator.getHandForPlayer(ctx, playerId).map((c) => c.id);
-
-    NotificationService.onHandDrawn(ctx, playerId, hand, isDiscardRecycled);
+    NotificationService.onHandDrawn(ctx, playerId, isDiscardRecycled);
   }
 
   static async drawHands(ctx) {
     for (const player of ctx.players) { // eslint-disable-line no-restricted-syntax
-      await this.drawHand(ctx, player); // eslint-disable-line no-await-in-loop
+      await this.drawHand(ctx, player.id); // eslint-disable-line no-await-in-loop
     }
   }
 }

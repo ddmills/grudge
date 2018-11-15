@@ -58,6 +58,7 @@ export default class ContextAdministrator {
   static drawCard(ctx, cardId) {
     const card = ContextInterrogator.getCard(ctx, cardId);
 
+    card.isDisabled = false;
     card.location = CardLocations.HAND;
   }
 
