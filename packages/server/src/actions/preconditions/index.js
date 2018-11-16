@@ -1,10 +1,11 @@
 import CardHasTraitPrecondition from './CardHasTraitPrecondition';
 import CardIsEnabledPrecondition from './CardIsEnabledPrecondition';
-import TargetCardIsNotDefendedPrecondition from './TargetCardIsNotDefendedPrecondition';
-import TargetCardIsEnemyPrecondition from './TargetCardIsEnemyPrecondition';
 import TargetCardIsAllyPrecondition from './TargetCardIsAllyPrecondition';
-import UserCanAffordPrecondition from './UserCanAffordPrecondition';
+import TargetCardIsEnemyPrecondition from './TargetCardIsEnemyPrecondition';
+import TargetCardIsNotDefendedPrecondition from './TargetCardIsNotDefendedPrecondition';
 import TargetSlotIndexIsOpenPrecondition from './TargetSlotIndexIsOpenPrecondition';
+import TargetCardHasTraitPrecondition from './TargetCardHasTraitPrecondition';
+import UserCanAffordPrecondition from './UserCanAffordPrecondition';
 
 export default [
   CardHasTraitPrecondition,
@@ -13,5 +14,6 @@ export default [
   TargetCardIsEnemyPrecondition,
   TargetCardIsNotDefendedPrecondition,
   TargetSlotIndexIsOpenPrecondition,
+  TargetCardHasTraitPrecondition,
   UserCanAffordPrecondition,
 ];
