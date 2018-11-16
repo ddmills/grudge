@@ -82,6 +82,8 @@ export default class ContextStore {
     sdk.onContextEnded(this.onContextEnded);
     sdk.onCardDrawn(this.onCardDrawn);
     sdk.onCardDiscarded(this.onCardDiscarded);
+    sdk.onTraitAddedToCard(this.onTraitAddedToCard);
+    sdk.onTraitRemovedFromCard(this.onTraitRemovedFromCard);
 
     sdk.onHandDrawn(this.onHandDrawn);
     sdk.onCardDisabled(this.onCardDisabled);
@@ -194,6 +196,16 @@ export default class ContextStore {
   @action
   onCardEnabled(cardId) {
     ContextAdministrator.enableCard(this.ctx, cardId);
+  }
+
+  @action
+  onTraitAddedToCard(cardId, trait) {
+    ContextAdministrator.addTraitToCard(this.ctx, cardId, trait);
+  }
+
+  @action
+  onTraitRemovedFromCard(cardId, traitId) {
+    ContextAdministrator.removeTraitFromCard(this.ctx, cardId, traitId);
   }
 
   @action

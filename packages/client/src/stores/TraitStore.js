@@ -8,8 +8,8 @@ export default class TraitStore {
     this.cardStore = cardStore;
     this.actionRefStore = actionRefStore;
 
-    sdk.onCardTraitAdded(this.cardStore.setCard);
-    sdk.onCardTraitRemoved(this.cardStore.setCard);
+    // sdk.onCardTraitAdded(this.cardStore.setCard);
+    // sdk.onCardTraitRemoved(this.cardStore.setCard);
   }
 
   isSlotDefended(userId, slotIndex) {

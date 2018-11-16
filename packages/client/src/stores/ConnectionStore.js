@@ -16,7 +16,7 @@ export default class ConnectionStore {
     sdk.onConnected(this.onConnect.bind(this));
     sdk.onDisconnected(this.onDisconnect.bind(this));
     sdk.onError(this.onError.bind(this));
-    sdk.onFlash((data) => console.debug('flash', data)); // eslint-disable-line no-console
+    // sdk.onFlash((data) => console.debug('flash', data)); // eslint-disable-line no-console
   }
 
   @action
