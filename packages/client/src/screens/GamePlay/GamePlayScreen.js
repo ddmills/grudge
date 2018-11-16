@@ -4,6 +4,7 @@ import PageSuperHeader from 'components/Page/SuperHeader/PageSuperHeader';
 import CardInspector from 'components/CardInspector/CardInspector';
 import TurnCountdown from 'components/TurnCountdown/TurnCountdown';
 import PlayerHUD from 'components/PlayerHUD/PlayerHUD';
+import PlayerViewer from 'components/PlayerViewer/PlayerViewer';
 import Arena from 'components/Arena/Arena';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';
@@ -31,6 +32,7 @@ export default class GamePlayScreen extends Component {
         <PageSuperHeader/>
         <CardInspector/>
         <div className={styles.content}>
+          <PlayerViewer/>
           <TurnCountdown/>
           <Container className={styles.viewer} isPadded={false}>
             {playerId && (

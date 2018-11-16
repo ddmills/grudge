@@ -1,4 +1,9 @@
-import { computed } from 'mobx';
+import {
+  computed,
+  action,
+  observable,
+  autorun,
+} from 'mobx';
 import { Player } from '@grudge/domain';
 import { ContextInterrogator } from '@grudge/domain/interpreters';
 import sdk from '@grudge/sdk';
@@ -6,6 +11,9 @@ import autobind from 'autobind-decorator';
 
 @autobind
 export default class PlayerStore {
+  @observable
+  selectedPlayerId = null;
+
   @computed
   get canAddBotPlayer() {
     const {
@@ -19,7 +27,6 @@ export default class PlayerStore {
     return Boolean(!isLoading && isSettingUp && isOwner && !isCountingDown && !isFull);
   }
 
-  @computed
   get players() {
     const rawPlayers = ContextInterrogator.getPlayers(this.contextStore.ctx);
 
@@ -41,6 +48,11 @@ export default class PlayerStore {
   }
 
   @computed
+  get selectedPlayer() {
+    return ContextInterrogator.getPlayer(this.contextStore.ctx, this.selectedPlayerId);
+  }
+
+  @computed
   get addBotPlayer() {
     if (this.canAddBotPlayer) {
       return () => sdk.addBotPlayer();
@@ -52,6 +64,8 @@ export default class PlayerStore {
   constructor(contextStore, userStore) {
     this.contextStore = contextStore;
     this.userStore = userStore;
+
+    autorun(this.selectDefaultPlayer);
   }
 
   isPlayerSelf(playerId) {
@@ -60,5 +74,21 @@ export default class PlayerStore {
 
   isPlayerEnemy(playerId) {
     return playerId !== this.currentPlayerId;
+  }
+
+  @action
+  selectPlayer(playerId) {
+    this.selectedPlayerId = playerId;
+  }
+
+  @action
+  selectDefaultPlayer() {
+    const others = this.players.filter((p) => p.id !== this.currentPlayerId);
+
+    if (others.length) {
+      this.selectPlayer(others[0].id);
+    } else {
+      this.selectedPlayerId = null;
+    }
   }
 }
