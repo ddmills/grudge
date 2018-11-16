@@ -1,7 +1,6 @@
 import { action, observable, computed } from 'mobx';
 import autobind from 'autobind-decorator';
 import { ActionSetups } from '@grudge/data';
-import { ContextInterrogator } from '@grudge/domain/interpreters';
 import sdk from '@grudge/sdk';
 
 @autobind
@@ -109,11 +108,10 @@ export default class ActionStore {
     return undefined;
   }
 
-  constructor(cardStore, turnStore, playerStore, traitStore) {
+  constructor(cardStore, turnStore, playerStore) {
     this.cardStore = cardStore;
     this.turnStore = turnStore;
     this.playerStore = playerStore;
-    this.traitStore = traitStore;
 
     sdk.onTurnEnded(this.resetAction);
   }
@@ -161,7 +159,7 @@ export default class ActionStore {
   }
 
   onEnemyCardClicked(cardId) {
-    if (this.hasTargetEnemyCardAction && !this.traitStore.isCardDefended(cardId)) {
+    if (this.hasTargetEnemyCardAction && !this.cardStore.isCardDefended(cardId)) {
       this.targetEnemyCardId = cardId;
 
       this.performAction();
@@ -211,35 +209,41 @@ export default class ActionStore {
 
   getUserHighlight(playerId) {
     if (this.hasTargetEnemyUserAction) {
-      if (playerId !== this.playerStore.currentPlayerId) {
+      if (this.playerStore.isPlayerEnemy(playerId)) {
         return 'attack';
       }
     }
   }
 
   getCardHighlight(playerId, slotIndex) {
-    if (this.hasTargetSlotAction) {
-      const card = this.cardStore.getCardAtSlot(playerId, slotIndex);
+    const card = this.cardStore.getCardAtSlot(playerId, slotIndex);
 
-      if (!card && playerId === this.playerStore.currentPlayerId) {
+    if (this.hasTargetSlotAction) {
+      if (!card && this.playerStore.isPlayerSelf(playerId)) {
         return 'open';
       }
     }
 
-    if (this.hasTargetEnemyCardAction) {
-      const card = this.cardStore.getCardAtSlot(playerId, slotIndex);
-      const isAttackable = () => !this.traitStore.isCardDefended(card);
-      const isOwnedByEnemey = () => playerId !== this.playerStore.currentPlayerId;
+    if (!card) {
+      return;
+    }
 
-      if (card && isAttackable() && isOwnedByEnemey()) {
+    const cardId = card.id;
+
+    if (this.hasTargetEnemyCardAction) {
+      const isOwnedByEnemy = !this.cardStore.isOwnCard(cardId);
+      const isAttackable = !this.cardStore.isCardDefended(cardId);
+
+      if (isAttackable && isOwnedByEnemy) {
         return 'attack';
       }
     }
 
     if (this.hasTargetAllyCardAction) {
-      const card = this.cardStore.getCardAtSlot(playerId, slotIndex);
+      const isPlayed = this.cardStore.isCardPlayed(cardId);
+      const isOwnCard = this.cardStore.isOwnCard(cardId);
 
-      if (card && card.isPlayed && playerId === this.playerStore.currentPlayerId) {
+      if (isPlayed && isOwnCard) {
         return 'heal';
       }
     }

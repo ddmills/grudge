@@ -53,4 +53,12 @@ export default class PlayerStore {
     this.contextStore = contextStore;
     this.userStore = userStore;
   }
+
+  isPlayerSelf(playerId) {
+    return playerId === this.currentPlayerId;
+  }
+
+  isPlayerEnemy(playerId) {
+    return playerId !== this.currentPlayerId;
+  }
 }

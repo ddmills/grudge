@@ -57,6 +57,10 @@ export default class CardStore {
     );
   }
 
+  isCardDefended(cardId) {
+    return ContextInterrogator.isCardDefended(this.contextStore.ctx, cardId);
+  }
+
   getCardsForPlayer(playerId) {
     return ContextInterrogator.getCardsForPlayer(this.contextStore.ctx, playerId);
   }
