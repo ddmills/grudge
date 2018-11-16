@@ -10,6 +10,7 @@ export default class EventHook {
   }
 
   trigger(...payload) {
+    console.debug(`event ${this.eventName}`, ...payload); // eslint-disable-line no-console
     this.listeners.forEach((listener) => listener(...payload));
   }
 

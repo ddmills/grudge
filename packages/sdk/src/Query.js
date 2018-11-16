@@ -9,6 +9,7 @@ export default class Query {
           if (error) {
             reject(new Error(error));
           } else {
+            console.debug(`query ${event}`, data); // eslint-disable-line no-console
             resolve(data);
           }
         });
