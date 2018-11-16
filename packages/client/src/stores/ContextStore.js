@@ -84,7 +84,6 @@ export default class ContextStore {
     sdk.onCardDiscarded(this.onCardDiscarded);
     sdk.onTraitAddedToCard(this.onTraitAddedToCard);
     sdk.onTraitRemovedFromCard(this.onTraitRemovedFromCard);
-
     sdk.onHandDrawn(this.onHandDrawn);
     sdk.onCardDisabled(this.onCardDisabled);
     sdk.onCardEnabled(this.onCardEnabled);
@@ -98,6 +97,7 @@ export default class ContextStore {
 
   @action
   setContext(ctx) {
+    console.log('setContext');
     this.ctx = ctx;
   }
 
