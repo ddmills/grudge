@@ -95,9 +95,9 @@ export default class ContextInterrogator {
 
   static getCardTypeForCard(ctx, cardId) {
     if (!ctx) return;
-    const card = ctx.getCard(ctx, cardId);
+    const card = this.getCard(ctx, cardId);
 
-    return CardTypes.find((c) => c.id === card.cardTypeId);
+    return CardTypes[card.cardTypeId];
   }
 
   static isCardPlayed(ctx, cardId) {

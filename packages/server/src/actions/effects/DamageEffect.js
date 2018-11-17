@@ -10,7 +10,7 @@ import Effect from './Effect';
 export default class DamageEffect extends Effect {
   static id = EffectIds.DAMAGE;
 
-  static async execute(ctx, { value }, { cardId, targetCardId }) {
+  static execute(ctx, { value }, { cardId, targetCardId }) {
     const healthTrait = ContextInterrogator.getTraitForCard(ctx, targetCardId, TraitIds.HEALTH);
     const damage = ReferenceResolver.resolve(ctx, cardId, value);
     const health = ReferenceResolver.resolve(ctx, targetCardId, healthTrait.value);
@@ -27,7 +27,7 @@ export default class DamageEffect extends Effect {
 
     if (remaining <= 0) {
       ContextAdministrator.resetCard(ctx, targetCardId);
-      NotificationService.onCardKilled(ctx, cardId);
+      NotificationService.onCardKilled(ctx, targetCardId);
     }
   }
 }

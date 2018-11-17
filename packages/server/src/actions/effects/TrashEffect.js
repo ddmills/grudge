@@ -6,7 +6,7 @@ import Effect from './Effect';
 export default class TrashEffect extends Effect {
   static id = EffectIds.TRASH;
 
-  static async apply(ctx, effectParams, { cardId }) {
+  static apply(ctx, effectParams, { cardId }) {
     ContextAdministrator.trashCard(ctx, cardId);
 
     NotificationService.onCardTrashed(ctx, cardId);

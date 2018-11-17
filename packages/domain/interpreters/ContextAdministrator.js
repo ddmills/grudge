@@ -18,7 +18,7 @@ export default class ContextAdministrator {
   static removeTraitFromCard(ctx, cardId, traitId) {
     const card = ContextInterrogator.getCard(ctx, cardId);
 
-    card.traits = card.traits.filter((t) => t.id === traitId);
+    card.traits = card.traits.filter((t) => t.id !== traitId);
   }
 
   static addTraitToCard(ctx, cardId, trait) {

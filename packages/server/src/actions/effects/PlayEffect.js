@@ -6,7 +6,7 @@ import Effect from './Effect';
 export default class PlayEffect extends Effect {
   static id = EffectIds.PLAY;
 
-  static async execute(ctx, effectParams, { cardId, targetSlotIndex }) {
+  static execute(ctx, effectParams, { cardId, targetSlotIndex }) {
     ContextAdministrator.playCard(ctx, cardId, targetSlotIndex);
 
     NotificationService.onCardPlayed(ctx, cardId, targetSlotIndex);

@@ -10,7 +10,7 @@ import Effect from './Effect';
 export default class DamagePlayerEffect extends Effect {
   static id = EffectIds.DAMAGE_PLAYER;
 
-  static apply(ctx, { value }, { cardId, targetPlayerId }) {
+  static execute(ctx, { value }, { cardId, targetPlayerId }) {
     const damage = ReferenceResolver.resolve(ctx, cardId, value);
 
     ContextAdministrator.subtractHealthFromPlayer(ctx, targetPlayerId, damage);
