@@ -1,5 +1,19 @@
 @import "@grudge/styles";
 
+@mixin playerHighlight($color, $percentage) {
+  box-shadow: 0 0 2px 2px rgba($color, $percentage);
+}
+
+@keyframes blinkAttack {
+  0% {
+    @include playerHighlight(#e95757, 0.75);
+  }
+
+  100% {
+    @include playerHighlight(#e95757, 0.25);
+  }
+}
+
 .avatarImage {
   flex: 0 0 auto;
   width: 50px;
@@ -11,4 +25,15 @@
     height: 100px;
     margin: $spacer-2;
   }
+
+  &.attack {
+    animation-name: blinkAttack;
+    animation-duration: 0.4s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+}
+
+.avatarButton {
+  @include buttonReset;
 }

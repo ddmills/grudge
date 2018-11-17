@@ -226,6 +226,6 @@ export default class ContextStore {
 
   @action
   onPlayerHealthUpdated(playerId, value) {
-    ContextAdministrator.enableCard(this.ctx, playerId, value);
+    ContextAdministrator.setHealthForPlayer(this.ctx, playerId, value);
   }
 }

@@ -47,7 +47,7 @@ export default class ActionStore {
     return act.setup.some((setup) => setup === ActionSetups.TARGET_ALLY_CARD);
   }
 
-  static isTargetEnemyUserAction(act) {
+  static isTargetEnemyPlayerAction(act) {
     return act.setup.some((setup) => setup === ActionSetups.TARGET_ENEMY_USER);
   }
 
@@ -64,7 +64,7 @@ export default class ActionStore {
       const targetAllyCardMet = ActionStore.isTargetAllyCardAction(act)
         ? this.targetAllyCardId
         : true;
-      const targetEnemyUserMet = ActionStore.isTargetEnemyUserAction(act)
+      const targetEnemyPlayerMet = ActionStore.isTargetEnemyPlayerAction(act)
         ? this.targetPlayerId
         : true;
       const targetSlotIndexMet = ActionStore.isTargetSlotAction(act)
@@ -73,14 +73,14 @@ export default class ActionStore {
 
       return targetEnemyCardMet
         && targetSlotIndexMet
-        && targetEnemyUserMet
+        && targetEnemyPlayerMet
         && targetAllyCardMet;
     });
   }
 
   @computed
-  get hasTargetEnemyUserAction() {
-    return this.allCardActions.some((act) => ActionStore.isTargetEnemyUserAction(act));
+  get hasTargetEnemyPlayerAction() {
+    return this.allCardActions.some((act) => ActionStore.isTargetEnemyPlayerAction(act));
   }
 
   @computed
@@ -178,15 +178,21 @@ export default class ActionStore {
     }
   }
 
-  onEnemyUserClicked(player) {
-    if (this.hasTargetEnemyUserAction) {
-      this.targetPlayerId = player.id;
+  onEnemyPlayerClicked(playerId) {
+    if (this.hasTargetEnemyPlayerAction) {
+      this.targetPlayerId = playerId;
 
       this.performAction();
     }
   }
 
-  onSlotClicked(slotIndex) {
+  onClickPlayer(playerId) {
+    if (this.playerStore.isPlayerEnemy(playerId)) {
+      this.onEnemyPlayerClicked(playerId);
+    }
+  }
+
+  onClickSlot(slotIndex) {
     if (this.hasTargetSlotAction) {
       this.targetedSlotIndex = slotIndex;
 
@@ -206,8 +212,8 @@ export default class ActionStore {
     }
   }
 
-  getUserHighlight(playerId) {
-    if (this.hasTargetEnemyUserAction) {
+  getPlayerHighlight(playerId) {
+    if (this.hasTargetEnemyPlayerAction) {
       if (this.playerStore.isPlayerEnemy(playerId)) {
         return 'attack';
       }

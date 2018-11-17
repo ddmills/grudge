@@ -1,8 +1,10 @@
 import { Component } from 'react';
-import { List, ListItem } from '@grudge/components';
+import { List, ListItem, Heading } from '@grudge/components';
 import { Player } from '@grudge/domain';
 import PropTypes from 'prop-types';
 import connect from 'utilities/mobx/Connect';
+import PlayerAvatar from 'components/PlayerAvatar/PlayerAvatar';
+import styles from './GameSetupPlayers.scss';
 
 @connect(({ playerStore }) => ({
   players: playerStore.players,
@@ -19,7 +21,10 @@ export default class GameSetupPlayers extends Component {
       <List>
         {players.map((player) => (
           <ListItem key={player.id}>
-            {player.displayName}
+            <PlayerAvatar className={styles.playerAvatar} playerId={player.id}/>
+            <Heading size={4} className={styles.playerNameHeader}>
+              {player.displayName}
+            </Heading>
           </ListItem>
         ))}
       </List>

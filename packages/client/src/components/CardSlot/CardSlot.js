@@ -16,7 +16,7 @@ import styles from './CardSlot.scss';
 
   return {
     cardId: card && card.id,
-    onClick: isOwn && isEmpty ? () => actionStore.onSlotClicked(slotIndex) : () => {},
+    onClick: isOwn && isEmpty ? () => actionStore.onClickSlot(slotIndex) : () => {},
     highlightStyle: actionStore.getCardHighlight(playerId, slotIndex),
     size,
   };
