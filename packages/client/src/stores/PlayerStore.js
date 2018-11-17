@@ -74,6 +74,20 @@ export default class PlayerStore {
     return rawPlayer ? Player.deserialize(rawPlayer) : undefined;
   }
 
+  getHealthForPlayer(playerId) {
+    return ContextInterrogator.getHealthForPlayer(
+      this.contextStore.ctx,
+      playerId,
+    );
+  }
+
+  getMoneyForPlayer(playerId) {
+    return ContextInterrogator.getMoneyForPlayer(
+      this.contextStore.ctx,
+      playerId,
+    );
+  }
+
   isPlayerSelf(playerId) {
     return playerId === this.currentPlayerId;
   }

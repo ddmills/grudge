@@ -268,15 +268,15 @@ export default class ContextInterrogator {
   }
 
   static getHealthForPlayer(ctx, playerId) {
-    const player = ctx.getPlayer(playerId);
+    const player = this.getPlayer(ctx, playerId);
 
-    return player.health;
+    return player ? player.health : undefined;
   }
 
   static getMoneyForPlayer(ctx, playerId) {
-    const player = ctx.getPlayer(playerId);
+    const player = this.getPlayer(ctx, playerId);
 
-    return player.money;
+    return player ? player.money : undefined;
   }
 
   static getPlayedCardsForPlayer(ctx, playerId) {

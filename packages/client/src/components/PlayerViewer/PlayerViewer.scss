@@ -1,10 +1,15 @@
 @import "@grudge/styles";
 
 .playerViewer {
-  display: flex;
   flex: 0 0 auto;
   flex-flow: column nowrap;
   overflow: hidden;
+}
+
+.playerStats {
+  display: inline-flex;
+  flex-flow: column;
+  width: 40px;
 }
 
 .avatarImage {

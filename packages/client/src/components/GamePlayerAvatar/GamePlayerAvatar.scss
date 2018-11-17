@@ -18,12 +18,10 @@
   flex: 0 0 auto;
   width: 50px;
   height: 50px;
-  margin: $spacer;
 
   @include breakpoint(md) {
     width: 100px;
     height: 100px;
-    margin: $spacer-2;
   }
 
   &.attack {
@@ -36,4 +34,9 @@
 
 .avatarButton {
   @include buttonReset;
+  margin: $spacer;
+
+  @include breakpoint(md) {
+    margin: $spacer-2;
+  }
 }
