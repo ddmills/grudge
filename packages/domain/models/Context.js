@@ -40,10 +40,10 @@ export default class Context extends Model {
         defaultValue: 3,
       },
       turnDuration: {
-        defaultValue: 10000,
+        defaultValue: 20000,
       },
       countdownDuration: {
-        defaultValue: 5000,
+        defaultValue: 10000,
       },
       currentTurn: {
         defaultValue: 0,

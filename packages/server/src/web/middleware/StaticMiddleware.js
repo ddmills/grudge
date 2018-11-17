@@ -1,6 +1,6 @@
 import express from 'express';
-import { client } from 'utilities/Path';
+import { staticAsset as getStaticAssetPath } from 'utilities/Path';
 
 export default function createMiddleware() {
-  return express.static(client());
+  return express.static(getStaticAssetPath());
 }

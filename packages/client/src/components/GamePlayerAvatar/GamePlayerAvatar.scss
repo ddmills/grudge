@@ -1,18 +1,12 @@
 @import "@grudge/styles";
 
-.playerViewer {
-  display: flex;
-  flex: 0 0 auto;
-  flex-flow: column nowrap;
-  overflow: hidden;
-}
-
 .avatarImage {
+  flex: 0 0 auto;
   width: 50px;
   height: 50px;
   margin: $spacer;
 
-  @include breakpoint("md") {
+  @include breakpoint(md) {
     width: 100px;
     height: 100px;
     margin: $spacer-2;

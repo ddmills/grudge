@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import { Container } from '@grudge/components';
 import PropTypes from 'prop-types';
+import GamePlayerAvatar from 'components/GamePlayerAvatar/GamePlayerAvatar';
 import connect from 'utilities/mobx/Connect';
-import Arena from 'components/Arena/Arena';
 import styles from './PlayerViewer.scss';
 
 @connect(({ playerStore }) => ({
@@ -24,9 +24,7 @@ export default class PlayerViewer extends Component {
 
     return (
       <Container className={styles.playerViewer} isPadded={false}>
-        {selectedPlayerId && (
-          <Arena playerId={selectedPlayerId} position="bottom"/>
-        )}
+        <GamePlayerAvatar playerId={selectedPlayerId}/>
       </Container>
     );
   }

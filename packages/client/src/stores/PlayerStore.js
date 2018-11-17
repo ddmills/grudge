@@ -68,6 +68,12 @@ export default class PlayerStore {
     autorun(this.selectDefaultPlayer);
   }
 
+  getPlayer(playerId) {
+    const rawPlayer = ContextInterrogator.getPlayer(this.contextStore.ctx, playerId);
+
+    return rawPlayer ? Player.deserialize(rawPlayer) : undefined;
+  }
+
   isPlayerSelf(playerId) {
     return playerId === this.currentPlayerId;
   }

@@ -10,7 +10,7 @@
 .handCard {
   margin: $spacer-1;
 
-  @include breakpoint(sm) {
+  @include breakpoint(md) {
     margin: $spacer-2;
   }
 }

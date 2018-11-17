@@ -71,6 +71,7 @@ export default class ContextService {
     const player = Player.create({
       id: Random.id('ply'),
       userId: user.id,
+      avatar: user.avatar,
       displayName: user.displayName,
       isBot: false,
     });
@@ -175,6 +176,7 @@ export default class ContextService {
 
     const player = Player.create({
       id: Random.id('ply'),
+      avatar: '/static/images/avatars/bot.jpg',
       displayName: 'Bot',
       isBot: true,
     });

@@ -12,6 +12,9 @@ export default class Player extends Model {
       displayName: {
         defaultValue: '',
       },
+      avatar: {
+        defaultValue: '',
+      },
       turnOrder: {
         defaultValue: undefined,
       },

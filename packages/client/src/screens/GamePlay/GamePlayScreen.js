@@ -12,19 +12,23 @@ import styles from './GamePlayScreen.scss';
 
 @connect(({ playerStore }) => ({
   playerId: playerStore.currentPlayerId,
+  selectedPlayerId: playerStore.selectedPlayerId,
 }))
 export default class GamePlayScreen extends Component {
   static propTypes = {
     playerId: PropTypes.string,
+    selectedPlayerId: PropTypes.string,
   }
 
   static defaultProps = {
     playerId: undefined,
+    selectedPlayerId: undefined,
   }
 
   render() {
     const {
       playerId,
+      selectedPlayerId,
     } = this.props;
 
     return (
@@ -33,6 +37,11 @@ export default class GamePlayScreen extends Component {
         <CardInspector/>
         <div className={styles.content}>
           <PlayerViewer/>
+          <Container className={styles.viewer} isPadded={false}>
+            {selectedPlayerId && (
+              <Arena playerId={selectedPlayerId} position="bottom"/>
+            )}
+          </Container>
           <TurnCountdown/>
           <Container className={styles.viewer} isPadded={false}>
             {playerId && (

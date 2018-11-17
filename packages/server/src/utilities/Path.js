@@ -7,6 +7,10 @@ export function get(...parts) {
   return path.join(root, ...parts);
 }
 
+export function staticAsset(...parts) {
+  return get('src/static', ...parts);
+}
+
 export function client(...parts) {
   return path.join(config.get('client.path'), ...parts);
 }
