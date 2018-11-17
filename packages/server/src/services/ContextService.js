@@ -187,8 +187,8 @@ export default class ContextService {
   static async checkWinCondition(ctx) {
     const alive = ContextInterrogator.getAlivePlayers(ctx);
 
-    if (alive === 1) {
-      ContextAdministrator.contextEnded(ctx, alive[0].id, timestamp());
+    if (alive.length === 1) {
+      ContextAdministrator.end(ctx, alive[0].id, timestamp());
 
       await ContextRepository.save(ctx);
 

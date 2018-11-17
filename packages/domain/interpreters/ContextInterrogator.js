@@ -295,6 +295,6 @@ export default class ContextInterrogator {
   static getAlivePlayers(ctx) {
     const players = this.getPlayers(ctx);
 
-    return players.filter((p) => p.health <= 0);
+    return players.filter((p) => p.health > 0);
   }
 }
