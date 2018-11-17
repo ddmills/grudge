@@ -81,14 +81,13 @@ export default class PlayerStore {
     this.selectedPlayerId = playerId;
   }
 
-  @action
   selectDefaultPlayer() {
     const others = this.players.filter((p) => p.id !== this.currentPlayerId);
 
     if (others.length) {
       this.selectPlayer(others[0].id);
     } else {
-      this.selectedPlayerId = null;
+      this.selectPlayer(null);
     }
   }
 }
