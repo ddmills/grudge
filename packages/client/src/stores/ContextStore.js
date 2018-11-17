@@ -97,7 +97,6 @@ export default class ContextStore {
 
   @action
   setContext(ctx) {
-    console.log('setContext');
     this.ctx = ctx;
   }
 
