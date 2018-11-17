@@ -139,6 +139,10 @@ export default class NotificationService {
     this.notifyPlayer(player, Events.HAND_DRAWN, cardIds, isDiscardRecycled);
   }
 
+  static onArenaEnabled(ctx, playerId) {
+    this.notifyContext(ctx, Events.ARENA_ENABLED, playerId);
+  }
+
   static onTurnEnded(ctx) {
     this.notifyContext(ctx, Events.CONTEXT_TURN_ENDED, ctx.currentTurn, ctx.turnStartedAt);
   }

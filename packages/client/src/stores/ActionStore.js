@@ -202,8 +202,7 @@ export default class ActionStore {
     if (this.cardStore.isOwnCard(cardId)) {
       this.onAllyCardClicked(cardId);
     } else {
-      console.log('onEnemyCardClicked', cardId);
-      // this.onEnemyCardClicked(card);
+      this.onEnemyCardClicked(cardId);
     }
   }
 

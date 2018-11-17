@@ -37,6 +37,7 @@ export default class EventMap {
       new EventHook(Events.CONTEXT_STARTED, 'onContextStarted'),
       new EventHook(Events.CONTEXT_TURN_ENDED, 'onTurnEnded'),
       new EventHook(Events.HAND_DRAWN, 'onHandDrawn'),
+      new EventHook(Events.ARENA_ENABLED, 'onArenaEnabled'),
     ];
   }
 }

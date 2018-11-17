@@ -91,6 +91,7 @@ export default class ContextStore {
     sdk.onPlayerMoneyUpdated(this.onPlayerMoneyUpdated);
     sdk.onPlayerHealthUpdated(this.onPlayerHealthUpdated);
     sdk.onTurnEnded(this.onTurnEnded);
+    sdk.onArenaEnabled(this.onArenaEnabled);
 
     autorun(this.getCurrentContext);
   }
@@ -165,6 +166,11 @@ export default class ContextStore {
     }
 
     ContextAdministrator.drawCards(this.ctx, cardIds);
+  }
+
+  @action
+  onArenaEnabled(playerId) {
+    ContextAdministrator.enableArena(this.ctx, playerId);
   }
 
   @action

@@ -27,6 +27,7 @@ export default class TurnService {
     }
 
     await CardService.drawHand(ctx, playerId);
+    await CardService.enableArena(ctx, playerId);
 
     return this.incrementTurnCounter(ctx);
   }

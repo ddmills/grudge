@@ -12,8 +12,12 @@ import Random from 'utilities/Random';
 import ContextRepository from 'repositories/ContextRepository';
 
 export default class CardService {
-  static async enableCard(cardId) {
-    // card.isDisabled = false;
+  static async enableArena(ctx, playerId) {
+    ContextAdministrator.enableArena(ctx, playerId);
+
+    await ContextRepository.save(ctx);
+
+    NotificationService.onArenaEnabled(ctx, playerId);
   }
 
   static async discardCard(user, card) {

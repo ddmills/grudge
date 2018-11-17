@@ -72,6 +72,12 @@ export default class ContextAdministrator {
     hand.forEach((c) => this.discardCard(ctx, c.id));
   }
 
+  static enableArena(ctx, playerId) {
+    const arena = ContextInterrogator.getPlayedCardsForPlayer(ctx, playerId);
+
+    arena.forEach((c) => this.enableCard(ctx, c.id));
+  }
+
   static playCard(ctx, cardId, slotIndex) {
     const card = ContextInterrogator.getCard(ctx, cardId);
 
