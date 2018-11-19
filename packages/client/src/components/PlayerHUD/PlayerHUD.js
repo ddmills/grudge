@@ -26,8 +26,8 @@ export default class PlayerHUD extends Component {
       <div className={styles.playerHUDBanner}>
         {player && (
           <Container className={styles.playerHUD} isPadded={false}>
-            <GamePlayerAvatar playerId={player.id}/>
             <div className={styles.playerHUDLeft}>
+              <GamePlayerAvatar playerId={player.id}/>
               <p>
                 ${player.money}
               </p>

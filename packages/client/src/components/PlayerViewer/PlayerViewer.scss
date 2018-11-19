@@ -1,15 +1,36 @@
 @import "@grudge/styles";
 
 .playerViewer {
+  display: flex;
   flex: 0 0 auto;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   overflow: hidden;
+}
+
+.playerHand {
+  display: flex;
+  flex: 0 0 auto;
+  overflow: hidden;
+  justify-content: center;
 }
 
 .playerStats {
   display: inline-flex;
   flex-flow: column;
   width: 40px;
+}
+
+.leftSide {
+  width: 20%;
+}
+
+.rightSide {
+  width: 80%;
+  flex: 0 0 auto;
+}
+
+.facedownHandCard {
+  margin: 4px;
 }
 
 .avatarImage {

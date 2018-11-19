@@ -12,3 +12,4 @@ export { default as Heading } from './src/Heading/Heading';
 export { default as CardContainer } from './src/CardContainer/CardContainer';
 export { default as CardStatic } from './src/CardStatic/CardStatic';
 export { default as CardTypeView } from './src/CardTypeView/CardTypeView';
+export { default as FacedownCard } from './src/FacedownCard/FacedownCard';
