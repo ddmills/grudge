@@ -31,9 +31,6 @@ export default class PlayerHUD extends Component {
               <p>
                 ${player.money}
               </p>
-              <p>
-                {player.health}hp
-              </p>
             </div>
             <div className={styles.playerHUDRight}>
               <Hand/>

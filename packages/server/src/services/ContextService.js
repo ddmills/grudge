@@ -1,4 +1,5 @@
 import { Player } from '@grudge/domain';
+import { PLAYER_MAX_HEALTH, PLAYER_STARTING_MONEY } from '@grudge/data';
 import { ContextInterrogator, ContextAdministrator } from '@grudge/domain/interpreters';
 import ContextRepository from 'repositories/ContextRepository';
 import UserRepository from 'repositories/UserRepository';
@@ -147,11 +148,10 @@ export default class ContextService {
     }
 
     ctx.set('players', Random.shuffle(ctx.players));
-
     ctx.players.forEach((p, idx) => {
       p.set('turnOrder', idx);
-      p.set('money', 3);
-      p.set('health', 16);
+      p.set('money', PLAYER_STARTING_MONEY);
+      p.set('health', PLAYER_MAX_HEALTH);
     });
 
     ctx.set('startedAt', timestamp());

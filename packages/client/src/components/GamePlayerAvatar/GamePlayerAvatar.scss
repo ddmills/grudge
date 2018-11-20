@@ -34,9 +34,14 @@
 
 .avatarButton {
   @include buttonReset;
+  position: relative;
+  display: inline-flex;
+  height: 50px;
   margin: $spacer;
+  align-items: stretch;
 
   @include breakpoint(md) {
+    height: 100px;
     margin: $spacer-2;
   }
 }

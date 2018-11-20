@@ -44,11 +44,6 @@ export default class PlayerViewer extends Component {
                 ${money}
               </p>
             )}
-            {Number.isInteger(health) && (
-              <p>
-                {health}hp
-              </p>
-            )}
           </span>
         </section>
         <section className={styles.rightSide}>

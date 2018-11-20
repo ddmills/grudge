@@ -16,5 +16,7 @@ export {
 
 export const SLOT_COUNT = 6;
 export const HAND_CARD_COUNT = 5;
+export const PLAYER_MAX_HEALTH = 16;
+export const PLAYER_STARTING_MONEY = 3;
 
 export { default as CardTypes } from './src/CardTypes';

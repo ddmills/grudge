@@ -1,0 +1,17 @@
+@import "@grudge/styles";
+
+.healthBarContainer {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: $spacer;
+  margin-left: $spacer-1;
+  background-color: $gray;
+  border: 1px solid $primary;
+}
+
+.healthBar {
+  width: 100%;
+  height: 25%;
+  background-color: $red;
+}
