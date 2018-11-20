@@ -7,7 +7,6 @@ import styles from './PlayerViewer.scss';
 
 @connect(({ playerStore, windowSizeStore }) => ({
   selectedPlayerId: playerStore.selectedPlayerId,
-  health: playerStore.getHealthForPlayer(playerStore.selectedPlayerId),
   money: playerStore.getMoneyForPlayer(playerStore.selectedPlayerId),
   responsiveCardSize: windowSizeStore.responsiveCardSize,
 }))
@@ -15,14 +14,12 @@ export default class PlayerViewer extends Component {
   static propTypes = {
     selectedPlayerId: PropTypes.string,
     money: PropTypes.number,
-    health: PropTypes.number,
     responsiveCardSize: PropTypes.string,
   }
 
   static defaultProps = {
     selectedPlayerId: undefined,
     money: undefined,
-    health: undefined,
     responsiveCardSize: 'sm',
   }
 
@@ -30,7 +27,6 @@ export default class PlayerViewer extends Component {
     const {
       selectedPlayerId,
       money,
-      health,
       responsiveCardSize,
     } = this.props;
 

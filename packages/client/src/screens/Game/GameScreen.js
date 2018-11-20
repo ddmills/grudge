@@ -5,6 +5,7 @@ import Page from 'components/Page/Page';
 import connect from 'utilities/mobx/Connect';
 import GameSetupScreen from 'screens/GameSetup/GameSetupScreen';
 import GamePlayScreen from 'screens/GamePlay/GamePlayScreen';
+import GameEndScreen from 'screens/GameEnd/GameEndScreen';
 import Redirect from 'components/Redirect/Redirect';
 
 @connect(({ contextStore }) => ({
@@ -46,11 +47,7 @@ export default class GameScreen extends Component {
     }
 
     if (isEnded) {
-      return (
-        <Page>
-          {'isEnded'}
-        </Page>
-      );
+      return <GameEndScreen/>;
     }
 
     return (

@@ -27,10 +27,21 @@ export default class PlayerStore {
     return Boolean(!isLoading && isSettingUp && isOwner && !isCountingDown && !isFull);
   }
 
+  @computed
   get players() {
     const rawPlayers = ContextInterrogator.getPlayers(this.contextStore.ctx);
 
     return Player.deserializeAll(rawPlayers);
+  }
+
+  @computed
+  get winnerPlayer() {
+    return ContextInterrogator.getWinnerPlayer(this.contextStore.ctx);
+  }
+
+  @computed
+  get isCurrentPlayerWinner() {
+    return this.winnerPlayer ? this.winnerPlayer.id === this.currentPlayerId : false;
   }
 
   @computed
