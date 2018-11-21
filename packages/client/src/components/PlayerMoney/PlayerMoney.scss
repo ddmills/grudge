@@ -1,0 +1,24 @@
+@import "@grudge/styles";
+
+.moneyContainer {
+  position: absolute;
+  top: -$spacer-1;
+  left: -$spacer-1;
+  display: flex;
+  width: $spacer-3;
+  height: $spacer-3;
+  justify-content: center;
+  align-items: center;
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 1em;
+  color: $black;
+  background-color: $money;
+  border-radius: 100%;
+
+  @include breakpoint(md) {
+    width: $spacer-5;
+    height: $spacer-5;
+    font-size: 1.4em;
+  }
+}

@@ -7,26 +7,22 @@ import styles from './PlayerViewer.scss';
 
 @connect(({ playerStore, windowSizeStore }) => ({
   selectedPlayerId: playerStore.selectedPlayerId,
-  money: playerStore.getMoneyForPlayer(playerStore.selectedPlayerId),
   responsiveCardSize: windowSizeStore.responsiveCardSize,
 }))
 export default class PlayerViewer extends Component {
   static propTypes = {
     selectedPlayerId: PropTypes.string,
-    money: PropTypes.number,
     responsiveCardSize: PropTypes.string,
   }
 
   static defaultProps = {
     selectedPlayerId: undefined,
-    money: undefined,
     responsiveCardSize: 'sm',
   }
 
   render() {
     const {
       selectedPlayerId,
-      money,
       responsiveCardSize,
     } = this.props;
 
@@ -34,13 +30,6 @@ export default class PlayerViewer extends Component {
       <Container className={styles.playerViewer} isPadded={false}>
         <section className={styles.leftSide}>
           <GamePlayerAvatar playerId={selectedPlayerId}/>
-          <span className={styles.playerStats}>
-            {Number.isInteger(money) && (
-              <p>
-                ${money}
-              </p>
-            )}
-          </span>
         </section>
         <section className={styles.rightSide}>
           <span className={styles.playerHand}>

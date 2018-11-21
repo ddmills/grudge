@@ -28,9 +28,6 @@ export default class PlayerHUD extends Component {
           <Container className={styles.playerHUD} isPadded={false}>
             <div className={styles.playerHUDLeft}>
               <GamePlayerAvatar playerId={player.id}/>
-              <p>
-                ${player.money}
-              </p>
             </div>
             <div className={styles.playerHUDRight}>
               <Hand/>

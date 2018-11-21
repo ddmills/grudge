@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import PlayerAvatar from 'components/PlayerAvatar/PlayerAvatar';
 import PlayerHealthBar from 'components/PlayerHealthBar/PlayerHealthBar';
+import PlayerMoney from 'components/PlayerMoney/PlayerMoney';
 import styles from './GamePlayerAvatar.scss';
 
 @connect(({ actionStore }, { playerId }) => ({
@@ -41,6 +42,7 @@ export default class GamePlayerAvatar extends Component {
 
     return (
       <button className={styles.avatarButton} onClick={onClick}>
+        <PlayerMoney playerId={playerId}/>
         <PlayerAvatar className={classes} playerId={playerId}/>
         <PlayerHealthBar playerId={playerId}/>
       </button>
