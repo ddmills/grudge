@@ -3,6 +3,7 @@ import * as TraitIds from './TraitIds';
 import * as EffectIds from './EffectIds';
 import * as PreconditionIds from './PreconditionIds';
 import * as ActionSetups from './ActionSetups';
+import * as Classifications from './Classifications';
 
 const attackAction = {
   name: 'Attack',
@@ -110,11 +111,12 @@ const CardTypes = [
   {
     id: 'cdt-stoat',
     name: 'Stoat',
+    classification: Classifications.HERO,
     traits: [
       {
         id: TraitIds.HEALTH,
-        value: 1,
-        max: 1,
+        value: 2,
+        max: 2,
       },
       {
         id: TraitIds.ATTACK,
@@ -122,7 +124,7 @@ const CardTypes = [
       },
       {
         id: TraitIds.COST,
-        value: 4,
+        value: 6,
       },
     ],
     playActions: [
@@ -136,6 +138,7 @@ const CardTypes = [
   {
     id: 'cdt-goose',
     name: 'Goose',
+    classification: Classifications.SPELL,
     description: 'Instantly collect one gold',
     traits: [
       {
@@ -170,6 +173,7 @@ const CardTypes = [
   {
     id: 'cdt-golden-pear-tree',
     name: 'Pear Tree',
+    classification: Classifications.SPELL,
     description: 'Worth one gold for every empty slot',
     traits: [
       {
@@ -206,15 +210,16 @@ const CardTypes = [
   {
     id: 'cdt-toad',
     name: 'Toad',
+    classification: Classifications.HERO,
     traits: [
       {
         id: TraitIds.COST,
-        value: 5,
+        value: 7,
       },
       {
         id: TraitIds.HEALTH,
-        value: 4,
-        max: 4,
+        value: 7,
+        max: 7,
       },
       {
         id: TraitIds.DEFENDER,
@@ -236,6 +241,7 @@ const CardTypes = [
   {
     id: 'cdt-otter',
     name: 'Otter',
+    classification: Classifications.SPELL,
     description: 'Heal an ally card',
     traits: [
       {
@@ -254,6 +260,7 @@ const CardTypes = [
   {
     id: 'cdt-praying-mantis',
     name: 'Praying Mantis',
+    classification: Classifications.SPELL,
     description: 'Instantly attack an enemy card',
     traits: [
       {

@@ -4,6 +4,7 @@ import * as PreconditionIds from './src/PreconditionIds';
 import * as RefIds from './src/RefIds';
 import * as ActionSetups from './src/ActionSetups';
 import * as CardLocations from './src/CardLocations';
+import * as Classifications from './src/Classifications';
 
 export {
   RefIds,
@@ -12,6 +13,7 @@ export {
   PreconditionIds,
   ActionSetups,
   CardLocations,
+  Classifications,
 };
 
 export const SLOT_COUNT = 6;

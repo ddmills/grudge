@@ -1,3 +1,4 @@
+import { Classifications } from '@grudge/data';
 import BasicModel from './BasicModel';
 
 export default class CardType extends BasicModel {
@@ -5,6 +6,7 @@ export default class CardType extends BasicModel {
     return {
       id: undefined,
       name: 'Card',
+      classification: Classifications.SPELL,
       description: 'Card description',
       traits: [],
       playActions: [],

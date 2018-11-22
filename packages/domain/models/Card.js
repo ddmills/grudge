@@ -10,6 +10,9 @@ export default class Card extends Model {
       cardTypeId: {
         defaultValue: undefined,
       },
+      classification: {
+        defaultValue: undefined,
+      },
       deckId: {
         defaultValue: undefined,
       },
